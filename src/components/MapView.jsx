@@ -6,7 +6,7 @@ export default function MapView({ onStationClick }) {
   const [stationList, setStationList] = useState([]);
 
   useEffect(() => {
-    fetch("/amedas_light.json")
+    fetch("/station_latlon.json")
       .then((res) => res.json())
       .then((data) => {
         const list = Object.entries(data).map(([id, value]) => ({
@@ -35,7 +35,6 @@ export default function MapView({ onStationClick }) {
         <Marker
           key={s.id}
           position={{ lat: parseFloat(s.緯度), lng: parseFloat(s.経度) }}
-          title={s.正式名称}
           onClick={() => onStationClick(s)}
         />
       ))}

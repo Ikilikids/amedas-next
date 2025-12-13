@@ -2,7 +2,7 @@
 import { IoIosTrophy } from "react-icons/io";
 export default function Description({ station }) {
   return (
-    <div className="">
+    <div className="w-full sm:min-h-[350px]">
       <div className="flex gap-1">
         <span className="flex-shrink-0">
           <IoIosTrophy className="mt-1" />

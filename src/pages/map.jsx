@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import InfoPanel from "../components/InfoPanel";
 import MapView from "../components/MapView";
-import { getRegionColor } from "../utils/colorUtils";
 
 // --- SSR: 初期駅データ取得 ---
 
@@ -49,20 +48,13 @@ export default function MapPage({}) {
 
             <div className="flex flex-col lg:flex-row gap-4">
               {/* 左：地図 */}
-              <div className="h-[400px] lg:h-[700px] lg:flex-[4] xl:flex-[5] border rounded-lg overflow-hidden shadow bg-white">
+              <div className="h-[400px] lg:h-[800px] lg:flex-[4] xl:flex-[5] border rounded-lg overflow-hidden shadow bg-white">
                 <h2 className="sr-only">地図</h2>
                 <MapView onStationClick={setSelectedStation} />
               </div>
 
               {/* 右：情報パネル */}
-              <div
-                className="h-[700px] lg:flex-[2] xl:flex-[2] border rounded-lg overflow-auto shadow"
-                style={{
-                  backgroundColor: selectedStation
-                    ? getRegionColor(selectedStation.都道府県)
-                    : "white",
-                }}
-              >
+              <div className="h-[800px] lg:flex-[2] xl:flex-[2] border rounded-lg overflow-auto shadow">
                 <h2 className="sr-only">情報パネル</h2>
 
                 <InfoPanel stationId={selectedStation?.id} />

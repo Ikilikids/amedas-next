@@ -1,7 +1,7 @@
 // src/components/MiniMap.jsx
 import { GoogleMap, Marker } from "@react-google-maps/api";
 
-export default function MiniMap({ lat, lng }) {
+export default function MiniMap({ lat, lng, height = "350px" }) {
   if (!lat || !lng) return null;
 
   const _lat = parseFloat(lat);
@@ -11,7 +11,7 @@ export default function MiniMap({ lat, lng }) {
     <GoogleMap
       mapContainerStyle={{
         width: "100%",
-        height: "280px",
+        height, // ← ここを props に変更
         borderRadius: "12px",
         overflow: "hidden",
       }}

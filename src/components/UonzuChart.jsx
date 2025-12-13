@@ -148,7 +148,7 @@ export default function UonzuChart({
         fill: false,
       },
       {
-        label: "平均最低気温 (℃)",
+        label: "最低気温 (℃)",
         data: lows,
         yAxisID: "temp",
         type: "line",
@@ -157,7 +157,7 @@ export default function UonzuChart({
         fill: false,
       },
       {
-        label: "平均最高気温 (℃)",
+        label: "最高気温 (℃)",
         data: highs,
         yAxisID: "temp",
         type: "line",

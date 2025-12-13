@@ -61,15 +61,15 @@ export default function DescriptionWithUonzu({
             </div>
 
             {/* 左: Description, 右: UonzuChart */}
-            <div className="w-full sm:h-[350px] flex flex-col sm:flex-row gap-2">
-              <div className="flex-[6] w-full">
+            <div className="w-full flex flex-col sm:flex-row gap-2">
+              <div className="flex-[6] w-full sm:min-h-[350px]">
                 {description ? (
                   <Description station={s} />
                 ) : (
                   <DescriptionSimple station={s} />
                 )}
               </div>
-              <div className="flex-[5] w-full min-h-[350px]">
+              <div className="flex-[5] w-full h-[350px] overflow-hidden">
                 {selectedBars[idx] === "map" ? (
                   <MiniMap lat={s.lon} lng={s.lat} />
                 ) : selectedBars[idx].includes("chart") ? (

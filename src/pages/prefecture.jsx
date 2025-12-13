@@ -119,7 +119,7 @@ export default function PrefecturePage({ stations }) {
 
 // ビルド時に JSON を読み込む
 export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), "public", "amedas_light2.json");
+  const filePath = path.join(process.cwd(), "data", "amedas_light2.json");
   const jsonData = fs.readFileSync(filePath, "utf-8");
   const data = JSON.parse(jsonData);
 

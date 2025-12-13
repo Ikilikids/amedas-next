@@ -23,8 +23,8 @@ const LayeredPieChart = dynamic(
 // getStaticPaths
 // ==============================
 export async function getStaticPaths() {
-  // public/single フォルダ内の全ファイル名から paths を生成
-  const dirPath = path.join(process.cwd(), "public/single");
+  // data/single フォルダ内の全ファイル名から paths を生成
+  const dirPath = path.join(process.cwd(), "data/single");
   const files = fs.readdirSync(dirPath); // ["11001.json", "11002.json", ...]
   const paths = files.map((file) => ({
     params: { id: path.basename(file, ".json") }, // ファイル名から拡張子を除く
@@ -40,7 +40,7 @@ export async function getStaticProps({ params }) {
   // 1. 個別駅データ
   const stationFile = path.join(
     process.cwd(),
-    "public/single",
+    "data/single",
     `${params.id}.json`
   );
   let stationData = null;
@@ -122,7 +122,11 @@ export default function StationPage({
                   </div>
                   {/* 右or下：その地点だけの地図 */}
                   <div className="flex-[5] w-full sm:pr-2">
-                    <MiniMap lat={station.lon} lng={station.lat} />
+                    <MiniMap
+                      lat={station.lon}
+                      lng={station.lat}
+                      height="280px"
+                    />
                   </div>
                 </div>
                 {/* 雨温図 */}

@@ -214,12 +214,19 @@ export default function StationPage({ station, rankingList }) {
 
         <main className="flex-1 p-4">
           <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-4">
-            <div className="flex-[5] flex flex-col gap-4">
+            <div className="flex-[5] flex flex-col gap-2">
               <h1 className="text-3xl font-bold mb-4 flex gap-2">
                 <FaBuilding className="w-8 h-8" />
                 気象台まとめ
               </h1>
-
+              <div className="mb-4">
+                <div>
+                  ・都道府県の代表地点である気象台の特徴をまとめました。北海道は札幌、沖縄県は那覇を代表点としています。
+                </div>
+                <div>
+                  ・それぞれの地点のデータタブを切り替えると雨温図や割合データ、位置などを知ることができます。
+                </div>
+              </div>
               <DescriptionWithUonzu
                 station={station}
                 options={DATA_OPTIONS}

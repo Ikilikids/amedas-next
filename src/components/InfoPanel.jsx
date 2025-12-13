@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getIcon } from "../utils/colorUtils";
+import { getIcon, getRegionColor } from "../utils/colorUtils";
 import UonzuChart from "./UonzuChart";
 
 let stationCache = {};
@@ -26,6 +26,7 @@ export default function InfoPanel({ stationId }) {
 
       const res = await fetch(`/single/${stationId}.json`);
       const data = await res.json();
+
       stationCache[stationId] = data;
       setStationData(data);
     };
@@ -59,9 +60,12 @@ export default function InfoPanel({ stationId }) {
   const sun = data.data.sm_sun?.all ?? {};
   const rain = data.data.sm_rain?.all ?? {};
   const snow = data.data.sm_snowing?.all ?? {};
-
+  const bgColor = data.pref ? getRegionColor(data.pref) : "white";
   return (
-    <div className="p-2 rounded-md w-full h-full flex flex-col gap-2">
+    <div
+      className="p-2 rounded-md w-full h-full flex flex-col gap-2"
+      style={{ backgroundColor: bgColor }}
+    >
       <h3 className="station-name font-bold text-2xl flex flex-col sm:flex-row sm:items-center gap-1">
         <div className="flex items-center gap-2">
           {icon}
@@ -96,7 +100,7 @@ export default function InfoPanel({ stationId }) {
       </div>
       <h3 className="sr-only">Rain/Temp Chart</h3>
       {stationData && (
-        <div className="mt-4 w-full h-[300px] bg-gray-50 border rounded shadow pt-2">
+        <div className="mt-4 w-full h-[360px] bg-gray-50 border rounded shadow pt-2">
           <UonzuChart station={stationData} selectedBar="rain" />
         </div>
       )}

@@ -1,0 +1,3339 @@
+{
+  "number": "31201",
+  "station_name": "蟹田",
+  "kana_name": "ｶﾆﾀ",
+  "lon": 41.045,
+  "lat": 140.633,
+  "height": 5,
+  "official_name": "蟹田アメダス",
+  "pref": "青森県",
+  "city": "東津軽郡外ヶ浜町",
+  "data": {
+    "av_avtemp": {
+      "1": {
+        "value": -1.4,
+        "rank": {
+          "top": 653,
+          "region": 103,
+          "pre": 14,
+          "bot": 247,
+          "island": 605
+        }
+      },
+      "2": {
+        "value": -1.0,
+        "rank": {
+          "top": 658,
+          "region": 104,
+          "pre": 14,
+          "bot": 240,
+          "island": 610
+        }
+      },
+      "3": {
+        "value": 2.0,
+        "rank": {
+          "top": 669,
+          "region": 109,
+          "pre": 17,
+          "bot": 230,
+          "island": 621
+        }
+      },
+      "4": {
+        "value": 7.2,
+        "rank": {
+          "top": 699,
+          "region": 129,
+          "pre": 19,
+          "bot": 203,
+          "island": 651
+        }
+      },
+      "5": {
+        "value": 12.1,
+        "rank": {
+          "top": 713,
+          "region": 137,
+          "pre": 17,
+          "bot": 182,
+          "island": 665
+        }
+      },
+      "6": {
+        "value": 16.0,
+        "rank": {
+          "top": 724,
+          "region": 137,
+          "pre": 15,
+          "bot": 173,
+          "island": 676
+        }
+      },
+      "7": {
+        "value": 20.3,
+        "rank": {
+          "top": 704,
+          "region": 129,
+          "pre": 13,
+          "bot": 192,
+          "island": 656
+        }
+      },
+      "8": {
+        "value": 22.2,
+        "rank": {
+          "top": 682,
+          "region": 120,
+          "pre": 11,
+          "bot": 220,
+          "island": 634
+        }
+      },
+      "9": {
+        "value": 18.7,
+        "rank": {
+          "top": 667,
+          "region": 109,
+          "pre": 15,
+          "bot": 232,
+          "island": 619
+        }
+      },
+      "10": {
+        "value": 12.2,
+        "rank": {
+          "top": 681,
+          "region": 114,
+          "pre": 18,
+          "bot": 217,
+          "island": 633
+        }
+      },
+      "11": {
+        "value": 6.2,
+        "rank": {
+          "top": 671,
+          "region": 110,
+          "pre": 18,
+          "bot": 228,
+          "island": 623
+        }
+      },
+      "12": {
+        "value": 0.7,
+        "rank": {
+          "top": 674,
+          "region": 113,
+          "pre": 16,
+          "bot": 228,
+          "island": 626
+        }
+      },
+      "all": {
+        "value": 9.6,
+        "rank": {
+          "top": 687,
+          "region": 125,
+          "pre": 17,
+          "bot": 215,
+          "island": 639
+        }
+      }
+    },
+    "av_hitemp": {
+      "1": {
+        "value": 1.6,
+        "rank": {
+          "top": 676,
+          "region": 111,
+          "pre": 15,
+          "bot": 222,
+          "island": 628
+        }
+      },
+      "2": {
+        "value": 2.3,
+        "rank": {
+          "top": 687,
+          "region": 119,
+          "pre": 14,
+          "bot": 212,
+          "island": 639
+        }
+      },
+      "3": {
+        "value": 6.0,
+        "rank": {
+          "top": 696,
+          "region": 127,
+          "pre": 16,
+          "bot": 205,
+          "island": 648
+        }
+      },
+      "4": {
+        "value": 11.9,
+        "rank": {
+          "top": 711,
+          "region": 136,
+          "pre": 16,
+          "bot": 191,
+          "island": 663
+        }
+      },
+      "5": {
+        "value": 16.7,
+        "rank": {
+          "top": 786,
+          "region": 146,
+          "pre": 19,
+          "bot": 113,
+          "island": 738
+        }
+      },
+      "6": {
+        "value": 19.9,
+        "rank": {
+          "top": 804,
+          "region": 146,
+          "pre": 19,
+          "bot": 97,
+          "island": 756
+        }
+      },
+      "7": {
+        "value": 23.6,
+        "rank": {
+          "top": 797,
+          "region": 143,
+          "pre": 17,
+          "bot": 103,
+          "island": 749
+        }
+      },
+      "8": {
+        "value": 25.7,
+        "rank": {
+          "top": 740,
+          "region": 139,
+          "pre": 17,
+          "bot": 159,
+          "island": 692
+        }
+      },
+      "9": {
+        "value": 23.2,
+        "rank": {
+          "top": 685,
+          "region": 125,
+          "pre": 13,
+          "bot": 215,
+          "island": 637
+        }
+      },
+      "10": {
+        "value": 17.5,
+        "rank": {
+          "top": 676,
+          "region": 117,
+          "pre": 11,
+          "bot": 226,
+          "island": 628
+        }
+      },
+      "11": {
+        "value": 10.7,
+        "rank": {
+          "top": 692,
+          "region": 122,
+          "pre": 16,
+          "bot": 210,
+          "island": 644
+        }
+      },
+      "12": {
+        "value": 4.2,
+        "rank": {
+          "top": 682,
+          "region": 111,
+          "pre": 16,
+          "bot": 215,
+          "island": 634
+        }
+      },
+      "all": {
+        "value": 13.6,
+        "rank": {
+          "top": 708,
+          "region": 138,
+          "pre": 16,
+          "bot": 195,
+          "island": 660
+        }
+      }
+    },
+    "av_lwtemp": {
+      "1": {
+        "value": -4.8,
+        "rank": {
+          "top": 641,
+          "region": 95,
+          "pre": 15,
+          "bot": 260,
+          "island": 593
+        }
+      },
+      "2": {
+        "value": -4.7,
+        "rank": {
+          "top": 637,
+          "region": 90,
+          "pre": 14,
+          "bot": 262,
+          "island": 589
+        }
+      },
+      "3": {
+        "value": -2.3,
+        "rank": {
+          "top": 669,
+          "region": 107,
+          "pre": 17,
+          "bot": 230,
+          "island": 621
+        }
+      },
+      "4": {
+        "value": 2.2,
+        "rank": {
+          "top": 677,
+          "region": 107,
+          "pre": 17,
+          "bot": 225,
+          "island": 629
+        }
+      },
+      "5": {
+        "value": 7.7,
+        "rank": {
+          "top": 691,
+          "region": 122,
+          "pre": 18,
+          "bot": 209,
+          "island": 643
+        }
+      },
+      "6": {
+        "value": 12.6,
+        "rank": {
+          "top": 686,
+          "region": 121,
+          "pre": 12,
+          "bot": 215,
+          "island": 638
+        }
+      },
+      "7": {
+        "value": 17.5,
+        "rank": {
+          "top": 673,
+          "region": 111,
+          "pre": 10,
+          "bot": 225,
+          "island": 625
+        }
+      },
+      "8": {
+        "value": 19.0,
+        "rank": {
+          "top": 653,
+          "region": 102,
+          "pre": 12,
+          "bot": 246,
+          "island": 605
+        }
+      },
+      "9": {
+        "value": 14.3,
+        "rank": {
+          "top": 685,
+          "region": 115,
+          "pre": 16,
+          "bot": 216,
+          "island": 637
+        }
+      },
+      "10": {
+        "value": 7.0,
+        "rank": {
+          "top": 711,
+          "region": 121,
+          "pre": 17,
+          "bot": 190,
+          "island": 663
+        }
+      },
+      "11": {
+        "value": 1.7,
+        "rank": {
+          "top": 671,
+          "region": 105,
+          "pre": 17,
+          "bot": 228,
+          "island": 623
+        }
+      },
+      "12": {
+        "value": -2.6,
+        "rank": {
+          "top": 663,
+          "region": 109,
+          "pre": 16,
+          "bot": 239,
+          "island": 615
+        }
+      },
+      "all": {
+        "value": 5.6,
+        "rank": {
+          "top": 674,
+          "region": 111,
+          "pre": 15,
+          "bot": 226,
+          "island": 626
+        }
+      }
+    },
+    "av_wind": {
+      "1": {
+        "value": 3.1,
+        "rank": {
+          "top": 224,
+          "region": 27,
+          "pre": 9,
+          "bot": 635
+        }
+      },
+      "2": {
+        "value": 3.1,
+        "rank": {
+          "top": 221,
+          "region": 29,
+          "pre": 9,
+          "bot": 632
+        }
+      },
+      "3": {
+        "value": 3.5,
+        "rank": {
+          "top": 177,
+          "region": 21,
+          "pre": 7,
+          "bot": 682
+        }
+      },
+      "4": {
+        "value": 3.6,
+        "rank": {
+          "top": 158,
+          "region": 19,
+          "pre": 7,
+          "bot": 702
+        }
+      },
+      "5": {
+        "value": 3.4,
+        "rank": {
+          "top": 144,
+          "region": 15,
+          "pre": 7,
+          "bot": 718
+        }
+      },
+      "6": {
+        "value": 3.0,
+        "rank": {
+          "top": 143,
+          "region": 12,
+          "pre": 4,
+          "bot": 720
+        }
+      },
+      "7": {
+        "value": 3.0,
+        "rank": {
+          "top": 143,
+          "region": 9,
+          "pre": 4,
+          "bot": 718
+        }
+      },
+      "8": {
+        "value": 3.0,
+        "rank": {
+          "top": 144,
+          "region": 8,
+          "pre": 3,
+          "bot": 721
+        }
+      },
+      "9": {
+        "value": 2.9,
+        "rank": {
+          "top": 173,
+          "region": 10,
+          "pre": 4,
+          "bot": 688
+        }
+      },
+      "10": {
+        "value": 2.8,
+        "rank": {
+          "top": 207,
+          "region": 20,
+          "pre": 7,
+          "bot": 651
+        }
+      },
+      "11": {
+        "value": 2.8,
+        "rank": {
+          "top": 226,
+          "region": 25,
+          "pre": 9,
+          "bot": 637
+        }
+      },
+      "12": {
+        "value": 3.0,
+        "rank": {
+          "top": 237,
+          "region": 27,
+          "pre": 9,
+          "bot": 627
+        }
+      },
+      "all": {
+        "value": 3.1,
+        "rank": {
+          "top": 190,
+          "region": 20,
+          "pre": 7,
+          "bot": 672
+        }
+      }
+    },
+    "hitemp_0": {
+      "1": {
+        "value": 8.4,
+        "rank": {
+          "top": 230,
+          "region": 39,
+          "pre": 9,
+          "bot": 675,
+          "island": 230
+        }
+      },
+      "2": {
+        "value": 6.6,
+        "rank": {
+          "top": 226,
+          "region": 35,
+          "pre": 8,
+          "bot": 675,
+          "island": 226
+        }
+      },
+      "3": {
+        "value": 1.0,
+        "rank": {
+          "top": 233,
+          "region": 39,
+          "pre": 11,
+          "bot": 666,
+          "island": 233
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "11": {
+        "value": 0.1,
+        "rank": {
+          "top": 195,
+          "region": 22,
+          "pre": 5,
+          "bot": 681,
+          "island": 195
+        }
+      },
+      "12": {
+        "value": 3.9,
+        "rank": {
+          "top": 214,
+          "region": 31,
+          "pre": 9,
+          "bot": 686,
+          "island": 214
+        }
+      },
+      "all": {
+        "value": 20.1,
+        "rank": {
+          "top": 227,
+          "region": 36,
+          "pre": 9,
+          "bot": 678,
+          "island": 227
+        }
+      }
+    },
+    "hitemp_25": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "4": {
+        "value": 0.2,
+        "rank": {
+          "top": 672,
+          "region": 117,
+          "pre": 11,
+          "bot": 191,
+          "island": 632
+        }
+      },
+      "5": {
+        "value": 0.8,
+        "rank": {
+          "top": 820,
+          "region": 143,
+          "pre": 16,
+          "bot": 77,
+          "island": 773
+        }
+      },
+      "6": {
+        "value": 2.3,
+        "rank": {
+          "top": 830,
+          "region": 147,
+          "pre": 19,
+          "bot": 70,
+          "island": 782
+        }
+      },
+      "7": {
+        "value": 11.1,
+        "rank": {
+          "top": 802,
+          "region": 147,
+          "pre": 20,
+          "bot": 102,
+          "island": 754
+        }
+      },
+      "8": {
+        "value": 18.9,
+        "rank": {
+          "top": 735,
+          "region": 134,
+          "pre": 15,
+          "bot": 168,
+          "island": 687
+        }
+      },
+      "9": {
+        "value": 7.3,
+        "rank": {
+          "top": 707,
+          "region": 135,
+          "pre": 15,
+          "bot": 196,
+          "island": 659
+        }
+      },
+      "10": {
+        "value": 0.1,
+        "rank": {
+          "top": 715,
+          "region": 132,
+          "pre": 14,
+          "bot": 150,
+          "island": 667
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "all": {
+        "value": 40.7,
+        "rank": {
+          "top": 779,
+          "region": 141,
+          "pre": 18,
+          "bot": 126,
+          "island": 731
+        }
+      }
+    },
+    "hitemp_30": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "7": {
+        "value": 1.8,
+        "rank": {
+          "top": 760,
+          "region": 136,
+          "pre": 14,
+          "bot": 142,
+          "island": 713
+        }
+      },
+      "8": {
+        "value": 2.8,
+        "rank": {
+          "top": 772,
+          "region": 142,
+          "pre": 18,
+          "bot": 131,
+          "island": 724
+        }
+      },
+      "9": {
+        "value": 0.4,
+        "rank": {
+          "top": 736,
+          "region": 139,
+          "pre": 18,
+          "bot": 138,
+          "island": 688
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "all": {
+        "value": 5.1,
+        "rank": {
+          "top": 772,
+          "region": 142,
+          "pre": 18,
+          "bot": 130,
+          "island": 724
+        }
+      }
+    },
+    "hitemp_35": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      }
+    },
+    "lwtemp_0": {
+      "1": {
+        "value": 29.5,
+        "rank": {
+          "top": 266,
+          "region": 62,
+          "pre": 9,
+          "bot": 630,
+          "island": 266
+        }
+      },
+      "2": {
+        "value": 26.3,
+        "rank": {
+          "top": 285,
+          "region": 87,
+          "pre": 12,
+          "bot": 617,
+          "island": 285
+        }
+      },
+      "3": {
+        "value": 24.9,
+        "rank": {
+          "top": 226,
+          "region": 48,
+          "pre": 7,
+          "bot": 676,
+          "island": 226
+        }
+      },
+      "4": {
+        "value": 8.8,
+        "rank": {
+          "top": 226,
+          "region": 43,
+          "pre": 6,
+          "bot": 677,
+          "island": 226
+        }
+      },
+      "5": {
+        "value": 0.3,
+        "rank": {
+          "top": 206,
+          "region": 33,
+          "pre": 6,
+          "bot": 684,
+          "island": 206
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "10": {
+        "value": 0.2,
+        "rank": {
+          "top": 243,
+          "region": 56,
+          "pre": 6,
+          "bot": 626,
+          "island": 243
+        }
+      },
+      "11": {
+        "value": 9.7,
+        "rank": {
+          "top": 237,
+          "region": 50,
+          "pre": 7,
+          "bot": 664,
+          "island": 237
+        }
+      },
+      "12": {
+        "value": 26.5,
+        "rank": {
+          "top": 219,
+          "region": 37,
+          "pre": 7,
+          "bot": 681,
+          "island": 219
+        }
+      },
+      "all": {
+        "value": 126.1,
+        "rank": {
+          "top": 231,
+          "region": 47,
+          "pre": 7,
+          "bot": 674,
+          "island": 231
+        }
+      }
+    },
+    "lwtemp_25": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "8": {
+        "value": 0.1,
+        "rank": {
+          "top": 519,
+          "region": 52,
+          "pre": 9,
+          "bot": 328,
+          "island": 471
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 153,
+          "pre": 23,
+          "bot": 1,
+          "island": 856
+        }
+      },
+      "all": {
+        "value": 0.1,
+        "rank": {
+          "top": 537,
+          "region": 63,
+          "pre": 10,
+          "bot": 302,
+          "island": 489
+        }
+      }
+    },
+    "rain_1": {
+      "1": {
+        "value": 21.1,
+        "rank": {
+          "top": 165,
+          "region": 58,
+          "pre": 9,
+          "bot": 1062
+        }
+      },
+      "2": {
+        "value": 17.6,
+        "rank": {
+          "top": 149,
+          "region": 57,
+          "pre": 10,
+          "bot": 1077
+        }
+      },
+      "3": {
+        "value": 15.2,
+        "rank": {
+          "top": 198,
+          "region": 67,
+          "pre": 7,
+          "bot": 1024
+        }
+      },
+      "4": {
+        "value": 12.1,
+        "rank": {
+          "top": 188,
+          "region": 66,
+          "pre": 8,
+          "bot": 1034
+        }
+      },
+      "5": {
+        "value": 10.7,
+        "rank": {
+          "top": 425,
+          "region": 86,
+          "pre": 9,
+          "bot": 743
+        }
+      },
+      "6": {
+        "value": 8.8,
+        "rank": {
+          "top": 1136,
+          "region": 184,
+          "pre": 19,
+          "bot": 80
+        }
+      },
+      "7": {
+        "value": 10.6,
+        "rank": {
+          "top": 945,
+          "region": 183,
+          "pre": 15,
+          "bot": 269
+        }
+      },
+      "8": {
+        "value": 10.6,
+        "rank": {
+          "top": 679,
+          "region": 163,
+          "pre": 16,
+          "bot": 529
+        }
+      },
+      "9": {
+        "value": 11.7,
+        "rank": {
+          "top": 577,
+          "region": 121,
+          "pre": 9,
+          "bot": 618
+        }
+      },
+      "10": {
+        "value": 13.8,
+        "rank": {
+          "top": 187,
+          "region": 68,
+          "pre": 9,
+          "bot": 1036
+        }
+      },
+      "11": {
+        "value": 17.7,
+        "rank": {
+          "top": 147,
+          "region": 53,
+          "pre": 6,
+          "bot": 1081
+        }
+      },
+      "12": {
+        "value": 21.0,
+        "rank": {
+          "top": 185,
+          "region": 60,
+          "pre": 9,
+          "bot": 1046
+        }
+      },
+      "all": {
+        "value": 170.8,
+        "rank": {
+          "top": 201,
+          "region": 70,
+          "pre": 8,
+          "bot": 1029
+        }
+      }
+    },
+    "rain_10": {
+      "1": {
+        "value": 2.6,
+        "rank": {
+          "top": 472,
+          "region": 92,
+          "pre": 13,
+          "bot": 732
+        }
+      },
+      "2": {
+        "value": 1.9,
+        "rank": {
+          "top": 791,
+          "region": 84,
+          "pre": 13,
+          "bot": 403
+        }
+      },
+      "3": {
+        "value": 2.0,
+        "rank": {
+          "top": 1008,
+          "region": 167,
+          "pre": 17,
+          "bot": 211
+        }
+      },
+      "4": {
+        "value": 2.7,
+        "rank": {
+          "top": 954,
+          "region": 145,
+          "pre": 11,
+          "bot": 255
+        }
+      },
+      "5": {
+        "value": 3.8,
+        "rank": {
+          "top": 775,
+          "region": 66,
+          "pre": 5,
+          "bot": 419
+        }
+      },
+      "6": {
+        "value": 3.5,
+        "rank": {
+          "top": 966,
+          "region": 151,
+          "pre": 7,
+          "bot": 257
+        }
+      },
+      "7": {
+        "value": 3.9,
+        "rank": {
+          "top": 1042,
+          "region": 188,
+          "pre": 21,
+          "bot": 162
+        }
+      },
+      "8": {
+        "value": 4.8,
+        "rank": {
+          "top": 546,
+          "region": 112,
+          "pre": 11,
+          "bot": 631
+        }
+      },
+      "9": {
+        "value": 4.9,
+        "rank": {
+          "top": 730,
+          "region": 98,
+          "pre": 10,
+          "bot": 444
+        }
+      },
+      "10": {
+        "value": 4.2,
+        "rank": {
+          "top": 602,
+          "region": 90,
+          "pre": 13,
+          "bot": 597
+        }
+      },
+      "11": {
+        "value": 4.8,
+        "rank": {
+          "top": 233,
+          "region": 74,
+          "pre": 12,
+          "bot": 983
+        }
+      },
+      "12": {
+        "value": 3.4,
+        "rank": {
+          "top": 373,
+          "region": 97,
+          "pre": 16,
+          "bot": 837
+        }
+      },
+      "all": {
+        "value": 42.6,
+        "rank": {
+          "top": 817,
+          "region": 97,
+          "pre": 11,
+          "bot": 412
+        }
+      }
+    },
+    "rain_100": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "8": {
+        "value": 0.1,
+        "rank": {
+          "top": 552,
+          "region": 55,
+          "pre": 5,
+          "bot": 270
+        }
+      },
+      "9": {
+        "value": 0.1,
+        "rank": {
+          "top": 676,
+          "region": 58,
+          "pre": 6,
+          "bot": 159
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "all": {
+        "value": 0.3,
+        "rank": {
+          "top": 926,
+          "region": 121,
+          "pre": 13,
+          "bot": 213
+        }
+      }
+    },
+    "rain_30": {
+      "1": {
+        "value": 0.1,
+        "rank": {
+          "top": 957,
+          "region": 156,
+          "pre": 20,
+          "bot": 111
+        }
+      },
+      "2": {
+        "value": 0.2,
+        "rank": {
+          "top": 642,
+          "region": 49,
+          "pre": 4,
+          "bot": 428
+        }
+      },
+      "3": {
+        "value": 0.2,
+        "rank": {
+          "top": 952,
+          "region": 129,
+          "pre": 13,
+          "bot": 179
+        }
+      },
+      "4": {
+        "value": 0.3,
+        "rank": {
+          "top": 972,
+          "region": 122,
+          "pre": 9,
+          "bot": 188
+        }
+      },
+      "5": {
+        "value": 0.6,
+        "rank": {
+          "top": 921,
+          "region": 100,
+          "pre": 7,
+          "bot": 251
+        }
+      },
+      "6": {
+        "value": 0.9,
+        "rank": {
+          "top": 917,
+          "region": 110,
+          "pre": 5,
+          "bot": 272
+        }
+      },
+      "7": {
+        "value": 1.4,
+        "rank": {
+          "top": 912,
+          "region": 152,
+          "pre": 8,
+          "bot": 275
+        }
+      },
+      "8": {
+        "value": 1.8,
+        "rank": {
+          "top": 504,
+          "region": 79,
+          "pre": 14,
+          "bot": 654
+        }
+      },
+      "9": {
+        "value": 1.5,
+        "rank": {
+          "top": 872,
+          "region": 106,
+          "pre": 16,
+          "bot": 288
+        }
+      },
+      "10": {
+        "value": 1.0,
+        "rank": {
+          "top": 861,
+          "region": 143,
+          "pre": 14,
+          "bot": 287
+        }
+      },
+      "11": {
+        "value": 0.4,
+        "rank": {
+          "top": 846,
+          "region": 116,
+          "pre": 12,
+          "bot": 265
+        }
+      },
+      "12": {
+        "value": 0.2,
+        "rank": {
+          "top": 864,
+          "region": 142,
+          "pre": 20,
+          "bot": 180
+        }
+      },
+      "all": {
+        "value": 8.5,
+        "rank": {
+          "top": 988,
+          "region": 145,
+          "pre": 14,
+          "bot": 234
+        }
+      }
+    },
+    "rain_50": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "5": {
+        "value": 0.2,
+        "rank": {
+          "top": 754,
+          "region": 68,
+          "pre": 4,
+          "bot": 305
+        }
+      },
+      "6": {
+        "value": 0.2,
+        "rank": {
+          "top": 949,
+          "region": 125,
+          "pre": 9,
+          "bot": 199
+        }
+      },
+      "7": {
+        "value": 0.5,
+        "rank": {
+          "top": 890,
+          "region": 138,
+          "pre": 10,
+          "bot": 233
+        }
+      },
+      "8": {
+        "value": 0.8,
+        "rank": {
+          "top": 511,
+          "region": 67,
+          "pre": 11,
+          "bot": 606
+        }
+      },
+      "9": {
+        "value": 0.6,
+        "rank": {
+          "top": 834,
+          "region": 86,
+          "pre": 10,
+          "bot": 312
+        }
+      },
+      "10": {
+        "value": 0.2,
+        "rank": {
+          "top": 1040,
+          "region": 172,
+          "pre": 25,
+          "bot": 92
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "12": {
+        "value": 0.1,
+        "rank": {
+          "top": 436,
+          "region": 59,
+          "pre": 3,
+          "bot": 359
+        }
+      },
+      "all": {
+        "value": 2.7,
+        "rank": {
+          "top": 987,
+          "region": 146,
+          "pre": 17,
+          "bot": 229
+        }
+      }
+    },
+    "rain_70": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "5": {
+        "value": 0.1,
+        "rank": {
+          "top": 568,
+          "region": 36,
+          "pre": 1,
+          "bot": 328
+        }
+      },
+      "6": {
+        "value": 0.1,
+        "rank": {
+          "top": 785,
+          "region": 67,
+          "pre": 2,
+          "bot": 238
+        }
+      },
+      "7": {
+        "value": 0.1,
+        "rank": {
+          "top": 1025,
+          "region": 172,
+          "pre": 19,
+          "bot": 59
+        }
+      },
+      "8": {
+        "value": 0.4,
+        "rank": {
+          "top": 469,
+          "region": 50,
+          "pre": 6,
+          "bot": 595
+        }
+      },
+      "9": {
+        "value": 0.2,
+        "rank": {
+          "top": 913,
+          "region": 106,
+          "pre": 14,
+          "bot": 140
+        }
+      },
+      "10": {
+        "value": 0.1,
+        "rank": {
+          "top": 842,
+          "region": 108,
+          "pre": 13,
+          "bot": 152
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 197,
+          "pre": 29,
+          "bot": 1
+        }
+      },
+      "12": {
+        "value": 0.1,
+        "rank": {
+          "top": 129,
+          "region": 10,
+          "pre": 1,
+          "bot": 782
+        }
+      },
+      "all": {
+        "value": 1.0,
+        "rank": {
+          "top": 977,
+          "region": 144,
+          "pre": 18,
+          "bot": 225
+        }
+      }
+    },
+    "sm_rain": {
+      "1": {
+        "value": 104.0,
+        "rank": {
+          "top": 341,
+          "region": 83,
+          "pre": 14,
+          "bot": 890
+        }
+      },
+      "2": {
+        "value": 83.5,
+        "rank": {
+          "top": 550,
+          "region": 76,
+          "pre": 12,
+          "bot": 681
+        }
+      },
+      "3": {
+        "value": 78.9,
+        "rank": {
+          "top": 927,
+          "region": 129,
+          "pre": 13,
+          "bot": 303
+        }
+      },
+      "4": {
+        "value": 84.4,
+        "rank": {
+          "top": 946,
+          "region": 138,
+          "pre": 10,
+          "bot": 284
+        }
+      },
+      "5": {
+        "value": 105.0,
+        "rank": {
+          "top": 906,
+          "region": 102,
+          "pre": 7,
+          "bot": 325
+        }
+      },
+      "6": {
+        "value": 102.1,
+        "rank": {
+          "top": 1016,
+          "region": 166,
+          "pre": 9,
+          "bot": 215
+        }
+      },
+      "7": {
+        "value": 139.6,
+        "rank": {
+          "top": 1002,
+          "region": 181,
+          "pre": 14,
+          "bot": 229
+        }
+      },
+      "8": {
+        "value": 177.7,
+        "rank": {
+          "top": 561,
+          "region": 91,
+          "pre": 11,
+          "bot": 669
+        }
+      },
+      "9": {
+        "value": 161.2,
+        "rank": {
+          "top": 907,
+          "region": 121,
+          "pre": 15,
+          "bot": 323
+        }
+      },
+      "10": {
+        "value": 129.3,
+        "rank": {
+          "top": 817,
+          "region": 146,
+          "pre": 16,
+          "bot": 412
+        }
+      },
+      "11": {
+        "value": 139.3,
+        "rank": {
+          "top": 301,
+          "region": 73,
+          "pre": 11,
+          "bot": 929
+        }
+      },
+      "12": {
+        "value": 125.5,
+        "rank": {
+          "top": 319,
+          "region": 88,
+          "pre": 13,
+          "bot": 912
+        }
+      },
+      "all": {
+        "value": 1430.4,
+        "rank": {
+          "top": 814,
+          "region": 104,
+          "pre": 9,
+          "bot": 417
+        }
+      }
+    },
+    "sm_snowing": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "sm_sun": {
+      "1": {
+        "value": 54.3,
+        "rank": {
+          "top": 689,
+          "region": 89,
+          "pre": 11,
+          "bot": 138
+        }
+      },
+      "2": {
+        "value": 78.8,
+        "rank": {
+          "top": 665,
+          "region": 82,
+          "pre": 11,
+          "bot": 163
+        }
+      },
+      "3": {
+        "value": 139.0,
+        "rank": {
+          "top": 581,
+          "region": 73,
+          "pre": 11,
+          "bot": 244
+        }
+      },
+      "4": {
+        "value": 191.9,
+        "rank": {
+          "top": 192,
+          "region": 27,
+          "pre": 7,
+          "bot": 634
+        }
+      },
+      "5": {
+        "value": 199.4,
+        "rank": {
+          "top": 243,
+          "region": 30,
+          "pre": 11,
+          "bot": 582
+        }
+      },
+      "6": {
+        "value": 170.7,
+        "rank": {
+          "top": 96,
+          "region": 42,
+          "pre": 11,
+          "bot": 730
+        }
+      },
+      "7": {
+        "value": 136.4,
+        "rank": {
+          "top": 653,
+          "region": 85,
+          "pre": 14,
+          "bot": 174
+        }
+      },
+      "8": {
+        "value": 164.0,
+        "rank": {
+          "top": 570,
+          "region": 63,
+          "pre": 9,
+          "bot": 257
+        }
+      },
+      "9": {
+        "value": 166.0,
+        "rank": {
+          "top": 128,
+          "region": 8,
+          "pre": 4,
+          "bot": 700
+        }
+      },
+      "10": {
+        "value": 153.3,
+        "rank": {
+          "top": 351,
+          "region": 13,
+          "pre": 6,
+          "bot": 474
+        }
+      },
+      "11": {
+        "value": 89.7,
+        "rank": {
+          "top": 683,
+          "region": 93,
+          "pre": 12,
+          "bot": 144
+        }
+      },
+      "12": {
+        "value": 54.1,
+        "rank": {
+          "top": 695,
+          "region": 92,
+          "pre": 12,
+          "bot": 133
+        }
+      },
+      "all": {
+        "value": 1597.5,
+        "rank": {
+          "top": 613,
+          "region": 72,
+          "pre": 11,
+          "bot": 215
+        }
+      }
+    },
+    "snowed_10": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowed_100": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowed_20": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowed_5": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowed_50": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowing_10": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowing_20": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowing_3": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowing_5": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "snowing_50": {
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "all": {}
+    },
+    "wind_10": {
+      "1": {
+        "value": 4.5,
+        "rank": {
+          "top": 175,
+          "region": 27,
+          "pre": 7,
+          "bot": 695
+        }
+      },
+      "2": {
+        "value": 4.3,
+        "rank": {
+          "top": 166,
+          "region": 28,
+          "pre": 7,
+          "bot": 706
+        }
+      },
+      "3": {
+        "value": 6.7,
+        "rank": {
+          "top": 122,
+          "region": 19,
+          "pre": 5,
+          "bot": 752
+        }
+      },
+      "4": {
+        "value": 6.5,
+        "rank": {
+          "top": 100,
+          "region": 17,
+          "pre": 4,
+          "bot": 774
+        }
+      },
+      "5": {
+        "value": 5.2,
+        "rank": {
+          "top": 82,
+          "region": 10,
+          "pre": 4,
+          "bot": 792
+        }
+      },
+      "6": {
+        "value": 1.7,
+        "rank": {
+          "top": 137,
+          "region": 11,
+          "pre": 4,
+          "bot": 735
+        }
+      },
+      "7": {
+        "value": 1.2,
+        "rank": {
+          "top": 156,
+          "region": 9,
+          "pre": 4,
+          "bot": 711
+        }
+      },
+      "8": {
+        "value": 1.2,
+        "rank": {
+          "top": 172,
+          "region": 10,
+          "pre": 4,
+          "bot": 691
+        }
+      },
+      "9": {
+        "value": 1.7,
+        "rank": {
+          "top": 179,
+          "region": 14,
+          "pre": 5,
+          "bot": 687
+        }
+      },
+      "10": {
+        "value": 2.5,
+        "rank": {
+          "top": 173,
+          "region": 20,
+          "pre": 6,
+          "bot": 698
+        }
+      },
+      "11": {
+        "value": 3.8,
+        "rank": {
+          "top": 149,
+          "region": 21,
+          "pre": 7,
+          "bot": 722
+        }
+      },
+      "12": {
+        "value": 4.6,
+        "rank": {
+          "top": 172,
+          "region": 26,
+          "pre": 7,
+          "bot": 698
+        }
+      },
+      "all": {
+        "value": 43.9,
+        "rank": {
+          "top": 150,
+          "region": 19,
+          "pre": 5,
+          "bot": 725
+        }
+      }
+    },
+    "wind_15": {
+      "1": {
+        "value": 0.2,
+        "rank": {
+          "top": 153,
+          "region": 22,
+          "pre": 5,
+          "bot": 698
+        }
+      },
+      "2": {
+        "value": 0.2,
+        "rank": {
+          "top": 149,
+          "region": 27,
+          "pre": 7,
+          "bot": 688
+        }
+      },
+      "3": {
+        "value": 0.5,
+        "rank": {
+          "top": 110,
+          "region": 18,
+          "pre": 3,
+          "bot": 753
+        }
+      },
+      "4": {
+        "value": 0.2,
+        "rank": {
+          "top": 155,
+          "region": 24,
+          "pre": 5,
+          "bot": 679
+        }
+      },
+      "5": {
+        "value": 0.1,
+        "rank": {
+          "top": 135,
+          "region": 13,
+          "pre": 4,
+          "bot": 651
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "9": {
+        "value": 0.1,
+        "rank": {
+          "top": 288,
+          "region": 21,
+          "pre": 4,
+          "bot": 448
+        }
+      },
+      "10": {
+        "value": 0.1,
+        "rank": {
+          "top": 222,
+          "region": 24,
+          "pre": 5,
+          "bot": 546
+        }
+      },
+      "11": {
+        "value": 0.2,
+        "rank": {
+          "top": 127,
+          "region": 16,
+          "pre": 4,
+          "bot": 722
+        }
+      },
+      "12": {
+        "value": 0.3,
+        "rank": {
+          "top": 142,
+          "region": 21,
+          "pre": 5,
+          "bot": 714
+        }
+      },
+      "all": {
+        "value": 1.9,
+        "rank": {
+          "top": 200,
+          "region": 24,
+          "pre": 7,
+          "bot": 669
+        }
+      }
+    },
+    "wind_20": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "2": {
+        "value": 0.1,
+        "rank": {
+          "top": 37,
+          "region": 7,
+          "pre": 2,
+          "bot": 806
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "all": {
+        "value": 0.1,
+        "rank": {
+          "top": 194,
+          "region": 16,
+          "pre": 3,
+          "bot": 577
+        }
+      }
+    },
+    "wind_30": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 134,
+          "pre": 23,
+          "bot": 1
+        }
+      }
+    }
+  },
+  "meteo": {
+    "11016": {
+      "station_name": "稚内",
+      "official_name": "稚内地方気象台"
+    },
+    "12442": {
+      "station_name": "旭川",
+      "official_name": "旭川地方気象台"
+    },
+    "14163": {
+      "station_name": "札幌",
+      "official_name": "札幌管区気象台"
+    },
+    "17341": {
+      "station_name": "網走",
+      "official_name": "網走地方気象台"
+    },
+    "19432": {
+      "station_name": "釧路",
+      "official_name": "釧路地方気象台"
+    },
+    "21323": {
+      "station_name": "室蘭",
+      "official_name": "室蘭地方気象台"
+    },
+    "23232": {
+      "station_name": "函館",
+      "official_name": "函館地方気象台"
+    },
+    "31312": {
+      "station_name": "青森",
+      "official_name": "青森地方気象台"
+    },
+    "32402": {
+      "station_name": "秋田",
+      "official_name": "秋田地方気象台"
+    },
+    "33431": {
+      "station_name": "盛岡",
+      "official_name": "盛岡地方気象台"
+    },
+    "34392": {
+      "station_name": "仙台",
+      "official_name": "仙台管区気象台"
+    },
+    "35426": {
+      "station_name": "山形",
+      "official_name": "山形地方気象台"
+    },
+    "36127": {
+      "station_name": "福島",
+      "official_name": "福島地方気象台"
+    },
+    "40201": {
+      "station_name": "水戸",
+      "official_name": "水戸地方気象台"
+    },
+    "40336": {
+      "station_name": "つくば",
+      "official_name": "高層気象台"
+    },
+    "41277": {
+      "station_name": "宇都宮",
+      "official_name": "宇都宮地方気象台"
+    },
+    "42251": {
+      "station_name": "前橋",
+      "official_name": "前橋地方気象台"
+    },
+    "43056": {
+      "station_name": "熊谷",
+      "official_name": "熊谷地方気象台"
+    },
+    "44132": {
+      "station_name": "東京",
+      "official_name": "東京管区気象台"
+    },
+    "45148": {
+      "station_name": "銚子",
+      "official_name": "銚子地方気象台"
+    },
+    "46106": {
+      "station_name": "横浜",
+      "official_name": "横浜地方気象台"
+    },
+    "48156": {
+      "station_name": "長野",
+      "official_name": "長野地方気象台"
+    },
+    "49142": {
+      "station_name": "甲府",
+      "official_name": "甲府地方気象台"
+    },
+    "50331": {
+      "station_name": "静岡",
+      "official_name": "静岡地方気象台"
+    },
+    "51106": {
+      "station_name": "名古屋",
+      "official_name": "名古屋地方気象台"
+    },
+    "52586": {
+      "station_name": "岐阜",
+      "official_name": "岐阜地方気象台"
+    },
+    "53133": {
+      "station_name": "津",
+      "official_name": "津地方気象台"
+    },
+    "54232": {
+      "station_name": "新潟",
+      "official_name": "新潟地方気象台"
+    },
+    "55102": {
+      "station_name": "富山",
+      "official_name": "富山地方気象台"
+    },
+    "56227": {
+      "station_name": "金沢",
+      "official_name": "金沢地方気象台"
+    },
+    "57066": {
+      "station_name": "福井",
+      "official_name": "福井地方気象台"
+    },
+    "60131": {
+      "station_name": "彦根",
+      "official_name": "彦根地方気象台"
+    },
+    "61286": {
+      "station_name": "京都",
+      "official_name": "京都地方気象台"
+    },
+    "62078": {
+      "station_name": "大阪",
+      "official_name": "大阪管区気象台"
+    },
+    "63518": {
+      "station_name": "神戸",
+      "official_name": "神戸地方気象台"
+    },
+    "64036": {
+      "station_name": "奈良",
+      "official_name": "奈良地方気象台"
+    },
+    "65042": {
+      "station_name": "和歌山",
+      "official_name": "和歌山地方気象台"
+    },
+    "66408": {
+      "station_name": "岡山",
+      "official_name": "岡山地方気象台"
+    },
+    "67437": {
+      "station_name": "広島",
+      "official_name": "広島地方気象台"
+    },
+    "68132": {
+      "station_name": "松江",
+      "official_name": "松江地方気象台"
+    },
+    "69122": {
+      "station_name": "鳥取",
+      "official_name": "鳥取地方気象台"
+    },
+    "71106": {
+      "station_name": "徳島",
+      "official_name": "徳島地方気象台"
+    },
+    "72086": {
+      "station_name": "高松",
+      "official_name": "高松地方気象台"
+    },
+    "73166": {
+      "station_name": "松山",
+      "official_name": "松山地方気象台"
+    },
+    "74182": {
+      "station_name": "高知",
+      "official_name": "高知地方気象台"
+    },
+    "81428": {
+      "station_name": "下関",
+      "official_name": "下関地方気象台"
+    },
+    "82182": {
+      "station_name": "福岡",
+      "official_name": "福岡管区気象台"
+    },
+    "83216": {
+      "station_name": "大分",
+      "official_name": "大分地方気象台"
+    },
+    "84496": {
+      "station_name": "長崎",
+      "official_name": "長崎地方気象台"
+    },
+    "85142": {
+      "station_name": "佐賀",
+      "official_name": "佐賀地方気象台"
+    },
+    "86141": {
+      "station_name": "熊本",
+      "official_name": "熊本地方気象台"
+    },
+    "87376": {
+      "station_name": "宮崎",
+      "official_name": "宮崎地方気象台"
+    },
+    "88317": {
+      "station_name": "鹿児島",
+      "official_name": "鹿児島地方気象台"
+    },
+    "91197": {
+      "station_name": "那覇",
+      "official_name": "沖縄気象台"
+    },
+    "92011": {
+      "station_name": "南大東",
+      "official_name": "南大東島地方気象台"
+    },
+    "93041": {
+      "station_name": "宮古島",
+      "official_name": "宮古島地方気象台"
+    },
+    "94081": {
+      "station_name": "石垣島",
+      "official_name": "石垣島地方気象台"
+    }
+  },
+  "same_pre": {
+    "31001": {
+      "station_name": "大間",
+      "official_name": "大間アメダス"
+    },
+    "31036": {
+      "station_name": "湯野川",
+      "official_name": "湯野川アメダス"
+    },
+    "31111": {
+      "station_name": "むつ",
+      "official_name": "むつ特別地域気象観測所"
+    },
+    "31121": {
+      "station_name": "小田野沢",
+      "official_name": "小田野沢アメダス"
+    },
+    "31136": {
+      "station_name": "今別",
+      "official_name": "今別アメダス"
+    },
+    "31156": {
+      "station_name": "脇野沢",
+      "official_name": "脇野沢アメダス"
+    },
+    "31186": {
+      "station_name": "市浦",
+      "official_name": "市浦アメダス"
+    },
+    "31201": {
+      "station_name": "蟹田",
+      "official_name": "蟹田アメダス"
+    },
+    "31296": {
+      "station_name": "五所川原",
+      "official_name": "五所川原アメダス"
+    },
+    "31312": {
+      "station_name": "青森",
+      "official_name": "青森地方気象台"
+    },
+    "31321": {
+      "station_name": "大和山",
+      "official_name": "大和山アメダス"
+    },
+    "31332": {
+      "station_name": "野辺地",
+      "official_name": "野辺地アメダス"
+    },
+    "31336": {
+      "station_name": "六ケ所",
+      "official_name": "六ケ所アメダス"
+    },
+    "31366": {
+      "station_name": "鰺ケ沢",
+      "official_name": "鰺ケ沢アメダス"
+    },
+    "31386": {
+      "station_name": "青森大谷",
+      "official_name": "青森航空気象観測所"
+    },
+    "31411": {
+      "station_name": "七戸",
+      "official_name": "七戸アメダス"
+    },
+    "31436": {
+      "station_name": "深浦",
+      "official_name": "深浦特別地域気象観測所"
+    },
+    "31451": {
+      "station_name": "岳",
+      "official_name": "岳アメダス"
+    },
+    "31461": {
+      "station_name": "弘前",
+      "official_name": "弘前アメダス"
+    },
+    "31466": {
+      "station_name": "黒石",
+      "official_name": "黒石アメダス"
+    },
+    "31482": {
+      "station_name": "酸ケ湯",
+      "official_name": "酸ケ湯アメダス"
+    },
+    "31506": {
+      "station_name": "三沢",
+      "official_name": "三沢アメダス"
+    },
+    "31551": {
+      "station_name": "大鰐",
+      "official_name": "大鰐アメダス"
+    },
+    "31562": {
+      "station_name": "温川",
+      "official_name": "温川アメダス"
+    },
+    "31586": {
+      "station_name": "十和田",
+      "official_name": "十和田アメダス"
+    },
+    "31602": {
+      "station_name": "八戸",
+      "official_name": "八戸特別地域気象観測所"
+    },
+    "31646": {
+      "station_name": "碇ケ関",
+      "official_name": "碇ケ関アメダス"
+    },
+    "31662": {
+      "station_name": "休屋",
+      "official_name": "休屋アメダス"
+    },
+    "31671": {
+      "station_name": "戸来",
+      "official_name": "戸来アメダス"
+    },
+    "31721": {
+      "station_name": "三戸",
+      "official_name": "三戸アメダス"
+    }
+  },
+  "similar_all": {
+    "31111": {
+      "similar": 0.967,
+      "station_name": "むつ",
+      "pref": "青森県",
+      "city": "むつ市",
+      "official_name": "むつ特別地域気象観測所"
+    },
+    "31156": {
+      "similar": 0.961,
+      "station_name": "脇野沢",
+      "pref": "青森県",
+      "city": "むつ市",
+      "official_name": "脇野沢アメダス"
+    },
+    "31336": {
+      "similar": 0.959,
+      "station_name": "六ケ所",
+      "pref": "青森県",
+      "city": "上北郡六ヶ所村",
+      "official_name": "六ケ所アメダス"
+    },
+    "31186": {
+      "similar": 0.958,
+      "station_name": "市浦",
+      "pref": "青森県",
+      "city": "五所川原市",
+      "official_name": "市浦アメダス"
+    },
+    "23326": {
+      "similar": 0.957,
+      "station_name": "木古内",
+      "pref": "北海道",
+      "city": "上磯郡木古内町",
+      "official_name": "木古内アメダス"
+    }
+  },
+  "similar_meteo": {
+    "31312": {
+      "similar": 0.915,
+      "station_name": "青森",
+      "pref": "青森県",
+      "city": "青森市",
+      "official_name": "青森地方気象台"
+    },
+    "14163": {
+      "similar": 0.913,
+      "station_name": "札幌",
+      "pref": "北海道",
+      "city": "札幌市",
+      "official_name": "札幌管区気象台"
+    },
+    "33431": {
+      "similar": 0.886,
+      "station_name": "盛岡",
+      "pref": "岩手県",
+      "city": "盛岡市",
+      "official_name": "盛岡地方気象台"
+    },
+    "32402": {
+      "similar": 0.861,
+      "station_name": "秋田",
+      "pref": "秋田県",
+      "city": "秋田市",
+      "official_name": "秋田地方気象台"
+    },
+    "35426": {
+      "similar": 0.845,
+      "station_name": "山形",
+      "pref": "山形県",
+      "city": "山形市",
+      "official_name": "山形地方気象台"
+    }
+  }
+}

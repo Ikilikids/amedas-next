@@ -155,7 +155,7 @@ export default function LayeredPieChart({ values, type, month }) {
   return (
     <div>
       {data ? (
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-2 h-[350px]">
           <PieChart width={size} height={size}>
             <Pie
               data={data}

@@ -179,10 +179,10 @@ export default function StationPage({ station, rankingList }) {
           <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-4">
             <div className="flex-[5] flex flex-col gap-4">
               <h1 className="text-3xl font-bold mb-2 flex gap-2">
-                <PiThermometerHotFill className="w-8 h-8 Awet6uj h358; X5VBM,.xt-red-500" />
+                <PiThermometerHotFill className="w-8 h-8 text-red-500" />
                 暑い地点まとめ
               </h1>
-              <div className="text-gray-700 mb-4">
+              <div className="mb-4">
                 <div>
                   ・夏季に気温が上がりやすい地点をまとめました。主に猛暑日日数や真夏日日数、熱帯夜日数が多い地点です。
                 </div>

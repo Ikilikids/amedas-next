@@ -1,0 +1,4884 @@
+{
+  "number": "40201",
+  "station_name": "水戸",
+  "kana_name": "ﾐﾄ",
+  "lon": 36.38,
+  "lat": 140.467,
+  "height": 29,
+  "official_name": "水戸地方気象台",
+  "pref": "茨城県",
+  "city": "水戸市",
+  "data": {
+    "av_avtemp": {
+      "1": {
+        "value": 3.3,
+        "rank": {
+          "top": 358,
+          "region": 50,
+          "pre": 6,
+          "bot": 539,
+          "island": 310,
+          "meteo": 34
+        }
+      },
+      "2": {
+        "value": 4.1,
+        "rank": {
+          "top": 353,
+          "region": 52,
+          "pre": 7,
+          "bot": 548,
+          "island": 305,
+          "meteo": 35
+        }
+      },
+      "3": {
+        "value": 7.4,
+        "rank": {
+          "top": 359,
+          "region": 58,
+          "pre": 9,
+          "bot": 537,
+          "island": 311,
+          "meteo": 33
+        }
+      },
+      "4": {
+        "value": 12.3,
+        "rank": {
+          "top": 385,
+          "region": 60,
+          "pre": 8,
+          "bot": 517,
+          "island": 337,
+          "meteo": 37
+        }
+      },
+      "5": {
+        "value": 17.0,
+        "rank": {
+          "top": 405,
+          "region": 62,
+          "pre": 8,
+          "bot": 489,
+          "island": 357,
+          "meteo": 39
+        }
+      },
+      "6": {
+        "value": 20.3,
+        "rank": {
+          "top": 454,
+          "region": 62,
+          "pre": 8,
+          "bot": 441,
+          "island": 406,
+          "meteo": 40
+        }
+      },
+      "7": {
+        "value": 24.2,
+        "rank": {
+          "top": 451,
+          "region": 60,
+          "pre": 8,
+          "bot": 444,
+          "island": 403,
+          "meteo": 40
+        }
+      },
+      "8": {
+        "value": 25.6,
+        "rank": {
+          "top": 419,
+          "region": 56,
+          "pre": 7,
+          "bot": 474,
+          "island": 371,
+          "meteo": 38
+        }
+      },
+      "9": {
+        "value": 22.1,
+        "rank": {
+          "top": 392,
+          "region": 56,
+          "pre": 8,
+          "bot": 505,
+          "island": 344,
+          "meteo": 39
+        }
+      },
+      "10": {
+        "value": 16.6,
+        "rank": {
+          "top": 374,
+          "region": 54,
+          "pre": 7,
+          "bot": 526,
+          "island": 326,
+          "meteo": 39
+        }
+      },
+      "11": {
+        "value": 10.8,
+        "rank": {
+          "top": 370,
+          "region": 51,
+          "pre": 7,
+          "bot": 530,
+          "island": 322,
+          "meteo": 36
+        }
+      },
+      "12": {
+        "value": 5.6,
+        "rank": {
+          "top": 363,
+          "region": 51,
+          "pre": 6,
+          "bot": 533,
+          "island": 315,
+          "meteo": 36
+        }
+      },
+      "all": {
+        "value": 14.1,
+        "rank": {
+          "top": 390,
+          "region": 60,
+          "pre": 9,
+          "bot": 508,
+          "island": 342,
+          "meteo": 38
+        }
+      }
+    },
+    "av_hitemp": {
+      "1": {
+        "value": 9.2,
+        "rank": {
+          "top": 281,
+          "region": 50,
+          "pre": 5,
+          "bot": 613,
+          "island": 233,
+          "meteo": 26
+        }
+      },
+      "2": {
+        "value": 9.8,
+        "rank": {
+          "top": 318,
+          "region": 59,
+          "pre": 9,
+          "bot": 577,
+          "island": 270,
+          "meteo": 31
+        }
+      },
+      "3": {
+        "value": 13.0,
+        "rank": {
+          "top": 356,
+          "region": 62,
+          "pre": 8,
+          "bot": 539,
+          "island": 308,
+          "meteo": 33
+        }
+      },
+      "4": {
+        "value": 17.8,
+        "rank": {
+          "top": 401,
+          "region": 62,
+          "pre": 10,
+          "bot": 494,
+          "island": 354,
+          "meteo": 34
+        }
+      },
+      "5": {
+        "value": 22.0,
+        "rank": {
+          "top": 464,
+          "region": 64,
+          "pre": 10,
+          "bot": 431,
+          "island": 422,
+          "meteo": 40
+        }
+      },
+      "6": {
+        "value": 24.5,
+        "rank": {
+          "top": 515,
+          "region": 63,
+          "pre": 10,
+          "bot": 385,
+          "island": 473,
+          "meteo": 41
+        }
+      },
+      "7": {
+        "value": 28.5,
+        "rank": {
+          "top": 462,
+          "region": 59,
+          "pre": 10,
+          "bot": 432,
+          "island": 420,
+          "meteo": 41
+        }
+      },
+      "8": {
+        "value": 30.0,
+        "rank": {
+          "top": 475,
+          "region": 59,
+          "pre": 10,
+          "bot": 422,
+          "island": 435,
+          "meteo": 41
+        }
+      },
+      "9": {
+        "value": 26.4,
+        "rank": {
+          "top": 435,
+          "region": 61,
+          "pre": 10,
+          "bot": 458,
+          "island": 388,
+          "meteo": 37
+        }
+      },
+      "10": {
+        "value": 21.2,
+        "rank": {
+          "top": 424,
+          "region": 63,
+          "pre": 11,
+          "bot": 475,
+          "island": 376,
+          "meteo": 38
+        }
+      },
+      "11": {
+        "value": 16.3,
+        "rank": {
+          "top": 355,
+          "region": 54,
+          "pre": 7,
+          "bot": 537,
+          "island": 307,
+          "meteo": 33
+        }
+      },
+      "12": {
+        "value": 11.4,
+        "rank": {
+          "top": 306,
+          "region": 56,
+          "pre": 8,
+          "bot": 589,
+          "island": 258,
+          "meteo": 30
+        }
+      },
+      "all": {
+        "value": 19.2,
+        "rank": {
+          "top": 389,
+          "region": 63,
+          "pre": 10,
+          "bot": 509,
+          "island": 341,
+          "meteo": 34
+        }
+      }
+    },
+    "av_lwtemp": {
+      "1": {
+        "value": -1.8,
+        "rank": {
+          "top": 437,
+          "region": 46,
+          "pre": 6,
+          "bot": 462,
+          "island": 389,
+          "meteo": 39
+        }
+      },
+      "2": {
+        "value": -1.2,
+        "rank": {
+          "top": 426,
+          "region": 51,
+          "pre": 6,
+          "bot": 471,
+          "island": 378,
+          "meteo": 39
+        }
+      },
+      "3": {
+        "value": 2.1,
+        "rank": {
+          "top": 371,
+          "region": 52,
+          "pre": 6,
+          "bot": 528,
+          "island": 323,
+          "meteo": 38
+        }
+      },
+      "4": {
+        "value": 7.0,
+        "rank": {
+          "top": 359,
+          "region": 54,
+          "pre": 7,
+          "bot": 539,
+          "island": 311,
+          "meteo": 38
+        }
+      },
+      "5": {
+        "value": 12.5,
+        "rank": {
+          "top": 341,
+          "region": 54,
+          "pre": 8,
+          "bot": 555,
+          "island": 293,
+          "meteo": 39
+        }
+      },
+      "6": {
+        "value": 17.0,
+        "rank": {
+          "top": 381,
+          "region": 53,
+          "pre": 7,
+          "bot": 511,
+          "island": 333,
+          "meteo": 39
+        }
+      },
+      "7": {
+        "value": 21.0,
+        "rank": {
+          "top": 419,
+          "region": 55,
+          "pre": 6,
+          "bot": 477,
+          "island": 371,
+          "meteo": 39
+        }
+      },
+      "8": {
+        "value": 22.2,
+        "rank": {
+          "top": 377,
+          "region": 52,
+          "pre": 7,
+          "bot": 517,
+          "island": 329,
+          "meteo": 39
+        }
+      },
+      "9": {
+        "value": 18.6,
+        "rank": {
+          "top": 363,
+          "region": 52,
+          "pre": 7,
+          "bot": 534,
+          "island": 315,
+          "meteo": 39
+        }
+      },
+      "10": {
+        "value": 12.5,
+        "rank": {
+          "top": 342,
+          "region": 50,
+          "pre": 6,
+          "bot": 556,
+          "island": 294,
+          "meteo": 39
+        }
+      },
+      "11": {
+        "value": 5.9,
+        "rank": {
+          "top": 386,
+          "region": 50,
+          "pre": 6,
+          "bot": 511,
+          "island": 338,
+          "meteo": 37
+        }
+      },
+      "12": {
+        "value": 0.5,
+        "rank": {
+          "top": 426,
+          "region": 48,
+          "pre": 6,
+          "bot": 470,
+          "island": 378,
+          "meteo": 39
+        }
+      },
+      "all": {
+        "value": 9.7,
+        "rank": {
+          "top": 387,
+          "region": 51,
+          "pre": 6,
+          "bot": 513,
+          "island": 339,
+          "meteo": 39
+        }
+      }
+    },
+    "av_wind": {
+      "1": {
+        "value": 2.1,
+        "rank": {
+          "top": 454,
+          "region": 43,
+          "pre": 7,
+          "bot": 395,
+          "meteo": 42
+        }
+      },
+      "2": {
+        "value": 2.3,
+        "rank": {
+          "top": 412,
+          "region": 42,
+          "pre": 6,
+          "bot": 428,
+          "meteo": 40
+        }
+      },
+      "3": {
+        "value": 2.6,
+        "rank": {
+          "top": 338,
+          "region": 37,
+          "pre": 4,
+          "bot": 495,
+          "meteo": 37
+        }
+      },
+      "4": {
+        "value": 2.7,
+        "rank": {
+          "top": 315,
+          "region": 35,
+          "pre": 5,
+          "bot": 527,
+          "meteo": 34
+        }
+      },
+      "5": {
+        "value": 2.5,
+        "rank": {
+          "top": 309,
+          "region": 31,
+          "pre": 4,
+          "bot": 531,
+          "meteo": 32
+        }
+      },
+      "6": {
+        "value": 2.3,
+        "rank": {
+          "top": 275,
+          "region": 26,
+          "pre": 2,
+          "bot": 560,
+          "meteo": 34
+        }
+      },
+      "7": {
+        "value": 2.3,
+        "rank": {
+          "top": 268,
+          "region": 28,
+          "pre": 3,
+          "bot": 581,
+          "meteo": 33
+        }
+      },
+      "8": {
+        "value": 2.3,
+        "rank": {
+          "top": 263,
+          "region": 28,
+          "pre": 3,
+          "bot": 585,
+          "meteo": 37
+        }
+      },
+      "9": {
+        "value": 2.3,
+        "rank": {
+          "top": 276,
+          "region": 29,
+          "pre": 2,
+          "bot": 576,
+          "meteo": 34
+        }
+      },
+      "10": {
+        "value": 2.1,
+        "rank": {
+          "top": 353,
+          "region": 32,
+          "pre": 4,
+          "bot": 492,
+          "meteo": 35
+        }
+      },
+      "11": {
+        "value": 1.9,
+        "rank": {
+          "top": 457,
+          "region": 37,
+          "pre": 3,
+          "bot": 373,
+          "meteo": 40
+        }
+      },
+      "12": {
+        "value": 1.9,
+        "rank": {
+          "top": 500,
+          "region": 43,
+          "pre": 6,
+          "bot": 338,
+          "meteo": 42
+        }
+      },
+      "all": {
+        "value": 2.3,
+        "rank": {
+          "top": 338,
+          "region": 36,
+          "pre": 5,
+          "bot": 497,
+          "meteo": 38
+        }
+      }
+    },
+    "hitemp_0": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      }
+    },
+    "hitemp_25": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.1,
+        "rank": {
+          "top": 90,
+          "region": 22,
+          "pre": 3,
+          "bot": 697,
+          "island": 54,
+          "meteo": 9
+        }
+      },
+      "4": {
+        "value": 1.3,
+        "rank": {
+          "top": 344,
+          "region": 46,
+          "pre": 10,
+          "bot": 538,
+          "island": 306,
+          "meteo": 33
+        }
+      },
+      "5": {
+        "value": 7.4,
+        "rank": {
+          "top": 435,
+          "region": 55,
+          "pre": 11,
+          "bot": 466,
+          "island": 396,
+          "meteo": 39
+        }
+      },
+      "6": {
+        "value": 13.2,
+        "rank": {
+          "top": 522,
+          "region": 64,
+          "pre": 10,
+          "bot": 379,
+          "island": 480,
+          "meteo": 41
+        }
+      },
+      "7": {
+        "value": 24.2,
+        "rank": {
+          "top": 536,
+          "region": 66,
+          "pre": 10,
+          "bot": 367,
+          "island": 488,
+          "meteo": 41
+        }
+      },
+      "8": {
+        "value": 28.1,
+        "rank": {
+          "top": 529,
+          "region": 61,
+          "pre": 10,
+          "bot": 374,
+          "island": 481,
+          "meteo": 40
+        }
+      },
+      "9": {
+        "value": 18.7,
+        "rank": {
+          "top": 472,
+          "region": 63,
+          "pre": 10,
+          "bot": 429,
+          "island": 424,
+          "meteo": 38
+        }
+      },
+      "10": {
+        "value": 3.4,
+        "rank": {
+          "top": 427,
+          "region": 62,
+          "pre": 10,
+          "bot": 470,
+          "island": 380,
+          "meteo": 37
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 96.4,
+        "rank": {
+          "top": 496,
+          "region": 65,
+          "pre": 10,
+          "bot": 407,
+          "island": 450,
+          "meteo": 41
+        }
+      }
+    },
+    "hitemp_30": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "5": {
+        "value": 0.4,
+        "rank": {
+          "top": 359,
+          "region": 47,
+          "pre": 11,
+          "bot": 492,
+          "island": 333,
+          "meteo": 30
+        }
+      },
+      "6": {
+        "value": 2.6,
+        "rank": {
+          "top": 329,
+          "region": 43,
+          "pre": 10,
+          "bot": 567,
+          "island": 293,
+          "meteo": 35
+        }
+      },
+      "7": {
+        "value": 12.4,
+        "rank": {
+          "top": 441,
+          "region": 58,
+          "pre": 11,
+          "bot": 462,
+          "island": 403,
+          "meteo": 40
+        }
+      },
+      "8": {
+        "value": 16.8,
+        "rank": {
+          "top": 483,
+          "region": 64,
+          "pre": 11,
+          "bot": 420,
+          "island": 444,
+          "meteo": 41
+        }
+      },
+      "9": {
+        "value": 5.6,
+        "rank": {
+          "top": 385,
+          "region": 59,
+          "pre": 12,
+          "bot": 513,
+          "island": 346,
+          "meteo": 39
+        }
+      },
+      "10": {
+        "value": 0.3,
+        "rank": {
+          "top": 191,
+          "region": 35,
+          "pre": 4,
+          "bot": 638,
+          "island": 154,
+          "meteo": 22
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 38.0,
+        "rank": {
+          "top": 443,
+          "region": 61,
+          "pre": 11,
+          "bot": 462,
+          "island": 404,
+          "meteo": 40
+        }
+      }
+    },
+    "hitemp_35": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "7": {
+        "value": 1.0,
+        "rank": {
+          "top": 262,
+          "region": 43,
+          "pre": 10,
+          "bot": 625,
+          "island": 262,
+          "meteo": 34
+        }
+      },
+      "8": {
+        "value": 1.8,
+        "rank": {
+          "top": 294,
+          "region": 44,
+          "pre": 11,
+          "bot": 600,
+          "island": 294,
+          "meteo": 38
+        }
+      },
+      "9": {
+        "value": 0.2,
+        "rank": {
+          "top": 184,
+          "region": 40,
+          "pre": 9,
+          "bot": 637,
+          "island": 184,
+          "meteo": 24
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 3.1,
+        "rank": {
+          "top": 279,
+          "region": 42,
+          "pre": 10,
+          "bot": 622,
+          "island": 279,
+          "meteo": 36
+        }
+      }
+    },
+    "lwtemp_0": {
+      "1": {
+        "value": 24.1,
+        "rank": {
+          "top": 464,
+          "region": 37,
+          "pre": 9,
+          "bot": 436,
+          "island": 464,
+          "meteo": 9
+        }
+      },
+      "2": {
+        "value": 19.4,
+        "rank": {
+          "top": 500,
+          "region": 36,
+          "pre": 8,
+          "bot": 402,
+          "island": 500,
+          "meteo": 10
+        }
+      },
+      "3": {
+        "value": 8.3,
+        "rank": {
+          "top": 553,
+          "region": 37,
+          "pre": 9,
+          "bot": 348,
+          "island": 553,
+          "meteo": 10
+        }
+      },
+      "4": {
+        "value": 0.8,
+        "rank": {
+          "top": 529,
+          "region": 33,
+          "pre": 7,
+          "bot": 365,
+          "island": 529,
+          "meteo": 7
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "11": {
+        "value": 1.2,
+        "rank": {
+          "top": 492,
+          "region": 38,
+          "pre": 9,
+          "bot": 407,
+          "island": 492,
+          "meteo": 8
+        }
+      },
+      "12": {
+        "value": 15.3,
+        "rank": {
+          "top": 468,
+          "region": 37,
+          "pre": 9,
+          "bot": 434,
+          "island": 468,
+          "meteo": 8
+        }
+      },
+      "all": {
+        "value": 69.0,
+        "rank": {
+          "top": 493,
+          "region": 37,
+          "pre": 9,
+          "bot": 411,
+          "island": 493,
+          "meteo": 8
+        }
+      }
+    },
+    "lwtemp_25": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "7": {
+        "value": 1.2,
+        "rank": {
+          "top": 323,
+          "region": 41,
+          "pre": 3,
+          "bot": 573,
+          "island": 275,
+          "meteo": 38
+        }
+      },
+      "8": {
+        "value": 2.5,
+        "rank": {
+          "top": 337,
+          "region": 48,
+          "pre": 5,
+          "bot": 566,
+          "island": 289,
+          "meteo": 40
+        }
+      },
+      "9": {
+        "value": 0.2,
+        "rank": {
+          "top": 327,
+          "region": 48,
+          "pre": 6,
+          "bot": 526,
+          "island": 279,
+          "meteo": 39
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 904,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "island": 856,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 3.9,
+        "rank": {
+          "top": 337,
+          "region": 47,
+          "pre": 4,
+          "bot": 565,
+          "island": 289,
+          "meteo": 40
+        }
+      }
+    },
+    "rain_1": {
+      "1": {
+        "value": 4.6,
+        "rank": {
+          "top": 1159,
+          "region": 72,
+          "pre": 15,
+          "bot": 63,
+          "meteo": 41
+        }
+      },
+      "2": {
+        "value": 5.2,
+        "rank": {
+          "top": 1121,
+          "region": 68,
+          "pre": 14,
+          "bot": 97,
+          "meteo": 41
+        }
+      },
+      "3": {
+        "value": 9.2,
+        "rank": {
+          "top": 954,
+          "region": 64,
+          "pre": 14,
+          "bot": 256,
+          "meteo": 29
+        }
+      },
+      "4": {
+        "value": 10.2,
+        "rank": {
+          "top": 631,
+          "region": 48,
+          "pre": 13,
+          "bot": 561,
+          "meteo": 12
+        }
+      },
+      "5": {
+        "value": 11.1,
+        "rank": {
+          "top": 293,
+          "region": 32,
+          "pre": 10,
+          "bot": 911,
+          "meteo": 3
+        }
+      },
+      "6": {
+        "value": 11.5,
+        "rank": {
+          "top": 669,
+          "region": 107,
+          "pre": 21,
+          "bot": 537,
+          "meteo": 21
+        }
+      },
+      "7": {
+        "value": 11.1,
+        "rank": {
+          "top": 838,
+          "region": 79,
+          "pre": 17,
+          "bot": 369,
+          "meteo": 27
+        }
+      },
+      "8": {
+        "value": 7.8,
+        "rank": {
+          "top": 1137,
+          "region": 93,
+          "pre": 18,
+          "bot": 90,
+          "meteo": 38
+        }
+      },
+      "9": {
+        "value": 10.5,
+        "rank": {
+          "top": 961,
+          "region": 117,
+          "pre": 21,
+          "bot": 243,
+          "meteo": 21
+        }
+      },
+      "10": {
+        "value": 10.2,
+        "rank": {
+          "top": 617,
+          "region": 80,
+          "pre": 20,
+          "bot": 594,
+          "meteo": 14
+        }
+      },
+      "11": {
+        "value": 6.8,
+        "rank": {
+          "top": 1037,
+          "region": 79,
+          "pre": 19,
+          "bot": 177,
+          "meteo": 25
+        }
+      },
+      "12": {
+        "value": 5.4,
+        "rank": {
+          "top": 1107,
+          "region": 55,
+          "pre": 9,
+          "bot": 107,
+          "meteo": 37
+        }
+      },
+      "all": {
+        "value": 103.5,
+        "rank": {
+          "top": 1090,
+          "region": 99,
+          "pre": 19,
+          "bot": 140,
+          "meteo": 31
+        }
+      }
+    },
+    "rain_10": {
+      "1": {
+        "value": 1.8,
+        "rank": {
+          "top": 773,
+          "region": 51,
+          "pre": 7,
+          "bot": 422,
+          "meteo": 29
+        }
+      },
+      "2": {
+        "value": 1.9,
+        "rank": {
+          "top": 791,
+          "region": 39,
+          "pre": 4,
+          "bot": 403,
+          "meteo": 34
+        }
+      },
+      "3": {
+        "value": 3.8,
+        "rank": {
+          "top": 658,
+          "region": 49,
+          "pre": 8,
+          "bot": 555,
+          "meteo": 27
+        }
+      },
+      "4": {
+        "value": 4.1,
+        "rank": {
+          "top": 529,
+          "region": 32,
+          "pre": 7,
+          "bot": 654,
+          "meteo": 20
+        }
+      },
+      "5": {
+        "value": 4.6,
+        "rank": {
+          "top": 415,
+          "region": 41,
+          "pre": 9,
+          "bot": 770,
+          "meteo": 16
+        }
+      },
+      "6": {
+        "value": 4.3,
+        "rank": {
+          "top": 809,
+          "region": 108,
+          "pre": 16,
+          "bot": 400,
+          "meteo": 37
+        }
+      },
+      "7": {
+        "value": 4.1,
+        "rank": {
+          "top": 993,
+          "region": 92,
+          "pre": 15,
+          "bot": 207,
+          "meteo": 43
+        }
+      },
+      "8": {
+        "value": 3.2,
+        "rank": {
+          "top": 1131,
+          "region": 86,
+          "pre": 14,
+          "bot": 83,
+          "meteo": 39
+        }
+      },
+      "9": {
+        "value": 4.9,
+        "rank": {
+          "top": 730,
+          "region": 107,
+          "pre": 16,
+          "bot": 444,
+          "meteo": 22
+        }
+      },
+      "10": {
+        "value": 4.5,
+        "rank": {
+          "top": 473,
+          "region": 71,
+          "pre": 11,
+          "bot": 715,
+          "meteo": 12
+        }
+      },
+      "11": {
+        "value": 3.0,
+        "rank": {
+          "top": 677,
+          "region": 34,
+          "pre": 4,
+          "bot": 514,
+          "meteo": 15
+        }
+      },
+      "12": {
+        "value": 1.5,
+        "rank": {
+          "top": 1049,
+          "region": 69,
+          "pre": 12,
+          "bot": 150,
+          "meteo": 38
+        }
+      },
+      "all": {
+        "value": 41.6,
+        "rank": {
+          "top": 850,
+          "region": 87,
+          "pre": 15,
+          "bot": 377,
+          "meteo": 34
+        }
+      }
+    },
+    "rain_100": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "7": {
+        "value": 0.1,
+        "rank": {
+          "top": 618,
+          "region": 43,
+          "pre": 4,
+          "bot": 279,
+          "meteo": 24
+        }
+      },
+      "8": {
+        "value": 0.1,
+        "rank": {
+          "top": 552,
+          "region": 60,
+          "pre": 5,
+          "bot": 270,
+          "meteo": 20
+        }
+      },
+      "9": {
+        "value": 0.2,
+        "rank": {
+          "top": 444,
+          "region": 53,
+          "pre": 7,
+          "bot": 556,
+          "meteo": 14
+        }
+      },
+      "10": {
+        "value": 0.3,
+        "rank": {
+          "top": 174,
+          "region": 58,
+          "pre": 8,
+          "bot": 968,
+          "meteo": 8
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 0.8,
+        "rank": {
+          "top": 563,
+          "region": 77,
+          "pre": 9,
+          "bot": 616,
+          "meteo": 22
+        }
+      }
+    },
+    "rain_30": {
+      "1": {
+        "value": 0.4,
+        "rank": {
+          "top": 451,
+          "region": 53,
+          "pre": 9,
+          "bot": 630,
+          "meteo": 14
+        }
+      },
+      "2": {
+        "value": 0.3,
+        "rank": {
+          "top": 509,
+          "region": 47,
+          "pre": 3,
+          "bot": 590,
+          "meteo": 17
+        }
+      },
+      "3": {
+        "value": 0.7,
+        "rank": {
+          "top": 520,
+          "region": 48,
+          "pre": 7,
+          "bot": 627,
+          "meteo": 20
+        }
+      },
+      "4": {
+        "value": 0.8,
+        "rank": {
+          "top": 587,
+          "region": 65,
+          "pre": 9,
+          "bot": 573,
+          "meteo": 24
+        }
+      },
+      "5": {
+        "value": 1.1,
+        "rank": {
+          "top": 600,
+          "region": 49,
+          "pre": 9,
+          "bot": 566,
+          "meteo": 30
+        }
+      },
+      "6": {
+        "value": 1.1,
+        "rank": {
+          "top": 821,
+          "region": 97,
+          "pre": 12,
+          "bot": 358,
+          "meteo": 37
+        }
+      },
+      "7": {
+        "value": 1.5,
+        "rank": {
+          "top": 861,
+          "region": 79,
+          "pre": 8,
+          "bot": 320,
+          "meteo": 40
+        }
+      },
+      "8": {
+        "value": 1.0,
+        "rank": {
+          "top": 1128,
+          "region": 94,
+          "pre": 15,
+          "bot": 50,
+          "meteo": 40
+        }
+      },
+      "9": {
+        "value": 1.7,
+        "rank": {
+          "top": 732,
+          "region": 93,
+          "pre": 9,
+          "bot": 424,
+          "meteo": 28
+        }
+      },
+      "10": {
+        "value": 1.8,
+        "rank": {
+          "top": 283,
+          "region": 60,
+          "pre": 5,
+          "bot": 890,
+          "meteo": 9
+        }
+      },
+      "11": {
+        "value": 0.7,
+        "rank": {
+          "top": 488,
+          "region": 44,
+          "pre": 5,
+          "bot": 651,
+          "meteo": 19
+        }
+      },
+      "12": {
+        "value": 0.2,
+        "rank": {
+          "top": 864,
+          "region": 78,
+          "pre": 16,
+          "bot": 180,
+          "meteo": 31
+        }
+      },
+      "all": {
+        "value": 11.4,
+        "rank": {
+          "top": 785,
+          "region": 82,
+          "pre": 10,
+          "bot": 442,
+          "meteo": 32
+        }
+      }
+    },
+    "rain_50": {
+      "1": {
+        "value": 0.1,
+        "rank": {
+          "top": 277,
+          "region": 54,
+          "pre": 10,
+          "bot": 634,
+          "meteo": 7
+        }
+      },
+      "2": {
+        "value": 0.1,
+        "rank": {
+          "top": 257,
+          "region": 24,
+          "pre": 2,
+          "bot": 718,
+          "meteo": 6
+        }
+      },
+      "3": {
+        "value": 0.1,
+        "rank": {
+          "top": 471,
+          "region": 41,
+          "pre": 4,
+          "bot": 451,
+          "meteo": 15
+        }
+      },
+      "4": {
+        "value": 0.3,
+        "rank": {
+          "top": 397,
+          "region": 47,
+          "pre": 6,
+          "bot": 714,
+          "meteo": 14
+        }
+      },
+      "5": {
+        "value": 0.5,
+        "rank": {
+          "top": 417,
+          "region": 26,
+          "pre": 5,
+          "bot": 736,
+          "meteo": 14
+        }
+      },
+      "6": {
+        "value": 0.3,
+        "rank": {
+          "top": 841,
+          "region": 86,
+          "pre": 10,
+          "bot": 283,
+          "meteo": 38
+        }
+      },
+      "7": {
+        "value": 0.4,
+        "rank": {
+          "top": 999,
+          "region": 104,
+          "pre": 14,
+          "bot": 152,
+          "meteo": 44
+        }
+      },
+      "8": {
+        "value": 0.5,
+        "rank": {
+          "top": 903,
+          "region": 88,
+          "pre": 9,
+          "bot": 168,
+          "meteo": 33
+        }
+      },
+      "9": {
+        "value": 0.8,
+        "rank": {
+          "top": 634,
+          "region": 78,
+          "pre": 6,
+          "bot": 490,
+          "meteo": 28
+        }
+      },
+      "10": {
+        "value": 0.9,
+        "rank": {
+          "top": 249,
+          "region": 66,
+          "pre": 8,
+          "bot": 913,
+          "meteo": 10
+        }
+      },
+      "11": {
+        "value": 0.1,
+        "rank": {
+          "top": 623,
+          "region": 66,
+          "pre": 12,
+          "bot": 261,
+          "meteo": 27
+        }
+      },
+      "12": {
+        "value": 0.1,
+        "rank": {
+          "top": 436,
+          "region": 36,
+          "pre": 4,
+          "bot": 359,
+          "meteo": 13
+        }
+      },
+      "all": {
+        "value": 4.1,
+        "rank": {
+          "top": 738,
+          "region": 83,
+          "pre": 11,
+          "bot": 470,
+          "meteo": 31
+        }
+      }
+    },
+    "rain_70": {
+      "1": {
+        "value": 0.1,
+        "rank": {
+          "top": 68,
+          "region": 19,
+          "pre": 3,
+          "bot": 1014,
+          "meteo": 2
+        }
+      },
+      "2": {
+        "value": 0.1,
+        "rank": {
+          "top": 83,
+          "region": 9,
+          "pre": 1,
+          "bot": 1011,
+          "meteo": 3
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.1,
+        "rank": {
+          "top": 344,
+          "region": 43,
+          "pre": 3,
+          "bot": 631,
+          "meteo": 12
+        }
+      },
+      "5": {
+        "value": 0.1,
+        "rank": {
+          "top": 568,
+          "region": 57,
+          "pre": 7,
+          "bot": 328,
+          "meteo": 22
+        }
+      },
+      "6": {
+        "value": 0.1,
+        "rank": {
+          "top": 785,
+          "region": 73,
+          "pre": 9,
+          "bot": 238,
+          "meteo": 35
+        }
+      },
+      "7": {
+        "value": 0.2,
+        "rank": {
+          "top": 855,
+          "region": 75,
+          "pre": 7,
+          "bot": 207,
+          "meteo": 36
+        }
+      },
+      "8": {
+        "value": 0.3,
+        "rank": {
+          "top": 637,
+          "region": 65,
+          "pre": 5,
+          "bot": 356,
+          "meteo": 20
+        }
+      },
+      "9": {
+        "value": 0.5,
+        "rank": {
+          "top": 451,
+          "region": 51,
+          "pre": 2,
+          "bot": 642,
+          "meteo": 15
+        }
+      },
+      "10": {
+        "value": 0.7,
+        "rank": {
+          "top": 127,
+          "region": 39,
+          "pre": 4,
+          "bot": 1045,
+          "meteo": 5
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 1230,
+          "region": 120,
+          "pre": 23,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 2.1,
+        "rank": {
+          "top": 606,
+          "region": 71,
+          "pre": 6,
+          "bot": 593,
+          "meteo": 23
+        }
+      }
+    },
+    "sm_rain": {
+      "1": {
+        "value": 54.5,
+        "rank": {
+          "top": 853,
+          "region": 56,
+          "pre": 9,
+          "bot": 376,
+          "meteo": 27
+        }
+      },
+      "2": {
+        "value": 53.8,
+        "rank": {
+          "top": 887,
+          "region": 49,
+          "pre": 6,
+          "bot": 344,
+          "meteo": 36
+        }
+      },
+      "3": {
+        "value": 102.8,
+        "rank": {
+          "top": 704,
+          "region": 52,
+          "pre": 8,
+          "bot": 527,
+          "meteo": 29
+        }
+      },
+      "4": {
+        "value": 116.7,
+        "rank": {
+          "top": 591,
+          "region": 55,
+          "pre": 10,
+          "bot": 639,
+          "meteo": 25
+        }
+      },
+      "5": {
+        "value": 144.5,
+        "rank": {
+          "top": 487,
+          "region": 35,
+          "pre": 5,
+          "bot": 744,
+          "meteo": 20
+        }
+      },
+      "6": {
+        "value": 135.7,
+        "rank": {
+          "top": 830,
+          "region": 102,
+          "pre": 12,
+          "bot": 399,
+          "meteo": 38
+        }
+      },
+      "7": {
+        "value": 141.8,
+        "rank": {
+          "top": 988,
+          "region": 96,
+          "pre": 14,
+          "bot": 243,
+          "meteo": 43
+        }
+      },
+      "8": {
+        "value": 116.9,
+        "rank": {
+          "top": 1139,
+          "region": 94,
+          "pre": 15,
+          "bot": 92,
+          "meteo": 39
+        }
+      },
+      "9": {
+        "value": 186.3,
+        "rank": {
+          "top": 657,
+          "region": 95,
+          "pre": 12,
+          "bot": 573,
+          "meteo": 24
+        }
+      },
+      "10": {
+        "value": 185.4,
+        "rank": {
+          "top": 326,
+          "region": 74,
+          "pre": 12,
+          "bot": 905,
+          "meteo": 9
+        }
+      },
+      "11": {
+        "value": 79.7,
+        "rank": {
+          "top": 870,
+          "region": 57,
+          "pre": 8,
+          "bot": 359,
+          "meteo": 28
+        }
+      },
+      "12": {
+        "value": 49.6,
+        "rank": {
+          "top": 1063,
+          "region": 61,
+          "pre": 8,
+          "bot": 165,
+          "meteo": 35
+        }
+      },
+      "all": {
+        "value": 1367.7,
+        "rank": {
+          "top": 861,
+          "region": 84,
+          "pre": 11,
+          "bot": 369,
+          "meteo": 32
+        }
+      }
+    },
+    "sm_snowing": {
+      "1": {
+        "value": 4,
+        "rank": {
+          "top": 295,
+          "region": 12,
+          "pre": 2,
+          "bot": 23,
+          "meteo": 22
+        }
+      },
+      "2": {
+        "value": 6,
+        "rank": {
+          "top": 294,
+          "region": 11,
+          "pre": 1,
+          "bot": 27,
+          "meteo": 22
+        }
+      },
+      "3": {
+        "value": 1,
+        "rank": {
+          "top": 290,
+          "region": 10,
+          "pre": 1,
+          "bot": 26,
+          "meteo": 18
+        }
+      },
+      "4": {
+        "value": 0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 1,
+        "rank": {
+          "top": 292,
+          "region": 8,
+          "pre": 1,
+          "bot": 21,
+          "meteo": 20
+        }
+      },
+      "all": {
+        "value": 12,
+        "rank": {
+          "top": 295,
+          "region": 12,
+          "pre": 2,
+          "bot": 25,
+          "meteo": 22
+        }
+      }
+    },
+    "sm_sun": {
+      "1": {
+        "value": 195.4,
+        "rank": {
+          "top": 59,
+          "region": 39,
+          "pre": 11,
+          "bot": 769,
+          "meteo": 6
+        }
+      },
+      "2": {
+        "value": 174.3,
+        "rank": {
+          "top": 100,
+          "region": 43,
+          "pre": 11,
+          "bot": 728,
+          "meteo": 8
+        }
+      },
+      "3": {
+        "value": 182.7,
+        "rank": {
+          "top": 189,
+          "region": 40,
+          "pre": 9,
+          "bot": 638,
+          "meteo": 11
+        }
+      },
+      "4": {
+        "value": 183.5,
+        "rank": {
+          "top": 376,
+          "region": 46,
+          "pre": 11,
+          "bot": 451,
+          "meteo": 29
+        }
+      },
+      "5": {
+        "value": 186.1,
+        "rank": {
+          "top": 541,
+          "region": 33,
+          "pre": 6,
+          "bot": 285,
+          "meteo": 40
+        }
+      },
+      "6": {
+        "value": 137.8,
+        "rank": {
+          "top": 556,
+          "region": 20,
+          "pre": 4,
+          "bot": 271,
+          "meteo": 34
+        }
+      },
+      "7": {
+        "value": 150.8,
+        "rank": {
+          "top": 469,
+          "region": 37,
+          "pre": 7,
+          "bot": 355,
+          "meteo": 38
+        }
+      },
+      "8": {
+        "value": 179.4,
+        "rank": {
+          "top": 448,
+          "region": 37,
+          "pre": 9,
+          "bot": 379,
+          "meteo": 37
+        }
+      },
+      "9": {
+        "value": 138.7,
+        "rank": {
+          "top": 574,
+          "region": 22,
+          "pre": 5,
+          "bot": 252,
+          "meteo": 39
+        }
+      },
+      "10": {
+        "value": 140.6,
+        "rank": {
+          "top": 525,
+          "region": 26,
+          "pre": 7,
+          "bot": 301,
+          "meteo": 40
+        }
+      },
+      "11": {
+        "value": 153.7,
+        "rank": {
+          "top": 180,
+          "region": 42,
+          "pre": 9,
+          "bot": 644,
+          "meteo": 12
+        }
+      },
+      "12": {
+        "value": 178.0,
+        "rank": {
+          "top": 93,
+          "region": 42,
+          "pre": 10,
+          "bot": 734,
+          "meteo": 9
+        }
+      },
+      "all": {
+        "value": 2000.8,
+        "rank": {
+          "top": 178,
+          "region": 35,
+          "pre": 10,
+          "bot": 650,
+          "meteo": 20
+        }
+      }
+    },
+    "snowed_10": {
+      "1": {
+        "value": 0.2,
+        "rank": {
+          "top": 295,
+          "region": 13,
+          "pre": 2,
+          "bot": 21,
+          "meteo": 22
+        }
+      },
+      "2": {
+        "value": 0.3,
+        "rank": {
+          "top": 296,
+          "region": 15,
+          "pre": 2,
+          "bot": 24,
+          "meteo": 23
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "all": {
+        "value": 0.6,
+        "rank": {
+          "top": 295,
+          "region": 13,
+          "pre": 2,
+          "bot": 24,
+          "meteo": 22
+        }
+      }
+    },
+    "snowed_100": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      }
+    },
+    "snowed_20": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      }
+    },
+    "snowed_5": {
+      "1": {
+        "value": 0.6,
+        "rank": {
+          "top": 296,
+          "region": 14,
+          "pre": 2,
+          "bot": 25,
+          "meteo": 23
+        }
+      },
+      "2": {
+        "value": 0.6,
+        "rank": {
+          "top": 296,
+          "region": 14,
+          "pre": 2,
+          "bot": 24,
+          "meteo": 22
+        }
+      },
+      "3": {
+        "value": 0.2,
+        "rank": {
+          "top": 286,
+          "region": 8,
+          "pre": 1,
+          "bot": 32,
+          "meteo": 16
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.1,
+        "rank": {
+          "top": 293,
+          "region": 9,
+          "pre": 1,
+          "bot": 21,
+          "meteo": 21
+        }
+      },
+      "all": {
+        "value": 1.5,
+        "rank": {
+          "top": 294,
+          "region": 12,
+          "pre": 2,
+          "bot": 26,
+          "meteo": 21
+        }
+      }
+    },
+    "snowed_50": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      }
+    },
+    "snowing_10": {
+      "1": {
+        "value": 0.1,
+        "rank": {
+          "top": 295,
+          "region": 13,
+          "pre": 2,
+          "bot": 21,
+          "meteo": 22
+        }
+      },
+      "2": {
+        "value": 0.2,
+        "rank": {
+          "top": 289,
+          "region": 8,
+          "pre": 1,
+          "bot": 25,
+          "meteo": 17
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "all": {
+        "value": 0.4,
+        "rank": {
+          "top": 293,
+          "region": 11,
+          "pre": 1,
+          "bot": 24,
+          "meteo": 21
+        }
+      }
+    },
+    "snowing_20": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      }
+    },
+    "snowing_3": {
+      "1": {
+        "value": 0.6,
+        "rank": {
+          "top": 292,
+          "region": 10,
+          "pre": 1,
+          "bot": 28,
+          "meteo": 20
+        }
+      },
+      "2": {
+        "value": 0.7,
+        "rank": {
+          "top": 292,
+          "region": 9,
+          "pre": 1,
+          "bot": 29,
+          "meteo": 20
+        }
+      },
+      "3": {
+        "value": 0.1,
+        "rank": {
+          "top": 292,
+          "region": 11,
+          "pre": 2,
+          "bot": 22,
+          "meteo": 19
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.1,
+        "rank": {
+          "top": 293,
+          "region": 9,
+          "pre": 1,
+          "bot": 20,
+          "meteo": 21
+        }
+      },
+      "all": {
+        "value": 1.5,
+        "rank": {
+          "top": 293,
+          "region": 10,
+          "pre": 1,
+          "bot": 28,
+          "meteo": 21
+        }
+      }
+    },
+    "snowing_5": {
+      "1": {
+        "value": 0.3,
+        "rank": {
+          "top": 294,
+          "region": 12,
+          "pre": 2,
+          "bot": 24,
+          "meteo": 21
+        }
+      },
+      "2": {
+        "value": 0.4,
+        "rank": {
+          "top": 291,
+          "region": 9,
+          "pre": 1,
+          "bot": 26,
+          "meteo": 19
+        }
+      },
+      "3": {
+        "value": 0.1,
+        "rank": {
+          "top": 286,
+          "region": 8,
+          "pre": 1,
+          "bot": 26,
+          "meteo": 16
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.1,
+        "rank": {
+          "top": 291,
+          "region": 7,
+          "pre": 1,
+          "bot": 22,
+          "meteo": 20
+        }
+      },
+      "all": {
+        "value": 0.9,
+        "rank": {
+          "top": 293,
+          "region": 10,
+          "pre": 1,
+          "bot": 26,
+          "meteo": 21
+        }
+      }
+    },
+    "snowing_50": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 320,
+          "region": 16,
+          "pre": 2,
+          "bot": 1,
+          "meteo": 46
+        }
+      }
+    },
+    "wind_10": {
+      "1": {
+        "value": 0.6,
+        "rank": {
+          "top": 408,
+          "region": 40,
+          "pre": 5,
+          "bot": 449,
+          "meteo": 37
+        }
+      },
+      "2": {
+        "value": 0.6,
+        "rank": {
+          "top": 432,
+          "region": 49,
+          "pre": 7,
+          "bot": 415,
+          "meteo": 39
+        }
+      },
+      "3": {
+        "value": 0.8,
+        "rank": {
+          "top": 433,
+          "region": 45,
+          "pre": 6,
+          "bot": 427,
+          "meteo": 39
+        }
+      },
+      "4": {
+        "value": 1.3,
+        "rank": {
+          "top": 355,
+          "region": 37,
+          "pre": 4,
+          "bot": 506,
+          "meteo": 36
+        }
+      },
+      "5": {
+        "value": 0.3,
+        "rank": {
+          "top": 438,
+          "region": 42,
+          "pre": 5,
+          "bot": 398,
+          "meteo": 38
+        }
+      },
+      "6": {
+        "value": 0.3,
+        "rank": {
+          "top": 320,
+          "region": 33,
+          "pre": 4,
+          "bot": 522,
+          "meteo": 35
+        }
+      },
+      "7": {
+        "value": 0.4,
+        "rank": {
+          "top": 276,
+          "region": 28,
+          "pre": 3,
+          "bot": 568,
+          "meteo": 35
+        }
+      },
+      "8": {
+        "value": 0.3,
+        "rank": {
+          "top": 364,
+          "region": 30,
+          "pre": 5,
+          "bot": 454,
+          "meteo": 39
+        }
+      },
+      "9": {
+        "value": 0.6,
+        "rank": {
+          "top": 354,
+          "region": 33,
+          "pre": 5,
+          "bot": 483,
+          "meteo": 35
+        }
+      },
+      "10": {
+        "value": 0.8,
+        "rank": {
+          "top": 319,
+          "region": 31,
+          "pre": 3,
+          "bot": 532,
+          "meteo": 29
+        }
+      },
+      "11": {
+        "value": 0.1,
+        "rank": {
+          "top": 512,
+          "region": 43,
+          "pre": 5,
+          "bot": 276,
+          "meteo": 40
+        }
+      },
+      "12": {
+        "value": 0.2,
+        "rank": {
+          "top": 533,
+          "region": 51,
+          "pre": 8,
+          "bot": 293,
+          "meteo": 41
+        }
+      },
+      "all": {
+        "value": 6.3,
+        "rank": {
+          "top": 420,
+          "region": 41,
+          "pre": 5,
+          "bot": 454,
+          "meteo": 40
+        }
+      }
+    },
+    "wind_15": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.1,
+        "rank": {
+          "top": 197,
+          "region": 24,
+          "pre": 3,
+          "bot": 579,
+          "meteo": 18
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "9": {
+        "value": 0.1,
+        "rank": {
+          "top": 288,
+          "region": 29,
+          "pre": 4,
+          "bot": 448,
+          "meteo": 32
+        }
+      },
+      "10": {
+        "value": 0.1,
+        "rank": {
+          "top": 222,
+          "region": 27,
+          "pre": 3,
+          "bot": 546,
+          "meteo": 20
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 0.3,
+        "rank": {
+          "top": 364,
+          "region": 34,
+          "pre": 5,
+          "bot": 466,
+          "meteo": 35
+        }
+      }
+    },
+    "wind_20": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      }
+    },
+    "wind_30": {
+      "1": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "2": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "3": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "4": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "5": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "6": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "7": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "8": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "9": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "10": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "11": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "12": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      },
+      "all": {
+        "value": 0.0,
+        "rank": {
+          "top": 874,
+          "region": 86,
+          "pre": 14,
+          "bot": 1,
+          "meteo": 47
+        }
+      }
+    }
+  },
+  "meteo": {
+    "11016": {
+      "station_name": "稚内",
+      "official_name": "稚内地方気象台"
+    },
+    "12442": {
+      "station_name": "旭川",
+      "official_name": "旭川地方気象台"
+    },
+    "14163": {
+      "station_name": "札幌",
+      "official_name": "札幌管区気象台"
+    },
+    "17341": {
+      "station_name": "網走",
+      "official_name": "網走地方気象台"
+    },
+    "19432": {
+      "station_name": "釧路",
+      "official_name": "釧路地方気象台"
+    },
+    "21323": {
+      "station_name": "室蘭",
+      "official_name": "室蘭地方気象台"
+    },
+    "23232": {
+      "station_name": "函館",
+      "official_name": "函館地方気象台"
+    },
+    "31312": {
+      "station_name": "青森",
+      "official_name": "青森地方気象台"
+    },
+    "32402": {
+      "station_name": "秋田",
+      "official_name": "秋田地方気象台"
+    },
+    "33431": {
+      "station_name": "盛岡",
+      "official_name": "盛岡地方気象台"
+    },
+    "34392": {
+      "station_name": "仙台",
+      "official_name": "仙台管区気象台"
+    },
+    "35426": {
+      "station_name": "山形",
+      "official_name": "山形地方気象台"
+    },
+    "36127": {
+      "station_name": "福島",
+      "official_name": "福島地方気象台"
+    },
+    "40201": {
+      "station_name": "水戸",
+      "official_name": "水戸地方気象台"
+    },
+    "40336": {
+      "station_name": "つくば",
+      "official_name": "高層気象台"
+    },
+    "41277": {
+      "station_name": "宇都宮",
+      "official_name": "宇都宮地方気象台"
+    },
+    "42251": {
+      "station_name": "前橋",
+      "official_name": "前橋地方気象台"
+    },
+    "43056": {
+      "station_name": "熊谷",
+      "official_name": "熊谷地方気象台"
+    },
+    "44132": {
+      "station_name": "東京",
+      "official_name": "東京管区気象台"
+    },
+    "45148": {
+      "station_name": "銚子",
+      "official_name": "銚子地方気象台"
+    },
+    "46106": {
+      "station_name": "横浜",
+      "official_name": "横浜地方気象台"
+    },
+    "48156": {
+      "station_name": "長野",
+      "official_name": "長野地方気象台"
+    },
+    "49142": {
+      "station_name": "甲府",
+      "official_name": "甲府地方気象台"
+    },
+    "50331": {
+      "station_name": "静岡",
+      "official_name": "静岡地方気象台"
+    },
+    "51106": {
+      "station_name": "名古屋",
+      "official_name": "名古屋地方気象台"
+    },
+    "52586": {
+      "station_name": "岐阜",
+      "official_name": "岐阜地方気象台"
+    },
+    "53133": {
+      "station_name": "津",
+      "official_name": "津地方気象台"
+    },
+    "54232": {
+      "station_name": "新潟",
+      "official_name": "新潟地方気象台"
+    },
+    "55102": {
+      "station_name": "富山",
+      "official_name": "富山地方気象台"
+    },
+    "56227": {
+      "station_name": "金沢",
+      "official_name": "金沢地方気象台"
+    },
+    "57066": {
+      "station_name": "福井",
+      "official_name": "福井地方気象台"
+    },
+    "60131": {
+      "station_name": "彦根",
+      "official_name": "彦根地方気象台"
+    },
+    "61286": {
+      "station_name": "京都",
+      "official_name": "京都地方気象台"
+    },
+    "62078": {
+      "station_name": "大阪",
+      "official_name": "大阪管区気象台"
+    },
+    "63518": {
+      "station_name": "神戸",
+      "official_name": "神戸地方気象台"
+    },
+    "64036": {
+      "station_name": "奈良",
+      "official_name": "奈良地方気象台"
+    },
+    "65042": {
+      "station_name": "和歌山",
+      "official_name": "和歌山地方気象台"
+    },
+    "66408": {
+      "station_name": "岡山",
+      "official_name": "岡山地方気象台"
+    },
+    "67437": {
+      "station_name": "広島",
+      "official_name": "広島地方気象台"
+    },
+    "68132": {
+      "station_name": "松江",
+      "official_name": "松江地方気象台"
+    },
+    "69122": {
+      "station_name": "鳥取",
+      "official_name": "鳥取地方気象台"
+    },
+    "71106": {
+      "station_name": "徳島",
+      "official_name": "徳島地方気象台"
+    },
+    "72086": {
+      "station_name": "高松",
+      "official_name": "高松地方気象台"
+    },
+    "73166": {
+      "station_name": "松山",
+      "official_name": "松山地方気象台"
+    },
+    "74182": {
+      "station_name": "高知",
+      "official_name": "高知地方気象台"
+    },
+    "81428": {
+      "station_name": "下関",
+      "official_name": "下関地方気象台"
+    },
+    "82182": {
+      "station_name": "福岡",
+      "official_name": "福岡管区気象台"
+    },
+    "83216": {
+      "station_name": "大分",
+      "official_name": "大分地方気象台"
+    },
+    "84496": {
+      "station_name": "長崎",
+      "official_name": "長崎地方気象台"
+    },
+    "85142": {
+      "station_name": "佐賀",
+      "official_name": "佐賀地方気象台"
+    },
+    "86141": {
+      "station_name": "熊本",
+      "official_name": "熊本地方気象台"
+    },
+    "87376": {
+      "station_name": "宮崎",
+      "official_name": "宮崎地方気象台"
+    },
+    "88317": {
+      "station_name": "鹿児島",
+      "official_name": "鹿児島地方気象台"
+    },
+    "91197": {
+      "station_name": "那覇",
+      "official_name": "沖縄気象台"
+    },
+    "92011": {
+      "station_name": "南大東",
+      "official_name": "南大東島地方気象台"
+    },
+    "93041": {
+      "station_name": "宮古島",
+      "official_name": "宮古島地方気象台"
+    },
+    "94081": {
+      "station_name": "石垣島",
+      "official_name": "石垣島地方気象台"
+    }
+  },
+  "same_pre": {
+    "40041": {
+      "station_name": "花園",
+      "official_name": "花園アメダス"
+    },
+    "40046": {
+      "station_name": "北茨城",
+      "official_name": "北茨城アメダス"
+    },
+    "40061": {
+      "station_name": "大子",
+      "official_name": "大子アメダス"
+    },
+    "40066": {
+      "station_name": "徳田",
+      "official_name": "徳田アメダス"
+    },
+    "40076": {
+      "station_name": "大能",
+      "official_name": "大能アメダス"
+    },
+    "40091": {
+      "station_name": "常陸大宮",
+      "official_name": "常陸大宮アメダス"
+    },
+    "40126": {
+      "station_name": "中野",
+      "official_name": "中野アメダス"
+    },
+    "40136": {
+      "station_name": "日立",
+      "official_name": "日立アメダス"
+    },
+    "40181": {
+      "station_name": "門井",
+      "official_name": "門井アメダス"
+    },
+    "40191": {
+      "station_name": "笠間",
+      "official_name": "笠間アメダス"
+    },
+    "40201": {
+      "station_name": "水戸",
+      "official_name": "水戸地方気象台"
+    },
+    "40221": {
+      "station_name": "古河",
+      "official_name": "古河アメダス"
+    },
+    "40231": {
+      "station_name": "下館",
+      "official_name": "下館アメダス"
+    },
+    "40241": {
+      "station_name": "柿岡",
+      "official_name": "柿岡アメダス"
+    },
+    "40251": {
+      "station_name": "美野里",
+      "official_name": "美野里アメダス"
+    },
+    "40281": {
+      "station_name": "下妻",
+      "official_name": "下妻アメダス"
+    },
+    "40311": {
+      "station_name": "鉾田",
+      "official_name": "鉾田アメダス"
+    },
+    "40326": {
+      "station_name": "坂東",
+      "official_name": "坂東アメダス"
+    },
+    "40336": {
+      "station_name": "つくば",
+      "official_name": "高層気象台"
+    },
+    "40341": {
+      "station_name": "土浦",
+      "official_name": "土浦アメダス"
+    },
+    "40391": {
+      "station_name": "江戸崎",
+      "official_name": "江戸崎アメダス"
+    },
+    "40406": {
+      "station_name": "鹿嶋",
+      "official_name": "鹿嶋アメダス"
+    },
+    "40426": {
+      "station_name": "龍ケ崎",
+      "official_name": "龍ケ崎アメダス"
+    }
+  },
+  "similar_all": {
+    "40336": {
+      "similar": 0.974,
+      "station_name": "つくば",
+      "pref": "茨城県",
+      "city": "つくば市",
+      "official_name": "高層気象台"
+    },
+    "40191": {
+      "similar": 0.966,
+      "station_name": "笠間",
+      "pref": "茨城県",
+      "city": "笠間市",
+      "official_name": "笠間アメダス"
+    },
+    "40426": {
+      "similar": 0.959,
+      "station_name": "龍ケ崎",
+      "pref": "茨城県",
+      "city": "龍ケ崎市",
+      "official_name": "龍ケ崎アメダス"
+    },
+    "40281": {
+      "similar": 0.954,
+      "station_name": "下妻",
+      "pref": "茨城県",
+      "city": "下妻市",
+      "official_name": "下妻アメダス"
+    },
+    "40311": {
+      "similar": 0.954,
+      "station_name": "鉾田",
+      "pref": "茨城県",
+      "city": "鉾田市",
+      "official_name": "鉾田アメダス"
+    }
+  },
+  "similar_meteo": {
+    "41277": {
+      "similar": 0.922,
+      "station_name": "宇都宮",
+      "pref": "栃木県",
+      "city": "宇都宮市",
+      "official_name": "宇都宮地方気象台"
+    },
+    "36127": {
+      "similar": 0.912,
+      "station_name": "福島",
+      "pref": "福島県",
+      "city": "福島市",
+      "official_name": "福島地方気象台"
+    },
+    "34392": {
+      "similar": 0.908,
+      "station_name": "仙台",
+      "pref": "宮城県",
+      "city": "仙台市",
+      "official_name": "仙台管区気象台"
+    },
+    "44132": {
+      "similar": 0.905,
+      "station_name": "東京",
+      "pref": "東京都",
+      "city": "千代田区",
+      "official_name": "東京管区気象台"
+    },
+    "64036": {
+      "similar": 0.898,
+      "station_name": "奈良",
+      "pref": "奈良県",
+      "city": "奈良市",
+      "official_name": "奈良地方気象台"
+    }
+  }
+}

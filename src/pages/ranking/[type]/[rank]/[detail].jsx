@@ -8,7 +8,6 @@ import Header from "../../../../components/Header";
 import InfoPanel from "../../../../components/InfoPanel";
 import Ranking from "../../../../components/Ranking";
 import {
-  getRegionColor,
   metrics,
   prefCodeMap,
   slugToRegion,
@@ -72,13 +71,13 @@ export async function getStaticProps({ params }) {
     // detail は都道府県コード
     rankingPath = path.join(
       process.cwd(),
-      `public/ranking/${type}/${rank}/${detail}/all.json`
+      `data/ranking/${type}/${rank}/${detail}/all.json`
     );
   } else {
     // その他のランキング
     rankingPath = path.join(
       process.cwd(),
-      `public/ranking/${type}/${rank}/all.json`
+      `data/ranking/${type}/${rank}/all.json`
     );
   }
 
@@ -168,7 +167,7 @@ export default function RankingPage({
             <div className="flex flex-col lg:flex-row gap-4">
               {/* 左：ランキング */}
               <h2 className="sr-only">ランキング</h2>
-              <div className="h-[400px] lg:h-[700px] lg:flex-[4] xl:flex-[5] border rounded-lg overflow-hidden shadow bg-white">
+              <div className="h-[400px] lg:h-[800px] lg:flex-[4] xl:flex-[5] border rounded-lg overflow-hidden shadow bg-white">
                 <Ranking
                   initialStations={initialStations}
                   initialSortKey={initialSortKey}
@@ -182,14 +181,7 @@ export default function RankingPage({
 
               {/* 右：情報パネル */}
               <h2 className="sr-only">情報パネル</h2>
-              <div
-                className="h-[700px] lg:flex-[2] xl:flex-[2] border rounded-lg overflow-auto shadow"
-                style={{
-                  backgroundColor: selectedStation
-                    ? getRegionColor(selectedStation.pref)
-                    : "white",
-                }}
-              >
+              <div className="h-[800px] lg:flex-[2] xl:flex-[2] border rounded-lg overflow-auto shadow">
                 <InfoPanel stationId={selectedStation?.id} />
               </div>
             </div>
