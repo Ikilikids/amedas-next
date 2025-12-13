@@ -33,52 +33,52 @@ const EXCLUDE = [
 // ランキング
 const rankingFiles = [
   {
-    path: "public/ranking/av_avtemp/meteo/all.json",
+    path: "data/ranking/av_avtemp/meteo/all.json",
     title: "年間平均気温",
     topN: 47,
   },
   {
-    path: "public/ranking/sm_rain/meteo/all.json",
+    path: "data/ranking/sm_rain/meteo/all.json",
     title: "年間降水量",
     topN: 47,
   },
   {
-    path: "public/ranking/sm_snowing/meteo/all.json",
+    path: "data/ranking/sm_snowing/meteo/all.json",
     title: "年間降雪量",
     topN: 47,
   },
   {
-    path: "public/ranking/sm_sun/meteo/all.json",
+    path: "data/ranking/sm_sun/meteo/all.json",
     title: "年間日照時間",
     topN: 47,
   },
   {
-    path: "public/ranking/hitemp_0/meteo/all.json",
+    path: "data/ranking/hitemp_0/meteo/all.json",
     title: "年間真冬日日数",
     topN: 47,
   },
   {
-    path: "public/ranking/lwtemp_0/meteo/all.json",
+    path: "data/ranking/lwtemp_0/meteo/all.json",
     title: "年間冬日日数",
     topN: 47,
   },
   {
-    path: "public/ranking/hitemp_25/meteo/all.json",
+    path: "data/ranking/hitemp_25/meteo/all.json",
     title: "年間夏日日数",
     topN: 47,
   },
   {
-    path: "public/ranking/hitemp_30/meteo/all.json",
+    path: "data/ranking/hitemp_30/meteo/all.json",
     title: "年間真夏日日数",
     topN: 47,
   },
   {
-    path: "public/ranking/hitemp_35/meteo/all.json",
+    path: "data/ranking/hitemp_35/meteo/all.json",
     title: "年間猛暑日日数",
     topN: 47,
   },
   {
-    path: "public/ranking/lwtemp_25/meteo/all.json",
+    path: "data/ranking/lwtemp_25/meteo/all.json",
     title: "年間熱帯夜日数",
     topN: 47,
   },
@@ -97,11 +97,11 @@ function isTargetMeteo(official_name, number) {
 // getStaticProps
 // ==============================
 export async function getStaticProps() {
-  const singleDir = path.join(process.cwd(), "public/single");
+  const singleDir = path.join(process.cwd(), "data/single");
   const allFiles = fs.readdirSync(singleDir).filter((f) => f.endsWith(".json"));
 
   // 説明データ
-  const descPath = path.join(process.cwd(), "public/feature/meteo.json");
+  const descPath = path.join(process.cwd(), "data/feature/meteo.json");
   const descriptionData = fs.existsSync(descPath)
     ? JSON.parse(fs.readFileSync(descPath, "utf-8"))
     : {};

@@ -36,28 +36,28 @@ const selectedFiles = [
 // ランキング
 const rankingFiles = [
   {
-    path: "public/ranking/hitemp_35/island/all.json",
+    path: "data/ranking/hitemp_35/island/all.json",
     title: "年間猛暑日日数",
     topN: 20,
   },
 
   {
-    path: "public/ranking/hitemp_30/island/all.json",
+    path: "data/ranking/hitemp_30/island/all.json",
     title: "年間真夏日日数*",
     topN: 20,
   },
   {
-    path: "public/ranking/lwtemp_25/island/all.json",
+    path: "data/ranking/lwtemp_25/island/all.json",
     title: "年間熱帯夜日数*",
     topN: 20,
   },
   {
-    path: "public/ranking/av_hitemp/island/7.json",
+    path: "data/ranking/av_hitemp/island/7.json",
     title: "7月平均最高気温",
     topN: 20,
   },
   {
-    path: "public/ranking/av_hitemp/island/8.json",
+    path: "data/ranking/av_hitemp/island/8.json",
     title: "8月平均最高気温",
     topN: 20,
   },
@@ -66,10 +66,10 @@ const rankingFiles = [
 // getStaticProps
 // ==============================
 export async function getStaticProps() {
-  const singleDir = path.join(process.cwd(), "public/single");
+  const singleDir = path.join(process.cwd(), "data/single");
 
   // 説明データ
-  const descPath = path.join(process.cwd(), "public/feature/hot.json");
+  const descPath = path.join(process.cwd(), "data/feature/hot.json");
   const descriptionData = fs.existsSync(descPath)
     ? JSON.parse(fs.readFileSync(descPath, "utf-8"))
     : {};
