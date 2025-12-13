@@ -17,8 +17,7 @@ jobs:
           node-version: 20
 
       - run: npm ci
-      - run: npm run build
-      - run: npx next export
+      - run: npm run build   # ← ここだけで out/ が生成される
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
