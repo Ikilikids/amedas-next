@@ -1,0 +1,119 @@
+{
+  "number": "50477",
+  "station_name": "静岡空港",
+  "kana_name": "ｼｽﾞｵｶｸｳｺｳ",
+  "lon": 34.795,
+  "lat": 138.188,
+  "height": 132,
+  "official_name": "静岡航空気象観測所",
+  "pref": "静岡県",
+  "city": "牧之原市",
+  "data": {
+    "av_avtemp": {
+      "value": 16.0,
+      "rank": 191
+    },
+    "av_hitemp": {
+      "value": 20.3,
+      "rank": 247
+    },
+    "av_lwtemp": {
+      "value": 12.4,
+      "rank": 162
+    },
+    "av_wind": {
+      "value": 4.1,
+      "rank": 86
+    },
+    "sm_rain": {
+      "value": 2269.4,
+      "rank": 246
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      5.6,
+      6.7,
+      9.9,
+      13.9,
+      18.5,
+      21.5,
+      25.2,
+      26.6,
+      23.4,
+      18.6,
+      13.4,
+      8.1
+    ],
+    "av_hitemp": [
+      10.5,
+      11.5,
+      14.8,
+      18.6,
+      23.1,
+      25.4,
+      29.0,
+      30.8,
+      27.3,
+      22.6,
+      17.8,
+      12.6
+    ],
+    "av_lwtemp": [
+      1.7,
+      2.6,
+      5.5,
+      9.7,
+      14.5,
+      18.4,
+      22.4,
+      23.7,
+      20.3,
+      15.4,
+      9.8,
+      4.3
+    ],
+    "sm_rain": [
+      56.4,
+      126.6,
+      181.5,
+      240.3,
+      210.5,
+      262.8,
+      292.0,
+      156.3,
+      261.0,
+      264.6,
+      121.1,
+      83.3
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

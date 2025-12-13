@@ -1,0 +1,119 @@
+{
+  "number": "62101",
+  "station_name": "関空島",
+  "kana_name": "ｶﾝｸｳｼﾞﾏ",
+  "lon": 34.433,
+  "lat": 135.232,
+  "height": 5,
+  "official_name": "関西航空地方気象台",
+  "pref": "大阪府",
+  "city": "泉南郡田尻町",
+  "data": {
+    "av_avtemp": {
+      "value": 17.0,
+      "rank": 87
+    },
+    "av_hitemp": {
+      "value": 20.4,
+      "rank": 233
+    },
+    "av_lwtemp": {
+      "value": 14.0,
+      "rank": 62
+    },
+    "av_wind": {
+      "value": 4.4,
+      "rank": 63
+    },
+    "sm_rain": {
+      "value": 1220.3,
+      "rank": 1005
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      6.6,
+      6.9,
+      9.5,
+      14.3,
+      19.1,
+      22.8,
+      26.6,
+      28.3,
+      25.2,
+      19.9,
+      14.8,
+      9.4
+    ],
+    "av_hitemp": [
+      9.3,
+      9.9,
+      13.2,
+      18.4,
+      23.4,
+      26.7,
+      30.3,
+      32.4,
+      28.6,
+      23.0,
+      17.5,
+      12.0
+    ],
+    "av_lwtemp": [
+      4.0,
+      3.9,
+      6.2,
+      10.7,
+      15.6,
+      20.0,
+      24.1,
+      25.6,
+      22.5,
+      17.1,
+      11.9,
+      6.7
+    ],
+    "sm_rain": [
+      39.9,
+      58.1,
+      90.2,
+      82.7,
+      122.1,
+      148.4,
+      168.1,
+      92.8,
+      130.7,
+      153.3,
+      74.0,
+      60.1
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

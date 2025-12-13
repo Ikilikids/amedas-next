@@ -167,14 +167,6 @@
     "pref": "北海道",
     "city": "檜山郡江差町"
   },
-  "13277": {
-    "value": 12.0,
-    "rank": 22,
-    "station_name": "留萌",
-    "official_name": "留萌特別地域気象観測所",
-    "pref": "北海道",
-    "city": "留萌市"
-  },
   "19432": {
     "value": 12.0,
     "rank": 22,
@@ -182,6 +174,14 @@
     "official_name": "釧路地方気象台",
     "pref": "北海道",
     "city": "釧路市"
+  },
+  "13277": {
+    "value": 12.0,
+    "rank": 22,
+    "station_name": "留萌",
+    "official_name": "留萌特別地域気象観測所",
+    "pref": "北海道",
+    "city": "留萌市"
   },
   "50561": {
     "value": 11.6,
@@ -343,14 +343,6 @@
     "pref": "大阪府",
     "city": "泉南郡田尻町"
   },
-  "18281": {
-    "value": 8.0,
-    "rank": 44,
-    "station_name": "納沙布",
-    "official_name": "納沙布アメダス",
-    "pref": "北海道",
-    "city": "根室市"
-  },
   "44166": {
     "value": 8.0,
     "rank": 44,
@@ -358,6 +350,14 @@
     "official_name": "東京航空地方気象台",
     "pref": "東京都",
     "city": "大田区"
+  },
+  "18281": {
+    "value": 8.0,
+    "rank": 44,
+    "station_name": "納沙布",
+    "official_name": "納沙布アメダス",
+    "pref": "北海道",
+    "city": "根室市"
   },
   "88686": {
     "value": 8.0,
@@ -391,13 +391,13 @@
     "pref": "沖縄県",
     "city": "那覇市"
   },
-  "13311": {
+  "35086": {
     "value": 7.7,
     "rank": 50,
-    "station_name": "増毛",
-    "official_name": "増毛アメダス",
-    "pref": "北海道",
-    "city": "増毛郡増毛町"
+    "station_name": "浜中",
+    "official_name": "庄内航空気象観測所",
+    "pref": "山形県",
+    "city": "酒田市"
   },
   "31602": {
     "value": 7.7,
@@ -407,13 +407,13 @@
     "pref": "青森県",
     "city": "八戸市"
   },
-  "35086": {
+  "13311": {
     "value": 7.7,
     "rank": 50,
-    "station_name": "浜中",
-    "official_name": "庄内航空気象観測所",
-    "pref": "山形県",
-    "city": "酒田市"
+    "station_name": "増毛",
+    "official_name": "増毛アメダス",
+    "pref": "北海道",
+    "city": "増毛郡増毛町"
   },
   "13181": {
     "value": 7.6,
@@ -439,14 +439,6 @@
     "pref": "島根県",
     "city": "隠岐郡隠岐の島町"
   },
-  "88851": {
-    "value": 7.0,
-    "rank": 56,
-    "station_name": "喜界島",
-    "official_name": "喜界航空気象観測所",
-    "pref": "鹿児島県",
-    "city": "大島郡喜界町"
-  },
   "88931": {
     "value": 7.0,
     "rank": 56,
@@ -454,6 +446,14 @@
     "official_name": "徳之島航空気象観測所",
     "pref": "鹿児島県",
     "city": "大島郡天城町"
+  },
+  "88851": {
+    "value": 7.0,
+    "rank": 56,
+    "station_name": "喜界島",
+    "official_name": "喜界航空気象観測所",
+    "pref": "鹿児島県",
+    "city": "大島郡喜界町"
   },
   "65036": {
     "value": 6.9,
@@ -471,13 +471,13 @@
     "pref": "島根県",
     "city": "出雲市"
   },
-  "13121": {
+  "44172": {
     "value": 6.6,
     "rank": 60,
-    "station_name": "初山別",
-    "official_name": "初山別アメダス",
-    "pref": "北海道",
-    "city": "苫前郡初山別村"
+    "station_name": "大島",
+    "official_name": "大島特別地域気象観測所",
+    "pref": "東京都",
+    "city": "大島町"
   },
   "23232": {
     "value": 6.6,
@@ -487,13 +487,13 @@
     "pref": "北海道",
     "city": "函館市"
   },
-  "44172": {
+  "13121": {
     "value": 6.6,
     "rank": 60,
-    "station_name": "大島",
-    "official_name": "大島特別地域気象観測所",
-    "pref": "東京都",
-    "city": "大島町"
+    "station_name": "初山別",
+    "official_name": "初山別アメダス",
+    "pref": "北海道",
+    "city": "苫前郡初山別村"
   },
   "88612": {
     "value": 6.6,
@@ -503,14 +503,6 @@
     "pref": "鹿児島県",
     "city": "西之表市"
   },
-  "50551": {
-    "value": 6.5,
-    "rank": 64,
-    "station_name": "御前崎",
-    "official_name": "御前崎特別地域気象観測所",
-    "pref": "静岡県",
-    "city": "御前崎市"
-  },
   "54166": {
     "value": 6.5,
     "rank": 64,
@@ -518,6 +510,14 @@
     "official_name": "両津アメダス",
     "pref": "新潟県",
     "city": "佐渡市"
+  },
+  "50551": {
+    "value": 6.5,
+    "rank": 64,
+    "station_name": "御前崎",
+    "official_name": "御前崎特別地域気象観測所",
+    "pref": "静岡県",
+    "city": "御前崎市"
   },
   "11151": {
     "value": 6.4,
@@ -527,14 +527,6 @@
     "pref": "北海道",
     "city": "利尻郡利尻町"
   },
-  "23376": {
-    "value": 6.3,
-    "rank": 67,
-    "station_name": "松前",
-    "official_name": "松前アメダス",
-    "pref": "北海道",
-    "city": "松前郡松前町"
-  },
   "87412": {
     "value": 6.3,
     "rank": 67,
@@ -543,13 +535,13 @@
     "pref": "宮崎県",
     "city": "宮崎市"
   },
-  "32402": {
-    "value": 6.2,
-    "rank": 69,
-    "station_name": "秋田",
-    "official_name": "秋田地方気象台",
-    "pref": "秋田県",
-    "city": "秋田市"
+  "23376": {
+    "value": 6.3,
+    "rank": 67,
+    "station_name": "松前",
+    "official_name": "松前アメダス",
+    "pref": "北海道",
+    "city": "松前郡松前町"
   },
   "36667": {
     "value": 6.2,
@@ -558,6 +550,14 @@
     "official_name": "白河特別地域気象観測所",
     "pref": "福島県",
     "city": "白河市"
+  },
+  "32402": {
+    "value": 6.2,
+    "rank": 69,
+    "station_name": "秋田",
+    "official_name": "秋田地方気象台",
+    "pref": "秋田県",
+    "city": "秋田市"
   },
   "34292": {
     "value": 6.1,
@@ -591,14 +591,6 @@
     "pref": "沖縄県",
     "city": "石垣市"
   },
-  "19451": {
-    "value": 5.8,
-    "rank": 75,
-    "station_name": "知方学",
-    "official_name": "知方学アメダス",
-    "pref": "北海道",
-    "city": "釧路郡釧路町"
-  },
   "84519": {
     "value": 5.8,
     "rank": 75,
@@ -606,6 +598,14 @@
     "official_name": "雲仙岳特別地域気象観測所",
     "pref": "長崎県",
     "city": "雲仙市"
+  },
+  "19451": {
+    "value": 5.8,
+    "rank": 75,
+    "station_name": "知方学",
+    "official_name": "知方学アメダス",
+    "pref": "北海道",
+    "city": "釧路郡釧路町"
   },
   "88986": {
     "value": 5.8,
@@ -631,14 +631,6 @@
     "pref": "青森県",
     "city": "青森市"
   },
-  "63517": {
-    "value": 5.6,
-    "rank": 79,
-    "station_name": "神戸空港",
-    "official_name": "神戸航空気象観測所",
-    "pref": "兵庫県",
-    "city": "神戸市"
-  },
   "82068": {
     "value": 5.6,
     "rank": 79,
@@ -646,6 +638,14 @@
     "official_name": "北九州航空気象観測所",
     "pref": "福岡県",
     "city": "北九州市"
+  },
+  "63517": {
+    "value": 5.6,
+    "rank": 79,
+    "station_name": "神戸空港",
+    "official_name": "神戸航空気象観測所",
+    "pref": "兵庫県",
+    "city": "神戸市"
   },
   "35052": {
     "value": 5.5,
@@ -663,13 +663,13 @@
     "pref": "沖縄県",
     "city": "島尻郡伊是名村"
   },
-  "93042": {
+  "94116": {
     "value": 5.2,
     "rank": 84,
-    "station_name": "鏡原",
-    "official_name": "宮古航空気象観測所",
+    "station_name": "波照間",
+    "official_name": "波照間アメダス",
     "pref": "沖縄県",
-    "city": "宮古島市"
+    "city": "八重山郡竹富町"
   },
   "93062": {
     "value": 5.2,
@@ -679,21 +679,13 @@
     "pref": "沖縄県",
     "city": "宮古郡多良間村"
   },
-  "94116": {
+  "93042": {
     "value": 5.2,
     "rank": 84,
-    "station_name": "波照間",
-    "official_name": "波照間アメダス",
+    "station_name": "鏡原",
+    "official_name": "宮古航空気象観測所",
     "pref": "沖縄県",
-    "city": "八重山郡竹富町"
-  },
-  "13086": {
-    "value": 5.1,
-    "rank": 87,
-    "station_name": "遠別",
-    "official_name": "遠別アメダス",
-    "pref": "北海道",
-    "city": "天塩郡遠別町"
+    "city": "宮古島市"
   },
   "57248": {
     "value": 5.1,
@@ -711,6 +703,14 @@
     "pref": "沖縄県",
     "city": "宮古島市"
   },
+  "13086": {
+    "value": 5.1,
+    "rank": 87,
+    "station_name": "遠別",
+    "official_name": "遠別アメダス",
+    "pref": "北海道",
+    "city": "天塩郡遠別町"
+  },
   "53133": {
     "value": 5.0,
     "rank": 90,
@@ -718,14 +718,6 @@
     "official_name": "津地方気象台",
     "pref": "三重県",
     "city": "津市"
-  },
-  "16061": {
-    "value": 4.9,
-    "rank": 91,
-    "station_name": "神恵内",
-    "official_name": "神恵内アメダス",
-    "pref": "北海道",
-    "city": "古宇郡神恵内村"
   },
   "17036": {
     "value": 4.9,
@@ -735,21 +727,13 @@
     "pref": "北海道",
     "city": "紋別郡雄武町"
   },
-  "31312": {
-    "value": 4.8,
-    "rank": 93,
-    "station_name": "青森",
-    "official_name": "青森地方気象台",
-    "pref": "青森県",
-    "city": "青森市"
-  },
-  "31332": {
-    "value": 4.8,
-    "rank": 93,
-    "station_name": "野辺地",
-    "official_name": "野辺地アメダス",
-    "pref": "青森県",
-    "city": "上北郡野辺地町"
+  "16061": {
+    "value": 4.9,
+    "rank": 91,
+    "station_name": "神恵内",
+    "official_name": "神恵内アメダス",
+    "pref": "北海道",
+    "city": "古宇郡神恵内村"
   },
   "56227": {
     "value": 4.8,
@@ -759,13 +743,13 @@
     "pref": "石川県",
     "city": "金沢市"
   },
-  "84371": {
+  "31332": {
     "value": 4.8,
     "rank": 93,
-    "station_name": "大村",
-    "official_name": "長崎航空気象観測所",
-    "pref": "長崎県",
-    "city": "大村市"
+    "station_name": "野辺地",
+    "official_name": "野辺地アメダス",
+    "pref": "青森県",
+    "city": "上北郡野辺地町"
   },
   "92012": {
     "value": 4.8,
@@ -774,6 +758,22 @@
     "official_name": "南大東航空気象観測所",
     "pref": "沖縄県",
     "city": "島尻郡南大東村"
+  },
+  "84371": {
+    "value": 4.8,
+    "rank": 93,
+    "station_name": "大村",
+    "official_name": "長崎航空気象観測所",
+    "pref": "長崎県",
+    "city": "大村市"
+  },
+  "31312": {
+    "value": 4.8,
+    "rank": 93,
+    "station_name": "青森",
+    "official_name": "青森地方気象台",
+    "pref": "青森県",
+    "city": "青森市"
   },
   "24041": {
     "value": 4.7,
@@ -791,12 +791,12 @@
     "pref": "宮城県",
     "city": "名取市"
   },
-  "14163": {
+  "32616": {
     "value": 4.4,
     "rank": 100,
-    "station_name": "札幌",
-    "official_name": "札幌管区気象台",
-    "pref": "北海道",
-    "city": "札幌市"
+    "station_name": "にかほ",
+    "official_name": "にかほアメダス",
+    "pref": "秋田県",
+    "city": "にかほ市"
   }
 }

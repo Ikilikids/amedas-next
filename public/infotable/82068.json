@@ -1,0 +1,119 @@
+{
+  "number": "82068",
+  "station_name": "空港北町",
+  "kana_name": "ｸｳｺｳｷﾀﾏﾁ",
+  "lon": 33.845,
+  "lat": 131.035,
+  "height": 7,
+  "official_name": "北九州航空気象観測所",
+  "pref": "福岡県",
+  "city": "北九州市",
+  "data": {
+    "av_avtemp": {
+      "value": 16.7,
+      "rank": 115
+    },
+    "av_hitemp": {
+      "value": 19.7,
+      "rank": 336
+    },
+    "av_lwtemp": {
+      "value": 14.0,
+      "rank": 62
+    },
+    "av_wind": {
+      "value": 4.1,
+      "rank": 86
+    },
+    "sm_rain": {
+      "value": 1539.4,
+      "rank": 713
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      6.6,
+      7.1,
+      9.9,
+      14.0,
+      18.7,
+      22.2,
+      26.2,
+      28.1,
+      24.6,
+      19.9,
+      14.3,
+      8.9
+    ],
+    "av_hitemp": [
+      9.3,
+      10.0,
+      13.3,
+      17.5,
+      22.2,
+      25.2,
+      29.2,
+      31.1,
+      27.4,
+      22.8,
+      17.1,
+      11.6
+    ],
+    "av_lwtemp": [
+      3.8,
+      4.1,
+      6.7,
+      10.8,
+      15.7,
+      20.0,
+      24.1,
+      25.9,
+      22.3,
+      17.1,
+      11.3,
+      6.1
+    ],
+    "sm_rain": [
+      58.7,
+      66.6,
+      99.0,
+      134.9,
+      126.2,
+      246.5,
+      337.1,
+      163.1,
+      134.5,
+      83.2,
+      67.4,
+      64.6
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "number": "34436",
+  "station_name": "名取",
+  "kana_name": "ﾅﾄﾘ",
+  "lon": 38.138,
+  "lat": 140.917,
+  "height": 2,
+  "official_name": "仙台航空気象観測所",
+  "pref": "宮城県",
+  "city": "名取市",
+  "data": {
+    "av_avtemp": {
+      "value": 12.5,
+      "rank": 504
+    },
+    "av_hitemp": {
+      "value": 16.8,
+      "rank": 553
+    },
+    "av_lwtemp": {
+      "value": 8.4,
+      "rank": 483
+    },
+    "av_wind": {
+      "value": 3.3,
+      "rank": 160
+    },
+    "sm_rain": {
+      "value": 1124.3,
+      "rank": 1094
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      1.6,
+      2.2,
+      5.4,
+      10.0,
+      15.1,
+      19.0,
+      22.4,
+      24.3,
+      21.1,
+      15.4,
+      9.6,
+      4.2
+    ],
+    "av_hitemp": [
+      6.2,
+      6.8,
+      10.3,
+      14.8,
+      19.5,
+      22.5,
+      25.6,
+      27.7,
+      24.8,
+      19.9,
+      14.5,
+      8.9
+    ],
+    "av_lwtemp": [
+      -3.1,
+      -2.6,
+      0.2,
+      5.1,
+      11.1,
+      16.0,
+      20.0,
+      21.6,
+      17.6,
+      10.8,
+      4.5,
+      -0.5
+    ],
+    "sm_rain": [
+      31.4,
+      23.3,
+      63.0,
+      85.5,
+      96.0,
+      107.6,
+      155.6,
+      128.8,
+      169.1,
+      164.3,
+      55.9,
+      43.2
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

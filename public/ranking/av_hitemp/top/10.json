@@ -15,22 +15,6 @@
     "pref": "沖縄県",
     "city": "島尻郡北大東村"
   },
-  "92011": {
-    "value": 28.8,
-    "rank": 3,
-    "station_name": "南大東",
-    "official_name": "南大東島地方気象台",
-    "pref": "沖縄県",
-    "city": "島尻郡南大東村"
-  },
-  "92012": {
-    "value": 28.8,
-    "rank": 3,
-    "station_name": "旧東",
-    "official_name": "南大東航空気象観測所",
-    "pref": "沖縄県",
-    "city": "島尻郡南大東村"
-  },
   "93062": {
     "value": 28.8,
     "rank": 3,
@@ -47,13 +31,21 @@
     "pref": "沖縄県",
     "city": "石垣市"
   },
-  "91236": {
-    "value": 28.7,
-    "rank": 7,
-    "station_name": "安次嶺",
-    "official_name": "那覇航空測候所",
+  "92012": {
+    "value": 28.8,
+    "rank": 3,
+    "station_name": "旧東",
+    "official_name": "南大東航空気象観測所",
     "pref": "沖縄県",
-    "city": "那覇市"
+    "city": "島尻郡南大東村"
+  },
+  "92011": {
+    "value": 28.8,
+    "rank": 3,
+    "station_name": "南大東",
+    "official_name": "南大東島地方気象台",
+    "pref": "沖縄県",
+    "city": "島尻郡南大東村"
   },
   "93012": {
     "value": 28.7,
@@ -63,6 +55,14 @@
     "pref": "沖縄県",
     "city": "宮古島市"
   },
+  "91236": {
+    "value": 28.7,
+    "rank": 7,
+    "station_name": "安次嶺",
+    "official_name": "那覇航空測候所",
+    "pref": "沖縄県",
+    "city": "那覇市"
+  },
   "44301": {
     "value": 28.6,
     "rank": 9,
@@ -71,19 +71,19 @@
     "pref": "東京都",
     "city": "小笠原村父島字西町"
   },
-  "94101": {
-    "value": 28.4,
-    "rank": 10,
-    "station_name": "大原",
-    "official_name": "大原アメダス",
-    "pref": "沖縄県",
-    "city": "八重山郡竹富町"
-  },
   "94116": {
     "value": 28.4,
     "rank": 10,
     "station_name": "波照間",
     "official_name": "波照間アメダス",
+    "pref": "沖縄県",
+    "city": "八重山郡竹富町"
+  },
+  "94101": {
+    "value": 28.4,
+    "rank": 10,
+    "station_name": "大原",
+    "official_name": "大原アメダス",
     "pref": "沖縄県",
     "city": "八重山郡竹富町"
   },
@@ -111,14 +111,6 @@
     "pref": "沖縄県",
     "city": "島尻郡久米島町"
   },
-  "91197": {
-    "value": 28.1,
-    "rank": 15,
-    "station_name": "那覇",
-    "official_name": "沖縄気象台",
-    "pref": "沖縄県",
-    "city": "那覇市"
-  },
   "94001": {
     "value": 28.1,
     "rank": 15,
@@ -126,6 +118,14 @@
     "official_name": "伊原間アメダス",
     "pref": "沖縄県",
     "city": "石垣市"
+  },
+  "91197": {
+    "value": 28.1,
+    "rank": 15,
+    "station_name": "那覇",
+    "official_name": "沖縄気象台",
+    "pref": "沖縄県",
+    "city": "那覇市"
   },
   "91107": {
     "value": 28.0,
@@ -151,6 +151,14 @@
     "pref": "沖縄県",
     "city": "島尻郡久米島町"
   },
+  "88931": {
+    "value": 27.8,
+    "rank": 20,
+    "station_name": "天城",
+    "official_name": "徳之島航空気象観測所",
+    "pref": "鹿児島県",
+    "city": "大島郡天城町"
+  },
   "88851": {
     "value": 27.8,
     "rank": 20,
@@ -159,13 +167,13 @@
     "pref": "鹿児島県",
     "city": "大島郡喜界町"
   },
-  "88931": {
+  "94062": {
     "value": 27.8,
     "rank": 20,
-    "station_name": "天城",
-    "official_name": "徳之島航空気象観測所",
-    "pref": "鹿児島県",
-    "city": "大島郡天城町"
+    "station_name": "西表島",
+    "official_name": "西表島特別地域気象観測所",
+    "pref": "沖縄県",
+    "city": "八重山郡竹富町"
   },
   "93041": {
     "value": 27.8,
@@ -182,14 +190,6 @@
     "official_name": "与那国島特別地域気象観測所",
     "pref": "沖縄県",
     "city": "八重山郡与那国町"
-  },
-  "94062": {
-    "value": 27.8,
-    "rank": 20,
-    "station_name": "西表島",
-    "official_name": "西表島特別地域気象観測所",
-    "pref": "沖縄県",
-    "city": "八重山郡竹富町"
   },
   "91011": {
     "value": 27.7,
@@ -263,19 +263,19 @@
     "pref": "鹿児島県",
     "city": "熊毛郡屋久島町"
   },
-  "88317": {
-    "value": 25.8,
-    "rank": 34,
-    "station_name": "鹿児島",
-    "official_name": "鹿児島地方気象台",
-    "pref": "鹿児島県",
-    "city": "鹿児島市"
-  },
   "88432": {
     "value": 25.8,
     "rank": 34,
     "station_name": "喜入",
     "official_name": "喜入アメダス",
+    "pref": "鹿児島県",
+    "city": "鹿児島市"
+  },
+  "88317": {
+    "value": 25.8,
+    "rank": 34,
+    "station_name": "鹿児島",
+    "official_name": "鹿児島地方気象台",
     "pref": "鹿児島県",
     "city": "鹿児島市"
   },
@@ -327,14 +327,6 @@
     "pref": "鹿児島県",
     "city": "肝属郡肝付町"
   },
-  "87501": {
-    "value": 25.3,
-    "rank": 42,
-    "station_name": "串間",
-    "official_name": "串間アメダス",
-    "pref": "宮崎県",
-    "city": "串間市"
-  },
   "88107": {
     "value": 25.3,
     "rank": 42,
@@ -343,13 +335,13 @@
     "pref": "鹿児島県",
     "city": "薩摩郡さつま町"
   },
-  "88151": {
+  "87501": {
     "value": 25.3,
     "rank": 42,
-    "station_name": "川内",
-    "official_name": "川内アメダス",
-    "pref": "鹿児島県",
-    "city": "薩摩川内市"
+    "station_name": "串間",
+    "official_name": "串間アメダス",
+    "pref": "宮崎県",
+    "city": "串間市"
   },
   "88406": {
     "value": 25.3,
@@ -359,13 +351,13 @@
     "pref": "鹿児島県",
     "city": "志布志市"
   },
-  "88466": {
-    "value": 25.2,
-    "rank": 46,
-    "station_name": "枕崎",
-    "official_name": "枕崎特別地域気象観測所",
+  "88151": {
+    "value": 25.3,
+    "rank": 42,
+    "station_name": "川内",
+    "official_name": "川内アメダス",
     "pref": "鹿児島県",
-    "city": "枕崎市"
+    "city": "薩摩川内市"
   },
   "88686": {
     "value": 25.2,
@@ -375,6 +367,14 @@
     "pref": "鹿児島県",
     "city": "熊毛郡屋久島町"
   },
+  "88466": {
+    "value": 25.2,
+    "rank": 46,
+    "station_name": "枕崎",
+    "official_name": "枕崎特別地域気象観測所",
+    "pref": "鹿児島県",
+    "city": "枕崎市"
+  },
   "88261": {
     "value": 25.1,
     "rank": 48,
@@ -382,14 +382,6 @@
     "official_name": "東市来アメダス",
     "pref": "鹿児島県",
     "city": "日置市"
-  },
-  "88447": {
-    "value": 25.1,
-    "rank": 48,
-    "station_name": "肝付前田",
-    "official_name": "肝付前田アメダス",
-    "pref": "鹿児島県",
-    "city": "肝属郡肝付町"
   },
   "88612": {
     "value": 25.1,
@@ -399,13 +391,21 @@
     "pref": "鹿児島県",
     "city": "西之表市"
   },
-  "74182": {
+  "88447": {
+    "value": 25.1,
+    "rank": 48,
+    "station_name": "肝付前田",
+    "official_name": "肝付前田アメダス",
+    "pref": "鹿児島県",
+    "city": "肝属郡肝付町"
+  },
+  "86491": {
     "value": 25.0,
     "rank": 51,
-    "station_name": "高知",
-    "official_name": "高知地方気象台",
-    "pref": "高知県",
-    "city": "高知市"
+    "station_name": "牛深",
+    "official_name": "牛深特別地域気象観測所",
+    "pref": "熊本県",
+    "city": "天草市"
   },
   "86086": {
     "value": 25.0,
@@ -415,6 +415,14 @@
     "pref": "熊本県",
     "city": "玉名市"
   },
+  "74182": {
+    "value": 25.0,
+    "rank": 51,
+    "station_name": "高知",
+    "official_name": "高知地方気象台",
+    "pref": "高知県",
+    "city": "高知市"
+  },
   "86141": {
     "value": 25.0,
     "rank": 51,
@@ -422,14 +430,6 @@
     "official_name": "熊本地方気象台",
     "pref": "熊本県",
     "city": "熊本市"
-  },
-  "86491": {
-    "value": 25.0,
-    "rank": 51,
-    "station_name": "牛深",
-    "official_name": "牛深特別地域気象観測所",
-    "pref": "熊本県",
-    "city": "天草市"
   },
   "87331": {
     "value": 25.0,
@@ -447,14 +447,6 @@
     "pref": "宮崎県",
     "city": "日南市"
   },
-  "74311": {
-    "value": 24.8,
-    "rank": 57,
-    "station_name": "須崎",
-    "official_name": "須崎アメダス",
-    "pref": "高知県",
-    "city": "須崎市"
-  },
   "87181": {
     "value": 24.8,
     "rank": 57,
@@ -471,13 +463,13 @@
     "pref": "宮崎県",
     "city": "都城市"
   },
-  "44262": {
-    "value": 24.7,
-    "rank": 60,
-    "station_name": "八重見ヶ原",
-    "official_name": "八丈島航空気象観測所",
-    "pref": "東京都",
-    "city": "八丈島八丈町"
+  "74311": {
+    "value": 24.8,
+    "rank": 57,
+    "station_name": "須崎",
+    "official_name": "須崎アメダス",
+    "pref": "高知県",
+    "city": "須崎市"
   },
   "74456": {
     "value": 24.7,
@@ -487,14 +479,6 @@
     "pref": "高知県",
     "city": "四万十市"
   },
-  "86236": {
-    "value": 24.7,
-    "rank": 60,
-    "station_name": "甲佐",
-    "official_name": "甲佐アメダス",
-    "pref": "熊本県",
-    "city": "上益城郡甲佐町"
-  },
   "87376": {
     "value": 24.7,
     "rank": 60,
@@ -502,6 +486,14 @@
     "official_name": "宮崎地方気象台",
     "pref": "宮崎県",
     "city": "宮崎市"
+  },
+  "44262": {
+    "value": 24.7,
+    "rank": 60,
+    "station_name": "八重見ヶ原",
+    "official_name": "八丈島航空気象観測所",
+    "pref": "東京都",
+    "city": "八丈島八丈町"
   },
   "88081": {
     "value": 24.7,
@@ -519,13 +511,13 @@
     "pref": "鹿児島県",
     "city": "鹿児島郡十島村"
   },
-  "74188": {
-    "value": 24.6,
-    "rank": 66,
-    "station_name": "南国日章",
-    "official_name": "高知航空気象観測所",
-    "pref": "高知県",
-    "city": "南国市"
+  "86236": {
+    "value": 24.7,
+    "rank": 60,
+    "station_name": "甲佐",
+    "official_name": "甲佐アメダス",
+    "pref": "熊本県",
+    "city": "上益城郡甲佐町"
   },
   "86101": {
     "value": 24.6,
@@ -543,6 +535,14 @@
     "pref": "熊本県",
     "city": "八代市"
   },
+  "88131": {
+    "value": 24.6,
+    "rank": 66,
+    "station_name": "中甑",
+    "official_name": "中甑アメダス",
+    "pref": "鹿児島県",
+    "city": "薩摩川内市"
+  },
   "87066": {
     "value": 24.6,
     "rank": 66,
@@ -550,14 +550,6 @@
     "official_name": "古江アメダス",
     "pref": "宮崎県",
     "city": "延岡市"
-  },
-  "87301": {
-    "value": 24.6,
-    "rank": 66,
-    "station_name": "加久藤",
-    "official_name": "加久藤アメダス",
-    "pref": "宮崎県",
-    "city": "えびの市"
   },
   "87412": {
     "value": 24.6,
@@ -567,13 +559,21 @@
     "pref": "宮崎県",
     "city": "宮崎市"
   },
-  "88131": {
+  "87301": {
     "value": 24.6,
     "rank": 66,
-    "station_name": "中甑",
-    "official_name": "中甑アメダス",
-    "pref": "鹿児島県",
-    "city": "薩摩川内市"
+    "station_name": "加久藤",
+    "official_name": "加久藤アメダス",
+    "pref": "宮崎県",
+    "city": "えびの市"
+  },
+  "74188": {
+    "value": 24.6,
+    "rank": 66,
+    "station_name": "南国日章",
+    "official_name": "高知航空気象観測所",
+    "pref": "高知県",
+    "city": "南国市"
   },
   "88666": {
     "value": 24.6,
@@ -599,6 +599,14 @@
     "pref": "長崎県",
     "city": "大村市"
   },
+  "87141": {
+    "value": 24.5,
+    "rank": 74,
+    "station_name": "延岡",
+    "official_name": "延岡特別地域気象観測所",
+    "pref": "宮崎県",
+    "city": "延岡市"
+  },
   "84561": {
     "value": 24.5,
     "rank": 74,
@@ -614,30 +622,6 @@
     "official_name": "上アメダス",
     "pref": "熊本県",
     "city": "球磨郡あさぎり町"
-  },
-  "87141": {
-    "value": 24.5,
-    "rank": 74,
-    "station_name": "延岡",
-    "official_name": "延岡特別地域気象観測所",
-    "pref": "宮崎県",
-    "city": "延岡市"
-  },
-  "71266": {
-    "value": 24.4,
-    "rank": 79,
-    "station_name": "日和佐",
-    "official_name": "日和佐アメダス",
-    "pref": "徳島県",
-    "city": "海部郡美波町"
-  },
-  "71291": {
-    "value": 24.4,
-    "rank": 79,
-    "station_name": "海陽",
-    "official_name": "海陽アメダス",
-    "pref": "徳島県",
-    "city": "海部郡海陽町"
   },
   "73516": {
     "value": 24.4,
@@ -663,6 +647,22 @@
     "pref": "熊本県",
     "city": "人吉市"
   },
+  "71266": {
+    "value": 24.4,
+    "rank": 79,
+    "station_name": "日和佐",
+    "official_name": "日和佐アメダス",
+    "pref": "徳島県",
+    "city": "海部郡美波町"
+  },
+  "71291": {
+    "value": 24.4,
+    "rank": 79,
+    "station_name": "海陽",
+    "official_name": "海陽アメダス",
+    "pref": "徳島県",
+    "city": "海部郡海陽町"
+  },
   "73442": {
     "value": 24.3,
     "rank": 84,
@@ -687,14 +687,6 @@
     "pref": "佐賀県",
     "city": "佐賀市"
   },
-  "74447": {
-    "value": 24.2,
-    "rank": 87,
-    "station_name": "宿毛",
-    "official_name": "宿毛特別地域気象観測所",
-    "pref": "高知県",
-    "city": "宿毛市"
-  },
   "82261": {
     "value": 24.2,
     "rank": 87,
@@ -702,54 +694,6 @@
     "official_name": "朝倉アメダス",
     "pref": "福岡県",
     "city": "朝倉市"
-  },
-  "82306": {
-    "value": 24.2,
-    "rank": 87,
-    "station_name": "久留米",
-    "official_name": "久留米アメダス",
-    "pref": "福岡県",
-    "city": "久留米市"
-  },
-  "85166": {
-    "value": 24.2,
-    "rank": 87,
-    "station_name": "白石",
-    "official_name": "白石アメダス",
-    "pref": "佐賀県",
-    "city": "杵島郡白石町"
-  },
-  "85176": {
-    "value": 24.2,
-    "rank": 87,
-    "station_name": "川副",
-    "official_name": "佐賀航空気象観測所",
-    "pref": "佐賀県",
-    "city": "佐賀市"
-  },
-  "86451": {
-    "value": 24.2,
-    "rank": 87,
-    "station_name": "水俣",
-    "official_name": "水俣アメダス",
-    "pref": "熊本県",
-    "city": "水俣市"
-  },
-  "87231": {
-    "value": 24.2,
-    "rank": 87,
-    "station_name": "西米良",
-    "official_name": "西米良アメダス",
-    "pref": "宮崎県",
-    "city": "児湯郡西米良村"
-  },
-  "88061": {
-    "value": 24.2,
-    "rank": 87,
-    "station_name": "阿久根",
-    "official_name": "阿久根特別地域気象観測所",
-    "pref": "鹿児島県",
-    "city": "阿久根市"
   },
   "88536": {
     "value": 24.2,
@@ -759,6 +703,70 @@
     "pref": "鹿児島県",
     "city": "肝属郡錦江町"
   },
+  "85176": {
+    "value": 24.2,
+    "rank": 87,
+    "station_name": "川副",
+    "official_name": "佐賀航空気象観測所",
+    "pref": "佐賀県",
+    "city": "佐賀市"
+  },
+  "85166": {
+    "value": 24.2,
+    "rank": 87,
+    "station_name": "白石",
+    "official_name": "白石アメダス",
+    "pref": "佐賀県",
+    "city": "杵島郡白石町"
+  },
+  "86451": {
+    "value": 24.2,
+    "rank": 87,
+    "station_name": "水俣",
+    "official_name": "水俣アメダス",
+    "pref": "熊本県",
+    "city": "水俣市"
+  },
+  "88061": {
+    "value": 24.2,
+    "rank": 87,
+    "station_name": "阿久根",
+    "official_name": "阿久根特別地域気象観測所",
+    "pref": "鹿児島県",
+    "city": "阿久根市"
+  },
+  "87231": {
+    "value": 24.2,
+    "rank": 87,
+    "station_name": "西米良",
+    "official_name": "西米良アメダス",
+    "pref": "宮崎県",
+    "city": "児湯郡西米良村"
+  },
+  "82306": {
+    "value": 24.2,
+    "rank": 87,
+    "station_name": "久留米",
+    "official_name": "久留米アメダス",
+    "pref": "福岡県",
+    "city": "久留米市"
+  },
+  "74447": {
+    "value": 24.2,
+    "rank": 87,
+    "station_name": "宿毛",
+    "official_name": "宿毛特別地域気象観測所",
+    "pref": "高知県",
+    "city": "宿毛市"
+  },
+  "87206": {
+    "value": 24.1,
+    "rank": 96,
+    "station_name": "神門",
+    "official_name": "神門アメダス",
+    "pref": "宮崎県",
+    "city": "東臼杵郡美郷町"
+  },
   "74436": {
     "value": 24.1,
     "rank": 96,
@@ -766,22 +774,6 @@
     "official_name": "佐賀アメダス",
     "pref": "高知県",
     "city": "幡多郡黒潮町"
-  },
-  "83137": {
-    "value": 24.1,
-    "rank": 96,
-    "station_name": "日田",
-    "official_name": "日田特別地域気象観測所",
-    "pref": "大分県",
-    "city": "日田市"
-  },
-  "83476": {
-    "value": 24.1,
-    "rank": 96,
-    "station_name": "蒲江",
-    "official_name": "蒲江アメダス",
-    "pref": "大分県",
-    "city": "佐伯市"
   },
   "84496": {
     "value": 24.1,
@@ -798,5 +790,13 @@
     "official_name": "松島アメダス",
     "pref": "熊本県",
     "city": "上天草市"
+  },
+  "83476": {
+    "value": 24.1,
+    "rank": 96,
+    "station_name": "蒲江",
+    "official_name": "蒲江アメダス",
+    "pref": "大分県",
+    "city": "佐伯市"
   }
 }

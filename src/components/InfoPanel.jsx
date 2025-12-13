@@ -24,7 +24,7 @@ export default function InfoPanel({ stationId }) {
         return;
       }
 
-      const res = await fetch(`/single/${stationId}.json`);
+      const res = await fetch(`/infotable/${stationId}.json`);
       const data = await res.json();
 
       stationCache[stationId] = data;
@@ -54,12 +54,11 @@ export default function InfoPanel({ stationId }) {
   const icon = getIcon(data.official_name || "");
   const heightStr = data.height != null ? `${data.height}m` : "--m";
   const lonlat = data.lon != null ? `(${data.lat}, ${data.lon})` : "(--, --)";
-  const avtemp = data.data.av_avtemp?.all ?? {};
-  console.log(data.data.av_avtemp?.all);
-  const maxtemp = data.data.av_hitemp?.all ?? {};
-  const sun = data.data.sm_sun?.all ?? {};
-  const rain = data.data.sm_rain?.all ?? {};
-  const snow = data.data.sm_snowing?.all ?? {};
+  const avtemp = data.data.av_avtemp ?? {};
+  const maxtemp = data.data.av_hitemp ?? {};
+  const sun = data.data.sm_sun ?? {};
+  const rain = data.data.sm_rain ?? {};
+  const snow = data.data.sm_snowing ?? {};
   const bgColor = data.pref ? getRegionColor(data.pref) : "white";
   return (
     <div
@@ -101,7 +100,15 @@ export default function InfoPanel({ stationId }) {
       <h3 className="sr-only">Rain/Temp Chart</h3>
       {stationData && (
         <div className="mt-4 w-full h-[360px] bg-gray-50 border rounded shadow pt-2">
-          <UonzuChart station={stationData} selectedBar="rain" />
+          <UonzuChart
+            temp={stationData.uonzu.av_avtemp}
+            hitemp={stationData.uonzu.av_hitemp}
+            lwtemp={stationData.uonzu.av_lwtemp}
+            rain={stationData.uonzu.sm_rain}
+            sun={stationData.uonzu.sm_sun}
+            snowing={stationData.uonzu.sm_snowing}
+            selectedBar="rain"
+          />
         </div>
       )}
 

@@ -47,6 +47,14 @@
     "pref": "北海道",
     "city": "厚岸郡浜中町"
   },
+  "18038": {
+    "value": 15.2,
+    "rank": 7,
+    "station_name": "羅臼",
+    "official_name": "羅臼アメダス",
+    "pref": "北海道",
+    "city": "目梨郡羅臼町"
+  },
   "11001": {
     "value": 15.2,
     "rank": 7,
@@ -62,14 +70,6 @@
     "official_name": "浜鬼志別アメダス",
     "pref": "北海道",
     "city": "宗谷郡猿払村"
-  },
-  "18038": {
-    "value": 15.2,
-    "rank": 7,
-    "station_name": "羅臼",
-    "official_name": "羅臼アメダス",
-    "pref": "北海道",
-    "city": "目梨郡羅臼町"
   },
   "20631": {
     "value": 15.6,
@@ -127,14 +127,6 @@
     "pref": "北海道",
     "city": "紋別郡雄武町"
   },
-  "18311": {
-    "value": 16.3,
-    "rank": 17,
-    "station_name": "厚床",
-    "official_name": "厚床アメダス",
-    "pref": "北海道",
-    "city": "根室市"
-  },
   "19416": {
     "value": 16.3,
     "rank": 17,
@@ -143,13 +135,13 @@
     "pref": "北海道",
     "city": "白糠郡白糠町"
   },
-  "19376": {
-    "value": 16.5,
-    "rank": 19,
-    "station_name": "太田",
-    "official_name": "太田アメダス",
+  "18311": {
+    "value": 16.3,
+    "rank": 17,
+    "station_name": "厚床",
+    "official_name": "厚床アメダス",
     "pref": "北海道",
-    "city": "厚岸郡厚岸町"
+    "city": "根室市"
   },
   "20751": {
     "value": 16.5,
@@ -158,6 +150,14 @@
     "official_name": "広尾特別地域気象観測所",
     "pref": "北海道",
     "city": "広尾郡広尾町"
+  },
+  "19376": {
+    "value": 16.5,
+    "rank": 19,
+    "station_name": "太田",
+    "official_name": "太田アメダス",
+    "pref": "北海道",
+    "city": "厚岸郡厚岸町"
   },
   "17112": {
     "value": 16.7,
@@ -199,22 +199,6 @@
     "pref": "北海道",
     "city": "白老郡白老町"
   },
-  "11151": {
-    "value": 17.3,
-    "rank": 26,
-    "station_name": "沓形",
-    "official_name": "沓形アメダス",
-    "pref": "北海道",
-    "city": "利尻郡利尻町"
-  },
-  "17076": {
-    "value": 17.3,
-    "rank": 26,
-    "station_name": "興部",
-    "official_name": "興部アメダス",
-    "pref": "北海道",
-    "city": "紋別郡興部町"
-  },
   "17116": {
     "value": 17.3,
     "rank": 26,
@@ -223,13 +207,13 @@
     "pref": "北海道",
     "city": "紋別市"
   },
-  "21187": {
+  "11151": {
     "value": 17.3,
     "rank": 26,
-    "station_name": "苫小牧",
-    "official_name": "苫小牧特別地域気象観測所",
+    "station_name": "沓形",
+    "official_name": "沓形アメダス",
     "pref": "北海道",
-    "city": "苫小牧市"
+    "city": "利尻郡利尻町"
   },
   "36196": {
     "value": 17.3,
@@ -239,13 +223,21 @@
     "pref": "福島県",
     "city": "福島市"
   },
-  "11091": {
-    "value": 17.5,
-    "rank": 31,
-    "station_name": "本泊",
-    "official_name": "利尻航空気象観測所",
+  "21187": {
+    "value": 17.3,
+    "rank": 26,
+    "station_name": "苫小牧",
+    "official_name": "苫小牧特別地域気象観測所",
     "pref": "北海道",
-    "city": "利尻郡利尻富士町"
+    "city": "苫小牧市"
+  },
+  "17076": {
+    "value": 17.3,
+    "rank": 26,
+    "station_name": "興部",
+    "official_name": "興部アメダス",
+    "pref": "北海道",
+    "city": "紋別郡興部町"
   },
   "13146": {
     "value": 17.5,
@@ -255,6 +247,14 @@
     "pref": "北海道",
     "city": "苫前郡羽幌町"
   },
+  "11091": {
+    "value": 17.5,
+    "rank": 31,
+    "station_name": "本泊",
+    "official_name": "利尻航空気象観測所",
+    "pref": "北海道",
+    "city": "利尻郡利尻富士町"
+  },
   "31482": {
     "value": 17.6,
     "rank": 33,
@@ -262,6 +262,14 @@
     "official_name": "酸ケ湯アメダス",
     "pref": "青森県",
     "city": "青森市"
+  },
+  "17341": {
+    "value": 17.7,
+    "rank": 34,
+    "station_name": "網走",
+    "official_name": "網走地方気象台",
+    "pref": "北海道",
+    "city": "網走市"
   },
   "11061": {
     "value": 17.7,
@@ -279,14 +287,6 @@
     "pref": "北海道",
     "city": "稚内市"
   },
-  "17341": {
-    "value": 17.7,
-    "rank": 34,
-    "station_name": "網走",
-    "official_name": "網走地方気象台",
-    "pref": "北海道",
-    "city": "網走市"
-  },
   "18256": {
     "value": 17.8,
     "rank": 37,
@@ -303,21 +303,13 @@
     "pref": "北海道",
     "city": "川上郡弟子屈町"
   },
-  "17166": {
+  "41166": {
     "value": 18.0,
     "rank": 39,
-    "station_name": "湧別",
-    "official_name": "湧別アメダス",
-    "pref": "北海道",
-    "city": "紋別郡湧別町"
-  },
-  "18171": {
-    "value": 18.0,
-    "rank": 39,
-    "station_name": "中標津",
-    "official_name": "中標津アメダス",
-    "pref": "北海道",
-    "city": "標津郡中標津町"
+    "station_name": "奥日光",
+    "official_name": "日光特別地域気象観測所",
+    "pref": "栃木県",
+    "city": "日光市"
   },
   "21323": {
     "value": 18.0,
@@ -335,29 +327,21 @@
     "pref": "北海道",
     "city": "函館市"
   },
-  "41166": {
+  "18171": {
     "value": 18.0,
     "rank": 39,
-    "station_name": "奥日光",
-    "official_name": "日光特別地域気象観測所",
-    "pref": "栃木県",
-    "city": "日光市"
-  },
-  "11176": {
-    "value": 18.3,
-    "rank": 44,
-    "station_name": "豊富",
-    "official_name": "豊富アメダス",
+    "station_name": "中標津",
+    "official_name": "中標津アメダス",
     "pref": "北海道",
-    "city": "天塩郡豊富町"
+    "city": "標津郡中標津町"
   },
-  "13061": {
-    "value": 18.3,
-    "rank": 44,
-    "station_name": "天塩",
-    "official_name": "天塩アメダス",
+  "17166": {
+    "value": 18.0,
+    "rank": 39,
+    "station_name": "湧別",
+    "official_name": "湧別アメダス",
     "pref": "北海道",
-    "city": "天塩郡天塩町"
+    "city": "紋別郡湧別町"
   },
   "17351": {
     "value": 18.3,
@@ -375,6 +359,14 @@
     "pref": "北海道",
     "city": "広尾郡大樹町"
   },
+  "22241": {
+    "value": 18.3,
+    "rank": 44,
+    "station_name": "静内",
+    "official_name": "静内アメダス",
+    "pref": "北海道",
+    "city": "日高郡新ひだか町"
+  },
   "21312": {
     "value": 18.3,
     "rank": 44,
@@ -383,13 +375,29 @@
     "pref": "北海道",
     "city": "登別市"
   },
-  "22241": {
+  "31121": {
     "value": 18.3,
     "rank": 44,
-    "station_name": "静内",
-    "official_name": "静内アメダス",
+    "station_name": "小田野沢",
+    "official_name": "小田野沢アメダス",
+    "pref": "青森県",
+    "city": "下北郡東通村"
+  },
+  "11176": {
+    "value": 18.3,
+    "rank": 44,
+    "station_name": "豊富",
+    "official_name": "豊富アメダス",
     "pref": "北海道",
-    "city": "日高郡新ひだか町"
+    "city": "天塩郡豊富町"
+  },
+  "13061": {
+    "value": 18.3,
+    "rank": 44,
+    "station_name": "天塩",
+    "official_name": "天塩アメダス",
+    "pref": "北海道",
+    "city": "天塩郡天塩町"
   },
   "23031": {
     "value": 18.3,
@@ -399,13 +407,13 @@
     "pref": "北海道",
     "city": "山越郡長万部町"
   },
-  "31121": {
-    "value": 18.3,
-    "rank": 44,
-    "station_name": "小田野沢",
-    "official_name": "小田野沢アメダス",
+  "31001": {
+    "value": 18.4,
+    "rank": 52,
+    "station_name": "大間",
+    "official_name": "大間アメダス",
     "pref": "青森県",
-    "city": "下北郡東通村"
+    "city": "下北郡大間町"
   },
   "18161": {
     "value": 18.4,
@@ -423,21 +431,13 @@
     "pref": "北海道",
     "city": "沙流郡日高町"
   },
-  "31001": {
-    "value": 18.4,
-    "rank": 52,
-    "station_name": "大間",
-    "official_name": "大間アメダス",
-    "pref": "青森県",
-    "city": "下北郡大間町"
-  },
-  "17246": {
+  "23086": {
     "value": 18.5,
     "rank": 55,
-    "station_name": "常呂",
-    "official_name": "常呂アメダス",
+    "station_name": "八雲",
+    "official_name": "八雲アメダス",
     "pref": "北海道",
-    "city": "北見市"
+    "city": "二海郡八雲町"
   },
   "18174": {
     "value": 18.5,
@@ -447,21 +447,13 @@
     "pref": "北海道",
     "city": "標津郡中標津町"
   },
-  "23086": {
+  "17246": {
     "value": 18.5,
     "rank": 55,
-    "station_name": "八雲",
-    "official_name": "八雲アメダス",
+    "station_name": "常呂",
+    "official_name": "常呂アメダス",
     "pref": "北海道",
-    "city": "二海郡八雲町"
-  },
-  "14286": {
-    "value": 18.7,
-    "rank": 58,
-    "station_name": "支笏湖畔",
-    "official_name": "支笏湖畔アメダス",
-    "pref": "北海道",
-    "city": "千歳市"
+    "city": "北見市"
   },
   "24156": {
     "value": 18.7,
@@ -471,6 +463,14 @@
     "pref": "北海道",
     "city": "奥尻郡奥尻町"
   },
+  "14286": {
+    "value": 18.7,
+    "rank": 58,
+    "station_name": "支笏湖畔",
+    "official_name": "支笏湖畔アメダス",
+    "pref": "北海道",
+    "city": "千歳市"
+  },
   "19021": {
     "value": 18.8,
     "rank": 60,
@@ -478,6 +478,14 @@
     "official_name": "川湯アメダス",
     "pref": "北海道",
     "city": "川上郡弟子屈町"
+  },
+  "23326": {
+    "value": 18.8,
+    "rank": 60,
+    "station_name": "木古内",
+    "official_name": "木古内アメダス",
+    "pref": "北海道",
+    "city": "上磯郡木古内町"
   },
   "19151": {
     "value": 18.8,
@@ -495,14 +503,6 @@
     "pref": "北海道",
     "city": "白老郡白老町"
   },
-  "21276": {
-    "value": 18.8,
-    "rank": 60,
-    "station_name": "鵡川",
-    "official_name": "鵡川アメダス",
-    "pref": "北海道",
-    "city": "勇払郡むかわ町"
-  },
   "22291": {
     "value": 18.8,
     "rank": 60,
@@ -511,13 +511,21 @@
     "pref": "北海道",
     "city": "日高郡新ひだか町"
   },
-  "23326": {
+  "21276": {
     "value": 18.8,
     "rank": 60,
-    "station_name": "木古内",
-    "official_name": "木古内アメダス",
+    "station_name": "鵡川",
+    "official_name": "鵡川アメダス",
     "pref": "北海道",
-    "city": "上磯郡木古内町"
+    "city": "勇払郡むかわ町"
+  },
+  "19191": {
+    "value": 18.9,
+    "rank": 66,
+    "station_name": "鶴居",
+    "official_name": "鶴居アメダス",
+    "pref": "北海道",
+    "city": "阿寒郡鶴居村"
   },
   "13121": {
     "value": 18.9,
@@ -535,21 +543,21 @@
     "pref": "北海道",
     "city": "釧路市"
   },
-  "19191": {
-    "value": 18.9,
-    "rank": 66,
-    "station_name": "鶴居",
-    "official_name": "鶴居アメダス",
-    "pref": "北海道",
-    "city": "阿寒郡鶴居村"
-  },
-  "13311": {
+  "21226": {
     "value": 19.0,
     "rank": 69,
-    "station_name": "増毛",
-    "official_name": "増毛アメダス",
+    "station_name": "大岸",
+    "official_name": "大岸アメダス",
     "pref": "北海道",
-    "city": "増毛郡増毛町"
+    "city": "虻田郡豊浦町"
+  },
+  "24101": {
+    "value": 19.0,
+    "rank": 69,
+    "station_name": "奥尻",
+    "official_name": "奥尻アメダス",
+    "pref": "北海道",
+    "city": "奥尻郡奥尻町"
   },
   "20601": {
     "value": 19.0,
@@ -559,21 +567,13 @@
     "pref": "北海道",
     "city": "河西郡中札内村"
   },
-  "21226": {
+  "13311": {
     "value": 19.0,
     "rank": 69,
-    "station_name": "大岸",
-    "official_name": "大岸アメダス",
+    "station_name": "増毛",
+    "official_name": "増毛アメダス",
     "pref": "北海道",
-    "city": "虻田郡豊浦町"
-  },
-  "23281": {
-    "value": 19.0,
-    "rank": 69,
-    "station_name": "高松",
-    "official_name": "函館航空気象観測所",
-    "pref": "北海道",
-    "city": "函館市"
+    "city": "増毛郡増毛町"
   },
   "24041": {
     "value": 19.0,
@@ -583,13 +583,13 @@
     "pref": "北海道",
     "city": "久遠郡せたな町"
   },
-  "24101": {
+  "23281": {
     "value": 19.0,
     "rank": 69,
-    "station_name": "奥尻",
-    "official_name": "奥尻アメダス",
+    "station_name": "高松",
+    "official_name": "函館航空気象観測所",
     "pref": "北海道",
-    "city": "奥尻郡奥尻町"
+    "city": "函館市"
   },
   "17561": {
     "value": 19.1,
@@ -607,14 +607,6 @@
     "pref": "北海道",
     "city": "十勝郡浦幌町"
   },
-  "11316": {
-    "value": 19.2,
-    "rank": 77,
-    "station_name": "歌登",
-    "official_name": "歌登アメダス",
-    "pref": "北海道",
-    "city": "枝幸郡枝幸町"
-  },
   "13277": {
     "value": 19.2,
     "rank": 77,
@@ -622,14 +614,6 @@
     "official_name": "留萌特別地域気象観測所",
     "pref": "北海道",
     "city": "留萌市"
-  },
-  "16252": {
-    "value": 19.2,
-    "rank": 77,
-    "station_name": "寿都",
-    "official_name": "寿都特別地域気象観測所",
-    "pref": "北海道",
-    "city": "寿都郡寿都町"
   },
   "16281": {
     "value": 19.2,
@@ -639,6 +623,14 @@
     "pref": "北海道",
     "city": "虻田郡真狩村"
   },
+  "16252": {
+    "value": 19.2,
+    "rank": 77,
+    "station_name": "寿都",
+    "official_name": "寿都特別地域気象観測所",
+    "pref": "北海道",
+    "city": "寿都郡寿都町"
+  },
   "20186": {
     "value": 19.2,
     "rank": 77,
@@ -646,6 +638,14 @@
     "official_name": "ぬかびら源泉郷アメダス",
     "pref": "北海道",
     "city": "河東郡上士幌町"
+  },
+  "11316": {
+    "value": 19.2,
+    "rank": 77,
+    "station_name": "歌登",
+    "official_name": "歌登アメダス",
+    "pref": "北海道",
+    "city": "枝幸郡枝幸町"
   },
   "13181": {
     "value": 19.3,
@@ -767,14 +767,6 @@
     "pref": "北海道",
     "city": "檜山郡江差町"
   },
-  "20266": {
-    "value": 19.9,
-    "rank": 97,
-    "station_name": "上士幌",
-    "official_name": "上士幌アメダス",
-    "pref": "北海道",
-    "city": "河東郡上士幌町"
-  },
   "31201": {
     "value": 19.9,
     "rank": 97,
@@ -791,12 +783,20 @@
     "pref": "青森県",
     "city": "上北郡六ヶ所村"
   },
-  "48216": {
+  "20266": {
     "value": 19.9,
     "rank": 97,
-    "station_name": "菅平",
-    "official_name": "菅平アメダス",
+    "station_name": "上士幌",
+    "official_name": "上士幌アメダス",
+    "pref": "北海道",
+    "city": "河東郡上士幌町"
+  },
+  "48571": {
+    "value": 19.9,
+    "rank": 97,
+    "station_name": "野辺山",
+    "official_name": "野辺山アメダス",
     "pref": "長野県",
-    "city": "上田市"
+    "city": "南佐久郡南牧村"
   }
 }

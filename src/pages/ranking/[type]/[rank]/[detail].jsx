@@ -19,10 +19,10 @@ export async function getStaticPaths() {
     "av_hitemp",
     "sm_sun",
     "sm_rain",
-    "sm_snow",
+    "sm_snowing",
     "hitemp_35",
     "hitemp_30",
-    "lwtemp5",
+    "lwtemp_25",
   ];
 
   // rank と detail は “手動で書く”

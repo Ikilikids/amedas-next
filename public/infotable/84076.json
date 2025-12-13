@@ -1,0 +1,119 @@
+{
+  "number": "84076",
+  "station_name": "美津島",
+  "kana_name": "ﾐﾂｼﾏ",
+  "lon": 34.285,
+  "lat": 129.33,
+  "height": 63,
+  "official_name": "対馬航空気象観測所",
+  "pref": "長崎県",
+  "city": "対馬市",
+  "data": {
+    "av_avtemp": {
+      "value": 15.7,
+      "rank": 231
+    },
+    "av_hitemp": {
+      "value": 18.8,
+      "rank": 423
+    },
+    "av_lwtemp": {
+      "value": 12.8,
+      "rank": 124
+    },
+    "av_wind": {
+      "value": 3.7,
+      "rank": 110
+    },
+    "sm_rain": {
+      "value": 1882.2,
+      "rank": 469
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      5.5,
+      6.7,
+      9.6,
+      13.7,
+      17.8,
+      20.9,
+      24.9,
+      26.5,
+      22.9,
+      18.4,
+      13.3,
+      7.6
+    ],
+    "av_hitemp": [
+      8.1,
+      9.7,
+      12.9,
+      17.3,
+      21.6,
+      24.1,
+      27.9,
+      29.5,
+      25.8,
+      21.5,
+      16.3,
+      10.4
+    ],
+    "av_lwtemp": [
+      2.7,
+      3.6,
+      6.4,
+      10.3,
+      14.5,
+      18.4,
+      22.6,
+      24.1,
+      20.6,
+      15.6,
+      10.2,
+      4.6
+    ],
+    "sm_rain": [
+      60.9,
+      80.3,
+      130.1,
+      157.8,
+      179.8,
+      224.3,
+      325.9,
+      249.2,
+      247.6,
+      96.6,
+      73.3,
+      56.4
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

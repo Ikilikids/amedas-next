@@ -1,0 +1,119 @@
+{
+  "number": "91236",
+  "station_name": "安次嶺",
+  "kana_name": "ｱｼﾐﾈ",
+  "lon": 26.193,
+  "lat": 127.638,
+  "height": 3,
+  "official_name": "那覇航空測候所",
+  "pref": "沖縄県",
+  "city": "那覇市",
+  "data": {
+    "av_avtemp": {
+      "value": 23.6,
+      "rank": 14
+    },
+    "av_hitemp": {
+      "value": 26.3,
+      "rank": 15
+    },
+    "av_lwtemp": {
+      "value": 21.4,
+      "rank": 13
+    },
+    "av_wind": {
+      "value": 5.2,
+      "rank": 29
+    },
+    "sm_rain": {
+      "value": 1855.1,
+      "rank": 484
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      17.5,
+      18.2,
+      19.3,
+      21.6,
+      24.5,
+      27.3,
+      29.3,
+      29.3,
+      28.4,
+      25.9,
+      23.0,
+      19.3
+    ],
+    "av_hitemp": [
+      20.1,
+      20.9,
+      22.1,
+      24.4,
+      27.1,
+      29.7,
+      31.9,
+      32.0,
+      31.1,
+      28.7,
+      25.6,
+      21.9
+    ],
+    "av_lwtemp": [
+      15.2,
+      15.8,
+      16.9,
+      19.3,
+      22.4,
+      25.3,
+      27.3,
+      27.2,
+      26.2,
+      23.8,
+      20.9,
+      17.0
+    ],
+    "sm_rain": [
+      79.7,
+      92.9,
+      107.2,
+      134.5,
+      222.0,
+      292.3,
+      150.6,
+      227.5,
+      177.7,
+      162.3,
+      110.4,
+      98.1
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

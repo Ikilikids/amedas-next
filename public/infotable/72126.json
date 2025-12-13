@@ -1,0 +1,119 @@
+{
+  "number": "72126",
+  "station_name": "香南",
+  "kana_name": "ｺｳﾅﾝ",
+  "lon": 34.213,
+  "lat": 134.015,
+  "height": 185,
+  "official_name": "高松航空気象観測所",
+  "pref": "香川県",
+  "city": "高松市",
+  "data": {
+    "av_avtemp": {
+      "value": 15.1,
+      "rank": 289
+    },
+    "av_hitemp": {
+      "value": 19.8,
+      "rank": 316
+    },
+    "av_lwtemp": {
+      "value": 10.9,
+      "rank": 279
+    },
+    "av_wind": {
+      "value": 3.3,
+      "rank": 160
+    },
+    "sm_rain": {
+      "value": 1353.9,
+      "rank": 879
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      4.1,
+      4.9,
+      8.0,
+      13.3,
+      18.3,
+      21.8,
+      25.6,
+      26.7,
+      22.8,
+      17.3,
+      11.8,
+      6.5
+    ],
+    "av_hitemp": [
+      8.2,
+      9.3,
+      13.1,
+      18.8,
+      23.7,
+      26.4,
+      30.2,
+      31.7,
+      27.5,
+      21.9,
+      16.3,
+      10.5
+    ],
+    "av_lwtemp": [
+      0.4,
+      0.7,
+      3.0,
+      7.9,
+      13.0,
+      17.7,
+      22.0,
+      22.8,
+      19.1,
+      13.3,
+      7.7,
+      2.7
+    ],
+    "sm_rain": [
+      41.0,
+      54.8,
+      84.8,
+      77.8,
+      105.5,
+      160.7,
+      193.2,
+      150.1,
+      214.4,
+      148.4,
+      64.4,
+      59.0
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "number": "44262",
+  "station_name": "八重見ヶ原",
+  "kana_name": "ﾔｴﾐｶﾞﾊﾗ",
+  "lon": 33.115,
+  "lat": 139.785,
+  "height": 92,
+  "official_name": "八丈島航空気象観測所",
+  "pref": "東京都",
+  "city": "八丈島八丈町",
+  "data": {
+    "av_avtemp": {
+      "value": 18.8,
+      "rank": 39
+    },
+    "av_hitemp": {
+      "value": 21.7,
+      "rank": 77
+    },
+    "av_lwtemp": {
+      "value": 16.0,
+      "rank": 39
+    },
+    "av_wind": {
+      "value": 5.4,
+      "rank": 22
+    },
+    "sm_rain": {
+      "value": 3014.9,
+      "rank": 63
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      10.7,
+      11.3,
+      13.1,
+      16.5,
+      19.7,
+      22.3,
+      26.0,
+      27.3,
+      25.4,
+      21.9,
+      17.9,
+      13.3
+    ],
+    "av_hitemp": [
+      13.4,
+      14.2,
+      16.2,
+      19.5,
+      22.7,
+      24.8,
+      28.7,
+      30.5,
+      28.4,
+      24.7,
+      20.8,
+      16.0
+    ],
+    "av_lwtemp": [
+      7.8,
+      8.3,
+      9.9,
+      13.3,
+      16.7,
+      20.1,
+      23.8,
+      24.9,
+      22.9,
+      19.3,
+      14.8,
+      10.2
+    ],
+    "sm_rain": [
+      159.9,
+      189.1,
+      249.1,
+      177.2,
+      263.6,
+      351.1,
+      258.8,
+      174.3,
+      294.6,
+      448.8,
+      263.4,
+      181.4
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

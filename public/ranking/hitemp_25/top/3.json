@@ -151,14 +151,6 @@
     "pref": "沖縄県",
     "city": "島尻郡久米島町"
   },
-  "91011": {
-    "value": 3.0,
-    "rank": 20,
-    "station_name": "伊是名",
-    "official_name": "伊是名アメダス",
-    "pref": "沖縄県",
-    "city": "島尻郡伊是名村"
-  },
   "91107": {
     "value": 3.0,
     "rank": 20,
@@ -166,6 +158,14 @@
     "official_name": "名護特別地域気象観測所",
     "pref": "沖縄県",
     "city": "名護市"
+  },
+  "91011": {
+    "value": 3.0,
+    "rank": 20,
+    "station_name": "伊是名",
+    "official_name": "伊是名アメダス",
+    "pref": "沖縄県",
+    "city": "島尻郡伊是名村"
   },
   "88837": {
     "value": 2.1,
@@ -239,6 +239,14 @@
     "pref": "沖縄県",
     "city": "南城市"
   },
+  "88851": {
+    "value": 0.7,
+    "rank": 31,
+    "station_name": "喜界島",
+    "official_name": "喜界航空気象観測所",
+    "pref": "鹿児島県",
+    "city": "大島郡喜界町"
+  },
   "87412": {
     "value": 0.7,
     "rank": 31,
@@ -254,14 +262,6 @@
     "official_name": "奄美航空気象観測所",
     "pref": "鹿児島県",
     "city": "奄美市"
-  },
-  "88851": {
-    "value": 0.7,
-    "rank": 31,
-    "station_name": "喜界島",
-    "official_name": "喜界航空気象観測所",
-    "pref": "鹿児島県",
-    "city": "大島郡喜界町"
   },
   "88901": {
     "value": 0.6,
@@ -279,14 +279,6 @@
     "pref": "宮崎県",
     "city": "東臼杵郡美郷町"
   },
-  "87331": {
-    "value": 0.5,
-    "rank": 35,
-    "station_name": "西都",
-    "official_name": "西都アメダス",
-    "pref": "宮崎県",
-    "city": "西都市"
-  },
   "88686": {
     "value": 0.5,
     "rank": 35,
@@ -295,13 +287,13 @@
     "pref": "鹿児島県",
     "city": "熊毛郡屋久島町"
   },
-  "42366": {
-    "value": 0.4,
-    "rank": 38,
-    "station_name": "館林",
-    "official_name": "館林アメダス",
-    "pref": "群馬県",
-    "city": "館林市"
+  "87331": {
+    "value": 0.5,
+    "rank": 35,
+    "station_name": "西都",
+    "official_name": "西都アメダス",
+    "pref": "宮崎県",
+    "city": "西都市"
   },
   "43056": {
     "value": 0.4,
@@ -311,6 +303,14 @@
     "pref": "埼玉県",
     "city": "熊谷市"
   },
+  "42366": {
+    "value": 0.4,
+    "rank": 38,
+    "station_name": "館林",
+    "official_name": "館林アメダス",
+    "pref": "群馬県",
+    "city": "館林市"
+  },
   "44071": {
     "value": 0.4,
     "rank": 38,
@@ -318,38 +318,6 @@
     "official_name": "練馬アメダス",
     "pref": "東京都",
     "city": "練馬区"
-  },
-  "83137": {
-    "value": 0.4,
-    "rank": 38,
-    "station_name": "日田",
-    "official_name": "日田特別地域気象観測所",
-    "pref": "大分県",
-    "city": "日田市"
-  },
-  "83341": {
-    "value": 0.4,
-    "rank": 38,
-    "station_name": "犬飼",
-    "official_name": "犬飼アメダス",
-    "pref": "大分県",
-    "city": "豊後大野市"
-  },
-  "86477": {
-    "value": 0.4,
-    "rank": 38,
-    "station_name": "上",
-    "official_name": "上アメダス",
-    "pref": "熊本県",
-    "city": "球磨郡あさぎり町"
-  },
-  "87231": {
-    "value": 0.4,
-    "rank": 38,
-    "station_name": "西米良",
-    "official_name": "西米良アメダス",
-    "pref": "宮崎県",
-    "city": "児湯郡西米良村"
   },
   "87376": {
     "value": 0.4,
@@ -367,6 +335,38 @@
     "pref": "宮崎県",
     "city": "都城市"
   },
+  "83341": {
+    "value": 0.4,
+    "rank": 38,
+    "station_name": "犬飼",
+    "official_name": "犬飼アメダス",
+    "pref": "大分県",
+    "city": "豊後大野市"
+  },
+  "86477": {
+    "value": 0.4,
+    "rank": 38,
+    "station_name": "上",
+    "official_name": "上アメダス",
+    "pref": "熊本県",
+    "city": "球磨郡あさぎり町"
+  },
+  "83137": {
+    "value": 0.4,
+    "rank": 38,
+    "station_name": "日田",
+    "official_name": "日田特別地域気象観測所",
+    "pref": "大分県",
+    "city": "日田市"
+  },
+  "87231": {
+    "value": 0.4,
+    "rank": 38,
+    "station_name": "西米良",
+    "official_name": "西米良アメダス",
+    "pref": "宮崎県",
+    "city": "児湯郡西米良村"
+  },
   "88406": {
     "value": 0.4,
     "rank": 38,
@@ -374,14 +374,6 @@
     "official_name": "志布志アメダス",
     "pref": "鹿児島県",
     "city": "志布志市"
-  },
-  "40221": {
-    "value": 0.3,
-    "rank": 48,
-    "station_name": "古河",
-    "official_name": "古河アメダス",
-    "pref": "茨城県",
-    "city": "古河市"
   },
   "41376": {
     "value": 0.3,
@@ -391,61 +383,37 @@
     "pref": "栃木県",
     "city": "小山市"
   },
-  "42286": {
+  "87352": {
     "value": 0.3,
     "rank": 48,
-    "station_name": "上里見",
-    "official_name": "上里見アメダス",
-    "pref": "群馬県",
-    "city": "高崎市"
+    "station_name": "小林",
+    "official_name": "小林アメダス",
+    "pref": "宮崎県",
+    "city": "小林市"
   },
-  "42302": {
+  "88447": {
     "value": 0.3,
     "rank": 48,
-    "station_name": "伊勢崎",
-    "official_name": "伊勢崎アメダス",
-    "pref": "群馬県",
-    "city": "伊勢崎市"
+    "station_name": "肝付前田",
+    "official_name": "肝付前田アメダス",
+    "pref": "鹿児島県",
+    "city": "肝属郡肝付町"
   },
-  "43126": {
+  "88432": {
     "value": 0.3,
     "rank": 48,
-    "station_name": "久喜",
-    "official_name": "久喜アメダス",
-    "pref": "埼玉県",
-    "city": "久喜市"
+    "station_name": "喜入",
+    "official_name": "喜入アメダス",
+    "pref": "鹿児島県",
+    "city": "鹿児島市"
   },
-  "43171": {
+  "88506": {
     "value": 0.3,
     "rank": 48,
-    "station_name": "鳩山",
-    "official_name": "鳩山アメダス",
-    "pref": "埼玉県",
-    "city": "比企郡鳩山町"
-  },
-  "49142": {
-    "value": 0.3,
-    "rank": 48,
-    "station_name": "甲府",
-    "official_name": "甲府地方気象台",
-    "pref": "山梨県",
-    "city": "甲府市"
-  },
-  "49151": {
-    "value": 0.3,
-    "rank": 48,
-    "station_name": "勝沼",
-    "official_name": "勝沼アメダス",
-    "pref": "山梨県",
-    "city": "甲州市"
-  },
-  "74381": {
-    "value": 0.3,
-    "rank": 48,
-    "station_name": "江川崎",
-    "official_name": "江川崎アメダス",
-    "pref": "高知県",
-    "city": "四万十市"
+    "station_name": "内之浦",
+    "official_name": "内之浦アメダス",
+    "pref": "鹿児島県",
+    "city": "肝属郡肝付町"
   },
   "86467": {
     "value": 0.3,
@@ -463,37 +431,69 @@
     "pref": "宮崎県",
     "city": "日向市"
   },
-  "87352": {
+  "42286": {
     "value": 0.3,
     "rank": 48,
-    "station_name": "小林",
-    "official_name": "小林アメダス",
-    "pref": "宮崎県",
-    "city": "小林市"
+    "station_name": "上里見",
+    "official_name": "上里見アメダス",
+    "pref": "群馬県",
+    "city": "高崎市"
   },
-  "88432": {
+  "40221": {
     "value": 0.3,
     "rank": 48,
-    "station_name": "喜入",
-    "official_name": "喜入アメダス",
-    "pref": "鹿児島県",
-    "city": "鹿児島市"
+    "station_name": "古河",
+    "official_name": "古河アメダス",
+    "pref": "茨城県",
+    "city": "古河市"
   },
-  "88447": {
+  "43171": {
     "value": 0.3,
     "rank": 48,
-    "station_name": "肝付前田",
-    "official_name": "肝付前田アメダス",
-    "pref": "鹿児島県",
-    "city": "肝属郡肝付町"
+    "station_name": "鳩山",
+    "official_name": "鳩山アメダス",
+    "pref": "埼玉県",
+    "city": "比企郡鳩山町"
   },
-  "88506": {
+  "49142": {
     "value": 0.3,
     "rank": 48,
-    "station_name": "内之浦",
-    "official_name": "内之浦アメダス",
-    "pref": "鹿児島県",
-    "city": "肝属郡肝付町"
+    "station_name": "甲府",
+    "official_name": "甲府地方気象台",
+    "pref": "山梨県",
+    "city": "甲府市"
+  },
+  "42302": {
+    "value": 0.3,
+    "rank": 48,
+    "station_name": "伊勢崎",
+    "official_name": "伊勢崎アメダス",
+    "pref": "群馬県",
+    "city": "伊勢崎市"
+  },
+  "43126": {
+    "value": 0.3,
+    "rank": 48,
+    "station_name": "久喜",
+    "official_name": "久喜アメダス",
+    "pref": "埼玉県",
+    "city": "久喜市"
+  },
+  "49151": {
+    "value": 0.3,
+    "rank": 48,
+    "station_name": "勝沼",
+    "official_name": "勝沼アメダス",
+    "pref": "山梨県",
+    "city": "甲州市"
+  },
+  "74381": {
+    "value": 0.3,
+    "rank": 48,
+    "station_name": "江川崎",
+    "official_name": "江川崎アメダス",
+    "pref": "高知県",
+    "city": "四万十市"
   },
   "91181": {
     "value": 0.3,
@@ -503,14 +503,6 @@
     "pref": "沖縄県",
     "city": "島尻郡渡嘉敷村"
   },
-  "40231": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "下館",
-    "official_name": "下館アメダス",
-    "pref": "茨城県",
-    "city": "筑西市"
-  },
   "41361": {
     "value": 0.2,
     "rank": 64,
@@ -518,46 +510,6 @@
     "official_name": "佐野アメダス",
     "pref": "栃木県",
     "city": "佐野市"
-  },
-  "42251": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "前橋",
-    "official_name": "前橋地方気象台",
-    "pref": "群馬県",
-    "city": "前橋市"
-  },
-  "42266": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "桐生",
-    "official_name": "桐生アメダス",
-    "pref": "群馬県",
-    "city": "桐生市"
-  },
-  "43051": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "寄居",
-    "official_name": "寄居アメダス",
-    "pref": "埼玉県",
-    "city": "大里郡寄居町"
-  },
-  "43156": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "秩父",
-    "official_name": "秩父特別地域気象観測所",
-    "pref": "埼玉県",
-    "city": "秩父市"
-  },
-  "43256": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "越谷",
-    "official_name": "越谷アメダス",
-    "pref": "埼玉県",
-    "city": "越谷市"
   },
   "43266": {
     "value": 0.2,
@@ -567,13 +519,21 @@
     "pref": "埼玉県",
     "city": "所沢市"
   },
-  "44112": {
+  "43156": {
     "value": 0.2,
     "rank": 64,
-    "station_name": "八王子",
-    "official_name": "八王子アメダス",
-    "pref": "東京都",
-    "city": "八王子市"
+    "station_name": "秩父",
+    "official_name": "秩父特別地域気象観測所",
+    "pref": "埼玉県",
+    "city": "秩父市"
+  },
+  "43051": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "寄居",
+    "official_name": "寄居アメダス",
+    "pref": "埼玉県",
+    "city": "大里郡寄居町"
   },
   "44116": {
     "value": 0.2,
@@ -582,78 +542,6 @@
     "official_name": "府中アメダス",
     "pref": "東京都",
     "city": "府中市"
-  },
-  "55102": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "富山",
-    "official_name": "富山地方気象台",
-    "pref": "富山県",
-    "city": "富山市"
-  },
-  "68462": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "益田",
-    "official_name": "益田アメダス",
-    "pref": "島根県",
-    "city": "益田市"
-  },
-  "71087": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "穴吹",
-    "official_name": "穴吹アメダス",
-    "pref": "徳島県",
-    "city": "美馬市"
-  },
-  "74456": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "中村",
-    "official_name": "中村アメダス",
-    "pref": "高知県",
-    "city": "四万十市"
-  },
-  "83106": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "院内",
-    "official_name": "院内アメダス",
-    "pref": "大分県",
-    "city": "宇佐市"
-  },
-  "83216": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "大分",
-    "official_name": "大分地方気象台",
-    "pref": "大分県",
-    "city": "大分市"
-  },
-  "86006": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "鹿北",
-    "official_name": "鹿北アメダス",
-    "pref": "熊本県",
-    "city": "山鹿市"
-  },
-  "86146": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "益城",
-    "official_name": "熊本航空気象観測所",
-    "pref": "熊本県",
-    "city": "上益城郡益城町"
-  },
-  "86236": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "甲佐",
-    "official_name": "甲佐アメダス",
-    "pref": "熊本県",
-    "city": "上益城郡甲佐町"
   },
   "87041": {
     "value": 0.2,
@@ -671,29 +559,13 @@
     "pref": "宮崎県",
     "city": "延岡市"
   },
-  "88081": {
+  "88706": {
     "value": 0.2,
     "rank": 64,
-    "station_name": "大口",
-    "official_name": "大口アメダス",
+    "station_name": "尾之間",
+    "official_name": "尾之間アメダス",
     "pref": "鹿児島県",
-    "city": "伊佐市"
-  },
-  "88107": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "さつま柏原",
-    "official_name": "さつま柏原アメダス",
-    "pref": "鹿児島県",
-    "city": "薩摩郡さつま町"
-  },
-  "88317": {
-    "value": 0.2,
-    "rank": 64,
-    "station_name": "鹿児島",
-    "official_name": "鹿児島地方気象台",
-    "pref": "鹿児島県",
-    "city": "鹿児島市"
+    "city": "熊毛郡屋久島町"
   },
   "88486": {
     "value": 0.2,
@@ -703,13 +575,173 @@
     "pref": "鹿児島県",
     "city": "指宿市"
   },
-  "88706": {
+  "88081": {
     "value": 0.2,
     "rank": 64,
-    "station_name": "尾之間",
-    "official_name": "尾之間アメダス",
+    "station_name": "大口",
+    "official_name": "大口アメダス",
     "pref": "鹿児島県",
-    "city": "熊毛郡屋久島町"
+    "city": "伊佐市"
+  },
+  "88317": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "鹿児島",
+    "official_name": "鹿児島地方気象台",
+    "pref": "鹿児島県",
+    "city": "鹿児島市"
+  },
+  "88107": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "さつま柏原",
+    "official_name": "さつま柏原アメダス",
+    "pref": "鹿児島県",
+    "city": "薩摩郡さつま町"
+  },
+  "86006": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "鹿北",
+    "official_name": "鹿北アメダス",
+    "pref": "熊本県",
+    "city": "山鹿市"
+  },
+  "86236": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "甲佐",
+    "official_name": "甲佐アメダス",
+    "pref": "熊本県",
+    "city": "上益城郡甲佐町"
+  },
+  "86146": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "益城",
+    "official_name": "熊本航空気象観測所",
+    "pref": "熊本県",
+    "city": "上益城郡益城町"
+  },
+  "83216": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "大分",
+    "official_name": "大分地方気象台",
+    "pref": "大分県",
+    "city": "大分市"
+  },
+  "42266": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "桐生",
+    "official_name": "桐生アメダス",
+    "pref": "群馬県",
+    "city": "桐生市"
+  },
+  "68462": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "益田",
+    "official_name": "益田アメダス",
+    "pref": "島根県",
+    "city": "益田市"
+  },
+  "71087": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "穴吹",
+    "official_name": "穴吹アメダス",
+    "pref": "徳島県",
+    "city": "美馬市"
+  },
+  "83106": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "院内",
+    "official_name": "院内アメダス",
+    "pref": "大分県",
+    "city": "宇佐市"
+  },
+  "74456": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "中村",
+    "official_name": "中村アメダス",
+    "pref": "高知県",
+    "city": "四万十市"
+  },
+  "42251": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "前橋",
+    "official_name": "前橋地方気象台",
+    "pref": "群馬県",
+    "city": "前橋市"
+  },
+  "43256": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "越谷",
+    "official_name": "越谷アメダス",
+    "pref": "埼玉県",
+    "city": "越谷市"
+  },
+  "44112": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "八王子",
+    "official_name": "八王子アメダス",
+    "pref": "東京都",
+    "city": "八王子市"
+  },
+  "40231": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "下館",
+    "official_name": "下館アメダス",
+    "pref": "茨城県",
+    "city": "筑西市"
+  },
+  "55102": {
+    "value": 0.2,
+    "rank": 64,
+    "station_name": "富山",
+    "official_name": "富山地方気象台",
+    "pref": "富山県",
+    "city": "富山市"
+  },
+  "53091": {
+    "value": 0.1,
+    "rank": 90,
+    "station_name": "亀山",
+    "official_name": "亀山アメダス",
+    "pref": "三重県",
+    "city": "亀山市"
+  },
+  "52606": {
+    "value": 0.1,
+    "rank": 90,
+    "station_name": "多治見",
+    "official_name": "多治見アメダス",
+    "pref": "岐阜県",
+    "city": "多治見市"
+  },
+  "52586": {
+    "value": 0.1,
+    "rank": 90,
+    "station_name": "岐阜",
+    "official_name": "岐阜地方気象台",
+    "pref": "岐阜県",
+    "city": "岐阜市"
+  },
+  "53231": {
+    "value": 0.1,
+    "rank": 90,
+    "station_name": "粥見",
+    "official_name": "粥見アメダス",
+    "pref": "三重県",
+    "city": "松阪市"
   },
   "40061": {
     "value": 0.1,
@@ -727,54 +759,6 @@
     "pref": "茨城県",
     "city": "常陸大宮市"
   },
-  "40191": {
-    "value": 0.1,
-    "rank": 90,
-    "station_name": "笠間",
-    "official_name": "笠間アメダス",
-    "pref": "茨城県",
-    "city": "笠間市"
-  },
-  "40201": {
-    "value": 0.1,
-    "rank": 90,
-    "station_name": "水戸",
-    "official_name": "水戸地方気象台",
-    "pref": "茨城県",
-    "city": "水戸市"
-  },
-  "40281": {
-    "value": 0.1,
-    "rank": 90,
-    "station_name": "下妻",
-    "official_name": "下妻アメダス",
-    "pref": "茨城県",
-    "city": "下妻市"
-  },
-  "40336": {
-    "value": 0.1,
-    "rank": 90,
-    "station_name": "つくば",
-    "official_name": "高層気象台",
-    "pref": "茨城県",
-    "city": "つくば市"
-  },
-  "40341": {
-    "value": 0.1,
-    "rank": 90,
-    "station_name": "土浦",
-    "official_name": "土浦アメダス",
-    "pref": "茨城県",
-    "city": "土浦市"
-  },
-  "41247": {
-    "value": 0.1,
-    "rank": 90,
-    "station_name": "那須烏山",
-    "official_name": "那須烏山アメダス",
-    "pref": "栃木県",
-    "city": "那須烏山市"
-  },
   "41271": {
     "value": 0.1,
     "rank": 90,
@@ -783,20 +767,36 @@
     "pref": "栃木県",
     "city": "鹿沼市"
   },
-  "41277": {
+  "44056": {
     "value": 0.1,
     "rank": 90,
-    "station_name": "宇都宮",
-    "official_name": "宇都宮地方気象台",
-    "pref": "栃木県",
-    "city": "宇都宮市"
+    "station_name": "青梅",
+    "official_name": "青梅アメダス",
+    "pref": "東京都",
+    "city": "青梅市"
   },
-  "41331": {
+  "43241": {
     "value": 0.1,
     "rank": 90,
-    "station_name": "真岡",
-    "official_name": "真岡アメダス",
-    "pref": "栃木県",
-    "city": "真岡市"
+    "station_name": "さいたま",
+    "official_name": "さいたまアメダス",
+    "pref": "埼玉県",
+    "city": "さいたま市"
+  },
+  "42326": {
+    "value": 0.1,
+    "rank": 90,
+    "station_name": "西野牧",
+    "official_name": "西野牧アメダス",
+    "pref": "群馬県",
+    "city": "甘楽郡下仁田町"
+  },
+  "40341": {
+    "value": 0.1,
+    "rank": 90,
+    "station_name": "土浦",
+    "official_name": "土浦アメダス",
+    "pref": "茨城県",
+    "city": "土浦市"
   }
 }

@@ -1,0 +1,119 @@
+{
+  "number": "44216",
+  "station_name": "神津島",
+  "kana_name": "ｺｳﾂﾞｼﾏ",
+  "lon": 34.188,
+  "lat": 139.133,
+  "height": 138,
+  "official_name": "神津島航空気象観測所",
+  "pref": "東京都",
+  "city": "神津島村",
+  "data": {
+    "av_avtemp": {
+      "value": 17.2,
+      "rank": 73
+    },
+    "av_hitemp": {
+      "value": 19.4,
+      "rank": 378
+    },
+    "av_lwtemp": {
+      "value": 15.1,
+      "rank": 46
+    },
+    "av_wind": {
+      "value": 5.8,
+      "rank": 12
+    },
+    "sm_rain": {
+      "value": 2271.3,
+      "rank": 245
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      8.5,
+      9.1,
+      11.4,
+      15.0,
+      18.6,
+      21.2,
+      24.6,
+      26.3,
+      24.1,
+      20.0,
+      16.1,
+      11.2
+    ],
+    "av_hitemp": [
+      10.6,
+      11.4,
+      13.9,
+      17.4,
+      20.9,
+      23.3,
+      26.8,
+      28.6,
+      26.3,
+      22.1,
+      18.2,
+      13.4
+    ],
+    "av_lwtemp": [
+      6.3,
+      6.6,
+      8.7,
+      12.6,
+      16.4,
+      19.5,
+      23.0,
+      24.5,
+      22.2,
+      18.1,
+      13.9,
+      9.0
+    ],
+    "sm_rain": [
+      98.5,
+      128.0,
+      198.8,
+      170.5,
+      183.4,
+      262.8,
+      189.4,
+      197.1,
+      208.1,
+      334.0,
+      174.4,
+      126.3
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

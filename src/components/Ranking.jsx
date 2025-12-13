@@ -60,19 +60,23 @@ export default function Ranking({
     ),
   };
 
-  // --- fetch 関数（ユーザー操作でのみ呼ぶ） ---
+  // --- metric disabled 判定を統一 ---
+  const isMetricDisabled = (metricKey) =>
+    (rankType === "island" &&
+      (!metricKey.includes("temp") ||
+        ["lwtemp_0", "hitemp_0"].some((k) => metricKey.includes(k)))) ||
+    (rankType === "bot" &&
+      (/\d/.test(metricKey) || metricKey === "sm_snowing"));
+
+  // --- fetch ---
   const fetchStations = ({ typeParam, rankParam, detailParam, monthParam }) => {
-    console.log(
-      `/ranking/${typeParam}/${rankParam}/${detailParam}/${monthParam}.json`
-    );
-    fetch(
-      rankParam === "bot" ||
-        rankParam === "top" ||
-        rankParam === "island" ||
-        rankParam === "meteo"
-        ? `/ranking/${typeParam}/${rankParam}/${monthParam}.json`
-        : `/ranking/${typeParam}/${rankParam}/${detailParam}/${monthParam}.json`
-    )
+    const simpleRanks = ["bot", "top", "island", "meteo"];
+    const url = simpleRanks.includes(rankParam)
+      ? `/ranking/${typeParam}/${rankParam}/${monthParam}.json`
+      : `/ranking/${typeParam}/${rankParam}/${detailParam}/${monthParam}.json`;
+
+    console.log(url);
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         const stationList = Object.entries(data).map(([id, d]) => ({
@@ -94,9 +98,9 @@ export default function Ranking({
     return stations
       .filter((s) => s.value != null)
       .sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity));
-  }, [stations, sortKey, rankType, selectedRegion, selectedPref]);
+  }, [stations]);
 
-  // --- display切替のみ & fetch ---
+  // --- display切替 & fetch ---
   const changeDisplay = ({
     newSortKey,
     newRankType,
@@ -112,7 +116,6 @@ export default function Ranking({
     if (newPref) setSelectedPref(newPref);
     if (newMetric !== undefined) setSelectedMetric(newMetric);
 
-    // fetch はユーザー操作でのみ
     fetchStations({
       typeParam: newSortKey || sortKey,
       rankParam: newRankType || rankType,
@@ -132,28 +135,25 @@ export default function Ranking({
       <div className="flex gap-2 mb-2 flex-wrap">
         {metrics
           .filter((m) => mainKeys.includes(m.key))
-          .map(({ key, label }) => {
-            const isDisabled = rankType === "island" && !key.includes("temp");
-            return (
-              <button
-                key={key}
-                disabled={isDisabled}
-                className={`px-3 py-1 rounded ${
-                  isDisabled
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                    : sortKey === key
-                    ? "bg-orange-400 text-white"
-                    : "bg-gray-200 hover:bg-orange-100"
-                }`}
-                onClick={() =>
-                  !isDisabled &&
-                  changeDisplay({ newSortKey: key, newMetric: null })
-                }
-              >
-                {label}
-              </button>
-            );
-          })}
+          .map(({ key, label }) => (
+            <button
+              key={key}
+              disabled={isMetricDisabled(key)}
+              className={`px-3 py-1 rounded ${
+                isMetricDisabled(key)
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : sortKey === key
+                  ? "bg-orange-400 text-white"
+                  : "bg-gray-200 hover:bg-orange-100"
+              }`}
+              onClick={() =>
+                !isMetricDisabled(key) &&
+                changeDisplay({ newSortKey: key, newMetric: null })
+              }
+            >
+              {label}
+            </button>
+          ))}
         <div className="relative">
           <button
             className={`px-3 py-1 rounded ${
@@ -183,28 +183,24 @@ export default function Ranking({
                           {category}
                         </div>
                         <div className="flex flex-wrap gap-1">
-                          {items.map((m) => {
-                            const isDisabled =
-                              rankType === "island" && !m.key.includes("temp");
-                            return (
-                              <button
-                                key={m.key}
-                                disabled={isDisabled}
-                                onClick={() =>
-                                  !isDisabled && setSelectedMetric(m)
-                                }
-                                className={`px-2 py-1 text-sm rounded ${
-                                  isDisabled
-                                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                    : selectedMetric?.key === m.key
-                                    ? "bg-orange-400 text-white"
-                                    : "bg-gray-100 hover:bg-orange-100"
-                                }`}
-                              >
-                                {m.label}
-                              </button>
-                            );
-                          })}
+                          {items.map((m) => (
+                            <button
+                              key={m.key}
+                              disabled={isMetricDisabled(m.key)}
+                              onClick={() =>
+                                !isMetricDisabled(m.key) && setSelectedMetric(m)
+                              }
+                              className={`px-2 py-1 text-sm rounded ${
+                                isMetricDisabled(m.key)
+                                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                                  : selectedMetric?.key === m.key
+                                  ? "bg-orange-400 text-white"
+                                  : "bg-gray-100 hover:bg-orange-100"
+                              }`}
+                            >
+                              {m.label}
+                            </button>
+                          ))}
                         </div>
                       </div>
                     )
@@ -213,9 +209,7 @@ export default function Ranking({
                 <div className="mt-3 flex justify-end gap-2">
                   <button
                     className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
-                    onClick={() => {
-                      setShowPopup(false);
-                    }}
+                    onClick={() => setShowPopup(false)}
                   >
                     キャンセル
                   </button>
@@ -249,20 +243,28 @@ export default function Ranking({
           { key: "pre", label: "県別" },
           { key: "meteo", label: "気象台のみ" },
         ].map(({ key, label }) => {
-          const isDisabled = key === "island" && !sortKey.includes("temp");
+          // ボタン押下後の rankType に応じて無効化判定
+          const disabled =
+            (key === "bot" || key === "island") &&
+            ((key === "island" &&
+              (!sortKey.includes("temp") ||
+                ["lwtemp_0", "hitemp_0"].some((k) => sortKey.includes(k)))) ||
+              (key === "bot" &&
+                (/\d/.test(sortKey) || sortKey === "sm_snowing")));
+
           return (
             <button
               key={key}
-              disabled={isDisabled}
+              disabled={disabled}
               className={`px-2 py-1 rounded text-sm ${
-                isDisabled
+                disabled
                   ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                   : rankType === key
                   ? "bg-green-400 text-white"
                   : "bg-gray-200 hover:bg-green-200"
               }`}
               onClick={() =>
-                !isDisabled &&
+                !disabled &&
                 changeDisplay({
                   newRankType: key,
                   newRegion: key === "region" ? "kanto" : undefined,
@@ -332,6 +334,8 @@ export default function Ranking({
         const rank = s.rank ?? "--";
         const icon = getIcon(s.official_name || "");
         const regioncolor = getFullRegionColor(s.pref || "");
+
+        // 単位判定（元に戻す）
         const isTemp = sortKey.endsWith("temp");
         const unit = isTemp
           ? "℃"

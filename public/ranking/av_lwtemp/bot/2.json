@@ -103,14 +103,6 @@
     "pref": "北海道",
     "city": "枝幸郡枝幸町"
   },
-  "12231": {
-    "value": -15.8,
-    "rank": 14,
-    "station_name": "下川",
-    "official_name": "下川アメダス",
-    "pref": "北海道",
-    "city": "上川郡下川町"
-  },
   "15041": {
     "value": -15.8,
     "rank": 14,
@@ -118,6 +110,14 @@
     "official_name": "朱鞠内アメダス",
     "pref": "北海道",
     "city": "雨竜郡幌加内町"
+  },
+  "12231": {
+    "value": -15.8,
+    "rank": 14,
+    "station_name": "下川",
+    "official_name": "下川アメダス",
+    "pref": "北海道",
+    "city": "上川郡下川町"
   },
   "17607": {
     "value": -15.7,
@@ -159,21 +159,13 @@
     "pref": "北海道",
     "city": "網走郡津別町"
   },
-  "17196": {
+  "20276": {
     "value": -15.2,
     "rank": 21,
-    "station_name": "滝上",
-    "official_name": "滝上アメダス",
+    "station_name": "足寄",
+    "official_name": "足寄アメダス",
     "pref": "北海道",
-    "city": "紋別郡滝上町"
-  },
-  "17306": {
-    "value": -15.2,
-    "rank": 21,
-    "station_name": "遠軽",
-    "official_name": "遠軽アメダス",
-    "pref": "北海道",
-    "city": "紋別郡遠軽町"
+    "city": "足寄郡足寄町"
   },
   "17596": {
     "value": -15.2,
@@ -191,21 +183,13 @@
     "pref": "北海道",
     "city": "釧路市"
   },
-  "20276": {
+  "17196": {
     "value": -15.2,
     "rank": 21,
-    "station_name": "足寄",
-    "official_name": "足寄アメダス",
+    "station_name": "滝上",
+    "official_name": "滝上アメダス",
     "pref": "北海道",
-    "city": "足寄郡足寄町"
-  },
-  "20371": {
-    "value": -15.2,
-    "rank": 21,
-    "station_name": "駒場",
-    "official_name": "駒場アメダス",
-    "pref": "北海道",
-    "city": "河東郡音更町"
+    "city": "紋別郡滝上町"
   },
   "20601": {
     "value": -15.2,
@@ -215,6 +199,22 @@
     "pref": "北海道",
     "city": "河西郡中札内村"
   },
+  "20371": {
+    "value": -15.2,
+    "rank": 21,
+    "station_name": "駒場",
+    "official_name": "駒場アメダス",
+    "pref": "北海道",
+    "city": "河東郡音更町"
+  },
+  "17306": {
+    "value": -15.2,
+    "rank": 21,
+    "station_name": "遠軽",
+    "official_name": "遠軽アメダス",
+    "pref": "北海道",
+    "city": "紋別郡遠軽町"
+  },
   "17631": {
     "value": -15.1,
     "rank": 28,
@@ -223,14 +223,6 @@
     "pref": "北海道",
     "city": "網走郡美幌町"
   },
-  "12141": {
-    "value": -15.0,
-    "rank": 29,
-    "station_name": "美深",
-    "official_name": "美深アメダス",
-    "pref": "北海道",
-    "city": "中川郡美深町"
-  },
   "20606": {
     "value": -15.0,
     "rank": 29,
@@ -238,6 +230,14 @@
     "official_name": "更別アメダス",
     "pref": "北海道",
     "city": "河西郡更別村"
+  },
+  "12141": {
+    "value": -15.0,
+    "rank": 29,
+    "station_name": "美深",
+    "official_name": "美深アメダス",
+    "pref": "北海道",
+    "city": "中川郡美深町"
   },
   "12181": {
     "value": -14.9,
@@ -255,13 +255,13 @@
     "pref": "北海道",
     "city": "中川郡本別町"
   },
-  "12551": {
+  "19151": {
     "value": -14.7,
     "rank": 33,
-    "station_name": "美瑛",
-    "official_name": "美瑛アメダス",
+    "station_name": "標茶",
+    "official_name": "標茶アメダス",
     "pref": "北海道",
-    "city": "上川郡美瑛町"
+    "city": "川上郡標茶町"
   },
   "18174": {
     "value": -14.7,
@@ -271,13 +271,21 @@
     "pref": "北海道",
     "city": "標津郡中標津町"
   },
-  "19151": {
+  "12551": {
     "value": -14.7,
     "rank": 33,
-    "station_name": "標茶",
-    "official_name": "標茶アメダス",
+    "station_name": "美瑛",
+    "official_name": "美瑛アメダス",
     "pref": "北海道",
-    "city": "川上郡標茶町"
+    "city": "上川郡美瑛町"
+  },
+  "15076": {
+    "value": -14.5,
+    "rank": 36,
+    "station_name": "幌加内",
+    "official_name": "幌加内アメダス",
+    "pref": "北海道",
+    "city": "雨竜郡幌加内町"
   },
   "12041": {
     "value": -14.5,
@@ -294,14 +302,6 @@
     "official_name": "麓郷アメダス",
     "pref": "北海道",
     "city": "富良野市"
-  },
-  "15076": {
-    "value": -14.5,
-    "rank": 36,
-    "station_name": "幌加内",
-    "official_name": "幌加内アメダス",
-    "pref": "北海道",
-    "city": "雨竜郡幌加内町"
   },
   "12691": {
     "value": -14.4,
@@ -327,14 +327,6 @@
     "pref": "北海道",
     "city": "網走郡大空町"
   },
-  "12261": {
-    "value": -14.2,
-    "rank": 42,
-    "station_name": "士別",
-    "official_name": "士別アメダス",
-    "pref": "北海道",
-    "city": "士別市"
-  },
   "17091": {
     "value": -14.2,
     "rank": 42,
@@ -343,13 +335,13 @@
     "pref": "北海道",
     "city": "紋別郡西興部村"
   },
-  "12011": {
-    "value": -14.1,
-    "rank": 44,
-    "station_name": "中川",
-    "official_name": "中川アメダス",
+  "12261": {
+    "value": -14.2,
+    "rank": 42,
+    "station_name": "士別",
+    "official_name": "士別アメダス",
     "pref": "北海道",
-    "city": "中川郡中川町"
+    "city": "士別市"
   },
   "12301": {
     "value": -14.1,
@@ -359,13 +351,21 @@
     "pref": "北海道",
     "city": "上川郡和寒町"
   },
-  "12626": {
+  "12011": {
+    "value": -14.1,
+    "rank": 44,
+    "station_name": "中川",
+    "official_name": "中川アメダス",
+    "pref": "北海道",
+    "city": "中川郡中川町"
+  },
+  "22156": {
     "value": -14.0,
     "rank": 46,
-    "station_name": "富良野",
-    "official_name": "富良野アメダス",
+    "station_name": "新和",
+    "official_name": "新和アメダス",
     "pref": "北海道",
-    "city": "富良野市"
+    "city": "新冠郡新冠町"
   },
   "16286": {
     "value": -14.0,
@@ -383,13 +383,13 @@
     "pref": "北海道",
     "city": "北見市"
   },
-  "22156": {
+  "12626": {
     "value": -14.0,
     "rank": 46,
-    "station_name": "新和",
-    "official_name": "新和アメダス",
+    "station_name": "富良野",
+    "official_name": "富良野アメダス",
     "pref": "北海道",
-    "city": "新冠郡新冠町"
+    "city": "富良野市"
   },
   "17561": {
     "value": -13.9,
@@ -398,14 +398,6 @@
     "official_name": "斜里アメダス",
     "pref": "北海道",
     "city": "斜里郡斜里町"
-  },
-  "12411": {
-    "value": -13.8,
-    "rank": 51,
-    "station_name": "上川",
-    "official_name": "上川アメダス",
-    "pref": "北海道",
-    "city": "上川郡上川町"
   },
   "18256": {
     "value": -13.8,
@@ -422,6 +414,14 @@
     "official_name": "鶴居アメダス",
     "pref": "北海道",
     "city": "阿寒郡鶴居村"
+  },
+  "12411": {
+    "value": -13.8,
+    "rank": 51,
+    "station_name": "上川",
+    "official_name": "上川アメダス",
+    "pref": "北海道",
+    "city": "上川郡上川町"
   },
   "17546": {
     "value": -13.7,
@@ -447,6 +447,14 @@
     "pref": "北海道",
     "city": "標津郡中標津町"
   },
+  "22036": {
+    "value": -13.4,
+    "rank": 57,
+    "station_name": "日高",
+    "official_name": "日高アメダス",
+    "pref": "北海道",
+    "city": "沙流郡日高町"
+  },
   "11121": {
     "value": -13.4,
     "rank": 57,
@@ -463,13 +471,13 @@
     "pref": "北海道",
     "city": "空知郡上富良野町"
   },
-  "22036": {
-    "value": -13.4,
-    "rank": 57,
-    "station_name": "日高",
-    "official_name": "日高アメダス",
+  "21111": {
+    "value": -13.3,
+    "rank": 60,
+    "station_name": "厚真",
+    "official_name": "厚真アメダス",
     "pref": "北海道",
-    "city": "沙流郡日高町"
+    "city": "勇払郡厚真町"
   },
   "12266": {
     "value": -13.3,
@@ -487,14 +495,6 @@
     "pref": "北海道",
     "city": "上川郡東神楽町"
   },
-  "21111": {
-    "value": -13.3,
-    "rank": 60,
-    "station_name": "厚真",
-    "official_name": "厚真アメダス",
-    "pref": "北海道",
-    "city": "勇払郡厚真町"
-  },
   "22306": {
     "value": -13.3,
     "rank": 60,
@@ -502,6 +502,22 @@
     "official_name": "中杵臼アメダス",
     "pref": "北海道",
     "city": "浦河郡浦河町"
+  },
+  "20631": {
+    "value": -13.2,
+    "rank": 64,
+    "station_name": "大津",
+    "official_name": "大津アメダス",
+    "pref": "北海道",
+    "city": "中川郡豊頃町"
+  },
+  "20266": {
+    "value": -13.2,
+    "rank": 64,
+    "station_name": "上士幌",
+    "official_name": "上士幌アメダス",
+    "pref": "北海道",
+    "city": "河東郡上士幌町"
   },
   "12396": {
     "value": -13.2,
@@ -519,22 +535,6 @@
     "pref": "北海道",
     "city": "上川郡東神楽町"
   },
-  "20266": {
-    "value": -13.2,
-    "rank": 64,
-    "station_name": "上士幌",
-    "official_name": "上士幌アメダス",
-    "pref": "北海道",
-    "city": "河東郡上士幌町"
-  },
-  "20631": {
-    "value": -13.2,
-    "rank": 64,
-    "station_name": "大津",
-    "official_name": "大津アメダス",
-    "pref": "北海道",
-    "city": "中川郡豊頃町"
-  },
   "17076": {
     "value": -13.1,
     "rank": 68,
@@ -542,14 +542,6 @@
     "official_name": "興部アメダス",
     "pref": "北海道",
     "city": "紋別郡興部町"
-  },
-  "15161": {
-    "value": -13.0,
-    "rank": 69,
-    "station_name": "深川",
-    "official_name": "深川アメダス",
-    "pref": "北海道",
-    "city": "深川市"
   },
   "19416": {
     "value": -13.0,
@@ -567,6 +559,14 @@
     "pref": "岩手県",
     "city": "盛岡市"
   },
+  "15161": {
+    "value": -13.0,
+    "rank": 69,
+    "station_name": "深川",
+    "official_name": "深川アメダス",
+    "pref": "北海道",
+    "city": "深川市"
+  },
   "12451": {
     "value": -12.8,
     "rank": 72,
@@ -575,14 +575,6 @@
     "pref": "北海道",
     "city": "上川郡東川町"
   },
-  "17166": {
-    "value": -12.7,
-    "rank": 73,
-    "station_name": "湧別",
-    "official_name": "湧別アメダス",
-    "pref": "北海道",
-    "city": "紋別郡湧別町"
-  },
   "19051": {
     "value": -12.7,
     "rank": 73,
@@ -590,6 +582,14 @@
     "official_name": "弟子屈アメダス",
     "pref": "北海道",
     "city": "川上郡弟子屈町"
+  },
+  "17166": {
+    "value": -12.7,
+    "rank": 73,
+    "station_name": "湧別",
+    "official_name": "湧別アメダス",
+    "pref": "北海道",
+    "city": "紋別郡湧別町"
   },
   "15116": {
     "value": -12.6,
@@ -607,13 +607,13 @@
     "pref": "長野県",
     "city": "上田市"
   },
-  "13321": {
+  "15231": {
     "value": -12.5,
     "rank": 77,
-    "station_name": "幌糠",
-    "official_name": "幌糠アメダス",
+    "station_name": "空知吉野",
+    "official_name": "空知吉野アメダス",
     "pref": "北海道",
-    "city": "留萌市"
+    "city": "樺戸郡新十津川町"
   },
   "14206": {
     "value": -12.5,
@@ -631,29 +631,13 @@
     "pref": "北海道",
     "city": "千歳市"
   },
-  "15231": {
+  "13321": {
     "value": -12.5,
     "rank": 77,
-    "station_name": "空知吉野",
-    "official_name": "空知吉野アメダス",
+    "station_name": "幌糠",
+    "official_name": "幌糠アメダス",
     "pref": "北海道",
-    "city": "樺戸郡新十津川町"
-  },
-  "17482": {
-    "value": -12.3,
-    "rank": 81,
-    "station_name": "白滝",
-    "official_name": "白滝アメダス",
-    "pref": "北海道",
-    "city": "紋別郡遠軽町"
-  },
-  "20506": {
-    "value": -12.3,
-    "rank": 81,
-    "station_name": "浦幌",
-    "official_name": "浦幌アメダス",
-    "pref": "北海道",
-    "city": "十勝郡浦幌町"
+    "city": "留萌市"
   },
   "21161": {
     "value": -12.3,
@@ -663,13 +647,21 @@
     "pref": "北海道",
     "city": "伊達市"
   },
-  "15321": {
-    "value": -12.1,
-    "rank": 84,
-    "station_name": "美唄",
-    "official_name": "美唄アメダス",
+  "20506": {
+    "value": -12.3,
+    "rank": 81,
+    "station_name": "浦幌",
+    "official_name": "浦幌アメダス",
     "pref": "北海道",
-    "city": "美唄市"
+    "city": "十勝郡浦幌町"
+  },
+  "17482": {
+    "value": -12.3,
+    "rank": 81,
+    "station_name": "白滝",
+    "official_name": "白滝アメダス",
+    "pref": "北海道",
+    "city": "紋別郡遠軽町"
   },
   "21276": {
     "value": -12.1,
@@ -679,13 +671,13 @@
     "pref": "北海道",
     "city": "勇払郡むかわ町"
   },
-  "13261": {
-    "value": -12.0,
-    "rank": 86,
-    "station_name": "達布",
-    "official_name": "達布アメダス",
+  "15321": {
+    "value": -12.1,
+    "rank": 84,
+    "station_name": "美唄",
+    "official_name": "美唄アメダス",
     "pref": "北海道",
-    "city": "留萌郡小平町"
+    "city": "美唄市"
   },
   "18161": {
     "value": -12.0,
@@ -694,6 +686,14 @@
     "official_name": "上標津アメダス",
     "pref": "北海道",
     "city": "標津郡中標津町"
+  },
+  "13261": {
+    "value": -12.0,
+    "rank": 86,
+    "station_name": "達布",
+    "official_name": "達布アメダス",
+    "pref": "北海道",
+    "city": "留萌郡小平町"
   },
   "20432": {
     "value": -12.0,
@@ -727,14 +727,6 @@
     "pref": "北海道",
     "city": "河東郡鹿追町"
   },
-  "17036": {
-    "value": -11.7,
-    "rank": 92,
-    "station_name": "雄武",
-    "official_name": "雄武特別地域気象観測所",
-    "pref": "北海道",
-    "city": "紋別郡雄武町"
-  },
   "19311": {
     "value": -11.7,
     "rank": 92,
@@ -742,6 +734,14 @@
     "official_name": "榊町アメダス",
     "pref": "北海道",
     "city": "厚岸郡浜中町"
+  },
+  "17036": {
+    "value": -11.7,
+    "rank": 92,
+    "station_name": "雄武",
+    "official_name": "雄武特別地域気象観測所",
+    "pref": "北海道",
+    "city": "紋別郡雄武町"
   },
   "14136": {
     "value": -11.5,

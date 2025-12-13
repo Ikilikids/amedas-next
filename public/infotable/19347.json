@@ -1,0 +1,119 @@
+{
+  "number": "19347",
+  "station_name": "鶴丘",
+  "kana_name": "ﾂﾙｵｶ",
+  "lon": 43.04,
+  "lat": 144.192,
+  "height": 95,
+  "official_name": "釧路航空気象観測所",
+  "pref": "北海道",
+  "city": "釧路市",
+  "data": {
+    "av_avtemp": {
+      "value": 6.4,
+      "rank": 816
+    },
+    "av_hitemp": {
+      "value": 10.8,
+      "rank": 852
+    },
+    "av_lwtemp": {
+      "value": 2.0,
+      "rank": 801
+    },
+    "av_wind": {
+      "value": 3.4,
+      "rank": 145
+    },
+    "sm_snowing": {
+      "value": 165,
+      "rank": 248
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      -5.5,
+      -5.0,
+      -0.8,
+      3.8,
+      8.9,
+      12.6,
+      16.3,
+      18.5,
+      16.0,
+      10.3,
+      4.0,
+      -2.5
+    ],
+    "av_hitemp": [
+      -1.1,
+      -0.8,
+      3.2,
+      8.7,
+      14.1,
+      17.0,
+      20.4,
+      22.5,
+      20.3,
+      15.1,
+      8.5,
+      1.8
+    ],
+    "av_lwtemp": [
+      -10.9,
+      -10.4,
+      -5.3,
+      -0.6,
+      4.6,
+      9.2,
+      13.3,
+      15.4,
+      12.1,
+      5.2,
+      -1.0,
+      -7.5
+    ],
+    "sm_rain": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_snowing": [
+      34,
+      34,
+      44,
+      12,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      5,
+      34
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

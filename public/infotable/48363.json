@@ -1,0 +1,119 @@
+{
+  "number": "48363",
+  "station_name": "松本今井",
+  "kana_name": "ﾏﾂﾓﾄｲﾏｲ",
+  "lon": 36.167,
+  "lat": 137.922,
+  "height": 658,
+  "official_name": "松本航空気象観測所",
+  "pref": "長野県",
+  "city": "松本市",
+  "data": {
+    "av_avtemp": {
+      "value": 11.5,
+      "rank": 567
+    },
+    "av_hitemp": {
+      "value": 17.5,
+      "rank": 515
+    },
+    "av_lwtemp": {
+      "value": 5.8,
+      "rank": 663
+    },
+    "av_wind": {
+      "value": 3.3,
+      "rank": 160
+    },
+    "sm_rain": {
+      "value": 1102.2,
+      "rank": 1112
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      -1.4,
+      0.0,
+      3.9,
+      9.8,
+      15.7,
+      19.6,
+      23.2,
+      24.3,
+      19.9,
+      13.4,
+      7.1,
+      1.7
+    ],
+    "av_hitemp": [
+      4.0,
+      5.9,
+      10.5,
+      16.9,
+      22.6,
+      25.7,
+      28.7,
+      30.5,
+      25.6,
+      19.0,
+      13.1,
+      7.2
+    ],
+    "av_lwtemp": [
+      -7.3,
+      -6.1,
+      -2.5,
+      2.7,
+      8.8,
+      14.2,
+      18.9,
+      19.6,
+      15.3,
+      8.2,
+      1.3,
+      -4.0
+    ],
+    "sm_rain": [
+      34.6,
+      41.2,
+      79.8,
+      90.6,
+      103.0,
+      113.9,
+      147.4,
+      98.3,
+      143.2,
+      151.0,
+      59.7,
+      39.6
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}

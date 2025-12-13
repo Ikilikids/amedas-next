@@ -47,14 +47,6 @@
     "pref": "北海道",
     "city": "稚内市"
   },
-  "24217": {
-    "value": 23.2,
-    "rank": 7,
-    "station_name": "江差",
-    "official_name": "江差特別地域気象観測所",
-    "pref": "北海道",
-    "city": "檜山郡江差町"
-  },
   "93012": {
     "value": 23.2,
     "rank": 7,
@@ -62,6 +54,14 @@
     "official_name": "下地島航空気象観測所",
     "pref": "沖縄県",
     "city": "宮古島市"
+  },
+  "24217": {
+    "value": 23.2,
+    "rank": 7,
+    "station_name": "江差",
+    "official_name": "江差特別地域気象観測所",
+    "pref": "北海道",
+    "city": "檜山郡江差町"
   },
   "44216": {
     "value": 22.6,
@@ -175,14 +175,6 @@
     "pref": "北海道",
     "city": "石狩市"
   },
-  "11091": {
-    "value": 17.3,
-    "rank": 23,
-    "station_name": "本泊",
-    "official_name": "利尻航空気象観測所",
-    "pref": "北海道",
-    "city": "利尻郡利尻富士町"
-  },
   "18273": {
     "value": 17.3,
     "rank": 23,
@@ -190,6 +182,14 @@
     "official_name": "根室特別地域気象観測所",
     "pref": "北海道",
     "city": "根室市"
+  },
+  "11091": {
+    "value": 17.3,
+    "rank": 23,
+    "station_name": "本泊",
+    "official_name": "利尻航空気象観測所",
+    "pref": "北海道",
+    "city": "利尻郡利尻富士町"
   },
   "50551": {
     "value": 16.9,
@@ -263,14 +263,6 @@
     "pref": "鹿児島県",
     "city": "熊毛郡屋久島町"
   },
-  "35052": {
-    "value": 14.6,
-    "rank": 34,
-    "station_name": "酒田",
-    "official_name": "酒田特別地域気象観測所",
-    "pref": "山形県",
-    "city": "酒田市"
-  },
   "44262": {
     "value": 14.6,
     "rank": 34,
@@ -279,13 +271,13 @@
     "pref": "東京都",
     "city": "八丈島八丈町"
   },
-  "50561": {
-    "value": 14.4,
-    "rank": 36,
-    "station_name": "石廊崎",
-    "official_name": "石廊崎特別地域気象観測所",
-    "pref": "静岡県",
-    "city": "賀茂郡南伊豆町"
+  "35052": {
+    "value": 14.6,
+    "rank": 34,
+    "station_name": "酒田",
+    "official_name": "酒田特別地域気象観測所",
+    "pref": "山形県",
+    "city": "酒田市"
   },
   "62101": {
     "value": 14.4,
@@ -295,13 +287,13 @@
     "pref": "大阪府",
     "city": "泉南郡田尻町"
   },
-  "23376": {
-    "value": 14.2,
-    "rank": 38,
-    "station_name": "松前",
-    "official_name": "松前アメダス",
-    "pref": "北海道",
-    "city": "松前郡松前町"
+  "50561": {
+    "value": 14.4,
+    "rank": 36,
+    "station_name": "石廊崎",
+    "official_name": "石廊崎特別地域気象観測所",
+    "pref": "静岡県",
+    "city": "賀茂郡南伊豆町"
   },
   "31602": {
     "value": 14.2,
@@ -310,6 +302,14 @@
     "official_name": "八戸特別地域気象観測所",
     "pref": "青森県",
     "city": "八戸市"
+  },
+  "23376": {
+    "value": 14.2,
+    "rank": 38,
+    "station_name": "松前",
+    "official_name": "松前アメダス",
+    "pref": "北海道",
+    "city": "松前郡松前町"
   },
   "68046": {
     "value": 14.1,
@@ -359,14 +359,6 @@
     "pref": "秋田県",
     "city": "秋田市"
   },
-  "32616": {
-    "value": 13.1,
-    "rank": 46,
-    "station_name": "にかほ",
-    "official_name": "にかほアメダス",
-    "pref": "秋田県",
-    "city": "にかほ市"
-  },
   "54041": {
     "value": 13.1,
     "rank": 46,
@@ -375,21 +367,13 @@
     "pref": "新潟県",
     "city": "佐渡市"
   },
-  "13311": {
-    "value": 12.7,
-    "rank": 48,
-    "station_name": "増毛",
-    "official_name": "増毛アメダス",
-    "pref": "北海道",
-    "city": "増毛郡増毛町"
-  },
-  "54387": {
-    "value": 12.7,
-    "rank": 48,
-    "station_name": "寺泊",
-    "official_name": "寺泊アメダス",
-    "pref": "新潟県",
-    "city": "長岡市"
+  "32616": {
+    "value": 13.1,
+    "rank": 46,
+    "station_name": "にかほ",
+    "official_name": "にかほアメダス",
+    "pref": "秋田県",
+    "city": "にかほ市"
   },
   "57248": {
     "value": 12.7,
@@ -406,6 +390,22 @@
     "official_name": "那覇航空測候所",
     "pref": "沖縄県",
     "city": "那覇市"
+  },
+  "13311": {
+    "value": 12.7,
+    "rank": 48,
+    "station_name": "増毛",
+    "official_name": "増毛アメダス",
+    "pref": "北海道",
+    "city": "増毛郡増毛町"
+  },
+  "54387": {
+    "value": 12.7,
+    "rank": 48,
+    "station_name": "寺泊",
+    "official_name": "寺泊アメダス",
+    "pref": "新潟県",
+    "city": "長岡市"
   },
   "68121": {
     "value": 12.6,
@@ -463,14 +463,6 @@
     "pref": "秋田県",
     "city": "秋田市"
   },
-  "44207": {
-    "value": 11.6,
-    "rank": 59,
-    "station_name": "新島",
-    "official_name": "新島航空気象観測所",
-    "pref": "東京都",
-    "city": "新島村"
-  },
   "73168": {
     "value": 11.6,
     "rank": 59,
@@ -478,6 +470,14 @@
     "official_name": "松山航空気象観測所",
     "pref": "愛媛県",
     "city": "松山市"
+  },
+  "44207": {
+    "value": 11.6,
+    "rank": 59,
+    "station_name": "新島",
+    "official_name": "新島航空気象観測所",
+    "pref": "東京都",
+    "city": "新島村"
   },
   "88621": {
     "value": 11.5,
@@ -495,14 +495,6 @@
     "pref": "北海道",
     "city": "久遠郡せたな町"
   },
-  "36667": {
-    "value": 11.4,
-    "rank": 62,
-    "station_name": "白河",
-    "official_name": "白河特別地域気象観測所",
-    "pref": "福島県",
-    "city": "白河市"
-  },
   "44263": {
     "value": 11.4,
     "rank": 62,
@@ -511,6 +503,14 @@
     "pref": "東京都",
     "city": "八丈島八丈町"
   },
+  "36667": {
+    "value": 11.4,
+    "rank": 62,
+    "station_name": "白河",
+    "official_name": "白河特別地域気象観測所",
+    "pref": "福島県",
+    "city": "白河市"
+  },
   "88986": {
     "value": 11.3,
     "rank": 65,
@@ -518,6 +518,14 @@
     "official_name": "与論航空気象観測所",
     "pref": "鹿児島県",
     "city": "大島郡与論町"
+  },
+  "16061": {
+    "value": 11.0,
+    "rank": 66,
+    "station_name": "神恵内",
+    "official_name": "神恵内アメダス",
+    "pref": "北海道",
+    "city": "古宇郡神恵内村"
   },
   "11076": {
     "value": 11.0,
@@ -535,14 +543,6 @@
     "pref": "北海道",
     "city": "苫前郡初山別村"
   },
-  "16061": {
-    "value": 11.0,
-    "rank": 66,
-    "station_name": "神恵内",
-    "official_name": "神恵内アメダス",
-    "pref": "北海道",
-    "city": "古宇郡神恵内村"
-  },
   "23281": {
     "value": 10.9,
     "rank": 69,
@@ -559,14 +559,6 @@
     "pref": "沖縄県",
     "city": "島尻郡北大東村"
   },
-  "13086": {
-    "value": 10.7,
-    "rank": 71,
-    "station_name": "遠別",
-    "official_name": "遠別アメダス",
-    "pref": "北海道",
-    "city": "天塩郡遠別町"
-  },
   "44356": {
     "value": 10.7,
     "rank": 71,
@@ -574,6 +566,14 @@
     "official_name": "南鳥島気象観測所",
     "pref": "東京都",
     "city": "小笠原村"
+  },
+  "13086": {
+    "value": 10.7,
+    "rank": 71,
+    "station_name": "遠別",
+    "official_name": "遠別アメダス",
+    "pref": "北海道",
+    "city": "天塩郡遠別町"
   },
   "16156": {
     "value": 10.5,
@@ -583,14 +583,6 @@
     "pref": "北海道",
     "city": "岩内郡共和町"
   },
-  "31332": {
-    "value": 10.5,
-    "rank": 73,
-    "station_name": "野辺地",
-    "official_name": "野辺地アメダス",
-    "pref": "青森県",
-    "city": "上北郡野辺地町"
-  },
   "35146": {
     "value": 10.5,
     "rank": 73,
@@ -598,6 +590,14 @@
     "official_name": "狩川アメダス",
     "pref": "山形県",
     "city": "東田川郡庄内町"
+  },
+  "31332": {
+    "value": 10.5,
+    "rank": 73,
+    "station_name": "野辺地",
+    "official_name": "野辺地アメダス",
+    "pref": "青森県",
+    "city": "上北郡野辺地町"
   },
   "65288": {
     "value": 10.5,
@@ -607,13 +607,13 @@
     "pref": "和歌山県",
     "city": "西牟婁郡白浜町"
   },
-  "44166": {
+  "91241": {
     "value": 10.4,
     "rank": 77,
-    "station_name": "羽田",
-    "official_name": "東京航空地方気象台",
-    "pref": "東京都",
-    "city": "大田区"
+    "station_name": "糸数",
+    "official_name": "糸数アメダス",
+    "pref": "沖縄県",
+    "city": "南城市"
   },
   "82068": {
     "value": 10.4,
@@ -623,13 +623,13 @@
     "pref": "福岡県",
     "city": "北九州市"
   },
-  "91241": {
+  "44166": {
     "value": 10.4,
     "rank": 77,
-    "station_name": "糸数",
-    "official_name": "糸数アメダス",
-    "pref": "沖縄県",
-    "city": "南城市"
+    "station_name": "羽田",
+    "official_name": "東京航空地方気象台",
+    "pref": "東京都",
+    "city": "大田区"
   },
   "34292": {
     "value": 10.3,
@@ -655,6 +655,22 @@
     "pref": "兵庫県",
     "city": "神戸市"
   },
+  "83061": {
+    "value": 10.2,
+    "rank": 83,
+    "station_name": "豊後高田",
+    "official_name": "豊後高田アメダス",
+    "pref": "大分県",
+    "city": "豊後高田市"
+  },
+  "91166": {
+    "value": 10.2,
+    "rank": 83,
+    "station_name": "宮城島",
+    "official_name": "宮城島アメダス",
+    "pref": "沖縄県",
+    "city": "うるま市"
+  },
   "31386": {
     "value": 10.2,
     "rank": 83,
@@ -679,21 +695,13 @@
     "pref": "島根県",
     "city": "益田市"
   },
-  "83061": {
-    "value": 10.2,
-    "rank": 83,
-    "station_name": "豊後高田",
-    "official_name": "豊後高田アメダス",
-    "pref": "大分県",
-    "city": "豊後高田市"
-  },
-  "91166": {
-    "value": 10.2,
-    "rank": 83,
-    "station_name": "宮城島",
-    "official_name": "宮城島アメダス",
-    "pref": "沖縄県",
-    "city": "うるま市"
+  "61001": {
+    "value": 10.1,
+    "rank": 88,
+    "station_name": "間人",
+    "official_name": "間人アメダス",
+    "pref": "京都府",
+    "city": "京丹後市"
   },
   "41166": {
     "value": 10.1,
@@ -703,13 +711,13 @@
     "pref": "栃木県",
     "city": "日光市"
   },
-  "61001": {
-    "value": 10.1,
-    "rank": 88,
-    "station_name": "間人",
-    "official_name": "間人アメダス",
-    "pref": "京都府",
-    "city": "京丹後市"
+  "44173": {
+    "value": 9.9,
+    "rank": 90,
+    "station_name": "大島北ノ山",
+    "official_name": "大島航空気象観測所",
+    "pref": "東京都",
+    "city": "大島町"
   },
   "11016": {
     "value": 9.9,
@@ -718,14 +726,6 @@
     "official_name": "稚内地方気象台",
     "pref": "北海道",
     "city": "稚内市"
-  },
-  "44173": {
-    "value": 9.9,
-    "rank": 90,
-    "station_name": "大島北ノ山",
-    "official_name": "大島航空気象観測所",
-    "pref": "東京都",
-    "city": "大島町"
   },
   "84371": {
     "value": 9.8,
@@ -767,6 +767,14 @@
     "pref": "島根県",
     "city": "浜田市"
   },
+  "91197": {
+    "value": 8.7,
+    "rank": 97,
+    "station_name": "那覇",
+    "official_name": "沖縄気象台",
+    "pref": "沖縄県",
+    "city": "那覇市"
+  },
   "56186": {
     "value": 8.7,
     "rank": 97,
@@ -782,14 +790,6 @@
     "official_name": "明石アメダス",
     "pref": "兵庫県",
     "city": "明石市"
-  },
-  "91197": {
-    "value": 8.7,
-    "rank": 97,
-    "station_name": "那覇",
-    "official_name": "沖縄気象台",
-    "pref": "沖縄県",
-    "city": "那覇市"
   },
   "57317": {
     "value": 8.6,

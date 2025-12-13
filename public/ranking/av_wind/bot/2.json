@@ -39,14 +39,6 @@
     "pref": "新潟県",
     "city": "魚沼市"
   },
-  "71191": {
-    "value": 0.7,
-    "rank": 5,
-    "station_name": "京上",
-    "official_name": "京上アメダス",
-    "pref": "徳島県",
-    "city": "三好市"
-  },
   "82206": {
     "value": 0.7,
     "rank": 5,
@@ -54,6 +46,14 @@
     "official_name": "添田アメダス",
     "pref": "福岡県",
     "city": "田川郡添田町"
+  },
+  "71191": {
+    "value": 0.7,
+    "rank": 5,
+    "station_name": "京上",
+    "official_name": "京上アメダス",
+    "pref": "徳島県",
+    "city": "三好市"
   },
   "20186": {
     "value": 0.8,
@@ -63,6 +63,14 @@
     "pref": "北海道",
     "city": "河東郡上士幌町"
   },
+  "81231": {
+    "value": 0.8,
+    "rank": 8,
+    "station_name": "広瀬",
+    "official_name": "広瀬アメダス",
+    "pref": "山口県",
+    "city": "岩国市"
+  },
   "42046": {
     "value": 0.8,
     "rank": 8,
@@ -70,6 +78,14 @@
     "official_name": "藤原アメダス",
     "pref": "群馬県",
     "city": "利根郡みなかみ町"
+  },
+  "67212": {
+    "value": 0.8,
+    "rank": 8,
+    "station_name": "加計",
+    "official_name": "加計アメダス",
+    "pref": "広島県",
+    "city": "山県郡安芸太田町"
   },
   "48717": {
     "value": 0.8,
@@ -87,61 +103,13 @@
     "pref": "静岡県",
     "city": "静岡市"
   },
-  "67212": {
-    "value": 0.8,
-    "rank": 8,
-    "station_name": "加計",
-    "official_name": "加計アメダス",
-    "pref": "広島県",
-    "city": "山県郡安芸太田町"
-  },
-  "81231": {
-    "value": 0.8,
-    "rank": 8,
-    "station_name": "広瀬",
-    "official_name": "広瀬アメダス",
-    "pref": "山口県",
-    "city": "岩国市"
-  },
-  "45326": {
+  "52606": {
     "value": 0.9,
     "rank": 14,
-    "station_name": "坂畑",
-    "official_name": "坂畑アメダス",
-    "pref": "千葉県",
-    "city": "君津市"
-  },
-  "48196": {
-    "value": 0.9,
-    "rank": 14,
-    "station_name": "信州新町",
-    "official_name": "信州新町アメダス",
-    "pref": "長野県",
-    "city": "長野市"
-  },
-  "50241": {
-    "value": 0.9,
-    "rank": 14,
-    "station_name": "川根本町",
-    "official_name": "川根本町アメダス",
-    "pref": "静岡県",
-    "city": "榛原郡川根本町"
-  },
-  "52041": {
-    "value": 0.9,
-    "rank": 14,
-    "station_name": "河合",
-    "official_name": "河合アメダス",
+    "station_name": "多治見",
+    "official_name": "多治見アメダス",
     "pref": "岐阜県",
-    "city": "飛騨市"
-  },
-  "52081": {
-    "value": 0.9,
-    "rank": 14,
-    "station_name": "白川",
-    "official_name": "白川アメダス",
-    "pref": "岐阜県",
-    "city": "大野郡白川村"
+    "city": "多治見市"
   },
   "52406": {
     "value": 0.9,
@@ -151,29 +119,13 @@
     "pref": "岐阜県",
     "city": "下呂市"
   },
-  "52606": {
+  "48196": {
     "value": 0.9,
     "rank": 14,
-    "station_name": "多治見",
-    "official_name": "多治見アメダス",
-    "pref": "岐阜県",
-    "city": "多治見市"
-  },
-  "74056": {
-    "value": 0.9,
-    "rank": 14,
-    "station_name": "本川",
-    "official_name": "本川アメダス",
-    "pref": "高知県",
-    "city": "吾川郡いの町"
-  },
-  "74381": {
-    "value": 0.9,
-    "rank": 14,
-    "station_name": "江川崎",
-    "official_name": "江川崎アメダス",
-    "pref": "高知県",
-    "city": "四万十市"
+    "station_name": "信州新町",
+    "official_name": "信州新町アメダス",
+    "pref": "長野県",
+    "city": "長野市"
   },
   "83431": {
     "value": 0.9,
@@ -183,6 +135,54 @@
     "pref": "大分県",
     "city": "佐伯市"
   },
+  "74381": {
+    "value": 0.9,
+    "rank": 14,
+    "station_name": "江川崎",
+    "official_name": "江川崎アメダス",
+    "pref": "高知県",
+    "city": "四万十市"
+  },
+  "45326": {
+    "value": 0.9,
+    "rank": 14,
+    "station_name": "坂畑",
+    "official_name": "坂畑アメダス",
+    "pref": "千葉県",
+    "city": "君津市"
+  },
+  "50241": {
+    "value": 0.9,
+    "rank": 14,
+    "station_name": "川根本町",
+    "official_name": "川根本町アメダス",
+    "pref": "静岡県",
+    "city": "榛原郡川根本町"
+  },
+  "74056": {
+    "value": 0.9,
+    "rank": 14,
+    "station_name": "本川",
+    "official_name": "本川アメダス",
+    "pref": "高知県",
+    "city": "吾川郡いの町"
+  },
+  "52081": {
+    "value": 0.9,
+    "rank": 14,
+    "station_name": "白川",
+    "official_name": "白川アメダス",
+    "pref": "岐阜県",
+    "city": "大野郡白川村"
+  },
+  "52041": {
+    "value": 0.9,
+    "rank": 14,
+    "station_name": "河合",
+    "official_name": "河合アメダス",
+    "pref": "岐阜県",
+    "city": "飛騨市"
+  },
   "87231": {
     "value": 0.9,
     "rank": 14,
@@ -190,30 +190,6 @@
     "official_name": "西米良アメダス",
     "pref": "宮崎県",
     "city": "児湯郡西米良村"
-  },
-  "52557": {
-    "value": 1.0,
-    "rank": 25,
-    "station_name": "中津川",
-    "official_name": "中津川アメダス",
-    "pref": "岐阜県",
-    "city": "中津川市"
-  },
-  "62016": {
-    "value": 1.0,
-    "rank": 25,
-    "station_name": "能勢",
-    "official_name": "能勢アメダス",
-    "pref": "大阪府",
-    "city": "豊能郡能勢町"
-  },
-  "64227": {
-    "value": 1.0,
-    "rank": 25,
-    "station_name": "風屋",
-    "official_name": "風屋アメダス",
-    "pref": "奈良県",
-    "city": "吉野郡十津川村"
   },
   "65306": {
     "value": 1.0,
@@ -223,6 +199,14 @@
     "pref": "和歌山県",
     "city": "東牟婁郡古座川町"
   },
+  "68306": {
+    "value": 1.0,
+    "rank": 25,
+    "station_name": "赤名",
+    "official_name": "赤名アメダス",
+    "pref": "島根県",
+    "city": "飯石郡飯南町"
+  },
   "67292": {
     "value": 1.0,
     "rank": 25,
@@ -231,13 +215,13 @@
     "pref": "広島県",
     "city": "広島市"
   },
-  "68306": {
+  "62016": {
     "value": 1.0,
     "rank": 25,
-    "station_name": "赤名",
-    "official_name": "赤名アメダス",
-    "pref": "島根県",
-    "city": "飯石郡飯南町"
+    "station_name": "能勢",
+    "official_name": "能勢アメダス",
+    "pref": "大阪府",
+    "city": "豊能郡能勢町"
   },
   "86066": {
     "value": 1.0,
@@ -247,29 +231,21 @@
     "pref": "熊本県",
     "city": "阿蘇郡南小国町"
   },
-  "19076": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "阿寒湖畔",
-    "official_name": "阿寒湖畔アメダス",
-    "pref": "北海道",
-    "city": "釧路市"
+  "52557": {
+    "value": 1.0,
+    "rank": 25,
+    "station_name": "中津川",
+    "official_name": "中津川アメダス",
+    "pref": "岐阜県",
+    "city": "中津川市"
   },
-  "22156": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "新和",
-    "official_name": "新和アメダス",
-    "pref": "北海道",
-    "city": "新冠郡新冠町"
-  },
-  "32136": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "大館",
-    "official_name": "大館アメダス",
-    "pref": "秋田県",
-    "city": "大館市"
+  "64227": {
+    "value": 1.0,
+    "rank": 25,
+    "station_name": "風屋",
+    "official_name": "風屋アメダス",
+    "pref": "奈良県",
+    "city": "吉野郡十津川村"
   },
   "44046": {
     "value": 1.1,
@@ -279,46 +255,6 @@
     "pref": "東京都",
     "city": "西多摩郡奥多摩町"
   },
-  "48826": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "浪合",
-    "official_name": "浪合アメダス",
-    "pref": "長野県",
-    "city": "下伊那郡阿智村"
-  },
-  "48841": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "南信濃",
-    "official_name": "南信濃アメダス",
-    "pref": "長野県",
-    "city": "飯田市"
-  },
-  "52181": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "六厩",
-    "official_name": "六厩アメダス",
-    "pref": "岐阜県",
-    "city": "高山市"
-  },
-  "52381": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "樽見",
-    "official_name": "樽見アメダス",
-    "pref": "岐阜県",
-    "city": "本巣市"
-  },
-  "63251": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "一宮",
-    "official_name": "一宮アメダス",
-    "pref": "兵庫県",
-    "city": "宍粟市"
-  },
   "64206": {
     "value": 1.1,
     "rank": 32,
@@ -327,6 +263,14 @@
     "pref": "奈良県",
     "city": "吉野郡上北山村"
   },
+  "68351": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "川本",
+    "official_name": "川本アメダス",
+    "pref": "島根県",
+    "city": "邑智郡川本町"
+  },
   "65061": {
     "value": 1.1,
     "rank": 32,
@@ -334,6 +278,22 @@
     "official_name": "高野山アメダス",
     "pref": "和歌山県",
     "city": "伊都郡高野町"
+  },
+  "32136": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "大館",
+    "official_name": "大館アメダス",
+    "pref": "秋田県",
+    "city": "大館市"
+  },
+  "67116": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "庄原",
+    "official_name": "庄原アメダス",
+    "pref": "広島県",
+    "city": "庄原市"
   },
   "65121": {
     "value": 1.1,
@@ -351,37 +311,21 @@
     "pref": "岡山県",
     "city": "高梁市"
   },
-  "67116": {
+  "22156": {
     "value": 1.1,
     "rank": 32,
-    "station_name": "庄原",
-    "official_name": "庄原アメダス",
-    "pref": "広島県",
-    "city": "庄原市"
+    "station_name": "新和",
+    "official_name": "新和アメダス",
+    "pref": "北海道",
+    "city": "新冠郡新冠町"
   },
-  "68351": {
+  "52381": {
     "value": 1.1,
     "rank": 32,
-    "station_name": "川本",
-    "official_name": "川本アメダス",
-    "pref": "島根県",
-    "city": "邑智郡川本町"
-  },
-  "71251": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "木頭",
-    "official_name": "木頭アメダス",
-    "pref": "徳島県",
-    "city": "那賀郡那賀町"
-  },
-  "82317": {
-    "value": 1.1,
-    "rank": 32,
-    "station_name": "黒木",
-    "official_name": "黒木アメダス",
-    "pref": "福岡県",
-    "city": "八女市"
+    "station_name": "樽見",
+    "official_name": "樽見アメダス",
+    "pref": "岐阜県",
+    "city": "本巣市"
   },
   "86006": {
     "value": 1.1,
@@ -391,6 +335,54 @@
     "pref": "熊本県",
     "city": "山鹿市"
   },
+  "52181": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "六厩",
+    "official_name": "六厩アメダス",
+    "pref": "岐阜県",
+    "city": "高山市"
+  },
+  "19076": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "阿寒湖畔",
+    "official_name": "阿寒湖畔アメダス",
+    "pref": "北海道",
+    "city": "釧路市"
+  },
+  "48826": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "浪合",
+    "official_name": "浪合アメダス",
+    "pref": "長野県",
+    "city": "下伊那郡阿智村"
+  },
+  "63251": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "一宮",
+    "official_name": "一宮アメダス",
+    "pref": "兵庫県",
+    "city": "宍粟市"
+  },
+  "48841": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "南信濃",
+    "official_name": "南信濃アメダス",
+    "pref": "長野県",
+    "city": "飯田市"
+  },
+  "71251": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "木頭",
+    "official_name": "木頭アメダス",
+    "pref": "徳島県",
+    "city": "那賀郡那賀町"
+  },
   "87071": {
     "value": 1.1,
     "rank": 32,
@@ -399,45 +391,29 @@
     "pref": "宮崎県",
     "city": "西臼杵郡五ヶ瀬町"
   },
-  "21171": {
-    "value": 1.2,
-    "rank": 51,
-    "station_name": "森野",
-    "official_name": "森野アメダス",
-    "pref": "北海道",
-    "city": "白老郡白老町"
+  "82317": {
+    "value": 1.1,
+    "rank": 32,
+    "station_name": "黒木",
+    "official_name": "黒木アメダス",
+    "pref": "福岡県",
+    "city": "八女市"
   },
-  "32466": {
+  "82261": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "角館",
-    "official_name": "角館アメダス",
-    "pref": "秋田県",
-    "city": "仙北市"
+    "station_name": "朝倉",
+    "official_name": "朝倉アメダス",
+    "pref": "福岡県",
+    "city": "朝倉市"
   },
-  "33716": {
+  "56301": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "北上",
-    "official_name": "北上アメダス",
-    "pref": "岩手県",
-    "city": "北上市"
-  },
-  "36562": {
-    "value": 1.2,
-    "rank": 51,
-    "station_name": "湯本",
-    "official_name": "湯本アメダス",
-    "pref": "福島県",
-    "city": "岩瀬郡天栄村"
-  },
-  "36641": {
-    "value": 1.2,
-    "rank": 51,
-    "station_name": "田島",
-    "official_name": "田島アメダス",
-    "pref": "福島県",
-    "city": "南会津郡南会津町"
+    "station_name": "加賀中津原",
+    "official_name": "加賀中津原アメダス",
+    "pref": "石川県",
+    "city": "加賀市"
   },
   "40061": {
     "value": 1.2,
@@ -447,21 +423,29 @@
     "pref": "茨城県",
     "city": "久慈郡大子町"
   },
-  "48031": {
+  "81151": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "野沢温泉",
-    "official_name": "野沢温泉アメダス",
-    "pref": "長野県",
-    "city": "下高井郡野沢温泉村"
+    "station_name": "徳佐",
+    "official_name": "徳佐アメダス",
+    "pref": "山口県",
+    "city": "山口市"
   },
-  "48531": {
+  "57121": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "開田高原",
-    "official_name": "開田高原アメダス",
-    "pref": "長野県",
-    "city": "木曽郡木曽町"
+    "station_name": "大野",
+    "official_name": "大野アメダス",
+    "pref": "福井県",
+    "city": "大野市"
+  },
+  "54421": {
+    "value": 1.2,
+    "rank": 51,
+    "station_name": "津川",
+    "official_name": "津川アメダス",
+    "pref": "新潟県",
+    "city": "東蒲原郡阿賀町"
   },
   "52051": {
     "value": 1.2,
@@ -479,29 +463,61 @@
     "pref": "岐阜県",
     "city": "高山市"
   },
-  "54421": {
+  "88432": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "津川",
-    "official_name": "津川アメダス",
-    "pref": "新潟県",
-    "city": "東蒲原郡阿賀町"
+    "station_name": "喜入",
+    "official_name": "喜入アメダス",
+    "pref": "鹿児島県",
+    "city": "鹿児島市"
   },
-  "56301": {
+  "74136": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "加賀中津原",
-    "official_name": "加賀中津原アメダス",
-    "pref": "石川県",
-    "city": "加賀市"
+    "station_name": "大栃",
+    "official_name": "大栃アメダス",
+    "pref": "高知県",
+    "city": "香美市"
   },
-  "57121": {
+  "21171": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "大野",
-    "official_name": "大野アメダス",
-    "pref": "福井県",
-    "city": "大野市"
+    "station_name": "森野",
+    "official_name": "森野アメダス",
+    "pref": "北海道",
+    "city": "白老郡白老町"
+  },
+  "86336": {
+    "value": 1.2,
+    "rank": 51,
+    "station_name": "八代",
+    "official_name": "八代アメダス",
+    "pref": "熊本県",
+    "city": "八代市"
+  },
+  "48031": {
+    "value": 1.2,
+    "rank": 51,
+    "station_name": "野沢温泉",
+    "official_name": "野沢温泉アメダス",
+    "pref": "長野県",
+    "city": "下高井郡野沢温泉村"
+  },
+  "48531": {
+    "value": 1.2,
+    "rank": 51,
+    "station_name": "開田高原",
+    "official_name": "開田高原アメダス",
+    "pref": "長野県",
+    "city": "木曽郡木曽町"
+  },
+  "67016": {
+    "value": 1.2,
+    "rank": 51,
+    "station_name": "高野",
+    "official_name": "高野アメダス",
+    "pref": "広島県",
+    "city": "庄原市"
   },
   "63321": {
     "value": 1.2,
@@ -511,13 +527,29 @@
     "pref": "兵庫県",
     "city": "神崎郡福崎町"
   },
-  "63331": {
+  "36562": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "西脇",
-    "official_name": "西脇アメダス",
-    "pref": "兵庫県",
-    "city": "西脇市"
+    "station_name": "湯本",
+    "official_name": "湯本アメダス",
+    "pref": "福島県",
+    "city": "岩瀬郡天栄村"
+  },
+  "33716": {
+    "value": 1.2,
+    "rank": 51,
+    "station_name": "北上",
+    "official_name": "北上アメダス",
+    "pref": "岩手県",
+    "city": "北上市"
+  },
+  "66296": {
+    "value": 1.2,
+    "rank": 51,
+    "station_name": "福渡",
+    "official_name": "福渡アメダス",
+    "pref": "岡山県",
+    "city": "岡山市"
   },
   "66046": {
     "value": 1.2,
@@ -535,29 +567,13 @@
     "pref": "岡山県",
     "city": "美作市"
   },
-  "66296": {
+  "74071": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "福渡",
-    "official_name": "福渡アメダス",
-    "pref": "岡山県",
-    "city": "岡山市"
-  },
-  "67016": {
-    "value": 1.2,
-    "rank": 51,
-    "station_name": "高野",
-    "official_name": "高野アメダス",
-    "pref": "広島県",
-    "city": "庄原市"
-  },
-  "68516": {
-    "value": 1.2,
-    "rank": 51,
-    "station_name": "津和野",
-    "official_name": "津和野アメダス",
-    "pref": "島根県",
-    "city": "鹿足郡津和野町"
+    "station_name": "本山",
+    "official_name": "本山アメダス",
+    "pref": "高知県",
+    "city": "長岡郡本山町"
   },
   "72161": {
     "value": 1.2,
@@ -567,69 +583,45 @@
     "pref": "香川県",
     "city": "三豊市"
   },
-  "74071": {
+  "68516": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "本山",
-    "official_name": "本山アメダス",
-    "pref": "高知県",
-    "city": "長岡郡本山町"
+    "station_name": "津和野",
+    "official_name": "津和野アメダス",
+    "pref": "島根県",
+    "city": "鹿足郡津和野町"
   },
-  "74136": {
+  "36641": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "大栃",
-    "official_name": "大栃アメダス",
-    "pref": "高知県",
-    "city": "香美市"
+    "station_name": "田島",
+    "official_name": "田島アメダス",
+    "pref": "福島県",
+    "city": "南会津郡南会津町"
   },
-  "81151": {
+  "63331": {
     "value": 1.2,
     "rank": 51,
-    "station_name": "徳佐",
-    "official_name": "徳佐アメダス",
+    "station_name": "西脇",
+    "official_name": "西脇アメダス",
+    "pref": "兵庫県",
+    "city": "西脇市"
+  },
+  "32466": {
+    "value": 1.2,
+    "rank": 51,
+    "station_name": "角館",
+    "official_name": "角館アメダス",
+    "pref": "秋田県",
+    "city": "仙北市"
+  },
+  "81397": {
+    "value": 1.3,
+    "rank": 78,
+    "station_name": "玖珂",
+    "official_name": "玖珂アメダス",
     "pref": "山口県",
-    "city": "山口市"
-  },
-  "82261": {
-    "value": 1.2,
-    "rank": 51,
-    "station_name": "朝倉",
-    "official_name": "朝倉アメダス",
-    "pref": "福岡県",
-    "city": "朝倉市"
-  },
-  "86336": {
-    "value": 1.2,
-    "rank": 51,
-    "station_name": "八代",
-    "official_name": "八代アメダス",
-    "pref": "熊本県",
-    "city": "八代市"
-  },
-  "88432": {
-    "value": 1.2,
-    "rank": 51,
-    "station_name": "喜入",
-    "official_name": "喜入アメダス",
-    "pref": "鹿児島県",
-    "city": "鹿児島市"
-  },
-  "12141": {
-    "value": 1.3,
-    "rank": 78,
-    "station_name": "美深",
-    "official_name": "美深アメダス",
-    "pref": "北海道",
-    "city": "中川郡美深町"
-  },
-  "12632": {
-    "value": 1.3,
-    "rank": 78,
-    "station_name": "麓郷",
-    "official_name": "麓郷アメダス",
-    "pref": "北海道",
-    "city": "富良野市"
+    "city": "岩国市"
   },
   "20341": {
     "value": 1.3,
@@ -639,13 +631,13 @@
     "pref": "北海道",
     "city": "中川郡本別町"
   },
-  "34462": {
+  "44056": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "蔵王",
-    "official_name": "蔵王アメダス",
-    "pref": "宮城県",
-    "city": "刈田郡蔵王町"
+    "station_name": "青梅",
+    "official_name": "青梅アメダス",
+    "pref": "東京都",
+    "city": "青梅市"
   },
   "41116": {
     "value": 1.3,
@@ -655,21 +647,21 @@
     "pref": "栃木県",
     "city": "日光市"
   },
-  "44056": {
+  "74296": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "青梅",
-    "official_name": "青梅アメダス",
-    "pref": "東京都",
-    "city": "青梅市"
+    "station_name": "梼原",
+    "official_name": "梼原アメダス",
+    "pref": "高知県",
+    "city": "高岡郡梼原町"
   },
-  "48141": {
+  "56146": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "白馬",
-    "official_name": "白馬アメダス",
-    "pref": "長野県",
-    "city": "北安曇郡白馬村"
+    "station_name": "七尾",
+    "official_name": "七尾アメダス",
+    "pref": "石川県",
+    "city": "七尾市"
   },
   "48386": {
     "value": 1.3,
@@ -679,21 +671,21 @@
     "pref": "長野県",
     "city": "佐久市"
   },
-  "52556": {
+  "68401": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "恵那",
-    "official_name": "恵那アメダス",
-    "pref": "岐阜県",
-    "city": "恵那市"
+    "station_name": "瑞穂",
+    "official_name": "瑞穂アメダス",
+    "pref": "島根県",
+    "city": "邑智郡邑南町"
   },
-  "56146": {
+  "66306": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "七尾",
-    "official_name": "七尾アメダス",
-    "pref": "石川県",
-    "city": "七尾市"
+    "station_name": "和気",
+    "official_name": "和気アメダス",
+    "pref": "岡山県",
+    "city": "和気郡和気町"
   },
   "65256": {
     "value": 1.3,
@@ -711,21 +703,21 @@
     "pref": "岡山県",
     "city": "真庭市"
   },
-  "66306": {
+  "12632": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "和気",
-    "official_name": "和気アメダス",
-    "pref": "岡山県",
-    "city": "和気郡和気町"
+    "station_name": "麓郷",
+    "official_name": "麓郷アメダス",
+    "pref": "北海道",
+    "city": "富良野市"
   },
-  "66421": {
+  "88081": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "虫明",
-    "official_name": "虫明アメダス",
-    "pref": "岡山県",
-    "city": "瀬戸内市"
+    "station_name": "大口",
+    "official_name": "大口アメダス",
+    "pref": "鹿児島県",
+    "city": "伊佐市"
   },
   "67326": {
     "value": 1.3,
@@ -735,29 +727,13 @@
     "pref": "広島県",
     "city": "府中市"
   },
-  "68401": {
+  "66421": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "瑞穂",
-    "official_name": "瑞穂アメダス",
-    "pref": "島根県",
-    "city": "邑智郡邑南町"
-  },
-  "69246": {
-    "value": 1.3,
-    "rank": 78,
-    "station_name": "智頭",
-    "official_name": "智頭アメダス",
-    "pref": "鳥取県",
-    "city": "八頭郡智頭町"
-  },
-  "69271": {
-    "value": 1.3,
-    "rank": 78,
-    "station_name": "茶屋",
-    "official_name": "茶屋アメダス",
-    "pref": "鳥取県",
-    "city": "日野郡日南町"
+    "station_name": "虫明",
+    "official_name": "虫明アメダス",
+    "pref": "岡山県",
+    "city": "瀬戸内市"
   },
   "71291": {
     "value": 1.3,
@@ -767,21 +743,29 @@
     "pref": "徳島県",
     "city": "海部郡海陽町"
   },
-  "74296": {
+  "69271": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "梼原",
-    "official_name": "梼原アメダス",
-    "pref": "高知県",
-    "city": "高岡郡梼原町"
+    "station_name": "茶屋",
+    "official_name": "茶屋アメダス",
+    "pref": "鳥取県",
+    "city": "日野郡日南町"
   },
-  "81397": {
+  "69246": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "玖珂",
-    "official_name": "玖珂アメダス",
-    "pref": "山口県",
-    "city": "岩国市"
+    "station_name": "智頭",
+    "official_name": "智頭アメダス",
+    "pref": "鳥取県",
+    "city": "八頭郡智頭町"
+  },
+  "34462": {
+    "value": 1.3,
+    "rank": 78,
+    "station_name": "蔵王",
+    "official_name": "蔵王アメダス",
+    "pref": "宮城県",
+    "city": "刈田郡蔵王町"
   },
   "86467": {
     "value": 1.3,
@@ -791,12 +775,28 @@
     "pref": "熊本県",
     "city": "人吉市"
   },
-  "88081": {
+  "48141": {
     "value": 1.3,
     "rank": 78,
-    "station_name": "大口",
-    "official_name": "大口アメダス",
-    "pref": "鹿児島県",
-    "city": "伊佐市"
+    "station_name": "白馬",
+    "official_name": "白馬アメダス",
+    "pref": "長野県",
+    "city": "北安曇郡白馬村"
+  },
+  "12141": {
+    "value": 1.3,
+    "rank": 78,
+    "station_name": "美深",
+    "official_name": "美深アメダス",
+    "pref": "北海道",
+    "city": "中川郡美深町"
+  },
+  "52556": {
+    "value": 1.3,
+    "rank": 78,
+    "station_name": "恵那",
+    "official_name": "恵那アメダス",
+    "pref": "岐阜県",
+    "city": "恵那市"
   }
 }

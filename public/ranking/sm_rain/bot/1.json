@@ -79,14 +79,6 @@
     "pref": "長野県",
     "city": "南佐久郡北相木村"
   },
-  "19311": {
-    "value": 26.2,
-    "rank": 11,
-    "station_name": "榊町",
-    "official_name": "榊町アメダス",
-    "pref": "北海道",
-    "city": "厚岸郡浜中町"
-  },
   "20276": {
     "value": 26.2,
     "rank": 11,
@@ -94,6 +86,14 @@
     "official_name": "足寄アメダス",
     "pref": "北海道",
     "city": "足寄郡足寄町"
+  },
+  "19311": {
+    "value": 26.2,
+    "rank": 11,
+    "station_name": "榊町",
+    "official_name": "榊町アメダス",
+    "pref": "北海道",
+    "city": "厚岸郡浜中町"
   },
   "20371": {
     "value": 27.2,
@@ -247,14 +247,6 @@
     "pref": "北海道",
     "city": "河東郡上士幌町"
   },
-  "24156": {
-    "value": 31.3,
-    "rank": 32,
-    "station_name": "米岡",
-    "official_name": "奥尻航空気象観測所",
-    "pref": "北海道",
-    "city": "奥尻郡奥尻町"
-  },
   "42261": {
     "value": 31.3,
     "rank": 32,
@@ -262,6 +254,14 @@
     "official_name": "黒保根アメダス",
     "pref": "群馬県",
     "city": "桐生市"
+  },
+  "24156": {
+    "value": 31.3,
+    "rank": 32,
+    "station_name": "米岡",
+    "official_name": "奥尻航空気象観測所",
+    "pref": "北海道",
+    "city": "奥尻郡奥尻町"
   },
   "20047": {
     "value": 31.4,
@@ -375,13 +375,13 @@
     "pref": "群馬県",
     "city": "吾妻郡中之条町"
   },
-  "20146": {
+  "48381": {
     "value": 33.7,
     "rank": 48,
-    "station_name": "陸別",
-    "official_name": "陸別アメダス",
-    "pref": "北海道",
-    "city": "足寄郡陸別町"
+    "station_name": "立科",
+    "official_name": "立科アメダス",
+    "pref": "長野県",
+    "city": "北佐久郡立科町"
   },
   "20696": {
     "value": 33.7,
@@ -391,13 +391,13 @@
     "pref": "北海道",
     "city": "広尾郡大樹町"
   },
-  "48381": {
+  "20146": {
     "value": 33.7,
     "rank": 48,
-    "station_name": "立科",
-    "official_name": "立科アメダス",
-    "pref": "長野県",
-    "city": "北佐久郡立科町"
+    "station_name": "陸別",
+    "official_name": "陸別アメダス",
+    "pref": "北海道",
+    "city": "足寄郡陸別町"
   },
   "63491": {
     "value": 33.9,
@@ -415,14 +415,6 @@
     "pref": "北海道",
     "city": "浦河郡浦河町"
   },
-  "20361": {
-    "value": 34.1,
-    "rank": 53,
-    "station_name": "鹿追",
-    "official_name": "鹿追アメダス",
-    "pref": "北海道",
-    "city": "河東郡鹿追町"
-  },
   "21261": {
     "value": 34.1,
     "rank": 53,
@@ -431,13 +423,13 @@
     "pref": "北海道",
     "city": "白老郡白老町"
   },
-  "12256": {
-    "value": 34.4,
-    "rank": 55,
-    "station_name": "剣淵",
-    "official_name": "剣淵アメダス",
+  "20361": {
+    "value": 34.1,
+    "rank": 53,
+    "station_name": "鹿追",
+    "official_name": "鹿追アメダス",
     "pref": "北海道",
-    "city": "上川郡剣淵町"
+    "city": "河東郡鹿追町"
   },
   "66446": {
     "value": 34.4,
@@ -447,6 +439,14 @@
     "pref": "岡山県",
     "city": "倉敷市"
   },
+  "12256": {
+    "value": 34.4,
+    "rank": 55,
+    "station_name": "剣淵",
+    "official_name": "剣淵アメダス",
+    "pref": "北海道",
+    "city": "上川郡剣淵町"
+  },
   "43091": {
     "value": 34.5,
     "rank": 57,
@@ -455,14 +455,6 @@
     "pref": "埼玉県",
     "city": "秩父市"
   },
-  "23281": {
-    "value": 34.6,
-    "rank": 58,
-    "station_name": "高松",
-    "official_name": "函館航空気象観測所",
-    "pref": "北海道",
-    "city": "函館市"
-  },
   "48363": {
     "value": 34.6,
     "rank": 58,
@@ -470,6 +462,14 @@
     "official_name": "松本航空気象観測所",
     "pref": "長野県",
     "city": "松本市"
+  },
+  "23281": {
+    "value": 34.6,
+    "rank": 58,
+    "station_name": "高松",
+    "official_name": "函館航空気象観測所",
+    "pref": "北海道",
+    "city": "函館市"
   },
   "41331": {
     "value": 34.7,
@@ -495,22 +495,6 @@
     "pref": "北海道",
     "city": "斜里郡斜里町"
   },
-  "34276": {
-    "value": 35.1,
-    "rank": 62,
-    "station_name": "鹿島台",
-    "official_name": "鹿島台アメダス",
-    "pref": "宮城県",
-    "city": "大崎市"
-  },
-  "41361": {
-    "value": 35.1,
-    "rank": 62,
-    "station_name": "佐野",
-    "official_name": "佐野アメダス",
-    "pref": "栃木県",
-    "city": "佐野市"
-  },
   "63496": {
     "value": 35.1,
     "rank": 62,
@@ -526,6 +510,22 @@
     "official_name": "郡家アメダス",
     "pref": "兵庫県",
     "city": "淡路市"
+  },
+  "41361": {
+    "value": 35.1,
+    "rank": 62,
+    "station_name": "佐野",
+    "official_name": "佐野アメダス",
+    "pref": "栃木県",
+    "city": "佐野市"
+  },
+  "34276": {
+    "value": 35.1,
+    "rank": 62,
+    "station_name": "鹿島台",
+    "official_name": "鹿島台アメダス",
+    "pref": "宮城県",
+    "city": "大崎市"
   },
   "40221": {
     "value": 35.2,
@@ -543,14 +543,6 @@
     "pref": "北海道",
     "city": "川上郡標茶町"
   },
-  "34171": {
-    "value": 35.5,
-    "rank": 69,
-    "station_name": "米山",
-    "official_name": "米山アメダス",
-    "pref": "宮城県",
-    "city": "登米市"
-  },
   "66501": {
     "value": 35.5,
     "rank": 69,
@@ -559,13 +551,13 @@
     "pref": "岡山県",
     "city": "玉野市"
   },
-  "22206": {
-    "value": 35.8,
-    "rank": 71,
-    "station_name": "笹山",
-    "official_name": "笹山アメダス",
-    "pref": "北海道",
-    "city": "日高郡新ひだか町"
+  "34171": {
+    "value": 35.5,
+    "rank": 69,
+    "station_name": "米山",
+    "official_name": "米山アメダス",
+    "pref": "宮城県",
+    "city": "登米市"
   },
   "41356": {
     "value": 35.8,
@@ -574,6 +566,14 @@
     "official_name": "足利アメダス",
     "pref": "栃木県",
     "city": "足利市"
+  },
+  "22206": {
+    "value": 35.8,
+    "rank": 71,
+    "station_name": "笹山",
+    "official_name": "笹山アメダス",
+    "pref": "北海道",
+    "city": "日高郡新ひだか町"
   },
   "43051": {
     "value": 36.1,
@@ -591,13 +591,13 @@
     "pref": "岡山県",
     "city": "瀬戸内市"
   },
-  "17546": {
+  "66408": {
     "value": 36.2,
     "rank": 75,
-    "station_name": "小清水",
-    "official_name": "小清水アメダス",
-    "pref": "北海道",
-    "city": "斜里郡小清水町"
+    "station_name": "岡山",
+    "official_name": "岡山地方気象台",
+    "pref": "岡山県",
+    "city": "岡山市"
   },
   "41376": {
     "value": 36.2,
@@ -607,13 +607,13 @@
     "pref": "栃木県",
     "city": "小山市"
   },
-  "66408": {
+  "17546": {
     "value": 36.2,
     "rank": 75,
-    "station_name": "岡山",
-    "official_name": "岡山地方気象台",
-    "pref": "岡山県",
-    "city": "岡山市"
+    "station_name": "小清水",
+    "official_name": "小清水アメダス",
+    "pref": "北海道",
+    "city": "斜里郡小清水町"
   },
   "33296": {
     "value": 36.3,
@@ -639,6 +639,14 @@
     "pref": "埼玉県",
     "city": "熊谷市"
   },
+  "72061": {
+    "value": 36.7,
+    "rank": 81,
+    "station_name": "内海",
+    "official_name": "内海アメダス",
+    "pref": "香川県",
+    "city": "小豆郡小豆島町"
+  },
   "41371": {
     "value": 36.7,
     "rank": 81,
@@ -655,13 +663,13 @@
     "pref": "岡山県",
     "city": "小田郡矢掛町"
   },
-  "72061": {
-    "value": 36.7,
-    "rank": 81,
-    "station_name": "内海",
-    "official_name": "内海アメダス",
-    "pref": "香川県",
-    "city": "小豆郡小豆島町"
+  "48331": {
+    "value": 36.8,
+    "rank": 84,
+    "station_name": "軽井沢",
+    "official_name": "軽井沢特別地域気象観測所",
+    "pref": "長野県",
+    "city": "北佐久郡軽井沢町"
   },
   "12231": {
     "value": 36.8,
@@ -671,14 +679,6 @@
     "pref": "北海道",
     "city": "上川郡下川町"
   },
-  "48331": {
-    "value": 36.8,
-    "rank": 84,
-    "station_name": "軽井沢",
-    "official_name": "軽井沢特別地域気象観測所",
-    "pref": "長野県",
-    "city": "北佐久郡軽井沢町"
-  },
   "63588": {
     "value": 36.8,
     "rank": 84,
@@ -686,14 +686,6 @@
     "official_name": "南淡アメダス",
     "pref": "兵庫県",
     "city": "南あわじ市"
-  },
-  "49052": {
-    "value": 36.9,
-    "rank": 87,
-    "station_name": "乙女湖",
-    "official_name": "乙女湖アメダス",
-    "pref": "山梨県",
-    "city": "山梨市"
   },
   "63383": {
     "value": 36.9,
@@ -703,13 +695,13 @@
     "pref": "兵庫県",
     "city": "姫路市"
   },
-  "20222": {
-    "value": 37.0,
-    "rank": 89,
-    "station_name": "上螺湾",
-    "official_name": "上螺湾アメダス",
-    "pref": "北海道",
-    "city": "足寄郡足寄町"
+  "49052": {
+    "value": 36.9,
+    "rank": 87,
+    "station_name": "乙女湖",
+    "official_name": "乙女湖アメダス",
+    "pref": "山梨県",
+    "city": "山梨市"
   },
   "33921": {
     "value": 37.0,
@@ -718,6 +710,22 @@
     "official_name": "千厩アメダス",
     "pref": "岩手県",
     "city": "一関市"
+  },
+  "20222": {
+    "value": 37.0,
+    "rank": 89,
+    "station_name": "上螺湾",
+    "official_name": "上螺湾アメダス",
+    "pref": "北海道",
+    "city": "足寄郡足寄町"
+  },
+  "63461": {
+    "value": 37.2,
+    "rank": 91,
+    "station_name": "三木",
+    "official_name": "三木アメダス",
+    "pref": "兵庫県",
+    "city": "三木市"
   },
   "18311": {
     "value": 37.2,
@@ -735,13 +743,13 @@
     "pref": "群馬県",
     "city": "館林市"
   },
-  "63461": {
-    "value": 37.2,
-    "rank": 91,
-    "station_name": "三木",
-    "official_name": "三木アメダス",
-    "pref": "兵庫県",
-    "city": "三木市"
+  "41277": {
+    "value": 37.5,
+    "rank": 94,
+    "station_name": "宇都宮",
+    "official_name": "宇都宮地方気象台",
+    "pref": "栃木県",
+    "city": "宇都宮市"
   },
   "17482": {
     "value": 37.5,
@@ -751,14 +759,6 @@
     "pref": "北海道",
     "city": "紋別郡遠軽町"
   },
-  "41277": {
-    "value": 37.5,
-    "rank": 94,
-    "station_name": "宇都宮",
-    "official_name": "宇都宮地方気象台",
-    "pref": "栃木県",
-    "city": "宇都宮市"
-  },
   "63366": {
     "value": 37.5,
     "rank": 94,
@@ -766,14 +766,6 @@
     "official_name": "上郡アメダス",
     "pref": "兵庫県",
     "city": "赤穂郡上郡町"
-  },
-  "20441": {
-    "value": 37.7,
-    "rank": 97,
-    "station_name": "池田",
-    "official_name": "池田アメダス",
-    "pref": "北海道",
-    "city": "中川郡池田町"
   },
   "36821": {
     "value": 37.7,
@@ -783,13 +775,13 @@
     "pref": "福島県",
     "city": "東白川郡塙町"
   },
-  "12451": {
-    "value": 37.8,
-    "rank": 99,
-    "station_name": "東川",
-    "official_name": "東川アメダス",
+  "20441": {
+    "value": 37.7,
+    "rank": 97,
+    "station_name": "池田",
+    "official_name": "池田アメダス",
     "pref": "北海道",
-    "city": "上川郡東川町"
+    "city": "中川郡池田町"
   },
   "31586": {
     "value": 37.8,
@@ -798,5 +790,13 @@
     "official_name": "十和田アメダス",
     "pref": "青森県",
     "city": "十和田市"
+  },
+  "12451": {
+    "value": 37.8,
+    "rank": 99,
+    "station_name": "東川",
+    "official_name": "東川アメダス",
+    "pref": "北海道",
+    "city": "上川郡東川町"
   }
 }

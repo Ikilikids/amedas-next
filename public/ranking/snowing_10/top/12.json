@@ -47,14 +47,6 @@
     "pref": "山形県",
     "city": "最上郡大蔵村"
   },
-  "12141": {
-    "value": 10.6,
-    "rank": 7,
-    "station_name": "美深",
-    "official_name": "美深アメダス",
-    "pref": "北海道",
-    "city": "中川郡美深町"
-  },
   "35361": {
     "value": 10.6,
     "rank": 7,
@@ -62,6 +54,14 @@
     "official_name": "大井沢アメダス",
     "pref": "山形県",
     "city": "西村山郡西川町"
+  },
+  "12141": {
+    "value": 10.6,
+    "rank": 7,
+    "station_name": "美深",
+    "official_name": "美深アメダス",
+    "pref": "北海道",
+    "city": "中川郡美深町"
   },
   "16286": {
     "value": 10.3,
@@ -87,14 +87,6 @@
     "pref": "北海道",
     "city": "深川市"
   },
-  "14101": {
-    "value": 9.3,
-    "rank": 12,
-    "station_name": "新篠津",
-    "official_name": "新篠津アメダス",
-    "pref": "北海道",
-    "city": "石狩郡新篠津村"
-  },
   "15241": {
     "value": 9.3,
     "rank": 12,
@@ -102,6 +94,14 @@
     "official_name": "滝川アメダス",
     "pref": "北海道",
     "city": "滝川市"
+  },
+  "14101": {
+    "value": 9.3,
+    "rank": 12,
+    "station_name": "新篠津",
+    "official_name": "新篠津アメダス",
+    "pref": "北海道",
+    "city": "石狩郡新篠津村"
   },
   "11276": {
     "value": 9.1,
@@ -111,13 +111,13 @@
     "pref": "北海道",
     "city": "枝幸郡中頓別町"
   },
-  "33631": {
+  "54836": {
     "value": 8.9,
     "rank": 15,
-    "station_name": "湯田",
-    "official_name": "湯田アメダス",
-    "pref": "岩手県",
-    "city": "和賀郡西和賀町"
+    "station_name": "津南",
+    "official_name": "津南アメダス",
+    "pref": "新潟県",
+    "city": "中魚沼郡津南町"
   },
   "54566": {
     "value": 8.9,
@@ -127,13 +127,13 @@
     "pref": "新潟県",
     "city": "魚沼市"
   },
-  "54836": {
+  "33631": {
     "value": 8.9,
     "rank": 15,
-    "station_name": "津南",
-    "official_name": "津南アメダス",
-    "pref": "新潟県",
-    "city": "中魚沼郡津南町"
+    "station_name": "湯田",
+    "official_name": "湯田アメダス",
+    "pref": "岩手県",
+    "city": "和賀郡西和賀町"
   },
   "11316": {
     "value": 8.7,
@@ -215,14 +215,6 @@
     "pref": "秋田県",
     "city": "湯沢市"
   },
-  "35231": {
-    "value": 7.9,
-    "rank": 27,
-    "station_name": "尾花沢",
-    "official_name": "尾花沢アメダス",
-    "pref": "山形県",
-    "city": "尾花沢市"
-  },
   "36426": {
     "value": 7.9,
     "rank": 27,
@@ -231,13 +223,13 @@
     "pref": "福島県",
     "city": "南会津郡只見町"
   },
-  "12301": {
-    "value": 7.7,
-    "rank": 30,
-    "station_name": "和寒",
-    "official_name": "和寒アメダス",
-    "pref": "北海道",
-    "city": "上川郡和寒町"
+  "35231": {
+    "value": 7.9,
+    "rank": 27,
+    "station_name": "尾花沢",
+    "official_name": "尾花沢アメダス",
+    "pref": "山形県",
+    "city": "尾花沢市"
   },
   "34012": {
     "value": 7.7,
@@ -246,6 +238,14 @@
     "official_name": "駒ノ湯アメダス",
     "pref": "宮城県",
     "city": "栗原市"
+  },
+  "12301": {
+    "value": 7.7,
+    "rank": 30,
+    "station_name": "和寒",
+    "official_name": "和寒アメダス",
+    "pref": "北海道",
+    "city": "上川郡和寒町"
   },
   "16206": {
     "value": 7.6,
@@ -335,14 +335,6 @@
     "pref": "北海道",
     "city": "苫前郡苫前町"
   },
-  "21161": {
-    "value": 7.0,
-    "rank": 42,
-    "station_name": "大滝",
-    "official_name": "大滝アメダス",
-    "pref": "北海道",
-    "city": "伊達市"
-  },
   "35486": {
     "value": 7.0,
     "rank": 42,
@@ -351,21 +343,13 @@
     "pref": "山形県",
     "city": "西置賜郡小国町"
   },
-  "14191": {
-    "value": 6.8,
-    "rank": 45,
-    "station_name": "小金湯",
-    "official_name": "小金湯アメダス",
+  "21161": {
+    "value": 7.0,
+    "rank": 42,
+    "station_name": "大滝",
+    "official_name": "大滝アメダス",
     "pref": "北海道",
-    "city": "札幌市"
-  },
-  "36342": {
-    "value": 6.8,
-    "rank": 45,
-    "station_name": "金山",
-    "official_name": "金山アメダス",
-    "pref": "福島県",
-    "city": "大沼郡金山町"
+    "city": "伊達市"
   },
   "36536": {
     "value": 6.8,
@@ -391,6 +375,38 @@
     "pref": "新潟県",
     "city": "十日町市"
   },
+  "36342": {
+    "value": 6.8,
+    "rank": 45,
+    "station_name": "金山",
+    "official_name": "金山アメダス",
+    "pref": "福島県",
+    "city": "大沼郡金山町"
+  },
+  "14191": {
+    "value": 6.8,
+    "rank": 45,
+    "station_name": "小金湯",
+    "official_name": "小金湯アメダス",
+    "pref": "北海道",
+    "city": "札幌市"
+  },
+  "54816": {
+    "value": 6.7,
+    "rank": 50,
+    "station_name": "関山",
+    "official_name": "関山アメダス",
+    "pref": "新潟県",
+    "city": "妙高市"
+  },
+  "35176": {
+    "value": 6.7,
+    "rank": 50,
+    "station_name": "向町",
+    "official_name": "向町アメダス",
+    "pref": "山形県",
+    "city": "最上郡最上町"
+  },
   "11176": {
     "value": 6.7,
     "rank": 50,
@@ -407,21 +423,13 @@
     "pref": "山形県",
     "city": "最上郡金山町"
   },
-  "35176": {
-    "value": 6.7,
-    "rank": 50,
-    "station_name": "向町",
-    "official_name": "向町アメダス",
-    "pref": "山形県",
-    "city": "最上郡最上町"
-  },
-  "54816": {
-    "value": 6.7,
-    "rank": 50,
-    "station_name": "関山",
-    "official_name": "関山アメダス",
-    "pref": "新潟県",
-    "city": "妙高市"
+  "32691": {
+    "value": 6.6,
+    "rank": 54,
+    "station_name": "湯沢",
+    "official_name": "湯沢アメダス",
+    "pref": "秋田県",
+    "city": "湯沢市"
   },
   "12231": {
     "value": 6.6,
@@ -430,14 +438,6 @@
     "official_name": "下川アメダス",
     "pref": "北海道",
     "city": "上川郡下川町"
-  },
-  "32691": {
-    "value": 6.6,
-    "rank": 54,
-    "station_name": "湯沢",
-    "official_name": "湯沢アメダス",
-    "pref": "秋田県",
-    "city": "湯沢市"
   },
   "12551": {
     "value": 6.4,
@@ -495,14 +495,6 @@
     "pref": "鳥取県",
     "city": "西伯郡大山町"
   },
-  "13121": {
-    "value": 6.1,
-    "rank": 63,
-    "station_name": "初山別",
-    "official_name": "初山別アメダス",
-    "pref": "北海道",
-    "city": "苫前郡初山別村"
-  },
   "16156": {
     "value": 6.1,
     "rank": 63,
@@ -510,6 +502,14 @@
     "official_name": "共和アメダス",
     "pref": "北海道",
     "city": "岩内郡共和町"
+  },
+  "13121": {
+    "value": 6.1,
+    "rank": 63,
+    "station_name": "初山別",
+    "official_name": "初山別アメダス",
+    "pref": "北海道",
+    "city": "苫前郡初山別村"
   },
   "23356": {
     "value": 6.0,
@@ -559,14 +559,6 @@
     "pref": "岐阜県",
     "city": "飛騨市"
   },
-  "35456": {
-    "value": 5.7,
-    "rank": 71,
-    "station_name": "長井",
-    "official_name": "長井アメダス",
-    "pref": "山形県",
-    "city": "長井市"
-  },
   "35552": {
     "value": 5.7,
     "rank": 71,
@@ -574,6 +566,14 @@
     "official_name": "米沢アメダス",
     "pref": "山形県",
     "city": "米沢市"
+  },
+  "35456": {
+    "value": 5.7,
+    "rank": 71,
+    "station_name": "長井",
+    "official_name": "長井アメダス",
+    "pref": "山形県",
+    "city": "長井市"
   },
   "13181": {
     "value": 5.6,
@@ -583,14 +583,6 @@
     "pref": "北海道",
     "city": "苫前郡羽幌町"
   },
-  "16091": {
-    "value": 5.5,
-    "rank": 74,
-    "station_name": "小樽",
-    "official_name": "小樽特別地域気象観測所",
-    "pref": "北海道",
-    "city": "小樽市"
-  },
   "23086": {
     "value": 5.5,
     "rank": 74,
@@ -598,6 +590,14 @@
     "official_name": "八雲アメダス",
     "pref": "北海道",
     "city": "二海郡八雲町"
+  },
+  "16091": {
+    "value": 5.5,
+    "rank": 74,
+    "station_name": "小樽",
+    "official_name": "小樽特別地域気象観測所",
+    "pref": "北海道",
+    "city": "小樽市"
   },
   "12626": {
     "value": 5.4,
@@ -623,14 +623,6 @@
     "pref": "青森県",
     "city": "平川市"
   },
-  "32466": {
-    "value": 5.3,
-    "rank": 79,
-    "station_name": "角館",
-    "official_name": "角館アメダス",
-    "pref": "秋田県",
-    "city": "仙北市"
-  },
   "48061": {
     "value": 5.3,
     "rank": 79,
@@ -639,13 +631,13 @@
     "pref": "長野県",
     "city": "上水内郡信濃町"
   },
-  "11291": {
-    "value": 5.2,
-    "rank": 81,
-    "station_name": "北見枝幸",
-    "official_name": "北見枝幸特別地域気象観測所",
-    "pref": "北海道",
-    "city": "枝幸郡枝幸町"
+  "32466": {
+    "value": 5.3,
+    "rank": 79,
+    "station_name": "角館",
+    "official_name": "角館アメダス",
+    "pref": "秋田県",
+    "city": "仙北市"
   },
   "48066": {
     "value": 5.2,
@@ -655,6 +647,14 @@
     "pref": "長野県",
     "city": "飯山市"
   },
+  "11291": {
+    "value": 5.2,
+    "rank": 81,
+    "station_name": "北見枝幸",
+    "official_name": "北見枝幸特別地域気象観測所",
+    "pref": "北海道",
+    "city": "枝幸郡枝幸町"
+  },
   "54616": {
     "value": 5.1,
     "rank": 83,
@@ -662,14 +662,6 @@
     "official_name": "小出アメダス",
     "pref": "新潟県",
     "city": "魚沼市"
-  },
-  "32146": {
-    "value": 4.9,
-    "rank": 84,
-    "station_name": "鹿角",
-    "official_name": "鹿角アメダス",
-    "pref": "秋田県",
-    "city": "鹿角市"
   },
   "32626": {
     "value": 4.9,
@@ -687,21 +679,13 @@
     "pref": "兵庫県",
     "city": "美方郡香美町"
   },
-  "12746": {
-    "value": 4.8,
-    "rank": 87,
-    "station_name": "占冠",
-    "official_name": "占冠アメダス",
-    "pref": "北海道",
-    "city": "勇払郡占冠村"
-  },
-  "21226": {
-    "value": 4.8,
-    "rank": 87,
-    "station_name": "大岸",
-    "official_name": "大岸アメダス",
-    "pref": "北海道",
-    "city": "虻田郡豊浦町"
+  "32146": {
+    "value": 4.9,
+    "rank": 84,
+    "station_name": "鹿角",
+    "official_name": "鹿角アメダス",
+    "pref": "秋田県",
+    "city": "鹿角市"
   },
   "35376": {
     "value": 4.8,
@@ -711,6 +695,22 @@
     "pref": "山形県",
     "city": "西村山郡大江町"
   },
+  "21226": {
+    "value": 4.8,
+    "rank": 87,
+    "station_name": "大岸",
+    "official_name": "大岸アメダス",
+    "pref": "北海道",
+    "city": "虻田郡豊浦町"
+  },
+  "12746": {
+    "value": 4.8,
+    "rank": 87,
+    "station_name": "占冠",
+    "official_name": "占冠アメダス",
+    "pref": "北海道",
+    "city": "勇払郡占冠村"
+  },
   "33176": {
     "value": 4.7,
     "rank": 90,
@@ -719,13 +719,13 @@
     "pref": "岩手県",
     "city": "二戸郡一戸町"
   },
-  "54661": {
+  "67136": {
     "value": 4.7,
     "rank": 90,
-    "station_name": "安塚",
-    "official_name": "安塚アメダス",
-    "pref": "新潟県",
-    "city": "上越市"
+    "station_name": "八幡",
+    "official_name": "八幡アメダス",
+    "pref": "広島県",
+    "city": "山県郡北広島町"
   },
   "57176": {
     "value": 4.7,
@@ -735,13 +735,13 @@
     "pref": "福井県",
     "city": "大野市"
   },
-  "67136": {
+  "54661": {
     "value": 4.7,
     "rank": 90,
-    "station_name": "八幡",
-    "official_name": "八幡アメダス",
-    "pref": "広島県",
-    "city": "山県郡北広島町"
+    "station_name": "安塚",
+    "official_name": "安塚アメダス",
+    "pref": "新潟県",
+    "city": "上越市"
   },
   "36251": {
     "value": 4.6,
@@ -759,6 +759,14 @@
     "pref": "長野県",
     "city": "北安曇郡白馬村"
   },
+  "31296": {
+    "value": 4.5,
+    "rank": 96,
+    "station_name": "五所川原",
+    "official_name": "五所川原アメダス",
+    "pref": "青森県",
+    "city": "五所川原市"
+  },
   "24051": {
     "value": 4.5,
     "rank": 96,
@@ -767,13 +775,13 @@
     "pref": "北海道",
     "city": "瀬棚郡今金町"
   },
-  "31296": {
-    "value": 4.5,
-    "rank": 96,
-    "station_name": "五所川原",
-    "official_name": "五所川原アメダス",
-    "pref": "青森県",
-    "city": "五所川原市"
+  "54421": {
+    "value": 4.4,
+    "rank": 98,
+    "station_name": "津川",
+    "official_name": "津川アメダス",
+    "pref": "新潟県",
+    "city": "東蒲原郡阿賀町"
   },
   "17091": {
     "value": 4.4,
@@ -790,13 +798,5 @@
     "official_name": "鶉アメダス",
     "pref": "北海道",
     "city": "檜山郡厚沢部町"
-  },
-  "54421": {
-    "value": 4.4,
-    "rank": 98,
-    "station_name": "津川",
-    "official_name": "津川アメダス",
-    "pref": "新潟県",
-    "city": "東蒲原郡阿賀町"
   }
 }

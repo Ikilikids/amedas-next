@@ -1,0 +1,119 @@
+{
+  "number": "36581",
+  "station_name": "玉川",
+  "kana_name": "ﾀﾏｶﾜ",
+  "lon": 37.227,
+  "lat": 140.427,
+  "height": 372,
+  "official_name": "福島航空気象観測所",
+  "pref": "福島県",
+  "city": "石川郡玉川村",
+  "data": {
+    "av_avtemp": {
+      "value": 11.8,
+      "rank": 549
+    },
+    "av_hitemp": {
+      "value": 16.6,
+      "rank": 568
+    },
+    "av_lwtemp": {
+      "value": 7.7,
+      "rank": 526
+    },
+    "av_wind": {
+      "value": 3.4,
+      "rank": 145
+    },
+    "sm_rain": {
+      "value": 1174.7,
+      "rank": 1048
+    }
+  },
+  "uonzu": {
+    "av_avtemp": [
+      0.3,
+      0.9,
+      4.3,
+      9.8,
+      15.5,
+      19.2,
+      22.6,
+      23.9,
+      19.9,
+      14.0,
+      8.5,
+      3.0
+    ],
+    "av_hitemp": [
+      4.1,
+      5.2,
+      9.4,
+      15.3,
+      21.1,
+      24.3,
+      27.0,
+      28.8,
+      24.6,
+      18.6,
+      13.1,
+      7.1
+    ],
+    "av_lwtemp": [
+      -3.2,
+      -3.0,
+      -0.3,
+      4.6,
+      10.3,
+      15.1,
+      19.2,
+      20.3,
+      16.2,
+      9.9,
+      3.9,
+      -0.9
+    ],
+    "sm_rain": [
+      27.3,
+      28.1,
+      63.4,
+      97.6,
+      92.3,
+      108.8,
+      192.0,
+      153.6,
+      154.7,
+      152.2,
+      60.9,
+      43.8
+    ],
+    "sm_snowing": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "sm_sun": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+}
