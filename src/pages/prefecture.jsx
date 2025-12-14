@@ -25,7 +25,7 @@ export default function PrefecturePage({ stations }) {
         <main className="flex-1 p-4">
           <div className="max-w-[1280px] mx-auto flex flex-col gap-4">
             <h1 className="text-3xl font-bold flex items-center gap-2">
-              <GiJapan className="w-8 h-8 text-red-500" />
+              <GiJapan className="w-8 h-8" />
               都道府県から探す
             </h1>
 

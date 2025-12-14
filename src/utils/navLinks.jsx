@@ -1,20 +1,19 @@
 // src/data/navLinks.js
 
-import { FaBuilding, FaMapMarkerAlt } from "react-icons/fa";
+import { FaBuilding } from "react-icons/fa";
+import { FaMapLocationDot } from "react-icons/fa6";
 import { GiJapan } from "react-icons/gi";
 import { IoIosTrophy } from "react-icons/io";
 import { PiThermometerHotFill } from "react-icons/pi";
-import { TbTemperaturePlus } from "react-icons/tb";
 //import { FaRegSnowflake } from "react-icons/fa6";
 //import { BsCloudRainFill } from "react-icons/bs";
 //import { PiThermometerColdFill, PiThermometerHotFill } from "react-icons/pi";
-import { PiThermometerColdFill } from "react-icons/pi";
 // Home 用（アイコン付き）
 
 export const searchLinks = [
   {
     href: "/map",
-    Icon: FaMapMarkerAlt,
+    Icon: FaMapLocationDot,
     title: "マップから探す",
     description: "地図を見ながらアメダスを選択できます",
   },
@@ -45,7 +44,7 @@ export const featureLinks = [
     description: "夏季に良くニュースになる地点をまとめました",
     iconClass: "text-red-500",
   },
-
+  /*
   {
     href: "/feature/cold",
     Icon: PiThermometerColdFill,
@@ -59,7 +58,7 @@ export const featureLinks = [
     title: "暖かい地点まとめ",
     description: "主に島嶼部、九州など温暖な地点をまとめました",
     iconClass: "text-orange-500",
-  } /*
+  } 
   {
     href: "/feature/rain",
     Icon: BsCloudRainFill,
@@ -74,5 +73,6 @@ export const featureLinks = [
     description: "主に北陸などの日本海側の地域です",
     iconClass: "text-cyan-300",
   },
-  */,
+  */
+  ,
 ];

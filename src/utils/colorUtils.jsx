@@ -437,3 +437,35 @@ const snowedFields = [
   "snowed_10",
   "snowed_5",
 ];
+
+export function SectionWithDescription({
+  icon: Icon,
+  title,
+  bgColor,
+  description,
+  children,
+}) {
+  return (
+    <div className="">
+      <div
+        className="flex flex-row items-center justify-between w-full z-10 p-1 rounded"
+        style={{ backgroundColor: bgColor }}
+      >
+        <h2 className="flex items-center font-bold text-base sm:text-xl text-left gap-1">
+          {Icon && <Icon />}
+          {title}
+        </h2>
+        {/* childrenをここに置くと右端に */}
+        {children && <div>{children}</div>}
+      </div>
+
+      {description && (
+        <div className="text-sm pt-2">
+          {description.map((line, i) => (
+            <div key={i}>{line}</div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

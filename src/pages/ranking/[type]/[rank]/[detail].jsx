@@ -1,13 +1,18 @@
 import fs from "fs";
 import Head from "next/head";
 import path from "path";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosTrophy } from "react-icons/io";
+import { IoHomeSharp } from "react-icons/io5";
+import { LuChartNoAxesCombined } from "react-icons/lu";
 import Footer from "../../../../components/Footer";
 import Header from "../../../../components/Header";
 import InfoPanel from "../../../../components/InfoPanel";
 import Ranking from "../../../../components/Ranking";
+import UonzuChart from "../../../../components/UonzuChart";
 import {
+  SectionWithDescription,
+  getRegionColor,
   metrics,
   prefCodeMap,
   slugToRegion,
@@ -117,6 +122,41 @@ export default function RankingPage({
   initialMonth,
 }) {
   const [selectedStation, setSelectedStation] = useState(null);
+  const [stationData, setStationData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  // ★ キャッシュは親で持つ
+  const stationCacheRef = useRef({});
+
+  useEffect(() => {
+    const stationId = selectedStation?.id;
+    if (!stationId) {
+      setStationData(null);
+      return;
+    }
+
+    // キャッシュ命中
+    if (stationCacheRef.current[stationId]) {
+      setStationData(stationCacheRef.current[stationId]);
+      return;
+    }
+
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/infotable/${stationId}.json`);
+        const data = await res.json();
+        stationCacheRef.current[stationId] = data;
+        setStationData(data);
+      } catch (e) {
+        console.error("fetch error:", e);
+        setStationData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedStation]);
 
   const rankTarget =
     metrics.find((m) => m.key === initialSortKey)?.label || "値";
@@ -127,6 +167,11 @@ export default function RankingPage({
       : initialRankType === "region"
       ? slugToRegion[initialRegion]
       : "全国";
+
+  const bgColor =
+    stationData && stationData.pref
+      ? getRegionColor(stationData.pref)
+      : "white";
 
   return (
     <>
@@ -145,16 +190,16 @@ export default function RankingPage({
         <main className="flex-1 p-4">
           <div className="max-w-[1280px] mx-auto flex flex-col gap-4">
             <h1 className="text-3xl font-bold flex items-center gap-2">
-              <IoIosTrophy className="w-8 h-8 text-red-500" />
+              <IoIosTrophy className="w-8 h-8" />
               ランキングから探す
             </h1>
 
             <div className="text-gray-700 mb-4">
               <div>
-                ・ランキングをクリックすると、右側の情報パネルに選択した観測所の基本情報（正式名称、都道府県、市町村）と雨温図が表示されます。
+                ・ランキングをクリックすると、右側(下側)の情報パネルに選択した観測所の基本情報（正式名称、都道府県、市町村）と雨温図が表示されます。
               </div>
               <div>
-                ・情報パネルの「詳細」ボタンを押すと、各月の平均気温、最高・最低気温、降水量などの詳細データや、割合グラフを確認できます。
+                ・情報パネルの地点名を押すと、各月の平均気温、最高・最低気温、降水量などの詳細データや、割合グラフを確認できます。
               </div>
               <div>
                 ・気温関連のデータについては、太平洋の島嶼部は気温が極端に高いため、区別のためランクに順位に*がついています。
@@ -165,24 +210,75 @@ export default function RankingPage({
             </div>
 
             <div className="flex flex-col lg:flex-row gap-4">
-              {/* 左：ランキング */}
-              <h2 className="sr-only">ランキング</h2>
-              <div className="h-[400px] lg:h-[800px] lg:flex-[4] xl:flex-[5] border rounded-lg overflow-hidden shadow bg-white">
-                <Ranking
-                  initialStations={initialStations}
-                  initialSortKey={initialSortKey}
-                  initialRankType={initialRankType}
-                  initialRegion={initialRegion}
-                  initialPref={initialPref}
-                  initialMonth={initialMonth}
-                  onStationClick={setSelectedStation}
-                />
+              {/* 左：地図 */}
+              <div className="h-[400px] lg:h-[750px] lg:flex-[4] xl:flex-[5] overflow-hidden flex flex-col gap-2">
+                <h2 className="sr-only">地図</h2>
+
+                <div className="bg-white border rounded-lg">
+                  <SectionWithDescription
+                    icon={IoIosTrophy}
+                    title="ランキング"
+                    bgColor=""
+                  />
+                </div>
+                {/* ★ここが超重要 */}
+                <div className="flex-1 min-h-0 overflow-hidden">
+                  <Ranking
+                    initialStations={initialStations}
+                    initialSortKey={initialSortKey}
+                    initialRankType={initialRankType}
+                    initialRegion={initialRegion}
+                    initialPref={initialPref}
+                    initialMonth={initialMonth}
+                    onStationClick={setSelectedStation}
+                  />
+                </div>
               </div>
 
               {/* 右：情報パネル */}
-              <h2 className="sr-only">情報パネル</h2>
-              <div className="h-[800px] lg:flex-[2] xl:flex-[2] border rounded-lg overflow-auto shadow">
-                <InfoPanel stationId={selectedStation?.id} />
+              <div className="h-[750px] lg:flex-[2] xl:flex-[2] overflow-hidden flex flex-col gap-2">
+                <h2 className="sr-only">情報パネル</h2>
+                <div
+                  className="border rounded-lg"
+                  style={{ backgroundColor: bgColor }}
+                >
+                  <SectionWithDescription
+                    icon={IoHomeSharp}
+                    title="基本情報"
+                    bgColor=""
+                  />
+                </div>
+                <div className="min-h-0 h-[320px] overflow-auto">
+                  <InfoPanel
+                    stationId={selectedStation?.id}
+                    stationData={stationData}
+                    loading={loading}
+                  />
+                </div>
+                <div
+                  className="bg-white border rounded-lg"
+                  style={{ backgroundColor: bgColor }}
+                >
+                  <SectionWithDescription
+                    icon={LuChartNoAxesCombined}
+                    title="雨温図"
+                    bgColor=""
+                  />
+                </div>
+                {stationData && (
+                  <div className="w-full h-[320px] pt-2">
+                    <UonzuChart
+                      temp={stationData.uonzu.av_avtemp}
+                      hitemp={stationData.uonzu.av_hitemp}
+                      lwtemp={stationData.uonzu.av_lwtemp}
+                      rain={stationData.uonzu.sm_rain}
+                      sun={stationData.uonzu.sm_sun}
+                      snowing={stationData.uonzu.sm_snowing}
+                      selectedBar="rain"
+                      height="320px"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

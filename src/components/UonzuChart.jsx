@@ -34,6 +34,7 @@ export default function UonzuChart({
   snowing,
   sun,
   selectedBar, // ←追加
+  height = "350px", // ← 追加（デフォルト）
 }) {
   // useState は削除
   const [dataObj, setDataObj] = useState(null);
@@ -192,7 +193,10 @@ export default function UonzuChart({
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center h-[350px]">
+    <div
+      className="w-full flex flex-col items-center justify-center"
+      style={{ height }}
+    >
       <Chart data={chartData} options={options} />
     </div>
   );
