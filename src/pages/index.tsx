@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LinkCard from "../components/LinkCard";
-import { featureLinks, searchLinks } from "../utils/navLinks";
+import { featureLinks, rankingLinks, searchLinks } from "../utils/navLinks";
 
 const Home: NextPage = () => {
   return (
@@ -28,6 +28,12 @@ const Home: NextPage = () => {
           <h2 className="text-xl font-bold">アメダス特集</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
             {featureLinks.map((link) => (
+              <LinkCard key={link.title} {...link} />
+            ))}
+          </div>
+          <h2 className="text-xl font-bold">年度別ランキング</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+            {rankingLinks.map((link) => (
               <LinkCard key={link.title} {...link} />
             ))}
           </div>

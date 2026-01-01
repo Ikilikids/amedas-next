@@ -69,7 +69,7 @@ function computeLayeredValues(
   type: string,
   monthDays: number = 365
 ): number[] | null {
-  if (!values || values.some(v => v === null)) return null; // Ensure all values are numbers
+  if (!values || values.some((v) => v === null)) return null; // Ensure all values are numbers
 
   const layered: number[] = [];
   if (type === "temp") {
@@ -220,8 +220,8 @@ const LayeredPieChart: React.FC<LayeredPieChartProps> = ({
   const availableRankTypes = useMemo(() => {
     const types = new Set<string>();
     if (station && station.data) {
-      Object.values(station.data).forEach(fieldData => {
-        Object.values(fieldData).forEach(monthData => {
+      Object.values(station.data).forEach((fieldData) => {
+        Object.values(fieldData).forEach((monthData) => {
           if (monthData.rank) {
             Object.keys(monthData.rank).forEach((key) => {
               switch (key) {
@@ -282,7 +282,7 @@ const LayeredPieChart: React.FC<LayeredPieChartProps> = ({
     <div>
       <div>
         <div
-          className="flex flex-row items-center justify-between w-full z-10 p-1 rounded"
+          className="flex flex-row items-center justify-between w-full z-10 p-1 rounded mb-3"
           style={{ backgroundColor: regionColor }}
         >
           <h2 className="flex items-center font-bold text-base sm:text-xl text-left gap-1">

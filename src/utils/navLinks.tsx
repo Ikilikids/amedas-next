@@ -5,7 +5,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import { GiJapan } from "react-icons/gi";
 import { IoIosTrophy } from "react-icons/io";
 import { PiThermometerHotFill } from "react-icons/pi";
-
+import { TbTemperature, TbTemperaturePlus } from "react-icons/tb";
 export interface NavLink {
   href: string;
   Icon: IconType;
@@ -48,5 +48,28 @@ export const featureLinks: NavLink[] = [
     title: "暑い地点まとめ",
     description: "夏季に良くニュースになる地点をまとめました",
     iconClass: "text-red-500",
+  },
+];
+export const rankingLinks: NavLink[] = [
+  {
+    href: "/ranking_y/hitemp_35/2025",
+    Icon: PiThermometerHotFill,
+    title: "猛暑日ランキング",
+    description: "1991-2025の猛暑日を年ごとにランキングにしました",
+    iconClass: "text-red-500",
+  },
+  {
+    href: "/ranking_y/hitemp_30/2025",
+    Icon: TbTemperaturePlus,
+    title: "真夏日ランキング",
+    description: "1991-2025の真夏日を年ごとにランキングにしました",
+    iconClass: "text-orange-500",
+  },
+  {
+    href: "/ranking_y/hitemp_25/2025",
+    Icon: TbTemperature,
+    title: "夏日ランキング",
+    description: "1991-2025の夏日を年ごとにランキングにしました",
+    iconClass: "text-yellow-500",
   },
 ];

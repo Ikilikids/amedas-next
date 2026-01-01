@@ -12,13 +12,14 @@ import Header from "../../components/Header";
 import HyouTable from "../../components/HyouTable";
 import InfoPanel from "../../components/InfoPanel2";
 import MiniMap from "../../components/MiniMap";
+import UonzuChart from "../../components/UonzuChart";
 import PrefecturePage from "../../components/prefecturePart";
 import Similar from "../../components/similar";
-import UonzuChart from "../../components/UonzuChart";
+import RankBadge from "../../svg/RankBadge";
 import {
+  SectionWithDescription,
   getIcon,
   getRegionColor,
-  SectionWithDescription,
 } from "../../utils/colorUtils";
 
 const LayeredPieChart = dynamic(
@@ -60,13 +61,16 @@ interface StationData {
   meteo: any;
   similar_all: any;
   similar_meteo: any;
-  data: { // More specific type for data
+  data: {
+    // More specific type for data
     av_avtemp: MonthlyDataSource;
     av_hitemp: MonthlyDataSource;
     av_lwtemp: MonthlyDataSource;
+    hitemp_35: MonthlyDataSource; // ← 追加
     sm_rain: MonthlyDataSource;
     sm_sun?: MonthlyDataSource;
     sm_snowing?: MonthlyDataSource;
+    av_wind?: MonthlyDataSource;
   };
 }
 
@@ -95,9 +99,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // ==============================
 // getStaticProps
 // ==============================
-export const getStaticProps: GetStaticProps<PageProps> = async ({
-  params,
-}) => {
+export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
   const stationFile = path.join(
     process.cwd(),
     "data/single",
@@ -130,6 +132,38 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({
   };
 };
 
+type BadgeType =
+  | "toptemp"
+  | "bottemp"
+  | "hitemp"
+  | "rain"
+  | "sun"
+  | "snowing"
+  | "wind";
+
+function getBadgeColor(
+  rankPercent: number | undefined,
+  type: BadgeType
+): 1 | 2 | 3 | 4 | 5 {
+  if (rankPercent == null) return 5;
+
+  const totalMap: Record<BadgeType, number> = {
+    toptemp: 904,
+    bottemp: 904,
+    hitemp: 904,
+    rain: 1230,
+    sun: 827,
+    snowing: 320,
+    wind: 874,
+  };
+
+  const all = totalMap[type];
+  if (rankPercent <= 10) return 1;
+  if (rankPercent <= all * 0.05) return 2;
+  if (rankPercent <= all * 0.1) return 3;
+  if (rankPercent <= all * 0.2) return 4;
+  return 5;
+}
 // ==============================
 //  ページコンポーネント
 // ==============================
@@ -144,8 +178,28 @@ const StationPage: NextPage<PageProps> = ({
   const [selectedBar, setSelectedBar] = useState<"rain" | "snowing" | "sun">(
     "rain"
   );
-  if (!station) return <div>駅データが見つかりません</div>;
+  const toptempRank = getBadgeColor(
+    station.data.av_avtemp.all?.rank?.top,
+    "toptemp"
+  );
+  const bottempRank = getBadgeColor(
+    station.data.av_avtemp.all?.rank?.bot,
+    "bottemp"
+  );
+  const hitempRank = getBadgeColor(
+    station.data.hitemp_35.all?.rank?.top,
+    "hitemp"
+  );
+  const rainRank = getBadgeColor(station.data.sm_rain.all?.rank?.top, "rain");
 
+  const snowingRank = getBadgeColor(
+    station.data.sm_snowing?.all?.rank?.top,
+    "snowing"
+  );
+
+  const sunRank = getBadgeColor(station.data.sm_sun?.all?.rank?.top, "sun");
+  const windRank = getBadgeColor(station.data.av_wind?.all?.rank?.top, "wind");
+  if (!station) return <div>駅データが見つかりません</div>;
   return (
     <>
       <Head>
@@ -161,10 +215,31 @@ const StationPage: NextPage<PageProps> = ({
         <main className="flex-1 p-2">
           <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-4">
             {/* 左メインコンテンツ 5/7 */}
-            <div className="flex-[5] w-full lg:w-auto flex flex-col gap-4 min-w-0">
-              <h1 className="text-3xl font-bold mb-4 flex gap-2">
+            <div className="flex-[5] w-full lg:w-auto flex flex-col gap-2 min-w-0">
+              <h1 className="text-3xl font-bold mb-2 mt-2 flex gap-2">
                 {getIcon(station.official_name)}
                 {station.official_name} の詳細データ
+                {toptempRank !== 5 && (
+                  <RankBadge size={35} rank={toptempRank} type="toptemp" />
+                )}
+                {bottempRank !== 5 && (
+                  <RankBadge size={35} rank={bottempRank} type="bottemp" />
+                )}
+                {hitempRank !== 5 && (
+                  <RankBadge size={35} rank={hitempRank} type="hitemp" />
+                )}
+                {rainRank !== 5 && (
+                  <RankBadge size={35} rank={rainRank} type="rain" />
+                )}
+                {snowingRank !== 5 && (
+                  <RankBadge size={35} rank={snowingRank} type="snowing" />
+                )}
+                {sunRank !== 5 && (
+                  <RankBadge size={35} rank={sunRank} type="sun" />
+                )}
+                {windRank !== 5 && (
+                  <RankBadge size={35} rank={windRank} type="wind" />
+                )}
               </h1>
 
               <div className="text-gray-700 mb-4">
@@ -176,7 +251,7 @@ const StationPage: NextPage<PageProps> = ({
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 {/* 情報パネルとマップ */}
                 <SectionWithDescription
                   icon={IoHomeSharp}
@@ -213,7 +288,9 @@ const StationPage: NextPage<PageProps> = ({
                       className="p-0.5 border rounded"
                       value={selectedBar}
                       onChange={(e) =>
-                        setSelectedBar(e.target.value as "rain" | "snowing" | "sun")
+                        setSelectedBar(
+                          e.target.value as "rain" | "snowing" | "sun"
+                        )
                       }
                     >
                       <option value="rain">降水量</option>

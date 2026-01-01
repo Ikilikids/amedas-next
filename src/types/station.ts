@@ -17,9 +17,11 @@ export interface MonthlyData {
   rank?: MonthlyRank;
 }
 
-export interface MonthlyDataSource {
-  all?: MonthlyData;
-  [month: string]: MonthlyData | undefined;
+
+
+export interface RankedValue {
+  value: number;
+  rank?: number;
 }
 
 export interface StationData {
@@ -27,9 +29,11 @@ export interface StationData {
   official_name: string;
   station_name: string;
   city: string;
-  height: number | null;
-  lon: number | null;
-  lat: number | null;
+  height: number;
+  lon: number;
+  lat: number;
+
+  // 月別平年値
   uonzu: {
     av_avtemp: number[];
     av_hitemp: number[];
@@ -38,11 +42,15 @@ export interface StationData {
     sm_sun: number[];
     sm_snowing: number[];
   };
+
+  // 年平均・合計＋順位
   data: {
-    av_avtemp?: MonthlyDataSource;
-    av_hitemp?: MonthlyDataSource;
-    sm_sun?: MonthlyDataSource;
-    sm_rain?: MonthlyDataSource;
-    sm_snowing?: MonthlyDataSource;
+    av_avtemp?: RankedValue;
+    av_hitemp?: RankedValue;
+    av_lwtemp?: RankedValue;
+    av_wind?: RankedValue;
+    sm_rain?: RankedValue;
+    sm_sun?: RankedValue;
+    sm_snowing?: RankedValue;
   };
 }

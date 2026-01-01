@@ -65,7 +65,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
 
   const icon = getIcon(data.official_name || "");
 
-  const defaultAnnualData = { all: { value: null, rank: undefined } };
+const defaultAnnualData = { value: null, rank: undefined };
 
   const avtemp  = data.data.av_avtemp  ?? defaultAnnualData;
   const maxtemp = data.data.av_hitemp  ?? defaultAnnualData;
@@ -105,24 +105,24 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
       <div>標高：{showValue(data.height)} m</div>
 
       <div>
-        平均気温：{showValue(avtemp.all?.value)} ℃（全国{" "}
-        {showValue(avtemp.all?.rank, true)} 位）
+        平均気温：{showValue(avtemp.value)} ℃（全国{" "}
+        {showValue(avtemp.rank, true)} 位）
       </div>
       <div>
-        平均最高気温：{showValue(maxtemp.all?.value)} ℃（全国{" "}
-        {showValue(maxtemp.all?.rank, true)} 位）
+        平均最高気温：{showValue(maxtemp.value)} ℃（全国{" "}
+        {showValue(maxtemp.rank, true)} 位）
       </div>
       <div>
-        日照時間：{showValue(sun.all?.value)} 時間（全国{" "}
-        {showValue(sun.all?.rank, true)} 位）
+        日照時間：{showValue(sun.value)} 時間（全国{" "}
+        {showValue(sun.rank, true)} 位）
       </div>
       <div>
-        降水量：{showValue(rain.all?.value)} mm（全国{" "}
-        {showValue(rain.all?.rank, true)} 位）
+        降水量：{showValue(rain.value)} mm（全国{" "}
+        {showValue(rain.rank, true)} 位）
       </div>
       <div>
-        降雪量：{showValue(snow.all?.value, true)} cm（全国{" "}
-        {showValue(snow.all?.rank, true)} 位）
+        降雪量：{showValue(snow.value, true)} cm（全国{" "}
+        {showValue(snow.rank, true)} 位）
       </div>
     </div>
   );

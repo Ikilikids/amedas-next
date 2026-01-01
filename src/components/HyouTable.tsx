@@ -63,7 +63,11 @@ function mixColor(c1: string, c2: string, t: number): string {
   return `rgb(${r},${g},${b})`;
 }
 
-function getColor(type: string, val: string | number, isAnnual: boolean = false): string {
+function getColor(
+  type: string,
+  val: string | number,
+  isAnnual: boolean = false
+): string {
   if (val === "--" || isNaN(Number(val))) return "white";
   const v = Number(val);
 
@@ -200,9 +204,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ station, regionColor }) => {
   const snows = station
     ? mapValueRank(station.data.sm_snowing, true)
     : emptyMonthlyData();
-  const suns = station
-    ? mapValueRank(station.data.sm_sun)
-    : emptyMonthlyData();
+  const suns = station ? mapValueRank(station.data.sm_sun) : emptyMonthlyData();
   const winds = station
     ? mapValueRank(station.data.av_wind)
     : emptyMonthlyData();
@@ -240,46 +242,43 @@ const HyouTable: React.FC<HyouTableProps> = ({ station, regionColor }) => {
     </tr>
   );
 
-const rankMap: Record<string, string> = {
-  top: "降順",
-  bot: "昇順",
-  island: "島除く",
-  region: "地方別",
-  pre: "県別",
-  meteo: "気象台",
-};
+  const rankMap: Record<string, string> = {
+    top: "降順",
+    bot: "昇順",
+    island: "島除く",
+    region: "地方別",
+    pre: "県別",
+    meteo: "気象台",
+  };
 
-const availableRankTypes = new Set<string>();
+  const availableRankTypes = new Set<string>();
 
-const targetKeys: (keyof StationData["data"])[] = [
-  "av_avtemp",
-  "sm_rain",
-];
+  const targetKeys: (keyof StationData["data"])[] = ["av_avtemp", "sm_rain"];
 
-if (station) {
-  targetKeys.forEach((dataKey) => {
-    const data = station.data[dataKey];
-    if (!data) return;
+  if (station) {
+    targetKeys.forEach((dataKey) => {
+      const data = station.data[dataKey];
+      if (!data) return;
 
-    Object.values(data).forEach((monthData: any) => {
-      Object.keys(monthData?.rank ?? {}).forEach((key) => {
-        const label = rankMap[key];
-        if (label) {
-          availableRankTypes.add(label);
-        }
+      Object.values(data).forEach((monthData: any) => {
+        Object.keys(monthData?.rank ?? {}).forEach((key) => {
+          const label = rankMap[key];
+          if (label) {
+            availableRankTypes.add(label);
+          }
+        });
       });
     });
-  });
-}
+  }
 
-const rankOptions = Object.values(rankMap).filter((opt) =>
-  availableRankTypes.has(opt)
-);
+  const rankOptions = Object.values(rankMap).filter((opt) =>
+    availableRankTypes.has(opt)
+  );
 
   return (
     <div className="w-full h-full flex flex-col items-left">
       <div
-        className="flex flex-row items-center justify-between w-full mb-2 sm:mb-4 sticky top-0 z-10 p-1 rounded"
+        className="flex flex-row items-center justify-between w-full mb-2 sm:mb-3 sticky top-0 z-10 p-1 rounded"
         style={{ backgroundColor: regionColor }}
       >
         <h2 className="flex items-center font-bold text-base sm:text-xl text-left gap-1">

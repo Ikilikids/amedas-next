@@ -45,7 +45,10 @@ interface InfoPanelProps {
 // ==============================
 // Helpers
 // ==============================
-function showValue(v: number | null | undefined, isSnow: boolean = false): string {
+function showValue(
+  v: number | null | undefined,
+  isSnow: boolean = false
+): string {
   if (v === null || v === undefined) return "--";
   if (!isSnow && typeof v === "number") return v.toFixed(1);
   return v.toString(); // For snow, it can be integer, or if it's not a number, convert to string
@@ -71,7 +74,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ station }) => {
   const snow = data.data.sm_snowing?.all ?? defaultMonthlyData;
 
   return (
-    <div className="p-2 rounded-md w-full h-full flex flex-col gap-2">
+    <div className="p-1 rounded-md w-full h-full flex flex-col gap-2">
       <div>
         都道府県：{data.pref} {data.city}
       </div>

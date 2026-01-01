@@ -1,6 +1,11 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { featureLinks, searchLinks, NavLink } from "../utils/navLinks"; // NavLink もインポート
+import {
+  NavLink,
+  featureLinks,
+  rankingLinks,
+  searchLinks,
+} from "../utils/navLinks"; // NavLink もインポート
 
 // ==============================
 // Types
@@ -96,6 +101,27 @@ const Header: React.FC<HeaderProps> = () => {
             <div className="absolute left-0 top-full w-full bg-white shadow-lg hidden group-hover:flex z-50 border-b">
               <div className="max-w-[1280px] mx-auto flex-col w-full px-4 py-4 gap-4">
                 {featureLinks.map((f: NavLink) => (
+                  <Link
+                    key={f.href}
+                    href={f.href}
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded"
+                  >
+                    <f.Icon className={`text-xl ${f.iconClass || ""}`} />
+                    <div className="font-bold">{f.title}</div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="group flex-1 text-center font-semibold px-4 relative cursor-pointer">
+            <div className="hover:bg-blue-900 py-2 hover:text-white">
+              年別ランキング
+            </div>
+            <span className="absolute right-0 top-1/4 h-1/2 border-r border-gray-300" />
+
+            <div className="absolute left-0 top-full w-full bg-white shadow-lg hidden group-hover:flex z-50 border-b">
+              <div className="max-w-[1280px] mx-auto flex-col w-full px-4 py-4 gap-4">
+                {rankingLinks.map((f: NavLink) => (
                   <Link
                     key={f.href}
                     href={f.href}
