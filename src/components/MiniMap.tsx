@@ -1,5 +1,5 @@
-import React from "react";
 import { GoogleMap, Marker } from "@react-google-maps/api";
+import React from "react";
 
 // ==============================
 // Types
@@ -16,8 +16,8 @@ interface MiniMapProps {
 const MiniMap: React.FC<MiniMapProps> = ({ lat, lng, height = "350px" }) => {
   if (!lat || !lng) return null;
 
-  const _lat = parseFloat(lat as string);
-  const _lng = parseFloat(lng as string);
+  const _lat = parseFloat(lng as string);
+  const _lng = parseFloat(lat as string);
 
   return (
     <GoogleMap

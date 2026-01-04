@@ -83,6 +83,17 @@ interface PageProps {
   regionColor: string;
 }
 
+type Rank = 1 | 2 | 3 | 4;
+type BadgeItem = {
+  type: BadgeType;
+  rank: Rank;
+};
+
+const makeBadge = (type: BadgeType, rank: Rank): BadgeItem => ({
+  type,
+  rank,
+});
+
 // ==============================
 // getStaticPaths
 // ==============================
@@ -144,8 +155,8 @@ type BadgeType =
 function getBadgeColor(
   rankPercent: number | undefined,
   type: BadgeType
-): 1 | 2 | 3 | 4 | 5 {
-  if (rankPercent == null) return 5;
+): Rank | null {
+  if (rankPercent == null) return null;
 
   const totalMap: Record<BadgeType, number> = {
     toptemp: 904,
@@ -158,11 +169,13 @@ function getBadgeColor(
   };
 
   const all = totalMap[type];
+
   if (rankPercent <= 10) return 1;
   if (rankPercent <= all * 0.05) return 2;
   if (rankPercent <= all * 0.1) return 3;
   if (rankPercent <= all * 0.2) return 4;
-  return 5;
+
+  return null; // ← バッジなし
 }
 // ==============================
 //  ページコンポーネント
@@ -199,6 +212,18 @@ const StationPage: NextPage<PageProps> = ({
 
   const sunRank = getBadgeColor(station.data.sm_sun?.all?.rank?.top, "sun");
   const windRank = getBadgeColor(station.data.av_wind?.all?.rank?.top, "wind");
+  const badgeItems: BadgeItem[] = [
+    ["toptemp", toptempRank],
+    ["bottemp", bottempRank],
+    ["hitemp", hitempRank],
+    ["rain", rainRank],
+    ["snowing", snowingRank],
+    ["sun", sunRank],
+    ["wind", windRank],
+  ]
+    .filter((item): item is [BadgeType, Rank] => item[1] !== null)
+    .map(([type, rank]) => makeBadge(type, rank))
+    .sort((a, b) => a.rank - b.rank);
   if (!station) return <div>駅データが見つかりません</div>;
   return (
     <>
@@ -216,35 +241,23 @@ const StationPage: NextPage<PageProps> = ({
           <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-4">
             {/* 左メインコンテンツ 5/7 */}
             <div className="flex-[5] w-full lg:w-auto flex flex-col gap-2 min-w-0">
-              <h1 className="text-3xl font-bold mb-2 mt-2 flex gap-2">
+              <h1 className="text-3xl font-bold mb-2 mt-2 flex gap-2 flex-wrap items-center">
                 {getIcon(station.official_name)}
                 {station.official_name} の詳細データ
-                {toptempRank !== 5 && (
-                  <RankBadge size={35} rank={toptempRank} type="toptemp" />
-                )}
-                {bottempRank !== 5 && (
-                  <RankBadge size={35} rank={bottempRank} type="bottemp" />
-                )}
-                {hitempRank !== 5 && (
-                  <RankBadge size={35} rank={hitempRank} type="hitemp" />
-                )}
-                {rainRank !== 5 && (
-                  <RankBadge size={35} rank={rainRank} type="rain" />
-                )}
-                {snowingRank !== 5 && (
-                  <RankBadge size={35} rank={snowingRank} type="snowing" />
-                )}
-                {sunRank !== 5 && (
-                  <RankBadge size={35} rank={sunRank} type="sun" />
-                )}
-                {windRank !== 5 && (
-                  <RankBadge size={35} rank={windRank} type="wind" />
-                )}
+                {badgeItems.map((badge) => (
+                  <RankBadge
+                    key={badge.type}
+                    size={35}
+                    rank={badge.rank}
+                    type={badge.type}
+                  />
+                ))}
               </h1>
 
               <div className="text-gray-700 mb-4">
                 <div>
-                  ・{station.official_name} の平年値・月別のデータです。
+                  ・{station.official_name}{" "}
+                  の気候データです、データは平年値(1991-2020の平均値)です。
                 </div>
                 <div>
                   ・類似度は、全国のアメダス観測所の月ごとの平均気温、平均最高気温、平均最低気温、降水量をもとに算出しており、気候パターンの類似性を比較できます。

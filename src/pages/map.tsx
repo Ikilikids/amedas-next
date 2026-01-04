@@ -14,9 +14,8 @@ import { SectionWithDescription } from "../utils/colorUtils";
 //  ページコンポーネント
 // ==============================
 const MapPage: NextPage = () => {
-  const [selectedStation, setSelectedStation] = useState<SelectedStation | null>(
-    null
-  );
+  const [selectedStation, setSelectedStation] =
+    useState<SelectedStation | null>(null);
 
   return (
     <>
@@ -42,7 +41,7 @@ const MapPage: NextPage = () => {
                 ・地図上のピンをクリックすると、右側(下側)の情報パネルに選択した観測所の基本情報（正式名称、都道府県、市町村）と雨温図が表示されます。
               </div>
               <div>
-                ・情報パネルの地点名を押すと、各月の平均気温、最高・最低気温、降水量などの詳細データや、割合グラフを確認できます。
+                ・情報パネルの地点名を押すと、各月の平均気温、最高・最低気温、降水量などの詳細データや、割合グラフを確認できます。データは平年値(1991-2020の平均値)です。
               </div>
               <div>
                 ・地図上でピンをドラッグしたり拡大縮小して、他の観測所の位置や周辺情報も簡単に確認できます。
@@ -80,4 +79,3 @@ const MapPage: NextPage = () => {
 };
 
 export default MapPage;
-

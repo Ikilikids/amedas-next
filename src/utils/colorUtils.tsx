@@ -261,10 +261,18 @@ export const metrics: Metric[] = [
   { key: "wind_15", label: "日平均風速15m/s以上" },
   { key: "wind_20", label: "日平均風速20m/s以上" },
   { key: "wind_30", label: "日平均風速30m/s以上" },
+  { key: "max_snowed", label: "最深積雪" },
+  { key: "max_hitemp", label: "最高気温" },
+  { key: "min_lwtemp", label: "最低気温" },
 ];
 
 // メイン5項目キー（ボタンで直接表示するもの）
-export const mainKeys: string[] = ["av_avtemp", "sm_sun", "sm_rain", "sm_snowing"];
+export const mainKeys: string[] = [
+  "av_avtemp",
+  "sm_sun",
+  "sm_rain",
+  "sm_snowing",
+];
 
 export const COLOR_MAP: { [key: string]: string } = {
   // temp
@@ -357,19 +365,25 @@ export const slugMonthMap: { [key: string]: string } = {
 // 単位判定
 export function detectUnitFromPath(filePath: string): string {
   const lower = filePath.toLowerCase().replace(/\\/g, "/");
-  const match = lower.match(new RegExp('ranking\\/([^/]+)\\/'));
-  const sortKey = match ? match[1] : "";
-  const isTemp = sortKey.endsWith("temp");
 
-  return isTemp
+  // ranking / ranking_y 両対応
+  const match = lower.match(/ranking(_y)?\/([^/]+)\//);
+  const sortKey = match ? match[2] : "";
+
+  // ★ 数字を含んでいたら最優先で「日」
+  if (/\d/.test(sortKey)) {
+    return "日";
+  }
+
+  return sortKey.includes("temp")
     ? "℃"
-    : sortKey === "sm_rain"
+    : sortKey.includes("rain")
     ? "mm"
-    : sortKey === "sm_snowing"
+    : sortKey.includes("snow")
     ? "cm"
-    : sortKey === "av_wind"
+    : sortKey.includes("wind")
     ? "m/s"
-    : sortKey === "sm_sun"
+    : sortKey.includes("sun")
     ? "時間"
     : "日";
 }
@@ -394,7 +408,11 @@ interface ValuesArray {
 }
 
 // single 内の指定フィールドから all.value を安全に取り出して配列化
-export function getValuesArrayFromData(data: any, month: string, type: string): ValuesArray {
+export function getValuesArrayFromData(
+  data: any,
+  month: string,
+  type: string
+): ValuesArray {
   let fields: string[];
   if (type.includes("temp")) {
     fields = tempFields;

@@ -29,6 +29,7 @@ interface RankingPartProps {
 
 interface StationListProps {
   list: RankingStation[];
+  type: string;
 }
 
 // ==============================
@@ -37,21 +38,25 @@ interface StationListProps {
 type LayoutType = "mobile" | "tablet" | "desktop";
 
 function useLayout(): LayoutType {
-  const [layout, setLayout] = useState<LayoutType>("desktop");
+  const [layout, setLayout] = useState<LayoutType>("mobile");
 
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
       if (w < 640) {
-        setLayout("mobile"); // sm
+        setLayout("mobile");
       } else if (w < 1024) {
-        setLayout("tablet"); // md
+        setLayout("tablet");
       } else {
-        setLayout("desktop"); // lg
+        setLayout("desktop");
       }
     };
 
     update();
+
+    // Safari対策：1フレーム遅らせて再評価
+    requestAnimationFrame(update);
+
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
@@ -85,7 +90,7 @@ function splitStations(
 // ==============================
 // StationList
 // ==============================
-const StationList: React.FC<StationListProps> = ({ list }) => {
+const StationList: React.FC<StationListProps> = ({ list, type }) => {
   const layout = useLayout();
   const columns = splitStations(list, layout);
 
@@ -116,7 +121,7 @@ const StationList: React.FC<StationListProps> = ({ list }) => {
                       colIndex === 0 ? "text-xl" : "text-base"
                     }`}
                   >
-                    {isIslandId(station.number)
+                    {isIslandId(station.number) && type.includes("temp")
                       ? `${station.rank}*`
                       : station.rank}
                   </span>
@@ -207,7 +212,7 @@ const RankingYear: React.FC<RankingPartProps> = ({
         </select>
       </div>
 
-      <StationList list={rankingList[0].stations} />
+      <StationList list={rankingList[0].stations} type={type} />
     </div>
   );
 };

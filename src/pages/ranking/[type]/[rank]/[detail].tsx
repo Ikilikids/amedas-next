@@ -9,7 +9,6 @@ import Footer from "../../../../components/Footer";
 import Header from "../../../../components/Header";
 import Ranking from "../../../../components/Ranking";
 import StationDetailPanel from "../../../../components/StationDetailPanel";
-import { useStationData } from "../../../../hooks/useStationData";
 import {
   SectionWithDescription,
   metrics,
@@ -89,9 +88,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // ==============================
 // getStaticProps
 // ==============================
-export const getStaticProps: GetStaticProps<PageProps> = async ({
-  params,
-}) => {
+export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
   const { type, rank, detail } = params as {
     type: string;
     rank: string;
@@ -189,7 +186,7 @@ const RankingPage: NextPage<PageProps> = ({
                 ・ランキングをクリックすると、右側(下側)の情報パネルに選択した観測所の基本情報（正式名称、都道府県、市町村）と雨温図が表示されます。
               </div>
               <div>
-                ・情報パネルの地点名を押すと、各月の平均気温、最高・最低気温、降水量などの詳細データや、割合グラフを確認できます。
+                ・情報パネルの地点名を押すと、各月の平均気温、最高・最低気温、降水量などの詳細データや、割合グラフを確認できます。データは平年値(1991-2020の平均値)です。
               </div>
               <div>
                 ・気温関連のデータについては、太平洋の島嶼部は気温が極端に高いため、区別のためランクに順位に*がついています。

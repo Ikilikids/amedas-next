@@ -2,9 +2,9 @@ import React, { useId } from "react";
 import { AiFillSun } from "react-icons/ai";
 import { BiWind } from "react-icons/bi";
 import { BsFillCloudRainHeavyFill } from "react-icons/bs";
-import { FaHotjar } from "react-icons/fa";
 import { LiaSnowflake } from "react-icons/lia";
 import { PiThermometerColdFill, PiThermometerHotFill } from "react-icons/pi";
+import { TbTemperaturePlus } from "react-icons/tb";
 
 /* =====================
  * 型
@@ -97,9 +97,9 @@ const medalColors: Record<
  * アイコン
  * ===================== */
 const badgeIcons: Record<BadgeType, React.ComponentType<any>> = {
-  toptemp: PiThermometerHotFill,
+  toptemp: TbTemperaturePlus,
   bottemp: PiThermometerColdFill,
-  hitemp: FaHotjar,
+  hitemp: PiThermometerHotFill,
   rain: BsFillCloudRainHeavyFill,
   sun: AiFillSun,
   snowing: LiaSnowflake,
