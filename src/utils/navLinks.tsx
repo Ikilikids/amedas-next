@@ -92,7 +92,7 @@ export const rankingLinks: NavLink[] = [
     Icon: LiaSnowflake,
     title: "降雪量ランキング",
     description: "1991-2025の降雪量を年ごとにランキングにしました",
-    iconClass: "text-cyan-400",
+    iconClass: "text-teal-500",
   },
   {
     href: "/ranking_y/sm_sun/2025",

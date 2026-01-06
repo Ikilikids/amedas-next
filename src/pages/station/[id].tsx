@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import path from "path";
 import { useState } from "react";
-import { IoHomeSharp } from "react-icons/io5";
+import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -21,7 +21,6 @@ import {
   getIcon,
   getRegionColor,
 } from "../../utils/colorUtils";
-
 const LayeredPieChart = dynamic(
   () => import("../../components/LayeredPieChart"),
   { ssr: false }
@@ -267,7 +266,7 @@ const StationPage: NextPage<PageProps> = ({
               <div className="flex flex-col gap-2">
                 {/* 情報パネルとマップ */}
                 <SectionWithDescription
-                  icon={IoHomeSharp}
+                  icon={IoBook}
                   title="基本データ"
                   bgColor={regionColor}
                 />

@@ -1,5 +1,5 @@
 // src/components/StationDetailPanel.tsx
-import { IoHomeSharp } from "react-icons/io5";
+import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 import { useStationData } from "../hooks/useStationData";
 import { getRegionColor, SectionWithDescription } from "../utils/colorUtils";
@@ -22,11 +22,7 @@ const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
     <div className="h-[750px] lg:flex-[2] xl:flex-[2] overflow-hidden flex flex-col gap-2">
       <h2 className="sr-only">情報パネル</h2>
       <div className="border rounded-lg" style={{ backgroundColor: bgColor }}>
-        <SectionWithDescription
-          icon={IoHomeSharp}
-          title="基本情報"
-          bgColor=""
-        />
+        <SectionWithDescription icon={IoBook} title="基本情報" bgColor="" />
       </div>
       <div className="min-h-0 h-[320px] overflow-auto">
         <InfoPanel

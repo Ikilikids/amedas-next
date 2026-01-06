@@ -1,5 +1,6 @@
 import React from "react";
 import { IconType } from "react-icons";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
 import {
   FaBuilding,
   FaMapMarkerAlt,
@@ -82,7 +83,8 @@ export function getIcon(officialName: string): React.ReactElement | null {
     return <FaBuilding />;
   if (officialName.includes("アメダス") || officialName == "4")
     return <FaMapMarkerAlt />;
-  if (officialName.includes("地点を選んでください！")) return null;
+  if (officialName.includes("地点を選んでください!!"))
+    return <BsFillQuestionCircleFill />;
   return <FaSatelliteDish />;
 }
 
