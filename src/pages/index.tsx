@@ -1,20 +1,30 @@
-import { NextPage } from "next";
-import { FaHome } from "react-icons/fa";
+import { GetStaticProps, NextPage } from "next";
+import { FaHome, FaSyncAlt } from "react-icons/fa";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LinkCard from "../components/LinkCard";
 import { featureLinks, rankingLinks, searchLinks } from "../utils/navLinks";
 
-const Home: NextPage = () => {
+interface Props {
+  lastUpdated: string;
+}
+
+const Home: NextPage<Props> = ({ lastUpdated }) => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
       <main className="flex-1 p-4">
         <div className="max-w-[1280px] mx-auto flex flex-col gap-4">
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            <FaHome className="w-8 h-8" />
-            トップページ
-          </h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-3xl font-bold flex items-center gap-2">
+              <FaHome className="w-8 h-8" />
+              トップページ
+            </h1>
+            <div className="flex items-center gap-2 text-sm text-gray-500 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-100">
+              <FaSyncAlt className="animate-spin-slow text-blue-400" />
+              <span>最終更新 (ISR): {lastUpdated}</span>
+            </div>
+          </div>
           <div className="text-gray-700 mb-4">
             <div>・アメダスの平年値データをまとめているサイトです。</div>
             <div>
