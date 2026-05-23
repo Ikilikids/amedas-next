@@ -1,802 +1,402 @@
 {
-  "44356": {
-    "value": 25.9,
-    "rank": 1,
-    "station_name": "南鳥島",
-    "official_name": "南鳥島気象観測所",
-    "pref": "東京都",
-    "city": "小笠原村"
-  },
-  "92006": {
-    "value": 24.5,
-    "rank": 2,
-    "station_name": "北大東",
-    "official_name": "北大東航空気象観測所",
-    "pref": "沖縄県",
-    "city": "島尻郡北大東村"
-  },
-  "44301": {
-    "value": 24.4,
-    "rank": 3,
-    "station_name": "父島",
-    "official_name": "父島気象観測所",
-    "pref": "東京都",
-    "city": "小笠原村父島字西町"
-  },
-  "92012": {
-    "value": 24.3,
-    "rank": 4,
-    "station_name": "旧東",
-    "official_name": "南大東航空気象観測所",
-    "pref": "沖縄県",
-    "city": "島尻郡南大東村"
-  },
-  "94116": {
-    "value": 23.9,
-    "rank": 5,
-    "station_name": "波照間",
-    "official_name": "波照間アメダス",
-    "pref": "沖縄県",
-    "city": "八重山郡竹富町"
-  },
-  "94081": {
-    "value": 23.9,
-    "rank": 5,
-    "station_name": "石垣島",
-    "official_name": "石垣島地方気象台",
-    "pref": "沖縄県",
-    "city": "石垣市"
-  },
-  "94011": {
-    "value": 23.9,
-    "rank": 5,
-    "station_name": "所野",
-    "official_name": "与那国航空気象観測所",
-    "pref": "沖縄県",
-    "city": "八重山郡与那国町"
-  },
-  "93062": {
-    "value": 23.9,
-    "rank": 5,
-    "station_name": "仲筋",
-    "official_name": "多良間航空気象観測所",
-    "pref": "沖縄県",
-    "city": "宮古郡多良間村"
-  },
-  "91236": {
-    "value": 23.8,
-    "rank": 9,
-    "station_name": "安次嶺",
-    "official_name": "那覇航空測候所",
-    "pref": "沖縄県",
-    "city": "那覇市"
-  },
-  "93041": {
-    "value": 23.8,
-    "rank": 9,
-    "station_name": "宮古島",
-    "official_name": "宮古島地方気象台",
-    "pref": "沖縄県",
-    "city": "宮古島市"
-  },
-  "94001": {
-    "value": 23.7,
-    "rank": 11,
-    "station_name": "伊原間",
-    "official_name": "伊原間アメダス",
-    "pref": "沖縄県",
-    "city": "石垣市"
-  },
-  "93012": {
-    "value": 23.6,
-    "rank": 12,
-    "station_name": "下地島",
-    "official_name": "下地島航空気象観測所",
-    "pref": "沖縄県",
-    "city": "宮古島市"
-  },
-  "94017": {
-    "value": 23.6,
-    "rank": 12,
-    "station_name": "与那国島",
-    "official_name": "与那国島特別地域気象観測所",
-    "pref": "沖縄県",
-    "city": "八重山郡与那国町"
-  },
-  "91197": {
-    "value": 23.5,
-    "rank": 14,
-    "station_name": "那覇",
-    "official_name": "沖縄気象台",
-    "pref": "沖縄県",
-    "city": "那覇市"
-  },
-  "91141": {
-    "value": 23.5,
-    "rank": 14,
-    "station_name": "北原",
-    "official_name": "久米島航空気象観測所",
-    "pref": "沖縄県",
-    "city": "島尻郡久米島町"
-  },
-  "94062": {
-    "value": 23.4,
-    "rank": 16,
-    "station_name": "西表島",
-    "official_name": "西表島特別地域気象観測所",
-    "pref": "沖縄県",
-    "city": "八重山郡竹富町"
-  },
-  "88986": {
-    "value": 23.4,
-    "rank": 16,
-    "station_name": "与論島",
-    "official_name": "与論航空気象観測所",
-    "pref": "鹿児島県",
-    "city": "大島郡与論町"
-  },
-  "91166": {
-    "value": 23.3,
-    "rank": 18,
-    "station_name": "宮城島",
-    "official_name": "宮城島アメダス",
-    "pref": "沖縄県",
-    "city": "うるま市"
-  },
-  "91146": {
-    "value": 23.2,
-    "rank": 19,
-    "station_name": "久米島",
-    "official_name": "久米島特別地域気象観測所",
-    "pref": "沖縄県",
-    "city": "島尻郡久米島町"
-  },
-  "88971": {
-    "value": 23.1,
-    "rank": 20,
-    "station_name": "沖永良部",
-    "official_name": "沖永良部特別地域気象観測所",
-    "pref": "鹿児島県",
-    "city": "大島郡和泊町"
-  },
-  "91011": {
-    "value": 23.1,
-    "rank": 20,
-    "station_name": "伊是名",
-    "official_name": "伊是名アメダス",
-    "pref": "沖縄県",
-    "city": "島尻郡伊是名村"
-  },
-  "92011": {
-    "value": 23.0,
-    "rank": 22,
-    "station_name": "南大東",
-    "official_name": "南大東島地方気象台",
-    "pref": "沖縄県",
-    "city": "島尻郡南大東村"
-  },
-  "93042": {
-    "value": 22.9,
-    "rank": 23,
-    "station_name": "鏡原",
-    "official_name": "宮古航空気象観測所",
-    "pref": "沖縄県",
-    "city": "宮古島市"
-  },
-  "94101": {
-    "value": 22.9,
-    "rank": 23,
-    "station_name": "大原",
-    "official_name": "大原アメダス",
-    "pref": "沖縄県",
-    "city": "八重山郡竹富町"
-  },
-  "91107": {
-    "value": 22.5,
-    "rank": 25,
-    "station_name": "名護",
-    "official_name": "名護特別地域気象観測所",
-    "pref": "沖縄県",
-    "city": "名護市"
-  },
-  "88931": {
-    "value": 22.2,
-    "rank": 26,
-    "station_name": "天城",
-    "official_name": "徳之島航空気象観測所",
-    "pref": "鹿児島県",
-    "city": "大島郡天城町"
-  },
-  "88851": {
-    "value": 22.0,
-    "rank": 27,
-    "station_name": "喜界島",
-    "official_name": "喜界航空気象観測所",
-    "pref": "鹿児島県",
-    "city": "大島郡喜界町"
-  },
-  "88821": {
-    "value": 22.0,
-    "rank": 27,
-    "station_name": "笠利",
-    "official_name": "奄美航空気象観測所",
-    "pref": "鹿児島県",
-    "city": "奄美市"
-  },
-  "91181": {
-    "value": 21.9,
-    "rank": 29,
-    "station_name": "渡嘉敷",
-    "official_name": "渡嘉敷アメダス",
-    "pref": "沖縄県",
-    "city": "島尻郡渡嘉敷村"
-  },
-  "88901": {
-    "value": 21.8,
-    "rank": 30,
-    "station_name": "古仁屋",
-    "official_name": "古仁屋アメダス",
-    "pref": "鹿児島県",
-    "city": "大島郡瀬戸内町"
-  },
-  "88956": {
-    "value": 21.7,
-    "rank": 31,
-    "station_name": "伊仙",
-    "official_name": "伊仙アメダス",
-    "pref": "鹿児島県",
-    "city": "大島郡伊仙町"
-  },
-  "91241": {
-    "value": 21.5,
-    "rank": 32,
-    "station_name": "糸数",
-    "official_name": "糸数アメダス",
-    "pref": "沖縄県",
-    "city": "南城市"
-  },
-  "91021": {
-    "value": 21.3,
-    "rank": 33,
-    "station_name": "奥",
-    "official_name": "奥アメダス",
-    "pref": "沖縄県",
-    "city": "国頭郡国頭村"
-  },
-  "88837": {
-    "value": 21.2,
-    "rank": 34,
-    "station_name": "名瀬",
-    "official_name": "名瀬測候所",
-    "pref": "鹿児島県",
-    "city": "奄美市"
-  },
-  "88706": {
-    "value": 20.4,
-    "rank": 35,
-    "station_name": "尾之間",
-    "official_name": "尾之間アメダス",
-    "pref": "鹿児島県",
-    "city": "熊毛郡屋久島町"
-  },
-  "88612": {
-    "value": 19.5,
-    "rank": 36,
-    "station_name": "種子島",
-    "official_name": "種子島特別地域気象観測所",
-    "pref": "鹿児島県",
-    "city": "西之表市"
-  },
-  "88686": {
-    "value": 19.4,
-    "rank": 37,
-    "station_name": "屋久島",
-    "official_name": "屋久島特別地域気象観測所",
-    "pref": "鹿児島県",
-    "city": "熊毛郡屋久島町"
-  },
-  "44262": {
-    "value": 19.3,
-    "rank": 38,
-    "station_name": "八重見ヶ原",
-    "official_name": "八丈島航空気象観測所",
-    "pref": "東京都",
-    "city": "八丈島八丈町"
-  },
-  "44228": {
-    "value": 19.0,
-    "rank": 39,
-    "station_name": "三宅坪田",
-    "official_name": "三宅島航空気象観測所",
-    "pref": "東京都",
-    "city": "三宅村"
-  },
-  "88666": {
-    "value": 19.0,
-    "rank": 39,
-    "station_name": "上中",
-    "official_name": "上中アメダス",
-    "pref": "鹿児島県",
-    "city": "熊毛郡南種子町"
-  },
-  "44263": {
-    "value": 18.7,
-    "rank": 41,
-    "station_name": "八丈島",
-    "official_name": "八丈島特別地域気象観測所",
-    "pref": "東京都",
-    "city": "八丈島八丈町"
-  },
-  "74516": {
-    "value": 18.6,
-    "rank": 42,
-    "station_name": "清水",
-    "official_name": "清水特別地域気象観測所",
-    "pref": "高知県",
-    "city": "土佐清水市"
-  },
-  "44226": {
-    "value": 18.4,
-    "rank": 43,
-    "station_name": "三宅島",
-    "official_name": "三宅島特別地域気象観測所",
-    "pref": "東京都",
-    "city": "三宅村"
-  },
-  "88736": {
-    "value": 18.2,
-    "rank": 44,
-    "station_name": "中之島",
-    "official_name": "中之島アメダス",
-    "pref": "鹿児島県",
-    "city": "鹿児島郡十島村"
-  },
-  "44216": {
-    "value": 18.1,
-    "rank": 45,
-    "station_name": "神津島",
-    "official_name": "神津島航空気象観測所",
-    "pref": "東京都",
-    "city": "神津島村"
-  },
-  "88317": {
-    "value": 18.0,
-    "rank": 46,
-    "station_name": "鹿児島",
-    "official_name": "鹿児島地方気象台",
-    "pref": "鹿児島県",
-    "city": "鹿児島市"
-  },
-  "88621": {
-    "value": 17.9,
-    "rank": 47,
-    "station_name": "中種子",
-    "official_name": "種子島航空気象観測所",
-    "pref": "鹿児島県",
-    "city": "熊毛郡中種子町"
-  },
-  "86491": {
-    "value": 17.8,
-    "rank": 48,
-    "station_name": "牛深",
-    "official_name": "牛深特別地域気象観測所",
-    "pref": "熊本県",
-    "city": "天草市"
-  },
-  "65356": {
-    "value": 17.7,
-    "rank": 49,
-    "station_name": "潮岬",
-    "official_name": "潮岬特別地域気象観測所",
-    "pref": "和歌山県",
-    "city": "東牟婁郡串本町"
-  },
-  "88131": {
-    "value": 17.7,
-    "rank": 49,
-    "station_name": "中甑",
-    "official_name": "中甑アメダス",
-    "pref": "鹿児島県",
-    "city": "薩摩川内市"
-  },
-  "44207": {
-    "value": 17.7,
-    "rank": 49,
-    "station_name": "新島",
-    "official_name": "新島航空気象観測所",
-    "pref": "東京都",
-    "city": "新島村"
-  },
-  "74372": {
-    "value": 17.6,
-    "rank": 52,
-    "station_name": "室戸岬",
-    "official_name": "室戸岬特別地域気象観測所",
-    "pref": "高知県",
-    "city": "室戸市"
-  },
-  "50561": {
-    "value": 17.5,
-    "rank": 53,
-    "station_name": "石廊崎",
-    "official_name": "石廊崎特別地域気象観測所",
-    "pref": "静岡県",
-    "city": "賀茂郡南伊豆町"
-  },
-  "87492": {
-    "value": 17.4,
-    "rank": 54,
-    "station_name": "油津",
-    "official_name": "油津特別地域気象観測所",
-    "pref": "宮崎県",
-    "city": "日南市"
-  },
-  "73341": {
-    "value": 17.2,
-    "rank": 55,
-    "station_name": "瀬戸",
-    "official_name": "瀬戸アメダス",
-    "pref": "愛媛県",
-    "city": "西宇和郡伊方町"
-  },
-  "62101": {
-    "value": 17.1,
-    "rank": 56,
-    "station_name": "関空島",
-    "official_name": "関西航空地方気象台",
-    "pref": "大阪府",
-    "city": "泉南郡田尻町"
-  },
-  "83476": {
-    "value": 17.1,
-    "rank": 56,
-    "station_name": "蒲江",
-    "official_name": "蒲江アメダス",
-    "pref": "大分県",
-    "city": "佐伯市"
-  },
-  "82068": {
-    "value": 17.1,
-    "rank": 56,
-    "station_name": "空港北町",
-    "official_name": "北九州航空気象観測所",
-    "pref": "福岡県",
-    "city": "北九州市"
-  },
-  "84012": {
-    "value": 17.0,
-    "rank": 59,
-    "station_name": "鰐浦",
-    "official_name": "鰐浦アメダス",
-    "pref": "長崎県",
-    "city": "対馬市"
-  },
-  "84523": {
-    "value": 17.0,
-    "rank": 59,
-    "station_name": "島原",
-    "official_name": "島原アメダス",
-    "pref": "長崎県",
-    "city": "島原市"
-  },
-  "50551": {
-    "value": 17.0,
-    "rank": 59,
-    "station_name": "御前崎",
-    "official_name": "御前崎特別地域気象観測所",
-    "pref": "静岡県",
-    "city": "御前崎市"
-  },
-  "81428": {
-    "value": 16.9,
-    "rank": 62,
-    "station_name": "下関",
-    "official_name": "下関地方気象台",
-    "pref": "山口県",
-    "city": "下関市"
-  },
-  "44173": {
-    "value": 16.9,
-    "rank": 62,
-    "station_name": "大島北ノ山",
-    "official_name": "大島航空気象観測所",
-    "pref": "東京都",
-    "city": "大島町"
-  },
-  "65276": {
-    "value": 16.9,
-    "rank": 62,
-    "station_name": "新宮",
-    "official_name": "新宮アメダス",
-    "pref": "和歌山県",
-    "city": "新宮市"
-  },
-  "88466": {
-    "value": 16.8,
-    "rank": 65,
-    "station_name": "枕崎",
-    "official_name": "枕崎特別地域気象観測所",
-    "pref": "鹿児島県",
-    "city": "枕崎市"
-  },
-  "45148": {
-    "value": 16.8,
-    "rank": 65,
-    "station_name": "銚子",
-    "official_name": "銚子地方気象台",
-    "pref": "千葉県",
-    "city": "銚子市"
-  },
-  "71231": {
-    "value": 16.8,
-    "rank": 65,
-    "station_name": "蒲生田",
-    "official_name": "蒲生田アメダス",
-    "pref": "徳島県",
-    "city": "阿南市"
-  },
-  "63517": {
-    "value": 16.7,
-    "rank": 68,
-    "station_name": "神戸空港",
-    "official_name": "神戸航空気象観測所",
-    "pref": "兵庫県",
-    "city": "神戸市"
-  },
-  "88486": {
-    "value": 16.7,
-    "rank": 68,
-    "station_name": "指宿",
-    "official_name": "指宿アメダス",
-    "pref": "鹿児島県",
-    "city": "指宿市"
-  },
-  "63518": {
-    "value": 16.7,
-    "rank": 68,
-    "station_name": "神戸",
-    "official_name": "神戸地方気象台",
-    "pref": "兵庫県",
-    "city": "神戸市"
-  },
-  "87412": {
-    "value": 16.6,
-    "rank": 71,
-    "station_name": "赤江",
-    "official_name": "宮崎航空気象観測所",
-    "pref": "宮崎県",
-    "city": "宮崎市"
-  },
-  "84496": {
-    "value": 16.5,
-    "rank": 72,
-    "station_name": "長崎",
-    "official_name": "長崎地方気象台",
-    "pref": "長崎県",
-    "city": "長崎市"
-  },
-  "88061": {
-    "value": 16.5,
-    "rank": 72,
-    "station_name": "阿久根",
-    "official_name": "阿久根特別地域気象観測所",
-    "pref": "鹿児島県",
-    "city": "阿久根市"
-  },
-  "51261": {
-    "value": 16.5,
-    "rank": 72,
-    "station_name": "セントレア",
-    "official_name": "中部航空地方気象台",
-    "pref": "愛知県",
-    "city": "常滑市"
-  },
-  "65288": {
-    "value": 16.5,
-    "rank": 72,
-    "station_name": "南紀白浜",
-    "official_name": "南紀白浜航空気象観測所",
-    "pref": "和歌山県",
-    "city": "西牟婁郡白浜町"
-  },
-  "84341": {
-    "value": 16.5,
-    "rank": 72,
-    "station_name": "有川",
-    "official_name": "有川アメダス",
-    "pref": "長崎県",
-    "city": "南松浦郡新上五島町"
-  },
-  "84121": {
-    "value": 16.4,
-    "rank": 77,
-    "station_name": "芦辺",
-    "official_name": "芦辺アメダス",
-    "pref": "長崎県",
-    "city": "壱岐市"
-  },
-  "88432": {
-    "value": 16.4,
-    "rank": 77,
-    "station_name": "喜入",
-    "official_name": "喜入アメダス",
-    "pref": "鹿児島県",
-    "city": "鹿児島市"
-  },
-  "84171": {
-    "value": 16.4,
-    "rank": 77,
-    "station_name": "平戸",
-    "official_name": "平戸特別地域気象観測所",
-    "pref": "長崎県",
-    "city": "平戸市"
-  },
-  "84266": {
-    "value": 16.4,
-    "rank": 77,
-    "station_name": "佐世保",
-    "official_name": "佐世保特別地域気象観測所",
-    "pref": "長崎県",
-    "city": "佐世保市"
-  },
-  "84122": {
-    "value": 16.4,
-    "rank": 77,
-    "station_name": "石田",
-    "official_name": "壱岐航空気象観測所",
-    "pref": "長崎県",
-    "city": "壱岐市"
-  },
-  "74271": {
-    "value": 16.3,
-    "rank": 82,
-    "station_name": "安芸",
-    "official_name": "安芸アメダス",
-    "pref": "高知県",
-    "city": "安芸市"
-  },
-  "86216": {
-    "value": 16.3,
-    "rank": 82,
-    "station_name": "三角",
-    "official_name": "三角アメダス",
-    "pref": "熊本県",
-    "city": "宇城市"
-  },
-  "67576": {
-    "value": 16.3,
-    "rank": 82,
-    "station_name": "呉市蒲刈",
-    "official_name": "呉市蒲刈アメダス",
-    "pref": "広島県",
-    "city": "呉市"
-  },
-  "53401": {
-    "value": 16.3,
-    "rank": 82,
-    "station_name": "熊野新鹿",
-    "official_name": "熊野新鹿アメダス",
-    "pref": "三重県",
-    "city": "熊野市"
-  },
-  "71266": {
-    "value": 16.3,
-    "rank": 82,
-    "station_name": "日和佐",
-    "official_name": "日和佐アメダス",
-    "pref": "徳島県",
-    "city": "海部郡美波町"
-  },
-  "87066": {
-    "value": 16.3,
-    "rank": 82,
-    "station_name": "古江",
-    "official_name": "古江アメダス",
-    "pref": "宮崎県",
-    "city": "延岡市"
-  },
   "44166": {
     "value": 16.2,
-    "rank": 88,
-    "station_name": "羽田",
-    "official_name": "東京航空地方気象台",
-    "pref": "東京都",
-    "city": "大田区"
-  },
-  "50456": {
-    "value": 16.2,
-    "rank": 88,
-    "station_name": "浜松",
-    "official_name": "浜松特別地域気象観測所",
-    "pref": "静岡県",
-    "city": "浜松市"
-  },
-  "50506": {
-    "value": 16.2,
-    "rank": 88,
-    "station_name": "稲取",
-    "official_name": "稲取アメダス",
-    "pref": "静岡県",
-    "city": "賀茂郡東伊豆町"
-  },
-  "88506": {
-    "value": 16.1,
-    "rank": 91,
-    "station_name": "内之浦",
-    "official_name": "内之浦アメダス",
-    "pref": "鹿児島県",
-    "city": "肝属郡肝付町"
+    "rank": 88
   },
   "44172": {
     "value": 16.1,
-    "rank": 91,
-    "station_name": "大島",
-    "official_name": "大島特別地域気象観測所",
-    "pref": "東京都",
-    "city": "大島町"
+    "rank": 91
+  },
+  "44173": {
+    "value": 16.9,
+    "rank": 62
+  },
+  "44207": {
+    "value": 17.7,
+    "rank": 49
+  },
+  "44216": {
+    "value": 18.1,
+    "rank": 45
+  },
+  "44226": {
+    "value": 18.4,
+    "rank": 43
+  },
+  "44228": {
+    "value": 19,
+    "rank": 39
+  },
+  "44262": {
+    "value": 19.3,
+    "rank": 38
+  },
+  "44263": {
+    "value": 18.7,
+    "rank": 41
+  },
+  "44301": {
+    "value": 24.4,
+    "rank": 3
+  },
+  "44356": {
+    "value": 25.9,
+    "rank": 1
+  },
+  "45148": {
+    "value": 16.8,
+    "rank": 65
   },
   "50281": {
     "value": 16.1,
-    "rank": 91,
-    "station_name": "網代",
-    "official_name": "網代特別地域気象観測所",
-    "pref": "静岡県",
-    "city": "熱海市"
+    "rank": 91
+  },
+  "50456": {
+    "value": 16.2,
+    "rank": 88
+  },
+  "50506": {
+    "value": 16.2,
+    "rank": 88
+  },
+  "50551": {
+    "value": 17,
+    "rank": 59
+  },
+  "50561": {
+    "value": 17.5,
+    "rank": 53
+  },
+  "51261": {
+    "value": 16.5,
+    "rank": 72
   },
   "51346": {
-    "value": 16.0,
-    "rank": 94,
-    "station_name": "伊良湖",
-    "official_name": "伊良湖特別地域気象観測所",
-    "pref": "愛知県",
-    "city": "田原市"
+    "value": 16,
+    "rank": 94
+  },
+  "53401": {
+    "value": 16.3,
+    "rank": 82
   },
   "62078": {
-    "value": 16.0,
-    "rank": 94,
-    "station_name": "大阪",
-    "official_name": "大阪管区気象台",
-    "pref": "大阪府",
-    "city": "大阪市"
+    "value": 16,
+    "rank": 94
   },
-  "82182": {
-    "value": 16.0,
-    "rank": 94,
-    "station_name": "福岡",
-    "official_name": "福岡管区気象台",
-    "pref": "福岡県",
-    "city": "福岡市"
+  "62101": {
+    "value": 17.1,
+    "rank": 56
   },
-  "71106": {
-    "value": 15.9,
-    "rank": 97,
-    "station_name": "徳島",
-    "official_name": "徳島地方気象台",
-    "pref": "徳島県",
-    "city": "徳島市"
+  "63517": {
+    "value": 16.7,
+    "rank": 68
   },
-  "84371": {
-    "value": 15.9,
-    "rank": 97,
-    "station_name": "大村",
-    "official_name": "長崎航空気象観測所",
-    "pref": "長崎県",
-    "city": "大村市"
+  "63518": {
+    "value": 16.7,
+    "rank": 68
   },
-  "73168": {
-    "value": 15.9,
-    "rank": 97,
-    "station_name": "松山南吉田",
-    "official_name": "松山航空気象観測所",
-    "pref": "愛媛県",
-    "city": "松山市"
+  "65276": {
+    "value": 16.9,
+    "rank": 62
+  },
+  "65288": {
+    "value": 16.5,
+    "rank": 72
+  },
+  "65356": {
+    "value": 17.7,
+    "rank": 49
   },
   "67511": {
     "value": 15.8,
-    "rank": 100,
-    "station_name": "呉",
-    "official_name": "呉特別地域気象観測所",
-    "pref": "広島県",
-    "city": "呉市"
+    "rank": 100
+  },
+  "67576": {
+    "value": 16.3,
+    "rank": 82
+  },
+  "71106": {
+    "value": 15.9,
+    "rank": 97
+  },
+  "71231": {
+    "value": 16.8,
+    "rank": 65
+  },
+  "71266": {
+    "value": 16.3,
+    "rank": 82
+  },
+  "73168": {
+    "value": 15.9,
+    "rank": 97
+  },
+  "73341": {
+    "value": 17.2,
+    "rank": 55
+  },
+  "74271": {
+    "value": 16.3,
+    "rank": 82
+  },
+  "74372": {
+    "value": 17.6,
+    "rank": 52
+  },
+  "74516": {
+    "value": 18.6,
+    "rank": 42
+  },
+  "81428": {
+    "value": 16.9,
+    "rank": 62
+  },
+  "82068": {
+    "value": 17.1,
+    "rank": 56
+  },
+  "82182": {
+    "value": 16,
+    "rank": 94
+  },
+  "83476": {
+    "value": 17.1,
+    "rank": 56
+  },
+  "84012": {
+    "value": 17,
+    "rank": 59
+  },
+  "84121": {
+    "value": 16.4,
+    "rank": 77
+  },
+  "84122": {
+    "value": 16.4,
+    "rank": 77
+  },
+  "84171": {
+    "value": 16.4,
+    "rank": 77
+  },
+  "84266": {
+    "value": 16.4,
+    "rank": 77
+  },
+  "84341": {
+    "value": 16.5,
+    "rank": 72
+  },
+  "84371": {
+    "value": 15.9,
+    "rank": 97
+  },
+  "84496": {
+    "value": 16.5,
+    "rank": 72
+  },
+  "84523": {
+    "value": 17,
+    "rank": 59
+  },
+  "86216": {
+    "value": 16.3,
+    "rank": 82
+  },
+  "86491": {
+    "value": 17.8,
+    "rank": 48
+  },
+  "87066": {
+    "value": 16.3,
+    "rank": 82
+  },
+  "87412": {
+    "value": 16.6,
+    "rank": 71
+  },
+  "87492": {
+    "value": 17.4,
+    "rank": 54
+  },
+  "88061": {
+    "value": 16.5,
+    "rank": 72
+  },
+  "88131": {
+    "value": 17.7,
+    "rank": 49
+  },
+  "88317": {
+    "value": 18,
+    "rank": 46
+  },
+  "88432": {
+    "value": 16.4,
+    "rank": 77
+  },
+  "88466": {
+    "value": 16.8,
+    "rank": 65
+  },
+  "88486": {
+    "value": 16.7,
+    "rank": 68
+  },
+  "88506": {
+    "value": 16.1,
+    "rank": 91
+  },
+  "88612": {
+    "value": 19.5,
+    "rank": 36
+  },
+  "88621": {
+    "value": 17.9,
+    "rank": 47
+  },
+  "88666": {
+    "value": 19,
+    "rank": 39
+  },
+  "88686": {
+    "value": 19.4,
+    "rank": 37
+  },
+  "88706": {
+    "value": 20.4,
+    "rank": 35
+  },
+  "88736": {
+    "value": 18.2,
+    "rank": 44
+  },
+  "88821": {
+    "value": 22,
+    "rank": 27
+  },
+  "88837": {
+    "value": 21.2,
+    "rank": 34
+  },
+  "88851": {
+    "value": 22,
+    "rank": 27
+  },
+  "88901": {
+    "value": 21.8,
+    "rank": 30
+  },
+  "88931": {
+    "value": 22.2,
+    "rank": 26
+  },
+  "88956": {
+    "value": 21.7,
+    "rank": 31
+  },
+  "88971": {
+    "value": 23.1,
+    "rank": 20
+  },
+  "88986": {
+    "value": 23.4,
+    "rank": 16
+  },
+  "91011": {
+    "value": 23.1,
+    "rank": 20
+  },
+  "91021": {
+    "value": 21.3,
+    "rank": 33
+  },
+  "91107": {
+    "value": 22.5,
+    "rank": 25
+  },
+  "91141": {
+    "value": 23.5,
+    "rank": 14
+  },
+  "91146": {
+    "value": 23.2,
+    "rank": 19
+  },
+  "91166": {
+    "value": 23.3,
+    "rank": 18
+  },
+  "91181": {
+    "value": 21.9,
+    "rank": 29
+  },
+  "91197": {
+    "value": 23.5,
+    "rank": 14
+  },
+  "91236": {
+    "value": 23.8,
+    "rank": 9
+  },
+  "91241": {
+    "value": 21.5,
+    "rank": 32
+  },
+  "92006": {
+    "value": 24.5,
+    "rank": 2
+  },
+  "92011": {
+    "value": 23,
+    "rank": 22
+  },
+  "92012": {
+    "value": 24.3,
+    "rank": 4
+  },
+  "93012": {
+    "value": 23.6,
+    "rank": 12
+  },
+  "93041": {
+    "value": 23.8,
+    "rank": 9
+  },
+  "93042": {
+    "value": 22.9,
+    "rank": 23
+  },
+  "93062": {
+    "value": 23.9,
+    "rank": 5
+  },
+  "94001": {
+    "value": 23.7,
+    "rank": 11
+  },
+  "94011": {
+    "value": 23.9,
+    "rank": 5
+  },
+  "94017": {
+    "value": 23.6,
+    "rank": 12
+  },
+  "94062": {
+    "value": 23.4,
+    "rank": 16
+  },
+  "94081": {
+    "value": 23.9,
+    "rank": 5
+  },
+  "94101": {
+    "value": 22.9,
+    "rank": 23
+  },
+  "94116": {
+    "value": 23.9,
+    "rank": 5
   }
 }

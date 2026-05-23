@@ -31,7 +31,7 @@ interface PageProps {
 // getStaticProps
 // ==============================
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const filePath = path.join(process.cwd(), "data", "amedas_light2.json");
+  const filePath = path.join(process.cwd(), "public", "stations.json");
   const jsonData = fs.readFileSync(filePath, "utf-8");
   const data = JSON.parse(jsonData);
 
@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
     ([id, value]: [string, any]) => {
       const prefCode = parseInt(id.slice(0, 2), 10);
       return {
-        value: { ...value, id },
+        value: { ...value, id, 観測所名: value.name }, // 互換性のために観測所名を残す
         prefCode,
       };
     }

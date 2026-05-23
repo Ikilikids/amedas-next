@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
-import { FaHome, FaSyncAlt } from "react-icons/fa";
+import { FaHome, FaSyncAlt, FaTemperatureHigh } from "react-icons/fa";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LinkCard from "../components/LinkCard";
@@ -36,6 +36,23 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
             <div>
               ・年度別ランキングでは1991-2025(最新)の猛暑日日数や降水量のランキングを確認できます。
             </div>
+          </div>
+          <h2 className="text-xl font-bold">今日の観測状況</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+            <LinkCard 
+              href="/realtime" 
+              Icon={FaTemperatureHigh} 
+              title="現在の気温" 
+              description="気象庁の最新データを確認できます" 
+              iconClass="text-red-500"
+            />
+            <LinkCard 
+              href="/daily-max" 
+              Icon={FaTemperatureHigh} 
+              title="今日の最高気温" 
+              description="全国の最高気温ランキングを確認できます" 
+              iconClass="text-orange-500"
+            />
           </div>
           <h2 className="text-xl font-bold">検索方法</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">

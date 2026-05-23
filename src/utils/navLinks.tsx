@@ -29,7 +29,7 @@ export const searchLinks: NavLink[] = [
     description: "地図を見ながらアメダスを選択できます",
   },
   {
-    href: "/ranking/av_avtemp/top/default",
+    href: "/clim_ranking",
     Icon: IoIosTrophy,
     title: "ランキングから探す",
     description: "雨量や気温のランキングからアメダスを探せます",

@@ -6,13 +6,13 @@ import { GoogleMap, Marker } from "@react-google-maps/api";
 // ==============================
 interface Station {
   id: string;
-  緯度: string;
-  経度: string;
-  // Add other properties if needed based on the JSON structure
+  lat: number;
+  lon: number;
+  name: string;
 }
 
 interface MapViewProps {
-  onStationClick: (station: Station) => void;
+  onStationClick: (station: any) => void;
 }
 
 // ==============================
@@ -22,7 +22,7 @@ const MapView: React.FC<MapViewProps> = ({ onStationClick }) => {
   const [stationList, setStationList] = useState<Station[]>([]);
 
   useEffect(() => {
-    fetch("/station_latlon.json")
+    fetch("/stations.json")
       .then((res) => res.json())
       .then((data) => {
         const list: Station[] = Object.entries(data).map(([id, value]: [string, any]) => ({
@@ -50,7 +50,7 @@ const MapView: React.FC<MapViewProps> = ({ onStationClick }) => {
       {stationList.map((s) => (
         <Marker
           key={s.id}
-          position={{ lat: parseFloat(s.緯度), lng: parseFloat(s.経度) }}
+          position={{ lat: s.lat, lng: s.lon }}
           onClick={() => onStationClick(s)}
         />
       ))}

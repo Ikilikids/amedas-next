@@ -1,802 +1,402 @@
 {
-  "54666": {
-    "value": 5.6,
-    "rank": 1,
-    "station_name": "川谷",
-    "official_name": "川谷アメダス",
-    "pref": "新潟県",
-    "city": "上越市"
-  },
-  "54651": {
-    "value": 5.5,
-    "rank": 2,
-    "station_name": "高田",
-    "official_name": "高田特別地域気象観測所",
-    "pref": "新潟県",
-    "city": "上越市"
-  },
-  "54721": {
-    "value": 5.4,
-    "rank": 3,
-    "station_name": "能生",
-    "official_name": "能生アメダス",
-    "pref": "新潟県",
-    "city": "糸魚川市"
-  },
-  "54606": {
-    "value": 5.4,
-    "rank": 3,
-    "station_name": "小国",
-    "official_name": "小国アメダス",
-    "pref": "新潟県",
-    "city": "長岡市"
-  },
-  "54472": {
-    "value": 5.4,
-    "rank": 3,
-    "station_name": "室谷",
-    "official_name": "室谷アメダス",
-    "pref": "新潟県",
-    "city": "東蒲原郡阿賀町"
-  },
-  "54311": {
-    "value": 5.4,
-    "rank": 3,
-    "station_name": "赤谷",
-    "official_name": "赤谷アメダス",
-    "pref": "新潟県",
-    "city": "新発田市"
-  },
-  "54671": {
-    "value": 5.3,
-    "rank": 7,
-    "station_name": "松代",
-    "official_name": "松代アメダス",
-    "pref": "新潟県",
-    "city": "十日町市"
-  },
-  "54566": {
-    "value": 5.2,
-    "rank": 8,
-    "station_name": "守門",
-    "official_name": "守門アメダス",
-    "pref": "新潟県",
-    "city": "魚沼市"
-  },
-  "55063": {
-    "value": 4.8,
-    "rank": 9,
-    "station_name": "宇奈月",
-    "official_name": "宇奈月アメダス",
-    "pref": "富山県",
-    "city": "黒部市"
-  },
-  "54621": {
-    "value": 4.8,
-    "rank": 9,
-    "station_name": "大湯",
-    "official_name": "大湯アメダス",
-    "pref": "新潟県",
-    "city": "魚沼市"
-  },
-  "54711": {
-    "value": 4.7,
-    "rank": 11,
-    "station_name": "糸魚川",
-    "official_name": "糸魚川アメダス",
-    "pref": "新潟県",
-    "city": "糸魚川市"
-  },
-  "35216": {
-    "value": 4.7,
-    "rank": 11,
-    "station_name": "肘折",
-    "official_name": "肘折アメダス",
-    "pref": "山形県",
-    "city": "最上郡大蔵村"
-  },
-  "55252": {
-    "value": 4.6,
-    "rank": 13,
-    "station_name": "五箇山",
-    "official_name": "五箇山アメダス",
-    "pref": "富山県",
-    "city": "南砺市"
-  },
-  "54506": {
-    "value": 4.5,
-    "rank": 14,
-    "station_name": "栃尾",
-    "official_name": "栃尾アメダス",
-    "pref": "新潟県",
-    "city": "長岡市"
-  },
-  "54462": {
-    "value": 4.5,
-    "rank": 14,
-    "station_name": "宮寄上",
-    "official_name": "宮寄上アメダス",
-    "pref": "新潟県",
-    "city": "加茂市"
-  },
-  "54661": {
-    "value": 4.4,
-    "rank": 16,
-    "station_name": "安塚",
-    "official_name": "安塚アメダス",
-    "pref": "新潟県",
-    "city": "上越市"
-  },
-  "56301": {
-    "value": 4.3,
-    "rank": 17,
-    "station_name": "加賀中津原",
-    "official_name": "加賀中津原アメダス",
-    "pref": "石川県",
-    "city": "加賀市"
-  },
-  "54876": {
-    "value": 4.3,
-    "rank": 17,
-    "station_name": "平岩",
-    "official_name": "平岩アメダス",
-    "pref": "新潟県",
-    "city": "糸魚川市"
-  },
-  "35256": {
-    "value": 4.2,
-    "rank": 19,
-    "station_name": "荒沢",
-    "official_name": "荒沢アメダス",
-    "pref": "山形県",
-    "city": "鶴岡市"
-  },
-  "54676": {
-    "value": 4.1,
-    "rank": 20,
-    "station_name": "十日町",
-    "official_name": "十日町アメダス",
-    "pref": "新潟県",
-    "city": "十日町市"
-  },
-  "35486": {
-    "value": 4.1,
-    "rank": 20,
-    "station_name": "小国",
-    "official_name": "小国アメダス",
-    "pref": "山形県",
-    "city": "西置賜郡小国町"
-  },
-  "57206": {
-    "value": 4.0,
-    "rank": 22,
-    "station_name": "今庄",
-    "official_name": "今庄アメダス",
-    "pref": "福井県",
-    "city": "南条郡南越前町"
-  },
-  "60026": {
-    "value": 4.0,
-    "rank": 22,
-    "station_name": "柳ケ瀬",
-    "official_name": "柳ケ瀬アメダス",
-    "pref": "滋賀県",
-    "city": "長浜市"
-  },
-  "55022": {
-    "value": 3.7,
-    "rank": 24,
-    "station_name": "朝日",
-    "official_name": "朝日アメダス",
-    "pref": "富山県",
-    "city": "下新川郡朝日町"
-  },
-  "54056": {
-    "value": 3.7,
-    "rank": 24,
-    "station_name": "高根",
-    "official_name": "高根アメダス",
-    "pref": "新潟県",
-    "city": "村上市"
-  },
-  "54737": {
-    "value": 3.6,
-    "rank": 26,
-    "station_name": "筒方",
-    "official_name": "筒方アメダス",
-    "pref": "新潟県",
-    "city": "上越市"
-  },
-  "54541": {
-    "value": 3.5,
-    "rank": 27,
-    "station_name": "柏崎",
-    "official_name": "柏崎アメダス",
-    "pref": "新潟県",
-    "city": "柏崎市"
-  },
-  "55191": {
-    "value": 3.5,
-    "rank": 27,
-    "station_name": "南砺高宮",
-    "official_name": "南砺高宮アメダス",
-    "pref": "富山県",
-    "city": "南砺市"
-  },
-  "56346": {
-    "value": 3.5,
-    "rank": 27,
-    "station_name": "白山白峰",
-    "official_name": "白山白峰アメダス",
-    "pref": "石川県",
-    "city": "白山市"
-  },
-  "56286": {
-    "value": 3.5,
-    "rank": 27,
-    "station_name": "白山河内",
-    "official_name": "白山河内アメダス",
-    "pref": "石川県",
-    "city": "白山市"
-  },
-  "54616": {
-    "value": 3.4,
-    "rank": 31,
-    "station_name": "小出",
-    "official_name": "小出アメダス",
-    "pref": "新潟県",
-    "city": "魚沼市"
-  },
-  "35537": {
-    "value": 3.4,
-    "rank": 31,
-    "station_name": "中津川",
-    "official_name": "中津川アメダス",
-    "pref": "山形県",
-    "city": "西置賜郡飯豊町"
-  },
-  "54586": {
-    "value": 3.3,
-    "rank": 33,
-    "station_name": "大潟",
-    "official_name": "大潟アメダス",
-    "pref": "新潟県",
-    "city": "上越市"
-  },
-  "54501": {
-    "value": 3.2,
-    "rank": 34,
-    "station_name": "長岡",
-    "official_name": "長岡アメダス",
-    "pref": "新潟県",
-    "city": "長岡市"
-  },
-  "54191": {
-    "value": 3.2,
-    "rank": 34,
-    "station_name": "下関",
-    "official_name": "下関アメダス",
-    "pref": "新潟県",
-    "city": "岩船郡関川村"
-  },
-  "35361": {
-    "value": 3.0,
-    "rank": 36,
-    "station_name": "大井沢",
-    "official_name": "大井沢アメダス",
-    "pref": "山形県",
-    "city": "西村山郡西川町"
-  },
-  "57286": {
-    "value": 3.0,
-    "rank": 36,
-    "station_name": "美浜",
-    "official_name": "美浜アメダス",
-    "pref": "福井県",
-    "city": "三方郡美浜町"
-  },
-  "36426": {
-    "value": 2.9,
-    "rank": 38,
-    "station_name": "只見",
-    "official_name": "只見アメダス",
-    "pref": "福島県",
-    "city": "南会津郡只見町"
-  },
-  "54761": {
-    "value": 2.9,
-    "rank": 38,
-    "station_name": "塩沢",
-    "official_name": "塩沢アメダス",
-    "pref": "新潟県",
-    "city": "南魚沼市"
-  },
-  "54421": {
-    "value": 2.9,
-    "rank": 38,
-    "station_name": "津川",
-    "official_name": "津川アメダス",
-    "pref": "新潟県",
-    "city": "東蒲原郡阿賀町"
-  },
-  "57248": {
-    "value": 2.9,
-    "rank": 38,
-    "station_name": "敦賀",
-    "official_name": "敦賀特別地域気象観測所",
-    "pref": "福井県",
-    "city": "敦賀市"
-  },
-  "55166": {
-    "value": 2.9,
-    "rank": 38,
-    "station_name": "上市",
-    "official_name": "上市アメダス",
-    "pref": "富山県",
-    "city": "中新川郡上市"
-  },
-  "54841": {
-    "value": 2.8,
-    "rank": 43,
-    "station_name": "湯沢",
-    "official_name": "湯沢アメダス",
-    "pref": "新潟県",
-    "city": "南魚沼郡湯沢町"
-  },
-  "57106": {
-    "value": 2.8,
-    "rank": 43,
-    "station_name": "武生",
-    "official_name": "武生アメダス",
-    "pref": "福井県",
-    "city": "越前市"
-  },
-  "55217": {
-    "value": 2.8,
-    "rank": 43,
-    "station_name": "立山芦峅",
-    "official_name": "立山芦峅アメダス",
-    "pref": "富山県",
-    "city": "中新川郡立山町"
-  },
-  "55206": {
-    "value": 2.7,
-    "rank": 46,
-    "station_name": "八尾",
-    "official_name": "八尾アメダス",
-    "pref": "富山県",
-    "city": "富山市"
-  },
-  "57071": {
-    "value": 2.7,
-    "rank": 46,
-    "station_name": "美山",
-    "official_name": "美山アメダス",
-    "pref": "福井県",
-    "city": "福井市"
-  },
-  "52081": {
-    "value": 2.7,
-    "rank": 46,
-    "station_name": "白川",
-    "official_name": "白川アメダス",
-    "pref": "岐阜県",
-    "city": "大野郡白川村"
-  },
-  "88686": {
-    "value": 2.7,
-    "rank": 46,
-    "station_name": "屋久島",
-    "official_name": "屋久島特別地域気象観測所",
-    "pref": "鹿児島県",
-    "city": "熊毛郡屋久島町"
-  },
-  "35201": {
-    "value": 2.6,
-    "rank": 50,
-    "station_name": "櫛引",
-    "official_name": "櫛引アメダス",
-    "pref": "山形県",
-    "city": "鶴岡市"
-  },
-  "63032": {
-    "value": 2.6,
-    "rank": 50,
-    "station_name": "温泉",
-    "official_name": "温泉アメダス",
-    "pref": "兵庫県",
-    "city": "美方郡新温泉町"
-  },
-  "69111": {
-    "value": 2.6,
-    "rank": 50,
-    "station_name": "鹿野",
-    "official_name": "鹿野アメダス",
-    "pref": "鳥取県",
-    "city": "鳥取市"
-  },
-  "63016": {
-    "value": 2.5,
-    "rank": 53,
-    "station_name": "香住",
-    "official_name": "香住アメダス",
-    "pref": "兵庫県",
-    "city": "美方郡香美町"
-  },
-  "55056": {
-    "value": 2.4,
-    "rank": 54,
-    "station_name": "魚津",
-    "official_name": "魚津アメダス",
-    "pref": "富山県",
-    "city": "魚津市"
-  },
-  "69061": {
-    "value": 2.3,
-    "rank": 55,
-    "station_name": "岩井",
-    "official_name": "岩井アメダス",
-    "pref": "鳥取県",
-    "city": "岩美郡岩美町"
-  },
-  "55091": {
-    "value": 2.3,
-    "rank": 55,
-    "station_name": "伏木",
-    "official_name": "伏木特別地域気象観測所",
-    "pref": "富山県",
-    "city": "高岡市"
-  },
-  "56227": {
-    "value": 2.2,
-    "rank": 57,
-    "station_name": "金沢",
-    "official_name": "金沢地方気象台",
-    "pref": "石川県",
-    "city": "金沢市"
-  },
-  "57066": {
-    "value": 2.2,
-    "rank": 57,
-    "station_name": "福井",
-    "official_name": "福井地方気象台",
-    "pref": "福井県",
-    "city": "福井市"
-  },
-  "52131": {
-    "value": 2.2,
-    "rank": 57,
-    "station_name": "御母衣",
-    "official_name": "御母衣アメダス",
-    "pref": "岐阜県",
-    "city": "大野郡白川村"
-  },
-  "57176": {
-    "value": 2.2,
-    "rank": 57,
-    "station_name": "九頭竜",
-    "official_name": "九頭竜アメダス",
-    "pref": "福井県",
-    "city": "大野市"
-  },
-  "54406": {
-    "value": 2.2,
-    "rank": 57,
-    "station_name": "村松",
-    "official_name": "村松アメダス",
-    "pref": "新潟県",
-    "city": "五泉市"
-  },
-  "54396": {
-    "value": 2.2,
-    "rank": 57,
-    "station_name": "三条",
-    "official_name": "三条アメダス",
-    "pref": "新潟県",
-    "city": "三条市"
-  },
-  "61001": {
-    "value": 2.2,
-    "rank": 57,
-    "station_name": "間人",
-    "official_name": "間人アメダス",
-    "pref": "京都府",
-    "city": "京丹後市"
-  },
-  "54097": {
-    "value": 2.1,
-    "rank": 64,
-    "station_name": "三面",
-    "official_name": "三面アメダス",
-    "pref": "新潟県",
-    "city": "村上市"
-  },
-  "55102": {
-    "value": 2.1,
-    "rank": 64,
-    "station_name": "富山",
-    "official_name": "富山地方気象台",
-    "pref": "富山県",
-    "city": "富山市"
-  },
-  "54892": {
-    "value": 2.1,
-    "rank": 64,
-    "station_name": "樽本",
-    "official_name": "樽本アメダス",
-    "pref": "新潟県",
-    "city": "妙高市"
-  },
-  "35071": {
-    "value": 2.0,
-    "rank": 67,
-    "station_name": "差首鍋",
-    "official_name": "差首鍋アメダス",
-    "pref": "山形県",
-    "city": "最上郡真室川町"
-  },
-  "56052": {
-    "value": 2.0,
-    "rank": 67,
-    "station_name": "輪島",
-    "official_name": "輪島特別地域気象観測所",
-    "pref": "石川県",
-    "city": "輪島市"
-  },
-  "44263": {
-    "value": 2.0,
-    "rank": 67,
-    "station_name": "八丈島",
-    "official_name": "八丈島特別地域気象観測所",
-    "pref": "東京都",
-    "city": "八丈島八丈町"
-  },
-  "57121": {
-    "value": 2.0,
-    "rank": 67,
-    "station_name": "大野",
-    "official_name": "大野アメダス",
-    "pref": "福井県",
-    "city": "大野市"
-  },
-  "54816": {
-    "value": 1.9,
-    "rank": 71,
-    "station_name": "関山",
-    "official_name": "関山アメダス",
-    "pref": "新潟県",
-    "city": "妙高市"
-  },
-  "63051": {
-    "value": 1.9,
-    "rank": 71,
-    "station_name": "豊岡",
-    "official_name": "豊岡特別地域気象観測所",
-    "pref": "兵庫県",
-    "city": "豊岡市"
-  },
-  "44262": {
-    "value": 1.9,
-    "rank": 71,
-    "station_name": "八重見ヶ原",
-    "official_name": "八丈島航空気象観測所",
-    "pref": "東京都",
-    "city": "八丈島八丈町"
-  },
-  "52173": {
-    "value": 1.9,
-    "rank": 71,
-    "station_name": "ひるがの",
-    "official_name": "ひるがのアメダス",
-    "pref": "岐阜県",
-    "city": "郡上市"
-  },
-  "57082": {
-    "value": 1.9,
-    "rank": 71,
-    "station_name": "勝山",
-    "official_name": "勝山アメダス",
-    "pref": "福井県",
-    "city": "勝山市"
-  },
-  "52221": {
-    "value": 1.8,
-    "rank": 76,
-    "station_name": "長滝",
-    "official_name": "長滝アメダス",
-    "pref": "岐阜県",
-    "city": "郡上市"
+  "32626": {
+    "value": 1.6,
+    "rank": 89
   },
   "32681": {
     "value": 1.8,
-    "rank": 76,
-    "station_name": "笹子",
-    "official_name": "笹子アメダス",
-    "pref": "秋田県",
-    "city": "由利本荘市"
+    "rank": 76
   },
-  "44226": {
-    "value": 1.8,
-    "rank": 76,
-    "station_name": "三宅島",
-    "official_name": "三宅島特別地域気象観測所",
-    "pref": "東京都",
-    "city": "三宅村"
-  },
-  "69152": {
-    "value": 1.8,
-    "rank": 76,
-    "station_name": "大山",
-    "official_name": "大山アメダス",
-    "pref": "鳥取県",
-    "city": "西伯郡大山町"
-  },
-  "57317": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "小浜",
-    "official_name": "小浜アメダス",
-    "pref": "福井県",
-    "city": "小浜市"
-  },
-  "57051": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "越廼",
-    "official_name": "越廼アメダス",
-    "pref": "福井県",
-    "city": "福井市"
-  },
-  "57026": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "春江",
-    "official_name": "福井航空気象観測所",
-    "pref": "福井県",
-    "city": "坂井市"
-  },
-  "94001": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "伊原間",
-    "official_name": "伊原間アメダス",
-    "pref": "沖縄県",
-    "city": "石垣市"
-  },
-  "88736": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "中之島",
-    "official_name": "中之島アメダス",
-    "pref": "鹿児島県",
-    "city": "鹿児島郡十島村"
-  },
-  "56276": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "小松",
-    "official_name": "小松アメダス",
-    "pref": "石川県",
-    "city": "小松市"
-  },
-  "56036": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "珠洲",
-    "official_name": "珠洲アメダス",
-    "pref": "石川県",
-    "city": "珠洲市"
-  },
-  "52381": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "樽見",
-    "official_name": "樽見アメダス",
-    "pref": "岐阜県",
-    "city": "本巣市"
-  },
-  "54181": {
-    "value": 1.7,
-    "rank": 80,
-    "station_name": "中条",
-    "official_name": "中条アメダス",
-    "pref": "新潟県",
-    "city": "胎内市"
-  },
-  "68431": {
-    "value": 1.6,
-    "rank": 89,
-    "station_name": "弥栄",
-    "official_name": "弥栄アメダス",
-    "pref": "島根県",
-    "city": "浜田市"
-  },
-  "55151": {
-    "value": 1.6,
-    "rank": 89,
-    "station_name": "秋ヶ島",
-    "official_name": "富山航空気象観測所",
-    "pref": "富山県",
-    "city": "富山市"
-  },
-  "69122": {
-    "value": 1.6,
-    "rank": 89,
-    "station_name": "鳥取",
-    "official_name": "鳥取地方気象台",
-    "pref": "鳥取県",
-    "city": "鳥取市"
+  "35071": {
+    "value": 2,
+    "rank": 67
   },
   "35141": {
     "value": 1.6,
-    "rank": 89,
-    "station_name": "鶴岡",
-    "official_name": "鶴岡アメダス",
-    "pref": "山形県",
-    "city": "鶴岡市"
+    "rank": 89
   },
-  "68436": {
-    "value": 1.6,
-    "rank": 89,
-    "station_name": "波佐",
-    "official_name": "波佐アメダス",
-    "pref": "島根県",
-    "city": "浜田市"
+  "35201": {
+    "value": 2.6,
+    "rank": 50
   },
-  "52321": {
-    "value": 1.6,
-    "rank": 89,
-    "station_name": "関市板取",
-    "official_name": "関市板取アメダス",
-    "pref": "岐阜県",
-    "city": "関市"
+  "35216": {
+    "value": 4.7,
+    "rank": 11
   },
-  "32626": {
-    "value": 1.6,
-    "rank": 89,
-    "station_name": "矢島",
-    "official_name": "矢島アメダス",
-    "pref": "秋田県",
-    "city": "由利本荘市"
+  "35256": {
+    "value": 4.2,
+    "rank": 19
   },
-  "61031": {
-    "value": 1.6,
-    "rank": 89,
-    "station_name": "峰山",
-    "official_name": "峰山アメダス",
-    "pref": "京都府",
-    "city": "京丹後市"
+  "35361": {
+    "value": 3,
+    "rank": 36
+  },
+  "35486": {
+    "value": 4.1,
+    "rank": 20
+  },
+  "35537": {
+    "value": 3.4,
+    "rank": 31
   },
   "35541": {
     "value": 1.6,
-    "rank": 89,
-    "station_name": "高峰",
-    "official_name": "高峰アメダス",
-    "pref": "山形県",
-    "city": "西置賜郡飯豊町"
+    "rank": 89
   },
-  "60081": {
-    "value": 1.5,
-    "rank": 98,
-    "station_name": "朽木平良",
-    "official_name": "朽木平良アメダス",
-    "pref": "滋賀県",
-    "city": "高島市"
+  "36426": {
+    "value": 2.9,
+    "rank": 38
   },
-  "55141": {
-    "value": 1.5,
-    "rank": 98,
-    "station_name": "砺波",
-    "official_name": "砺波アメダス",
-    "pref": "富山県",
-    "city": "砺波市"
+  "44226": {
+    "value": 1.8,
+    "rank": 76
+  },
+  "44262": {
+    "value": 1.9,
+    "rank": 71
+  },
+  "44263": {
+    "value": 2,
+    "rank": 67
+  },
+  "52081": {
+    "value": 2.7,
+    "rank": 46
+  },
+  "52131": {
+    "value": 2.2,
+    "rank": 57
+  },
+  "52173": {
+    "value": 1.9,
+    "rank": 71
+  },
+  "52221": {
+    "value": 1.8,
+    "rank": 76
+  },
+  "52321": {
+    "value": 1.6,
+    "rank": 89
+  },
+  "52381": {
+    "value": 1.7,
+    "rank": 80
+  },
+  "54056": {
+    "value": 3.7,
+    "rank": 24
+  },
+  "54097": {
+    "value": 2.1,
+    "rank": 64
+  },
+  "54181": {
+    "value": 1.7,
+    "rank": 80
+  },
+  "54191": {
+    "value": 3.2,
+    "rank": 34
+  },
+  "54311": {
+    "value": 5.4,
+    "rank": 3
+  },
+  "54396": {
+    "value": 2.2,
+    "rank": 57
+  },
+  "54406": {
+    "value": 2.2,
+    "rank": 57
+  },
+  "54421": {
+    "value": 2.9,
+    "rank": 38
+  },
+  "54462": {
+    "value": 4.5,
+    "rank": 14
+  },
+  "54472": {
+    "value": 5.4,
+    "rank": 3
+  },
+  "54501": {
+    "value": 3.2,
+    "rank": 34
+  },
+  "54506": {
+    "value": 4.5,
+    "rank": 14
+  },
+  "54541": {
+    "value": 3.5,
+    "rank": 27
+  },
+  "54566": {
+    "value": 5.2,
+    "rank": 8
+  },
+  "54586": {
+    "value": 3.3,
+    "rank": 33
+  },
+  "54606": {
+    "value": 5.4,
+    "rank": 3
+  },
+  "54616": {
+    "value": 3.4,
+    "rank": 31
+  },
+  "54621": {
+    "value": 4.8,
+    "rank": 9
+  },
+  "54651": {
+    "value": 5.5,
+    "rank": 2
+  },
+  "54661": {
+    "value": 4.4,
+    "rank": 16
+  },
+  "54666": {
+    "value": 5.6,
+    "rank": 1
+  },
+  "54671": {
+    "value": 5.3,
+    "rank": 7
+  },
+  "54676": {
+    "value": 4.1,
+    "rank": 20
+  },
+  "54711": {
+    "value": 4.7,
+    "rank": 11
+  },
+  "54721": {
+    "value": 5.4,
+    "rank": 3
+  },
+  "54737": {
+    "value": 3.6,
+    "rank": 26
+  },
+  "54761": {
+    "value": 2.9,
+    "rank": 38
+  },
+  "54816": {
+    "value": 1.9,
+    "rank": 71
+  },
+  "54841": {
+    "value": 2.8,
+    "rank": 43
+  },
+  "54876": {
+    "value": 4.3,
+    "rank": 17
+  },
+  "54892": {
+    "value": 2.1,
+    "rank": 64
+  },
+  "55022": {
+    "value": 3.7,
+    "rank": 24
   },
   "55041": {
     "value": 1.5,
-    "rank": 98,
-    "station_name": "氷見",
-    "official_name": "氷見アメダス",
-    "pref": "富山県",
-    "city": "氷見市"
+    "rank": 98
+  },
+  "55056": {
+    "value": 2.4,
+    "rank": 54
+  },
+  "55063": {
+    "value": 4.8,
+    "rank": 9
+  },
+  "55091": {
+    "value": 2.3,
+    "rank": 55
+  },
+  "55102": {
+    "value": 2.1,
+    "rank": 64
+  },
+  "55141": {
+    "value": 1.5,
+    "rank": 98
+  },
+  "55151": {
+    "value": 1.6,
+    "rank": 89
+  },
+  "55166": {
+    "value": 2.9,
+    "rank": 38
+  },
+  "55191": {
+    "value": 3.5,
+    "rank": 27
+  },
+  "55206": {
+    "value": 2.7,
+    "rank": 46
+  },
+  "55217": {
+    "value": 2.8,
+    "rank": 43
+  },
+  "55252": {
+    "value": 4.6,
+    "rank": 13
+  },
+  "56036": {
+    "value": 1.7,
+    "rank": 80
+  },
+  "56052": {
+    "value": 2,
+    "rank": 67
+  },
+  "56227": {
+    "value": 2.2,
+    "rank": 57
+  },
+  "56276": {
+    "value": 1.7,
+    "rank": 80
+  },
+  "56286": {
+    "value": 3.5,
+    "rank": 27
+  },
+  "56301": {
+    "value": 4.3,
+    "rank": 17
+  },
+  "56346": {
+    "value": 3.5,
+    "rank": 27
+  },
+  "57026": {
+    "value": 1.7,
+    "rank": 80
+  },
+  "57051": {
+    "value": 1.7,
+    "rank": 80
+  },
+  "57066": {
+    "value": 2.2,
+    "rank": 57
+  },
+  "57071": {
+    "value": 2.7,
+    "rank": 46
+  },
+  "57082": {
+    "value": 1.9,
+    "rank": 71
+  },
+  "57106": {
+    "value": 2.8,
+    "rank": 43
+  },
+  "57121": {
+    "value": 2,
+    "rank": 67
+  },
+  "57176": {
+    "value": 2.2,
+    "rank": 57
+  },
+  "57206": {
+    "value": 4,
+    "rank": 22
+  },
+  "57248": {
+    "value": 2.9,
+    "rank": 38
+  },
+  "57286": {
+    "value": 3,
+    "rank": 36
+  },
+  "57317": {
+    "value": 1.7,
+    "rank": 80
+  },
+  "60026": {
+    "value": 4,
+    "rank": 22
+  },
+  "60081": {
+    "value": 1.5,
+    "rank": 98
+  },
+  "61001": {
+    "value": 2.2,
+    "rank": 57
+  },
+  "61031": {
+    "value": 1.6,
+    "rank": 89
+  },
+  "63016": {
+    "value": 2.5,
+    "rank": 53
+  },
+  "63032": {
+    "value": 2.6,
+    "rank": 50
+  },
+  "63051": {
+    "value": 1.9,
+    "rank": 71
+  },
+  "68431": {
+    "value": 1.6,
+    "rank": 89
+  },
+  "68436": {
+    "value": 1.6,
+    "rank": 89
+  },
+  "69061": {
+    "value": 2.3,
+    "rank": 55
+  },
+  "69111": {
+    "value": 2.6,
+    "rank": 50
+  },
+  "69122": {
+    "value": 1.6,
+    "rank": 89
+  },
+  "69152": {
+    "value": 1.8,
+    "rank": 76
+  },
+  "88686": {
+    "value": 2.7,
+    "rank": 46
+  },
+  "88736": {
+    "value": 1.7,
+    "rank": 80
+  },
+  "94001": {
+    "value": 1.7,
+    "rank": 80
   }
 }
