@@ -7,6 +7,10 @@
 # output (GitHub Actionsで生成するならOK)
 out
 
+# source data (Keep local only)
+_ranking_source
+data/ranking_source
+
 # env
 .env*
 
