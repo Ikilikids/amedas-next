@@ -19,6 +19,18 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: '/ranking2/:path*',
+        destination: '/ranking2/:path*',
+      },
+      {
+        source: '/infotable/:path*',
+        destination: '/infotable/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
