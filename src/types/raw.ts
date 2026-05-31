@@ -1,6 +1,6 @@
 import { CategoryValue } from "../utils/category";
 import { MetricValue } from "../utils/metric";
-import { MonthlyEntry, RankedValue } from "./union";
+import { DescriptionData, MonthlyEntry, RankedValue } from "./union";
 
 export interface RawData {
   station: RawStationData;
@@ -13,7 +13,7 @@ export interface RawData {
   sameStations?: RawStationData[];
   meteoStations?: RawStationData[];
   badge?: RawBadgeData[];
-  description?: Record<string, unknown>;
+  description?: DescriptionData;
 }
 
 export type RawStationData = {

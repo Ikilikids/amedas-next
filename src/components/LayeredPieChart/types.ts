@@ -17,7 +17,7 @@ export interface LayeredPieChartProps {
   ratioData: Map<MetricMeta, MonthlyEntry[]>;
   layout?: "horizontal" | "vertical";
   rankType?: RankValue;
-  selectedMonth?: string | null;
+  selectedMonth?: number | null;
   ratioInfo?: any;
 }
 
