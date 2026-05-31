@@ -11,7 +11,7 @@ const metrics = [
   "max_snowed", "max_hitemp", "min_lwtemp"
 ];
 
-const srcDir = path.join(process.cwd(), 'data/ranking_source');
+const srcDir = path.join(process.cwd(), '_ranking_source');
 const distDir = path.join(process.cwd(), 'public/ranking2');
 
 if (!fs.existsSync(distDir)) {
