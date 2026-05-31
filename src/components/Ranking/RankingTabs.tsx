@@ -2,15 +2,15 @@ import React from "react";
 import { MonthMap } from "../../utils/colorUtils";
 import { MetricKey, MetricMeta } from "../../utils/metric";
 import { PrefKey, PrefMeta } from "../../utils/pref";
+import { RankKey, RankMeta, RankValue } from "../../utils/rank";
 import { RegionKey, RegionMeta } from "../../utils/region";
-import { RankType, rankTypes } from "./types";
 import { isCombinationValid } from "./utils";
 
 interface RankingTabsProps {
   sortKey: MetricMeta;
   setSortKey: (key: MetricMeta) => void;
-  rankType: RankType;
-  setRankType: (type: RankType) => void;
+  rankType: RankMeta;
+  setRankType: (type: RankMeta) => void;
   selectedMonth: string;
   setSelectedMonth: (month: string) => void;
   selectedMetricKey: MetricMeta | null;
@@ -86,56 +86,76 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
 
       {/* ================= RANK TYPE ================= */}
       <div className="flex gap-2 mb-2 flex-wrap">
-        {(Object.entries(rankTypes) as [RankType, { label: string }][]).map(
-          ([rank, val]) => {
-            const disabled = !isCombinationValid(rank, sortKey);
+        {(Object.values(RankKey)).map((val) => {
+          const disabled = !isCombinationValid(val, sortKey);
 
-            return (
-              <button
-                key={rank}
-                disabled={disabled}
-                className={`px-2 py-1 rounded text-sm ${
-                  disabled
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                    : rankType === rank
-                    ? "bg-green-400 text-white"
-                    : "bg-gray-200 hover:bg-green-200"
-                }`}
-                onClick={() => {
-                  if (disabled) return;
-                  setRankType(rank);
+          return (
+            <button
+              key={val.key}
+              disabled={disabled}
+              className={`px-2 py-1 rounded text-sm ${
+                disabled
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : rankType.key === val.key
+                  ? "bg-green-400 text-white"
+                  : "bg-gray-200 hover:bg-green-200"
+              }`}
+              onClick={() => {
+                if (disabled) return;
+                setRankType(val);
 
-                  if (rank === RankType.Region) {
-                    setSelectedRegion(RegionKey.kanto);
-                  }
+                if (val.key === RankKey.region.key) {
+                  setSelectedRegion(RegionKey.kanto);
+                }
 
-                  if (rank === RankType.Pre) {
-                    setSelectedPref(PrefKey.tokyo);
-                  }
-                }}
-              >
-                {val.label}
-              </button>
-            );
-          }
-        )}
+                if (val.key === RankKey.pre.key) {
+                  setSelectedPref(PrefKey.tokyo);
+                }
+              }}
+            >
+              {val.rankingLabel}
+            </button>
+          );
+        })}
       </div>
 
-      {/* ================= DROPDOWN (NEW) ================= */}
-      {rankType === RankType.Region && (
-        <SimpleSelect
-          items={regions}
-          selected={selectedRegion}
-          onChange={setSelectedRegion}
-        />
+      {/* ================= DROPDOWN ================= */}
+      {rankType.key === RankKey.region.key && (
+        <div className="mb-2">
+          <select
+            value={selectedRegion.label}
+            onChange={(e) => {
+              const found = regions.find((r) => r.label === e.target.value);
+              if (found) setSelectedRegion(found);
+            }}
+            className="px-2 py-1 rounded bg-gray-100"
+          >
+            {regions.map((r) => (
+              <option key={r.label} value={r.label}>
+                {r.label}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
 
-      {rankType === RankType.Pre && (
-        <SimpleSelect
-          items={prefs}
-          selected={selectedPref}
-          onChange={setSelectedPref}
-        />
+      {rankType.key === RankKey.pre.key && (
+        <div className="mb-2">
+          <select
+            value={selectedPref.code}
+            onChange={(e) => {
+              const found = prefs.find((p) => p.code === e.target.value);
+              if (found) setSelectedPref(found);
+            }}
+            className="px-2 py-1 rounded bg-gray-100"
+          >
+            {prefs.map((p) => (
+              <option key={p.code} value={p.code}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
 
       {/* ================= MONTH ================= */}
@@ -159,39 +179,3 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
 };
 
 export default RankingTabs;
-
-type SelectItem = {
-  value: string;
-  label: string;
-};
-
-type Props<T extends SelectItem> = {
-  items: T[];
-  selected: T;
-  onChange: (item: T) => void;
-};
-
-function SimpleSelect<T extends SelectItem>({
-  items,
-  selected,
-  onChange,
-}: Props<T>) {
-  return (
-    <div className="mb-2">
-      <select
-        value={selected.value}
-        onChange={(e) => {
-          const found = items.find((i) => i.value === e.target.value);
-          if (found) onChange(found);
-        }}
-        className="px-2 py-1 rounded bg-gray-100"
-      >
-        {items.map((i) => (
-          <option key={i.value} value={i.value}>
-            {i.label}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}

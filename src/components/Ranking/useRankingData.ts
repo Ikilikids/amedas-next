@@ -5,8 +5,9 @@ import { RankedValue } from "../../types/union";
 import { toMetricMap, toStation } from "../../utils/masterUtils";
 import { MetricMeta } from "../../utils/metric";
 import { PrefMeta } from "../../utils/pref";
+import { RankKey, RankMeta } from "../../utils/rank";
 import { RegionMeta } from "../../utils/region";
-import { RankType, RankingData } from "./types";
+import { RankingData } from "./types";
 import { isIslandId } from "./utils";
 
 // =============================================================================
@@ -46,7 +47,7 @@ const fetchStationsMaster = async (): Promise<Record<string, StationData>> => {
 
 export const useRankingData = (
   sortKey: MetricMeta,
-  rankType: RankType,
+  rankMeta: RankMeta,
   selectedRegion: RegionMeta,
   selectedPref: PrefMeta,
   selectedMonth: string
@@ -68,6 +69,7 @@ export const useRankingData = (
 
     const metric = sortKey.key.toLowerCase();
     const monthIdx = selectedMonth === "all" ? 12 : parseInt(selectedMonth) - 1;
+    const rankType = rankMeta.key;
 
     const getRankingData = async () => {
       try {
@@ -96,37 +98,35 @@ export const useRankingData = (
           .filter((s): s is RankingData => s !== null && s.pref !== undefined);
 
         // Filtering logic
-        if (rankType === RankType.Pre) {
+        if (rankType === RankKey.pre.key) {
           stationList = stationList.filter(
             (s) => s.pref.code === selectedPref.code
           );
-        } else if (rankType === RankType.Region) {
+        } else if (rankType === RankKey.region.key) {
           stationList = stationList.filter(
             (s) => s.pref.region.label === selectedRegion.label
           );
-        } else if (rankType === RankType.Meteo) {
-          // meteo, special are meteorology stations
+        } else if (rankType === RankKey.meteo.key) {
           stationList = stationList.filter(
-            (s) =>
-              s.category.label === "気象台" ||
-              s.category.label === "特別地域気象観測所"
+            (s) => s.category.label === "気象台"
           );
-        } else if (rankType === RankType.Island) {
+        } else if (rankType === RankKey.island.key) {
           // Basic island exclusion logic (Ogasawara, Daito, etc.)
           stationList = stationList.filter((s) => isIslandId(s.id) === false);
         }
 
         // Sorting
-        const isBot = rankType === RankType.Bot;
+        const isBot = rankType === RankKey.bot.key;
         stationList.sort((a, b) =>
           isBot ? a.value - b.value : b.value - a.value
         );
 
-        // Apply 100 limit for Top/Bot/Meteo if needed
+        // Apply 100 limit for Top/Bot/Island/Meteo if needed
         if (
-          rankType === RankType.Top ||
-          rankType === RankType.Bot ||
-          rankType === RankType.Island
+          rankType === RankKey.top.key ||
+          rankType === RankKey.bot.key ||
+          rankType === RankKey.island.key ||
+          rankType === RankKey.meteo.key
         ) {
           stationList = stationList.slice(0, 100);
         }
@@ -152,7 +152,7 @@ export const useRankingData = (
     getRankingData();
   }, [
     sortKey,
-    rankType,
+    rankMeta,
     selectedRegion,
     selectedPref,
     selectedMonth,

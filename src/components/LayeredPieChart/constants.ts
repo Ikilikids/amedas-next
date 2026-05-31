@@ -1,25 +1,19 @@
 import { MetricKey } from "../../utils/metric";
-import { RankType } from "./types";
+import { RankKey, RankValue } from "../../utils/rank";
 
 export const MONTH_DAYS = [31, 28.2, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-export const RANK_KEY_MAP: Record<string, string> = {
-  降順: "top",
-  昇順: "bot",
-  島除く: "island",
-  地方別: "region",
-  県別: "pre",
-  気象台: "meteo",
+// MonthlyEntryのプロパティ名と一致するように定義
+export const RANK_KEY_MAP: Record<RankValue, string> = {
+  top: "top",
+  bot: "bot",
+  island: "island",
+  region: "region",
+  pre: "pre",
+  meteo: "meteo",
 };
 
-export const RANK_OPTIONS_ALL: RankType[] = [
-  "降順",
-  "昇順",
-  "島除く",
-  "地方別",
-  "県別",
-  "気象台",
-];
+export const RANK_OPTIONS_ALL: RankValue[] = Object.keys(RankKey) as RankValue[];
 
 export const CHART_METRICS: Record<string, any[]> = {
   気温日数: [

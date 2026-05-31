@@ -1,7 +1,8 @@
 import { MonthlyEntry, RatioInfo } from "../../types/union";
 import { MetricMeta } from "../../utils/metric";
-import { CHART_METRICS, MONTH_DAYS, RANK_KEY_MAP } from "./constants";
-import { ChartDataItem, ChartType, RankType } from "./types";
+import { RankValue } from "../../utils/rank";
+import { CHART_METRICS, MONTH_DAYS } from "./constants";
+import { ChartDataItem, ChartType } from "./types";
 
 export function colorWithAlpha(color: string, alpha: number = 0.8): string {
   if (color.startsWith("rgba")) return color.replace(/[^,]+(?=\))/, `${alpha}`);
@@ -41,12 +42,12 @@ export function prepareChartData(
   tabRecords: Map<MetricMeta, MonthlyEntry[]> | null,
   ratioInfo: RatioInfo,
   month: number | null = null,
-  rankType: RankType = "降順"
+  rankType: RankValue = "top"
 ): ChartDataItem[] | null {
   const schema = CHART_METRICS[ratioInfo.metricTab];
   if (!tabRecords || !schema) return null;
 
-  const currentRankKey = RANK_KEY_MAP[rankType] || "top";
+  const currentRankKey = rankType;
   let targetIdx = month !== null ? month - 1 : 12;
 
   // Resolve raw data based on schema

@@ -1,5 +1,6 @@
 import { MonthlyEntry } from "../../types/union";
 import { MetricMeta, MetricTab, MetricValue } from "../../utils/metric";
+import { RankValue } from "../../utils/rank";
 
 export interface ChartDataItem {
   name: string;
@@ -15,14 +16,9 @@ export interface ChartDataItem {
 export interface LayeredPieChartProps {
   ratioData: Map<MetricMeta, MonthlyEntry[]>;
   layout?: "horizontal" | "vertical";
+  rankType?: RankValue;
+  selectedMonth?: string | null;
+  ratioInfo?: any;
 }
-
-export type RankType =
-  | "降順"
-  | "昇順"
-  | "島除く"
-  | "地方別"
-  | "県別"
-  | "気象台";
 
 export type ChartType = MetricTab;

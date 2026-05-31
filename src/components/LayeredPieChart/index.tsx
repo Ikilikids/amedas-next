@@ -1,16 +1,17 @@
 import React, { useMemo } from "react";
 import { MonthlyEntry, RatioInfo } from "../../types/union";
 import { MetricMeta, MetricTab } from "../../utils/metric";
+import { RankValue } from "../../utils/rank";
 import ChartPieSection from "./ChartPieSection";
 import ChartTableSection from "./ChartTableSection";
 import { prepareChartData } from "./chartUtils";
-import { LayeredPieChartProps, RankType } from "./types";
+import { LayeredPieChartProps } from "./types";
 
 const LayeredPieChart: React.FC<
   LayeredPieChartProps & {
     ratioInfo: RatioInfo;
     selectedMonth: number | null;
-    rankType: RankType;
+    rankType: RankValue;
   }
 > = ({
   ratioInfo,
@@ -43,7 +44,7 @@ const LayeredPieChart: React.FC<
         selectedMonth,
         rankType
       ),
-    [groupedData, ratioInfo, , selectedMonth, rankType]
+    [groupedData, ratioInfo, selectedMonth, rankType]
   );
 
   const containerClass =

@@ -1,14 +1,15 @@
 import React from "react";
-import { ChartType, RankType } from "./types";
+import { RankKey, RankValue } from "../../utils/rank";
+import { ChartType } from "./types";
 
 interface ChartControlsProps {
   type: ChartType;
   setType: (type: ChartType) => void;
   selectedMonth: number | null;
   setSelectedMonth: (month: number | null) => void;
-  rankType: RankType;
-  setRankType: (rank: RankType) => void;
-  rankOptions: RankType[];
+  rankType: RankValue;
+  setRankType: (rank: RankValue) => void;
+  rankOptions: RankValue[];
   typeOptions: { key: ChartType; label: string }[];
 }
 
@@ -27,7 +28,7 @@ const ChartControls: React.FC<ChartControlsProps> = ({
   return (
     <div className="flex items-center">
       <select
-        className="ml-2 border rounded"
+        className="ml-2 border rounded text-sm sm:text-base"
         value={type}
         onChange={(e) => setType(e.target.value as ChartType)}
       >
@@ -39,7 +40,7 @@ const ChartControls: React.FC<ChartControlsProps> = ({
       </select>
 
       <select
-        className="ml-2 border rounded"
+        className="ml-2 border rounded text-sm sm:text-base"
         value={selectedMonth ?? "all"}
         onChange={(e) =>
           setSelectedMonth(
@@ -57,12 +58,12 @@ const ChartControls: React.FC<ChartControlsProps> = ({
 
       <select
         value={rankType}
-        onChange={(e) => setRankType(e.target.value as RankType)}
-        className="ml-2 border rounded"
+        onChange={(e) => setRankType(e.target.value as RankValue)}
+        className="ml-2 border rounded text-sm sm:text-base"
       >
         {rankOptions.map((opt) => (
           <option key={opt} value={opt}>
-            {opt}
+            {RankKey[opt].ratioLabel}
           </option>
         ))}
       </select>

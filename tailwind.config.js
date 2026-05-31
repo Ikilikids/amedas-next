@@ -5,6 +5,7 @@ const config = {
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/utils/**/*.{js,ts,jsx,tsx}",
+    "./src/types/**/*.{js,ts,jsx,tsx}",
   ],
   theme: { extend: {} },
   plugins: [],

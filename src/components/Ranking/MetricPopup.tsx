@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { MetricKey, MetricMeta, MetricTab } from "../../utils/metric";
-import { RankType } from "./types";
+import { RankMeta } from "../../utils/rank";
 import { isCombinationValid } from "./utils";
 
 interface MetricPopupProps {
   isOpen: boolean;
   onClose: () => void;
   onApply: (key: MetricMeta) => void;
-  rankType: RankType;
+  rankType: RankMeta;
   initialMetricKey: MetricMeta | null;
 }
 

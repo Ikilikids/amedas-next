@@ -3,6 +3,7 @@ import { TableData } from "../types/all";
 import { MonthlyEntry } from "../types/union";
 import { MonthMap } from "../utils/colorUtils";
 import { MetricKey, MetricMeta } from "../utils/metric";
+import { RankKey, RankValue } from "../utils/rank";
 
 // ==============================
 // Types
@@ -111,7 +112,7 @@ function getColor(
 // Component
 // ==============================
 const HyouTable: React.FC<HyouTableProps> = ({ tableData }) => {
-  const [rankType, setRankType] = useState<string>("降順");
+  const [rankValue, setRankValue] = useState<RankValue>(RankKey.top.key);
 
   const months: MonthOption[] = Object.entries(MonthMap).map(
     ([slug, label]) => ({
@@ -141,29 +142,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData }) => {
       let val: string | number = entry?.value ?? "--";
       if (typeof val === "number" && !isSnow) val = val.toFixed(1);
 
-      let rank: string | number;
-      switch (rankType) {
-        case "降順":
-          rank = entry?.top ?? "--";
-          break;
-        case "昇順":
-          rank = entry?.bot ?? "--";
-          break;
-        case "地方別":
-          rank = entry?.region ?? "--";
-          break;
-        case "県別":
-          rank = entry?.pre ?? "--";
-          break;
-        case "島除く":
-          rank = entry?.island ?? "--";
-          break;
-        case "気象台":
-          rank = entry?.meteo ?? "--";
-          break;
-        default:
-          rank = entry?.top ?? "--";
-      }
+      let rank: string | number = entry ? (entry[rankValue] ?? "--") : "--";
 
       return { val, rank };
     });
@@ -210,16 +189,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData }) => {
     </tr>
   );
 
-  const rankMap: Record<string, string> = {
-    top: "降順",
-    bot: "昇順",
-    island: "島除く",
-    region: "地方別",
-    pre: "県別",
-    meteo: "気象台",
-  };
-
-  const availableRankTypes = new Set<string>();
+  const availableRankValues = new Set<RankValue>();
 
   const targetKeys: MetricMeta[] = [MetricKey.av_avtemp, MetricKey.sm_rain];
 
@@ -227,18 +197,18 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData }) => {
     targetKeys.forEach((key) => {
       const entries = tableData.get(key) || [];
       entries.forEach((entry) => {
-        if (entry.top !== undefined) availableRankTypes.add(rankMap.top);
-        if (entry.bot !== undefined) availableRankTypes.add(rankMap.bot);
-        if (entry.region !== undefined) availableRankTypes.add(rankMap.region);
-        if (entry.pre !== undefined) availableRankTypes.add(rankMap.pre);
-        if (entry.island !== undefined) availableRankTypes.add(rankMap.island);
-        if (entry.meteo !== undefined) availableRankTypes.add(rankMap.meteo);
+        if (entry.top !== undefined) availableRankValues.add("top");
+        if (entry.bot !== undefined) availableRankValues.add("bot");
+        if (entry.region !== undefined) availableRankValues.add("region");
+        if (entry.pre !== undefined) availableRankValues.add("pre");
+        if (entry.island !== undefined) availableRankValues.add("island");
+        if (entry.meteo !== undefined) availableRankValues.add("meteo");
       });
     });
   }
 
-  const rankOptions = Object.values(rankMap).filter((opt) =>
-    availableRankTypes.has(opt)
+  const rankOptions = (Object.values(RankKey)).filter((meta) =>
+    availableRankValues.has(meta.key)
   );
 
   return (
@@ -247,13 +217,13 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData }) => {
         <div className="flex items-center">
           <label className="text-sm sm:text-base mr-2">絞り込み:</label>
           <select
-            value={rankType}
-            onChange={(e) => setRankType(e.target.value)}
+            value={rankValue}
+            onChange={(e) => setRankValue(e.target.value as RankValue)}
             className="border rounded px-1 py-0.5 text-sm sm:text-base bg-white"
           >
             {rankOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
+              <option key={opt.key} value={opt.key}>
+                {opt.ratioLabel}
               </option>
             ))}
           </select>

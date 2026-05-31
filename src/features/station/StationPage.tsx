@@ -9,7 +9,7 @@ import InfoPanel from "../../components/InfoPanel";
 import LayeredPieChart from "../../components/LayeredPieChart";
 import ChartControls from "../../components/LayeredPieChart/ChartControls";
 import { RANK_OPTIONS_ALL } from "../../components/LayeredPieChart/constants";
-import { ChartType, RankType } from "../../components/LayeredPieChart/types";
+import { ChartType } from "../../components/LayeredPieChart/types";
 import MiniMap from "../../components/MiniMap";
 import UonzuChart from "../../components/UonzuChart";
 import Similar from "../../components/similar";
@@ -25,6 +25,7 @@ import PrefecturePart from "../../components/prefecturePart";
 import { AllData, BadgeData } from "../../types/all";
 import { RawData } from "../../types/raw";
 import { toAllData } from "../../utils/masterUtils";
+import { RankKey, RankValue } from "../../utils/rank";
 
 const StationPage = (props: RawData) => {
   const allData: AllData = useMemo(() => toAllData(props), [props]);
@@ -49,7 +50,7 @@ const StationPage = (props: RawData) => {
   // Ratio Chart States
   const [ratioType, setRatioType] = useState<ChartType>("気温日数");
   const [ratioMonth, setRatioMonth] = useState<number | null>(null);
-  const [ratioRankType, setRatioRankType] = useState<RankType>("降順");
+  const [ratioRankValue, setRatioRankValue] = useState<RankValue>(RankKey.top.key);
 
   const regionColor = stationData.pref.region.colorBase;
 
@@ -68,27 +69,27 @@ const StationPage = (props: RawData) => {
     }));
   }, [ratioData]);
 
-  const availableRankTypes = useMemo(() => {
-    const types = new Set<string>();
+  const availableRankValues = useMemo(() => {
+    const values = new Set<RankValue>();
     if (ratioData) {
       for (const [meta, entries] of ratioData.entries()) {
         if (meta.tab === ratioType) {
           for (const entry of entries) {
-            if (entry.top !== undefined) types.add("降順");
-            if (entry.bot !== undefined) types.add("昇順");
-            if (entry.island !== undefined) types.add("島除く");
-            if (entry.region !== undefined) types.add("地方別");
-            if (entry.pre !== undefined) types.add("県別");
-            if (entry.meteo !== undefined) types.add("気象台");
+            if (entry.top !== undefined) values.add("top");
+            if (entry.bot !== undefined) values.add("bot");
+            if (entry.island !== undefined) values.add("island");
+            if (entry.region !== undefined) values.add("region");
+            if (entry.pre !== undefined) values.add("pre");
+            if (entry.meteo !== undefined) values.add("meteo");
           }
         }
       }
     }
-    return types;
+    return values;
   }, [ratioData, ratioType]);
 
   const rankOptions = RANK_OPTIONS_ALL.filter((opt) =>
-    availableRankTypes.has(opt)
+    availableRankValues.has(opt)
   );
 
   return (
@@ -172,8 +173,8 @@ const StationPage = (props: RawData) => {
                   setType={setRatioType}
                   selectedMonth={ratioMonth}
                   setSelectedMonth={setRatioMonth}
-                  rankType={ratioRankType}
-                  setRankType={setRatioRankType}
+                  rankType={ratioRankValue}
+                  setRankType={setRatioRankValue}
                   rankOptions={rankOptions}
                   typeOptions={typeOptions}
                 />
@@ -182,11 +183,11 @@ const StationPage = (props: RawData) => {
                 ratioData={ratioData}
                 ratioInfo={{
                   metricTab: ratioType,
-                  ranking: ratioRankType,
+                  ranking: ratioRankValue,
                   isCut: false,
                 }}
                 selectedMonth={ratioMonth}
-                rankType={ratioRankType}
+                rankType={ratioRankValue}
               />
 
               <SectionWithDescription

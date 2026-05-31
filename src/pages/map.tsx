@@ -7,15 +7,13 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import MapView from "../components/MapView";
 import StationDetailPanel from "../components/StationDetailPanel";
-import { SelectedStation } from "../types/raw";
 import { SectionWithDescription } from "../utils/colorUtils";
 
 // ==============================
 //  ページコンポーネント
 // ==============================
 const MapPage: NextPage = () => {
-  const [selectedStation, setSelectedStation] =
-    useState<SelectedStation | null>(null);
+  const [selectedStation, setSelectedStation] = useState<string | null>(null);
 
   return (
     <>
@@ -67,7 +65,7 @@ const MapPage: NextPage = () => {
                 </div>
               </div>
 
-              <StationDetailPanel stationId={selectedStation?.id} />
+              <StationDetailPanel stationId={selectedStation} />
             </div>
           </div>
         </main>
