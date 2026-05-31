@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { OverviewData, StationData } from "../types/all";
-import { MetricKey } from "../utils/metric";
+import { MetricKey, MetricMeta } from "../utils/metric";
 
 interface InfoPanelProps {
   stationData: StationData | null;
@@ -40,7 +40,10 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
     );
   }
 
-  const exclude = new Set([MetricKey.av_lwtemp, MetricKey.av_hitemp]);
+  const exclude = new Set<MetricMeta>([
+    MetricKey.av_lwtemp,
+    MetricKey.av_hitemp,
+  ]);
 
   return (
     <div className="p-2 rounded-md w-full h-full flex flex-col gap-1.5">
