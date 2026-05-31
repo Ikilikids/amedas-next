@@ -1,8 +1,8 @@
 {
   "hosting": {
-    "public": "out",
+    "public": "public",
     "cleanUrls": true,
-    "trailingSlash": true,
+    "trailingSlash": false,
     "headers": [
       {
         "source": "/sitemap.xml",

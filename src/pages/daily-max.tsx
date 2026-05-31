@@ -1,11 +1,11 @@
+import fs from "fs";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import path from "path";
 import { FaSyncAlt, FaTemperatureHigh } from "react-icons/fa";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import fs from "fs";
-import path from "path";
 
 interface StationMax {
   id: string;
@@ -98,7 +98,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
     // 2. 保存したランキングJSONファイルを読み込む (SSG)
     const filePath = path.join(process.cwd(), "data/ranking/daily_max.json");
-    
+
     if (!fs.existsSync(filePath)) {
       return {
         props: {
@@ -114,9 +114,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     // 3. データの整形 (マスターデータから名称を補完、インデックスから順位を付与)
     const stations: StationMax[] = data.map((item: any, index: number) => ({
       id: item.id,
-      name: masterData[item.id]?.name || "不明",
+      name: masterData[item.id]?.station_name || "不明",
       maxTemp: item.value,
-      rank: index + 1
+      rank: index + 1,
     }));
 
     return {
