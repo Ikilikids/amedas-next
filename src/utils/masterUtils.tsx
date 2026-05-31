@@ -1,0 +1,89 @@
+import { AllData, BadgeData, StationData } from "../types/all";
+import { RawBadgeData, RawData, RawStationData } from "../types/raw";
+import { CATEGORY_KEYS, CategoryMeta } from "../utils/category";
+import { MetricKey, MetricMeta } from "../utils/metric";
+import { PrefKey, PrefMeta } from "../utils/pref";
+function resolveCategory(key: string): CategoryMeta {
+  return CATEGORY_KEYS[key as keyof typeof CATEGORY_KEYS];
+}
+
+function resolveMetric(key: string): MetricMeta {
+  return MetricKey[key as keyof typeof MetricKey];
+}
+
+function resolvePref(key: string): PrefMeta {
+  const pref: PrefMeta = Object.values(PrefKey).find((p) => p.code === key);
+  return pref;
+}
+
+/* =========================================================
+ * Converters
+ * ========================================================= */
+
+/* ★ここが重要：Stationは完全に作る */
+export function toStation(raw: RawStationData): StationData {
+  return {
+    id: raw.id,
+    station_name: raw.station_name,
+
+    category: resolveCategory(raw.category),
+    pref: resolvePref(raw.pref),
+
+    official_name: raw.official_name ?? undefined,
+    city: raw.city ?? undefined,
+    height: raw.height ?? undefined,
+    lon: raw.lon ?? undefined,
+    lat: raw.lat ?? undefined,
+
+    similar: raw.similar ?? undefined,
+  };
+}
+
+/* =========================================================
+ * Metric Map
+ * ========================================================= */
+
+export function toMetricMap<V, R>(
+  raw: Record<string, V> | undefined | null,
+  fn: (v: V) => R
+): Map<MetricMeta, R> {
+  const map = new Map<MetricMeta, R>();
+  if (!raw) return map;
+
+  for (const [k, v] of Object.entries(raw)) {
+    const meta = resolveMetric(k);
+    if (!meta) continue;
+
+    map.set(meta, fn(v));
+  }
+
+  return map;
+}
+
+function toBadge(raw: RawBadgeData): BadgeData {
+  return {
+    metric: resolveMetric(raw.metric),
+    rank: raw.rank,
+    isHigh: raw.isHigh,
+  };
+}
+
+/* =========================================================
+ * Main
+ * ========================================================= */
+
+export function toAllData(raw: RawData): AllData {
+  return {
+    station: toStation(raw.station),
+    overview: toMetricMap(raw.overview, (v) => v) ?? undefined,
+    uonzu: toMetricMap(raw.uonzu, (v) => v) ?? undefined,
+    table: toMetricMap(raw.table, (v) => v) ?? undefined,
+    ratio: toMetricMap(raw.ratio, (v) => v) ?? undefined,
+    similarAll: raw.similarAll?.map(toStation),
+    similarMeteo: raw.similarMeteo?.map(toStation),
+    sameStations: raw.sameStations?.map(toStation),
+    meteoStations: raw.meteoStations?.map(toStation),
+    badge: raw.badge?.map(toBadge),
+    description: raw.description ?? undefined,
+  };
+}

@@ -1,42 +1,32 @@
 import Link from "next/link";
 import React from "react";
-import { getFullRegionColor } from "../utils/colorUtils";
+import { StationData } from "../types/all";
 
 // ==============================
 // Types
 // ==============================
-interface SimilarStationData {
-  station_name: string;
-  pref: string;
-  city: string;
-  similar: number;
-}
-
-interface SimilarStationsMap {
-  [id: string]: SimilarStationData;
-}
-
-interface SimilarPageProps {
-  similarStations: SimilarStationsMap;
-  similarCutStations: SimilarStationsMap;
-}
-
-interface StationListProps {
+type StationListProps = {
   title: string;
-  list: [string, SimilarStationData][];
-}
+  items: StationData[];
+};
+
+type SimilarPageProps = {
+  similarDataAll: StationData[];
+  similarDataMeteo: StationData[];
+};
 
 // ==============================
 // Component
 // ==============================
-const StationList: React.FC<StationListProps> = ({ title, list }) => (
+const StationList: React.FC<StationListProps> = ({ title, items }) => (
   <div className="mb-6">
     <h2 className="text-xl font-semibold mb-2">{title}</h2>
+
     <ul className="flex flex-col gap-2">
-      {list.map(([id, station], index) => (
-        <li key={id} className="group">
+      {items.map((item, index) => (
+        <li key={item.id} className="group">
           <Link
-            href={`/station/${id}`}
+            href={`/station/${item.id}`}
             className="border rounded-lg p-2 shadow hover:shadow-lg transition flex items-center justify-between"
           >
             <span className="font-semibold w-8 text-left pl-3">
@@ -45,32 +35,30 @@ const StationList: React.FC<StationListProps> = ({ title, list }) => (
 
             <div className="flex-1 flex flex-col ml-2 truncate">
               <span className="font-semibold truncate">
-                {station.station_name}
+                {item.official_name}
               </span>
+
               <div className="flex gap-1 items-end text-sm">
-                {station.pref && (
+                {item.pref && (
                   <span
                     className="font-semibold"
-                    style={{
-                      color: getFullRegionColor(station.pref || ""),
-                    }}
+                    style={{ color: item.pref.region.colorStrong }}
                   >
-                    {station.pref}
+                    {item.pref.label}
                   </span>
                 )}
-                {station.city && (
+
+                {item.city && (
                   <span className="font-normal text-gray-700 text-xs">
-                    {station.city}
+                    {item.city}
                   </span>
                 )}
               </div>
             </div>
 
-            {station.similar !== undefined && (
-              <span className="ml-2 text-sm text-gray-500 whitespace-nowrap">
-                類似度 {(station.similar * 100).toFixed(1)}%
-              </span>
-            )}
+            <span className="ml-2 text-sm text-gray-500 whitespace-nowrap">
+              類似度 {(item.similar * 100).toFixed(1)}%
+            </span>
           </Link>
         </li>
       ))}
@@ -78,27 +66,21 @@ const StationList: React.FC<StationListProps> = ({ title, list }) => (
   </div>
 );
 
+// ==============================
+// Page
+// ==============================
 const SimilarPage: React.FC<SimilarPageProps> = ({
-  similarStations,
-  similarCutStations,
+  similarDataAll,
+  similarDataMeteo,
 }) => {
   return (
-    <div className="min-h-screen p-2">
-      {similarStations && Object.keys(similarStations).length > 0 && (
-        <StationList
-          title="類似する地点"
-          list={Object.entries(similarStations).sort(
-            ([, a], [, b]) => b.similar - a.similar
-          )}
-        />
+    <div className="w-full p-2">
+      {similarDataAll?.length > 0 && (
+        <StationList title="類似する地点" items={similarDataAll} />
       )}
-      {similarCutStations && Object.keys(similarCutStations).length > 0 && (
-        <StationList
-          title="類似する気象台"
-          list={Object.entries(similarCutStations).sort(
-            ([, a], [, b]) => b.similar - a.similar
-          )}
-        />
+
+      {similarDataMeteo?.length > 0 && (
+        <StationList title="類似する気象台" items={similarDataMeteo} />
       )}
     </div>
   );

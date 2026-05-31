@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getFullRegionColor } from "../utils/colorUtils";
 
 // ==============================
 // Types
@@ -9,7 +8,7 @@ import { getFullRegionColor } from "../utils/colorUtils";
 interface RankingStation {
   number: string;
   station_name: string;
-  pref: string;
+  pref: PrefKey;
   city?: string;
   rank: number;
   value: string | null;
@@ -134,7 +133,7 @@ const StationList: React.FC<StationListProps> = ({ list, type }) => {
                       }`}
                       style={
                         colIndex !== 0
-                          ? { color: getFullRegionColor(station.pref) }
+                          ? { color: getFullRegionColor(station.pref.label) }
                           : undefined
                       }
                     >
@@ -147,10 +146,10 @@ const StationList: React.FC<StationListProps> = ({ list, type }) => {
                         <span
                           className="font-semibold"
                           style={{
-                            color: getFullRegionColor(station.pref),
+                            color: getFullRegionColor(station.pref.label),
                           }}
                         >
-                          {station.pref}
+                          {station.pref.label}
                         </span>
                         {station.city && (
                           <span className="text-gray-600 text-xs">

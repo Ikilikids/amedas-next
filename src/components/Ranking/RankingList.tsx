@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
-import { MetricCategory, MetricKey, getFullRegionColor, getIcon, metrics } from "../../utils/colorUtils";
-import { Station } from "./types";
+import { MetricKey } from "../../utils/metric";
+import { RankingData } from "./types";
 import { isIslandId } from "./utils";
 
 interface RankingListProps {
-  stations: Station[];
+  stations: RankingData[];
   sortKey: MetricKey;
-  onStationClick: (station: Station) => void;
+  onStationClick: (station: RankingData) => void;
 }
 
 const RankingList: React.FC<RankingListProps> = ({
@@ -24,12 +24,12 @@ const RankingList: React.FC<RankingListProps> = ({
     <>
       {filteredStations.map((s) => {
         const val =
-          sortKey === MetricKey.Sm_Snowing
+          sortKey === MetricKey.sm_snowing
             ? s.value
             : Number(s.value).toFixed(1);
 
-        const icon = getIcon(s.official_name || "");
-        const color = getFullRegionColor(s.pref || "");
+        const icon = s.category.icon;
+        const color = s.pref.region.colorStrong;
 
         return (
           <div
@@ -39,8 +39,7 @@ const RankingList: React.FC<RankingListProps> = ({
           >
             <div className="w-12 text-center font-bold text-lg flex flex-col items-center">
               <span>
-                {isIslandId(s.id) &&
-                metrics[sortKey].category === MetricCategory.Temp
+                {isIslandId(s.id) && sortKey.category === "気温"
                   ? `${s.rank}*`
                   : s.rank}
               </span>
@@ -55,14 +54,14 @@ const RankingList: React.FC<RankingListProps> = ({
 
               <div className="flex gap-1 items-end text-sm">
                 <span className="font-semibold" style={{ color }}>
-                  {s.pref}
+                  {s.pref.label}
                 </span>
                 <span className="text-gray-700 text-xs">{s.city}</span>
               </div>
             </div>
 
             <div className="text-right font-extrabold">
-              {val} {metrics[sortKey].unit}
+              {val} {sortKey.unit}
             </div>
           </div>
         );

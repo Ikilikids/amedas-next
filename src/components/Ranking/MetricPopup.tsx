@@ -1,14 +1,14 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { MetricKey, MetricTab, metricList } from "../../utils/colorUtils";
+import React, { useEffect, useMemo, useState } from "react";
+import { MetricKey, MetricMeta, MetricTab } from "../../utils/metric";
 import { RankType } from "./types";
 import { isCombinationValid } from "./utils";
 
 interface MetricPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  onApply: (key: MetricKey) => void;
+  onApply: (key: MetricMeta) => void;
   rankType: RankType;
-  initialMetricKey: MetricKey | null;
+  initialMetricKey: MetricMeta | null;
 }
 
 const MetricPopup: React.FC<MetricPopupProps> = ({
@@ -18,28 +18,34 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
   rankType,
   initialMetricKey,
 }) => {
-  const [selectedKey, setSelectedKey] = useState<MetricKey | null>(initialMetricKey);
+  const [selectedKey, setSelectedKey] = useState<MetricMeta | null>(
+    initialMetricKey
+  );
 
   useEffect(() => {
     setSelectedKey(initialMetricKey);
   }, [initialMetricKey, isOpen]);
 
   const groupedMetrics = useMemo(() => {
-    return metricList.reduce((acc, m) => {
-      if (m.tab === MetricTab.Main || m.tab === MetricTab.Extreme) return acc;
-      (acc[m.tab] ||= []).push(m);
+    return Object.values(MetricKey).reduce((acc, key) => {
+      const tab = key.tab;
+
+      // 除外
+      if (tab === "主要" || tab === "極値") return acc;
+
+      if (!acc[tab]) acc[tab] = [];
+
+      acc[tab].push(key);
+
       return acc;
-    }, {} as Record<MetricTab, typeof metricList>);
+    }, {} as Record<MetricTab, MetricMeta[]>);
   }, []);
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div
-        className="absolute inset-0 bg-black opacity-30"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black opacity-30" onClick={onClose} />
 
       <div className="relative w-[90%] max-w-[520px] bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-10">
         {Object.entries(groupedMetrics).map(([tab, items]) => (
@@ -47,23 +53,23 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
             <div className="font-semibold text-gray-600 mb-1">{tab}</div>
 
             <div className="flex flex-wrap gap-1">
-              {items.map((m) => {
-                const disabled = !isCombinationValid(rankType, m.key);
+              {items.map((key) => {
+                const disabled = !isCombinationValid(rankType, key);
 
                 return (
                   <button
-                    key={m.key}
+                    key={key.key}
                     disabled={disabled}
-                    onClick={() => !disabled && setSelectedKey(m.key)}
+                    onClick={() => !disabled && setSelectedKey(key)}
                     className={`px-2 py-1 text-sm rounded ${
                       disabled
                         ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                        : selectedKey === m.key
+                        : selectedKey === key
                         ? "bg-orange-400 text-white"
                         : "bg-gray-100 hover:bg-orange-100"
                     }`}
                   >
-                    {m.label}
+                    {key.label}
                   </button>
                 );
               })}

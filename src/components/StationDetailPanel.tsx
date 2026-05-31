@@ -1,9 +1,9 @@
 // src/components/StationDetailPanel.tsx
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
-import { useStationData } from "../hooks/useStationData";
-import { getRegionColor, SectionWithDescription } from "../utils/colorUtils";
+import { SectionWithDescription } from "../utils/colorUtils";
 import InfoPanel from "./InfoPanel";
+import { useStationDetail } from "./Ranking/useRankingData";
 import UonzuChart from "./UonzuChart";
 
 interface StationDetailPanelProps {
@@ -11,11 +11,13 @@ interface StationDetailPanelProps {
 }
 
 const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
-  const { stationData, loading } = useStationData(stationId);
+  const { stationData, uonzuData, overviewData, loading } = useStationDetail(
+    stationId || null
+  );
 
   const bgColor =
     stationData && stationData.pref
-      ? getRegionColor(stationData.pref)
+      ? (stationData.pref as any).region.colorBase
       : "white";
 
   return (
@@ -26,9 +28,10 @@ const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
       </div>
       <div className="min-h-0 h-[320px] overflow-auto">
         <InfoPanel
-          stationId={stationId}
           stationData={stationData}
+          overViewData={overviewData}
           loading={loading}
+          isTitle={true}
         />
       </div>
       <div
@@ -41,18 +44,9 @@ const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
           bgColor=""
         />
       </div>
-      {stationData && (
+      {uonzuData && (
         <div className="w-full h-[320px] pt-2">
-          <UonzuChart
-            temp={stationData.uonzu.av_avtemp}
-            hitemp={stationData.uonzu.av_hitemp}
-            lwtemp={stationData.uonzu.av_lwtemp}
-            rain={stationData.uonzu.sm_rain}
-            sun={stationData.uonzu.sm_sun}
-            snowing={stationData.uonzu.sm_snowing}
-            selectedBar="rain"
-            height="320px"
-          />
+          <UonzuChart uonzuData={uonzuData} selectedBar="rain" height="320px" />
         </div>
       )}
     </div>

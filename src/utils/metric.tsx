@@ -1,334 +1,321 @@
-// ===== MetricKey =====
-export const MetricKey = {
-  Av_AvTemp: "Av_AvTemp",
-  Av_HiTemp: "Av_HiTemp",
-  Sm_Sun: "Sm_Sun",
-  Sm_Rain: "Sm_Rain",
-  Sm_Snowing: "Sm_Snowing",
-  Av_LwTemp: "Av_LwTemp",
-  Av_Wind: "Av_Wind",
+// ==============================
+// base types
+// ==============================
 
-  HiTemp_25: "HiTemp_25",
-  HiTemp_30: "HiTemp_30",
-  HiTemp_35: "HiTemp_35",
-  LwTemp_0: "LwTemp_0",
-  HiTemp_0: "HiTemp_0",
-  LwTemp_25: "LwTemp_25",
+import { ReactNode } from "react";
+import { AiFillSun } from "react-icons/ai";
+import { BiWind } from "react-icons/bi";
+import { BsCloudsFill, BsFillCloudRainHeavyFill } from "react-icons/bs";
+import { FaHotjar } from "react-icons/fa";
+import { FaSnowman } from "react-icons/fa6";
+import { PiHairDryer, PiThermometerColdFill } from "react-icons/pi";
+import { TbTemperaturePlus } from "react-icons/tb";
 
-  Rain_1: "Rain_1",
-  Rain_10: "Rain_10",
-  Rain_30: "Rain_30",
-  Rain_50: "Rain_50",
-  Rain_70: "Rain_70",
-  Rain_100: "Rain_100",
+export type MetricUnit = "℃" | "mm" | "cm" | "m/s" | "時間" | "日";
 
-  Snowed_5: "Snowed_5",
-  Snowed_10: "Snowed_10",
-  Snowed_20: "Snowed_20",
-  Snowed_50: "Snowed_50",
-  Snowed_100: "Snowed_100",
+export type MetricTab =
+  | "主要"
+  | "平均"
+  | "気温日数"
+  | "降水日数"
+  | "降雪日数"
+  | "積雪日数"
+  | "風速日数"
+  | "極値";
 
-  Snowing_3: "Snowing_3",
-  Snowing_5: "Snowing_5",
-  Snowing_10: "Snowing_10",
-  Snowing_20: "Snowing_20",
-  Snowing_50: "Snowing_50",
+export type MetricCategory = "気温" | "降水" | "降雪" | "積雪" | "風" | "日照";
 
-  Wind_10: "Wind_10",
-  Wind_15: "Wind_15",
-  Wind_20: "Wind_20",
-  Wind_30: "Wind_30",
-
-  Max_Snowed: "Max_Snowed",
-  Max_HiTemp: "Max_HiTemp",
-  Min_LwTemp: "Min_LwTemp",
-} as const;
-
-export type MetricKey = (typeof MetricKey)[keyof typeof MetricKey];
-
-// ===== MetricUnit =====
-export const MetricUnit = {
-  Temp: "℃",
-  Rain: "mm",
-  Snow: "cm",
-  Wind: "m/s",
-  Sun: "時間",
-  Day: "日",
-} as const;
-
-export type MetricUnit = (typeof MetricUnit)[keyof typeof MetricUnit];
-
-// ===== MetricTab =====
-export const MetricTab = {
-  Main: "主要",
-  Avg: "平均",
-  TempDays: "気温日数",
-  RainDays: "降水日数",
-  SnowDays: "降雪日数",
-  SnowDepthDays: "積雪日数",
-  WindDays: "風速日数",
-  Extreme: "極値",
-} as const;
-
-export type MetricTab = (typeof MetricTab)[keyof typeof MetricTab];
-
-// ===== MetricCategory =====
-export const MetricCategory = {
-  Temp: "気温",
-  Rain: "降水",
-  Snow: "降雪",
-  SnowDepth: "積雪",
-  Wind: "風",
-  Sun: "日照",
-} as const;
-
-export type MetricCategory =
-  (typeof MetricCategory)[keyof typeof MetricCategory];
-
-// ===== interface =====
-export interface Metric {
+export type MetricMeta = {
+  key: MetricValue;
   label: string;
-  tab: MetricTab;
   unit: MetricUnit;
+  tab: MetricTab;
   category: MetricCategory;
-}
+  highIcon?: ReactNode;
+  lowIcon?: ReactNode;
+};
 
-// ===== 本体 =====
-export const metrics = {
-  // ===== 主要・平均 =====
-  [MetricKey.Av_AvTemp]: {
+// ==============================
+// definition（← これが本体）
+// ==============================
+
+export const MetricKey = {
+  // ===== 主要 =====
+  av_avtemp: {
+    key: "av_avtemp",
     label: "平均気温",
-    tab: MetricTab.Main,
-    unit: MetricUnit.Temp,
-    category: MetricCategory.Temp,
+    unit: "℃",
+    tab: "主要",
+    category: "気温",
+    highIcon: <TbTemperaturePlus />,
+    lowIcon: <PiThermometerColdFill />,
   },
-  [MetricKey.Av_HiTemp]: {
-    label: "平均最高気温",
-    tab: MetricTab.Avg,
-    unit: MetricUnit.Temp,
-    category: MetricCategory.Temp,
-  },
-  [MetricKey.Av_LwTemp]: {
-    label: "平均最低気温",
-    tab: MetricTab.Avg,
-    unit: MetricUnit.Temp,
-    category: MetricCategory.Temp,
-  },
-  [MetricKey.Sm_Sun]: {
+  sm_sun: {
+    key: "sm_sun",
     label: "日照時間",
-    tab: MetricTab.Main,
-    unit: MetricUnit.Sun,
-    category: MetricCategory.Sun,
+    unit: "時間",
+    tab: "主要",
+    category: "日照",
+    highIcon: <AiFillSun />,
+    lowIcon: <BsCloudsFill />,
   },
-  [MetricKey.Sm_Rain]: {
+  sm_rain: {
+    key: "sm_rain",
     label: "降水量",
-    tab: MetricTab.Main,
-    unit: MetricUnit.Rain,
-    category: MetricCategory.Rain,
+    unit: "mm",
+    tab: "主要",
+    category: "降水",
+    highIcon: <BsFillCloudRainHeavyFill />,
+    lowIcon: <PiHairDryer />,
   },
-  [MetricKey.Sm_Snowing]: {
+  sm_snowing: {
+    key: "sm_snowing",
     label: "降雪量",
-    tab: MetricTab.Main,
-    unit: MetricUnit.Snow,
-    category: MetricCategory.Snow,
+    unit: "cm",
+    tab: "主要",
+    category: "降雪",
+    highIcon: <FaSnowman />,
   },
-  [MetricKey.Av_Wind]: {
+
+  // ===== 平均 =====
+  av_hitemp: {
+    key: "av_hitemp",
+    label: "平均最高気温",
+    unit: "℃",
+    tab: "平均",
+    category: "気温",
+  },
+  av_lwtemp: {
+    key: "av_lwtemp",
+    label: "平均最低気温",
+    unit: "℃",
+    tab: "平均",
+    category: "気温",
+  },
+  av_wind: {
+    key: "av_wind",
     label: "平均風速",
-    tab: MetricTab.Avg,
-    unit: MetricUnit.Wind,
-    category: MetricCategory.Wind,
+    unit: "m/s",
+    tab: "平均",
+    category: "風",
+    highIcon: <BiWind />,
   },
 
   // ===== 気温日数 =====
-  [MetricKey.HiTemp_25]: {
+  hitemp_25: {
+    key: "hitemp_25",
     label: "夏日",
-    tab: MetricTab.TempDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Temp,
+    unit: "日",
+    tab: "気温日数",
+    category: "気温",
   },
-  [MetricKey.HiTemp_30]: {
+  hitemp_30: {
+    key: "hitemp_30",
     label: "真夏日",
-    tab: MetricTab.TempDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Temp,
+    unit: "日",
+    tab: "気温日数",
+    category: "気温",
   },
-  [MetricKey.HiTemp_35]: {
+  hitemp_35: {
+    key: "hitemp_35",
     label: "猛暑日",
-    tab: MetricTab.TempDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Temp,
+    unit: "日",
+    tab: "気温日数",
+    category: "気温",
+    highIcon: <FaHotjar />,
   },
-  [MetricKey.LwTemp_0]: {
+  lwtemp_0: {
+    key: "lwtemp_0",
     label: "冬日",
-    tab: MetricTab.TempDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Temp,
+    unit: "日",
+    tab: "気温日数",
+    category: "気温",
   },
-  [MetricKey.HiTemp_0]: {
+  hitemp_0: {
+    key: "hitemp_0",
     label: "真冬日",
-    tab: MetricTab.TempDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Temp,
+    unit: "日",
+    tab: "気温日数",
+    category: "気温",
   },
-  [MetricKey.LwTemp_25]: {
+  lwtemp_25: {
+    key: "lwtemp_25",
     label: "熱帯夜",
-    tab: MetricTab.TempDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Temp,
+    unit: "日",
+    tab: "気温日数",
+    category: "気温",
   },
 
   // ===== 降水日数 =====
-  [MetricKey.Rain_1]: {
+  rain_1: {
+    key: "rain_1",
     label: "日降水量1mm以上",
-    tab: MetricTab.RainDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Rain,
+    unit: "日",
+    tab: "降水日数",
+    category: "降水",
   },
-  [MetricKey.Rain_10]: {
+  rain_10: {
+    key: "rain_10",
     label: "日降水量10mm以上",
-    tab: MetricTab.RainDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Rain,
+    unit: "日",
+    tab: "降水日数",
+    category: "降水",
   },
-  [MetricKey.Rain_30]: {
+  rain_30: {
+    key: "rain_30",
     label: "日降水量30mm以上",
-    tab: MetricTab.RainDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Rain,
+    unit: "日",
+    tab: "降水日数",
+    category: "降水",
   },
-  [MetricKey.Rain_50]: {
+  rain_50: {
+    key: "rain_50",
     label: "日降水量50mm以上",
-    tab: MetricTab.RainDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Rain,
+    unit: "日",
+    tab: "降水日数",
+    category: "降水",
   },
-  [MetricKey.Rain_70]: {
+  rain_70: {
+    key: "rain_70",
     label: "日降水量70mm以上",
-    tab: MetricTab.RainDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Rain,
+    unit: "日",
+    tab: "降水日数",
+    category: "降水",
   },
-  [MetricKey.Rain_100]: {
+  rain_100: {
+    key: "rain_100",
     label: "日降水量100mm以上",
-    tab: MetricTab.RainDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Rain,
+    unit: "日",
+    tab: "降水日数",
+    category: "降水",
   },
 
   // ===== 積雪日数 =====
-  [MetricKey.Snowed_5]: {
+  snowed_5: {
+    key: "snowed_5",
     label: "日積雪量5cm以上",
-    tab: MetricTab.SnowDepthDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.SnowDepth,
+    unit: "日",
+    tab: "積雪日数",
+    category: "積雪",
   },
-  [MetricKey.Snowed_10]: {
+  snowed_10: {
+    key: "snowed_10",
     label: "日積雪量10cm以上",
-    tab: MetricTab.SnowDepthDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.SnowDepth,
+    unit: "日",
+    tab: "積雪日数",
+    category: "積雪",
   },
-  [MetricKey.Snowed_20]: {
+  snowed_20: {
+    key: "snowed_20",
     label: "日積雪量20cm以上",
-    tab: MetricTab.SnowDepthDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.SnowDepth,
+    unit: "日",
+    tab: "積雪日数",
+    category: "積雪",
   },
-  [MetricKey.Snowed_50]: {
+  snowed_50: {
+    key: "snowed_50",
     label: "日積雪量50cm以上",
-    tab: MetricTab.SnowDepthDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.SnowDepth,
+    unit: "日",
+    tab: "積雪日数",
+    category: "積雪",
   },
-  [MetricKey.Snowed_100]: {
+  snowed_100: {
+    key: "snowed_100",
     label: "日積雪量100cm以上",
-    tab: MetricTab.SnowDepthDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.SnowDepth,
+    unit: "日",
+    tab: "積雪日数",
+    category: "積雪",
   },
 
   // ===== 降雪日数 =====
-  [MetricKey.Snowing_3]: {
+  snowing_3: {
+    key: "snowing_3",
     label: "日降雪量3cm以上",
-    tab: MetricTab.SnowDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Snow,
+    unit: "日",
+    tab: "降雪日数",
+    category: "降雪",
   },
-  [MetricKey.Snowing_5]: {
+  snowing_5: {
+    key: "snowing_5",
     label: "日降雪量5cm以上",
-    tab: MetricTab.SnowDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Snow,
+    unit: "日",
+    tab: "降雪日数",
+    category: "降雪",
   },
-  [MetricKey.Snowing_10]: {
+  snowing_10: {
+    key: "snowing_10",
     label: "日降雪量10cm以上",
-    tab: MetricTab.SnowDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Snow,
+    unit: "日",
+    tab: "降雪日数",
+    category: "降雪",
   },
-  [MetricKey.Snowing_20]: {
+  snowing_20: {
+    key: "snowing_20",
     label: "日降雪量20cm以上",
-    tab: MetricTab.SnowDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Snow,
+    unit: "日",
+    tab: "降雪日数",
+    category: "降雪",
   },
-  [MetricKey.Snowing_50]: {
+  snowing_50: {
+    key: "snowing_50",
     label: "日降雪量50cm以上",
-    tab: MetricTab.SnowDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Snow,
+    unit: "日",
+    tab: "降雪日数",
+    category: "降雪",
   },
 
   // ===== 風速日数 =====
-  [MetricKey.Wind_10]: {
+  wind_10: {
+    key: "wind_10",
     label: "日平均風速10m/s以上",
-    tab: MetricTab.WindDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Wind,
+    unit: "日",
+    tab: "風速日数",
+    category: "風",
   },
-  [MetricKey.Wind_15]: {
+  wind_15: {
+    key: "wind_15",
     label: "日平均風速15m/s以上",
-    tab: MetricTab.WindDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Wind,
+    unit: "日",
+    tab: "風速日数",
+    category: "風",
   },
-  [MetricKey.Wind_20]: {
+  wind_20: {
+    key: "wind_20",
     label: "日平均風速20m/s以上",
-    tab: MetricTab.WindDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Wind,
+    unit: "日",
+    tab: "風速日数",
+    category: "風",
   },
-  [MetricKey.Wind_30]: {
+  wind_30: {
+    key: "wind_30",
     label: "日平均風速30m/s以上",
-    tab: MetricTab.WindDays,
-    unit: MetricUnit.Day,
-    category: MetricCategory.Wind,
+    unit: "日",
+    tab: "風速日数",
+    category: "風",
   },
 
   // ===== 極値 =====
-  [MetricKey.Max_Snowed]: {
+  max_snowed: {
+    key: "max_snowed",
     label: "最深積雪",
-    tab: MetricTab.Extreme,
-    unit: MetricUnit.Snow,
-    category: MetricCategory.SnowDepth,
+    unit: "cm",
+    tab: "極値",
+    category: "積雪",
   },
-  [MetricKey.Max_HiTemp]: {
+  max_hitemp: {
+    key: "max_hitemp",
     label: "最高気温",
-    tab: MetricTab.Extreme,
-    unit: MetricUnit.Temp,
-    category: MetricCategory.Temp,
+    unit: "℃",
+    tab: "極値",
+    category: "気温",
   },
-  [MetricKey.Min_LwTemp]: {
+  min_lwtemp: {
+    key: "min_lwtemp",
     label: "最低気温",
-    tab: MetricTab.Extreme,
-    unit: MetricUnit.Temp,
-    category: MetricCategory.Temp,
+    unit: "℃",
+    tab: "極値",
+    category: "気温",
   },
-} as const satisfies Record<MetricKey, Metric>;
+} as const satisfies Record<string, any>;
 
-export const metricList = Object.entries(metrics).map(([key, value]) => {
-  return {
-    key: key as keyof typeof metrics,
-    ...value,
-  };
-});
+export type MetricValue = keyof typeof MetricKey;

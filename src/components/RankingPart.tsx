@@ -2,13 +2,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { getFullRegionColor } from "../utils/colorUtils";
 
+import { PrefKey } from "../../utils/pref";
+
 // ==============================
 // Types
 // ==============================
 interface RankingStation {
   number: string;
   station_name: string;
-  pref: string;
+  pref: PrefKey;
   city?: string; // city is optional here
   rank: number;
   value: string | null;
@@ -55,9 +57,9 @@ const StationList: React.FC<StationListProps> = ({ title, list }) => (
                 {station.pref && (
                   <span
                     className="font-semibold"
-                    style={{ color: getFullRegionColor(station.pref) }}
+                    style={{ color: getFullRegionColor(station.pref.label) }}
                   >
-                    {station.pref}
+                    {station.pref.label}
                   </span>
                 )}
                 {station.city && (

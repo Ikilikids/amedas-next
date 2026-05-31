@@ -1,60 +1,13 @@
-import React, { useId } from "react";
-import { AiFillSun } from "react-icons/ai";
-import { BiWind } from "react-icons/bi";
-import { BsFillCloudRainHeavyFill } from "react-icons/bs";
-import { LiaSnowflake } from "react-icons/lia";
-import { PiThermometerColdFill, PiThermometerHotFill } from "react-icons/pi";
-import { TbTemperaturePlus } from "react-icons/tb";
+import { useId } from "react";
 
-/* =====================
- * 型
- * ===================== */
-export type Rank = 1 | 2 | 3 | 4;
-
-export type BadgeType =
-  | "toptemp"
-  | "bottemp"
-  | "hitemp"
-  | "rain"
-  | "sun"
-  | "snowing"
-  | "wind";
-
-type Props = {
-  size?: number;
-  rank: Rank;
-  type: BadgeType;
-};
-
-/* =====================
- * ラベル（title用）
- * ===================== */
-const badgeTypeLabel: Record<BadgeType, string> = {
-  toptemp: "平均気温(高)",
-  bottemp: "平均気温(低)",
-  hitemp: "猛暑日日数",
-  rain: "降水量",
-  sun: "日照時間",
-  snowing: "降雪量",
-  wind: "平均風速",
-};
-
-const rankLabel: Record<Rank, string> = {
-  1: "top10",
-  2: "上位5%",
-  3: "上位10%",
-  4: "上位20%",
-};
+import { BadgeData } from "../types/all";
+import { BadgeRank } from "../types/raw";
 
 /* =====================
  * 色定義
- * rank1 = 🌈
- * rank2 = 🥇
- * rank3 = 🥈
- * rank4 = 🥉
  * ===================== */
 const medalColors: Record<
-  Rank,
+  BadgeRank,
   {
     mainTop?: string;
     mainBottom?: string;
@@ -64,27 +17,27 @@ const medalColors: Record<
     isRainbow?: boolean;
   }
 > = {
-  1: {
+  rainbow: {
     stroke: "#dddddd",
     shine: "rgba(255,255,255,0.85)",
     icon: "rgba(255,255,255,0.9)",
     isRainbow: true,
   },
-  2: {
+  gold: {
     mainTop: "#FFDD00",
     mainBottom: "#DDBB00",
     stroke: "#B89600",
     shine: "rgba(255,255,255,0.6)",
     icon: "#B89600",
   },
-  3: {
+  silver: {
     mainTop: "#E5E5E5",
     mainBottom: "#BFC3C7",
     stroke: "#9A9EA3",
     shine: "rgba(255,255,255,0.7)",
     icon: "#8C8F94",
   },
-  4: {
+  bronze: {
     mainTop: "#E6B17E",
     mainBottom: "#C68642",
     stroke: "#9C5A1A",
@@ -94,31 +47,41 @@ const medalColors: Record<
 };
 
 /* =====================
- * アイコン
+ * 上位アイコン
  * ===================== */
-const badgeIcons: Record<BadgeType, React.ComponentType<any>> = {
-  toptemp: TbTemperaturePlus,
-  bottemp: PiThermometerColdFill,
-  hitemp: PiThermometerHotFill,
-  rain: BsFillCloudRainHeavyFill,
-  sun: AiFillSun,
-  snowing: LiaSnowflake,
-  wind: BiWind,
+
+/* =====================
+ * ラベル
+ * ===================== */
+const rankLabel: Record<BadgeRank, string> = {
+  rainbow: "top10",
+  gold: "5%",
+  silver: "10%",
+  bronze: "20%",
 };
 
 /* =====================
  * コンポーネント
  * ===================== */
-const RankBadge: React.FC<Props> = ({ size = 36, rank, type }) => {
-  const colors = medalColors[rank];
-  const Icon = badgeIcons[type];
+const RankBadge = (props: BadgeData) => {
+  const rank = props.rank;
+  const isHigh = props.isHigh;
+  const metricKey = props.metric;
 
+  const colors = medalColors[rank] || medalColors.bronze;
+
+  const Icon = isHigh ? metricKey.highIcon : metricKey.lowIcon;
+  if (!Icon) return null;
+
+  const size = 36;
   const uid = useId();
   const medalGradId = `medal-${uid}`;
   const shineGradId = `shine-${uid}`;
   const rainbowGradId = `rainbow-${uid}`;
 
-  const titleText = `${badgeTypeLabel[type]}：${rankLabel[rank]}`;
+  const titleText = `${metricKey.label}：${
+    isHigh ? ` 上位${rankLabel[rank]}` : `下位${rankLabel[rank]}`
+  }`;
 
   return (
     <div
@@ -132,13 +95,11 @@ const RankBadge: React.FC<Props> = ({ size = 36, rank, type }) => {
     >
       <svg width={size} height={size} viewBox="0 0 120 120">
         <defs>
-          {/* 通常グラデ */}
           <linearGradient id={medalGradId} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={colors.mainTop ?? "#fff"} />
             <stop offset="100%" stopColor={colors.mainBottom ?? "#eee"} />
           </linearGradient>
 
-          {/* 🌈 虹 */}
           <linearGradient id={rainbowGradId} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#ff004c" />
             <stop offset="25%" stopColor="#ffdd00" />
@@ -147,7 +108,6 @@ const RankBadge: React.FC<Props> = ({ size = 36, rank, type }) => {
             <stop offset="100%" stopColor="#ff004c" />
           </linearGradient>
 
-          {/* キラ */}
           <linearGradient id={shineGradId} x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="rgba(255,255,255,0)" />
             <stop offset="50%" stopColor={colors.shine} />
@@ -155,7 +115,6 @@ const RankBadge: React.FC<Props> = ({ size = 36, rank, type }) => {
           </linearGradient>
         </defs>
 
-        {/* 外円 */}
         <circle
           cx="60"
           cy="60"
@@ -167,7 +126,6 @@ const RankBadge: React.FC<Props> = ({ size = 36, rank, type }) => {
           strokeWidth="4"
         />
 
-        {/* キラ */}
         <rect
           x="-140"
           y="0"
@@ -187,8 +145,7 @@ const RankBadge: React.FC<Props> = ({ size = 36, rank, type }) => {
         </rect>
       </svg>
 
-      {/* 中央アイコン */}
-      <Icon
+      <span
         style={{
           position: "absolute",
           top: "50%",
@@ -198,7 +155,9 @@ const RankBadge: React.FC<Props> = ({ size = 36, rank, type }) => {
           color: colors.icon,
           pointerEvents: "none",
         }}
-      />
+      >
+        {Icon}
+      </span>
     </div>
   );
 };

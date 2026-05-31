@@ -25,10 +25,7 @@ const MapView: React.FC<MapViewProps> = ({ onStationClick }) => {
     fetch("/stations.json")
       .then((res) => res.json())
       .then((data) => {
-        const list: Station[] = Object.entries(data).map(([id, value]: [string, any]) => ({
-          id,
-          ...value,
-        }));
+        const list: Station[] = Object.values(data);
         setStationList(list);
       })
       .catch((err) => console.error(err));

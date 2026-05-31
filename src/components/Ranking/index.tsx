@@ -1,25 +1,29 @@
 import React, { useState } from "react";
-import { MetricKey } from "../../utils/colorUtils";
-import { RankType, Station } from "./types";
-import { useRankingData } from "./useRankingData";
-import RankingTabs from "./RankingTabs";
-import RankingList from "./RankingList";
+import { MetricKey, MetricMeta } from "../../utils/metric";
+import { PrefKey, PrefMeta } from "../../utils/pref";
+import { RegionKey, RegionMeta } from "../../utils/region";
 import MetricPopup from "./MetricPopup";
+import RankingList from "./RankingList";
+import RankingTabs from "./RankingTabs";
+import { RankType, RankingData } from "./types";
+import { useRankingData } from "./useRankingData";
 
 interface RankingProps {
-  onStationClick: (station: Station) => void;
+  onStationClick: (station: RankingData) => void;
 }
 
 const Ranking: React.FC<RankingProps> = ({ onStationClick }) => {
-  const [sortKey, setSortKey] = useState<MetricKey>(MetricKey.Av_AvTemp);
+  const [sortKey, setSortKey] = useState<MetricMeta>(MetricKey.av_avtemp);
   const [rankType, setRankType] = useState<RankType>(RankType.Top);
 
-  const [selectedRegion, setSelectedRegion] = useState("kanto");
-  const [selectedPref, setSelectedPref] = useState("44");
+  const [selectedRegion, setSelectedRegion] = useState<RegionMeta>(
+    RegionKey.kanto
+  );
+  const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
   const [selectedMonth, setSelectedMonth] = useState("all");
 
   const [showPopup, setShowPopup] = useState(false);
-  const [selectedMetricKey, setSelectedMetricKey] = useState<MetricKey | null>(
+  const [selectedMetricKey, setSelectedMetricKey] = useState<MetricMeta | null>(
     null
   );
 
@@ -43,7 +47,9 @@ const Ranking: React.FC<RankingProps> = ({ onStationClick }) => {
         selectedMetricKey={selectedMetricKey}
         setSelectedMetricKey={setSelectedMetricKey}
         setShowPopup={setShowPopup}
+        selectedRegion={selectedRegion}
         setSelectedRegion={setSelectedRegion}
+        selectedPref={selectedPref}
         setSelectedPref={setSelectedPref}
       />
 

@@ -1,12 +1,14 @@
 import Link from "next/link";
 import React from "react";
-import { StationData } from "../types/station";
-import { getIcon } from "../utils/colorUtils";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { OverviewData, StationData } from "../types/all";
+import { MetricKey } from "../utils/metric";
 
 interface InfoPanelProps {
-  stationId: string | null | undefined;
   stationData: StationData | null;
+  overViewData: OverviewData | null;
   loading: boolean;
+  isTitle: boolean;
 }
 
 // ==============================
@@ -25,11 +27,11 @@ function showValue(
 // Component
 // ==============================
 const InfoPanel: React.FC<InfoPanelProps> = ({
-  stationId,
   stationData,
+  overViewData,
   loading,
+  isTitle,
 }) => {
-  // ===== 読み込み中 =====
   if (loading) {
     return (
       <div className="p-4 w-full h-full flex items-center justify-center">
@@ -38,94 +40,48 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
     );
   }
 
-  const data: StationData = stationData ?? {
-    official_name: "地点を選んでください!!",
-    station_name: "",
-    pref: "",
-    city: "",
-    height: null,
-    lon: null,
-    lat: null,
-    uonzu: {
-      av_avtemp: [],
-      av_hitemp: [],
-      av_lwtemp: [],
-      sm_rain: [],
-      sm_sun: [],
-      sm_snowing: [],
-    },
-    data: {
-      av_avtemp: undefined,
-      av_hitemp: undefined,
-      sm_sun: undefined,
-      sm_rain: undefined,
-      sm_snowing: undefined,
-    },
-  };
-
-  const icon = getIcon(data.official_name || "");
-
-const defaultAnnualData = { value: null, rank: undefined };
-
-  const avtemp  = data.data.av_avtemp  ?? defaultAnnualData;
-  const maxtemp = data.data.av_hitemp  ?? defaultAnnualData;
-  const sun     = data.data.sm_sun     ?? defaultAnnualData;
-  const rain    = data.data.sm_rain    ?? defaultAnnualData;
-  const snow    = data.data.sm_snowing ?? defaultAnnualData;
+  const exclude = new Set([MetricKey.av_lwtemp, MetricKey.av_hitemp]);
 
   return (
     <div className="p-2 rounded-md w-full h-full flex flex-col gap-1.5">
-      <h3 className="station-name font-bold text-2xl">
-        {stationId ? (
-          <Link
-            href={`/station/${stationId}`}
-            className="group inline-block relative"
-          >
+      {isTitle ? (
+        <h3 className="station-name font-bold text-2xl">
+          {stationData ? (
+            <Link
+              href={`/station/${stationData.id}`}
+              className="group inline-block relative"
+            >
+              <span className="flex items-center gap-2">
+                {stationData.category.icon}
+                {stationData.official_name}
+              </span>
+              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-200 group-hover:w-full" />
+            </Link>
+          ) : (
             <span className="flex items-center gap-2">
-              {icon}
-              {data.official_name}
+              <BsFillQuestionCircleFill />
+              地点を選択してください!!
             </span>
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-200 group-hover:w-full" />
-          </Link>
-        ) : (
-          <span className="flex items-center gap-2">
-            {icon}
-            {data.official_name}
-          </span>
-        )}
-      </h3>
-
+          )}
+        </h3>
+      ) : null}
+      <div>都道府県：{stationData?.pref?.label}</div>
+      <div>市町村：{stationData?.city}</div>
+      <div>観測所名：{stationData?.station_name}</div>
       <div>
-        都道府県：{data.pref} {data.city}
+        緯度・経度：(
+        {showValue(stationData?.lat)}, {showValue(stationData?.lon)})
       </div>
-      <div>観測所名：{data.station_name}</div>
-      <div>
-        緯度・経度：({showValue(data.lat)}, {showValue(data.lon)})
-      </div>
-      <div>標高：{showValue(data.height)} m</div>
-
-      <div>
-        平均気温：{showValue(avtemp.value)} ℃（全国{" "}
-        {showValue(avtemp.rank, true)} 位）
-      </div>
-      <div>
-        平均最高気温：{showValue(maxtemp.value)} ℃（全国{" "}
-        {showValue(maxtemp.rank, true)} 位）
-      </div>
-      <div>
-        日照時間：{showValue(sun.value)} 時間（全国{" "}
-        {showValue(sun.rank, true)} 位）
-      </div>
-      <div>
-        降水量：{showValue(rain.value)} mm（全国{" "}
-        {showValue(rain.rank, true)} 位）
-      </div>
-      <div>
-        降雪量：{showValue(snow.value, true)} cm（全国{" "}
-        {showValue(snow.rank, true)} 位）
-      </div>
+      <div>標高：{showValue(stationData?.height)} m</div>
+      {Array.from(overViewData?.entries() ?? [])
+        .filter(([key]) => !exclude.has(key))
+        .map(([key, d]) => (
+          <div key={key.label}>
+            {key.label}：{showValue(d?.value)} {key.unit}（全国{" "}
+            {showValue(d?.rank, true)} 位）
+          </div>
+        ))}
     </div>
   );
 };
-
 export default InfoPanel;

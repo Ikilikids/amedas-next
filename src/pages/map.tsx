@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import MapView from "../components/MapView";
 import StationDetailPanel from "../components/StationDetailPanel";
-import { SelectedStation } from "../types/station";
+import { SelectedStation } from "../types/raw";
 import { SectionWithDescription } from "../utils/colorUtils";
 
 // ==============================

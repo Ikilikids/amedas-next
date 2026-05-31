@@ -1,25 +1,25 @@
 import React from "react";
-import {
-  MetricKey,
-  MetricTab,
-  metricList,
-  metrics,
-} from "../../utils/colorUtils";
-import { MonthMap, RankType, rankTypes } from "./types";
+import { MonthMap } from "../../utils/colorUtils";
+import { MetricKey, MetricMeta } from "../../utils/metric";
+import { PrefKey, PrefMeta } from "../../utils/pref";
+import { RegionKey, RegionMeta } from "../../utils/region";
+import { RankType, rankTypes } from "./types";
 import { isCombinationValid } from "./utils";
 
 interface RankingTabsProps {
-  sortKey: MetricKey;
-  setSortKey: (key: MetricKey) => void;
+  sortKey: MetricMeta;
+  setSortKey: (key: MetricMeta) => void;
   rankType: RankType;
   setRankType: (type: RankType) => void;
   selectedMonth: string;
   setSelectedMonth: (month: string) => void;
-  selectedMetricKey: MetricKey | null;
-  setSelectedMetricKey: (key: MetricKey | null) => void;
+  selectedMetricKey: MetricMeta | null;
+  setSelectedMetricKey: (key: MetricMeta | null) => void;
   setShowPopup: (show: boolean) => void;
-  setSelectedRegion: (region: string) => void;
-  setSelectedPref: (pref: string) => void;
+  selectedRegion: RegionMeta;
+  setSelectedRegion: (region: RegionMeta) => void;
+  selectedPref: PrefMeta;
+  setSelectedPref: (pref: PrefMeta) => void;
 }
 
 const RankingTabs: React.FC<RankingTabsProps> = ({
@@ -32,17 +32,22 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
   selectedMetricKey,
   setSelectedMetricKey,
   setShowPopup,
+  selectedRegion,
   setSelectedRegion,
+  selectedPref,
   setSelectedPref,
 }) => {
-  const mainMetrics = metricList.filter((m) => m.tab === MetricTab.Main);
+  const mainMetrics = Object.values(MetricKey).filter((m) => m.tab === "主要");
+
+  const regions = Object.values(RegionKey);
+  const prefs = Object.values(PrefKey);
 
   return (
     <>
       {/* ================= MAIN METRICS ================= */}
       <div className="flex gap-2 mb-2 flex-wrap">
         {mainMetrics.map((m) => {
-          const disabled = !isCombinationValid(rankType, m.key);
+          const disabled = !isCombinationValid(rankType, m);
 
           return (
             <button
@@ -51,13 +56,13 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
               className={`px-3 py-1 rounded ${
                 disabled
                   ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                  : sortKey === m.key
+                  : sortKey === m
                   ? "bg-orange-400 text-white"
                   : "bg-gray-200 hover:bg-orange-100"
               }`}
               onClick={() => {
                 if (!disabled) {
-                  setSortKey(m.key);
+                  setSortKey(m);
                   setSelectedMetricKey(null);
                 }
               }}
@@ -75,7 +80,7 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
           }`}
           onClick={() => setShowPopup(true)}
         >
-          {metrics[selectedMetricKey]?.label ?? "その他 ▸"}
+          {selectedMetricKey?.label ?? "その他 ▸"}
         </button>
       </div>
 
@@ -99,8 +104,14 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
                 onClick={() => {
                   if (disabled) return;
                   setRankType(rank);
-                  if (rank === RankType.Region) setSelectedRegion("kanto");
-                  if (rank === RankType.Pre) setSelectedPref("44");
+
+                  if (rank === RankType.Region) {
+                    setSelectedRegion(RegionKey.kanto);
+                  }
+
+                  if (rank === RankType.Pre) {
+                    setSelectedPref(PrefKey.tokyo);
+                  }
                 }}
               >
                 {val.label}
@@ -109,6 +120,23 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
           }
         )}
       </div>
+
+      {/* ================= DROPDOWN (NEW) ================= */}
+      {rankType === RankType.Region && (
+        <SimpleSelect
+          items={regions}
+          selected={selectedRegion}
+          onChange={setSelectedRegion}
+        />
+      )}
+
+      {rankType === RankType.Pre && (
+        <SimpleSelect
+          items={prefs}
+          selected={selectedPref}
+          onChange={setSelectedPref}
+        />
+      )}
 
       {/* ================= MONTH ================= */}
       <div className="flex gap-1.5 mb-2 flex-wrap">
@@ -131,3 +159,39 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
 };
 
 export default RankingTabs;
+
+type SelectItem = {
+  value: string;
+  label: string;
+};
+
+type Props<T extends SelectItem> = {
+  items: T[];
+  selected: T;
+  onChange: (item: T) => void;
+};
+
+function SimpleSelect<T extends SelectItem>({
+  items,
+  selected,
+  onChange,
+}: Props<T>) {
+  return (
+    <div className="mb-2">
+      <select
+        value={selected.value}
+        onChange={(e) => {
+          const found = items.find((i) => i.value === e.target.value);
+          if (found) onChange(found);
+        }}
+        className="px-2 py-1 rounded bg-gray-100"
+      >
+        {items.map((i) => (
+          <option key={i.value} value={i.value}>
+            {i.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}

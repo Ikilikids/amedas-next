@@ -1,47 +1,17 @@
 import React, { useState } from "react";
-import { CiViewTable } from "react-icons/ci";
-import { slugMonthMap } from "../utils/colorUtils";
+import { TableData } from "../types/all";
+import { MonthlyEntry } from "../types/union";
+import { MonthMap } from "../utils/colorUtils";
+import { MetricKey, MetricMeta } from "../utils/metric";
 
 // ==============================
 // Types
 // ==============================
-interface MonthlyRank {
-  top?: number;
-  bot?: number;
-  island?: number;
-  region?: number;
-  pre?: number;
-  meteo?: number;
-}
-
-interface MonthlyData {
-  value: number | null;
-  rank?: MonthlyRank;
-}
-
-interface MonthlyDataSource {
-  all?: MonthlyData;
-  [month: string]: MonthlyData | undefined; // For specific months
-}
-
-interface StationData {
-  data: {
-    av_avtemp?: MonthlyDataSource;
-    av_hitemp?: MonthlyDataSource;
-    av_lwtemp?: MonthlyDataSource;
-    sm_rain?: MonthlyDataSource;
-    sm_snowing?: MonthlyDataSource;
-    sm_sun?: MonthlyDataSource;
-    av_wind?: MonthlyDataSource;
-  };
-}
-
 interface HyouTableProps {
-  station: StationData | null;
-  regionColor: string;
+  tableData?: TableData;
 }
 
-interface TableData {
+interface HyouRowData {
   val: string | number;
   rank: string | number;
 }
@@ -140,78 +110,76 @@ function getColor(
 // ==============================
 // Component
 // ==============================
-const HyouTable: React.FC<HyouTableProps> = ({ station, regionColor }) => {
+const HyouTable: React.FC<HyouTableProps> = ({ tableData }) => {
   const [rankType, setRankType] = useState<string>("降順");
 
-  const months: MonthOption[] = Object.entries(slugMonthMap).map(
+  const months: MonthOption[] = Object.entries(MonthMap).map(
     ([slug, label]) => ({
       slug,
       label,
     })
   );
 
-  const emptyMonthlyData = (): TableData[] =>
+  const emptyMonthlyData = (): HyouRowData[] =>
     months.map(() => ({ val: "--", rank: "--" }));
 
+  const getIndexFromSlug = (slug: string): number => {
+    if (slug === "all") return 12;
+    return parseInt(slug) - 1;
+  };
+
   const mapValueRank = (
-    monthlyDataSource: MonthlyDataSource = {},
+    key: MetricMeta,
     isSnow: boolean = false
-  ): TableData[] =>
-    months.map((m) => {
-      const monthEntry: MonthlyData | undefined = monthlyDataSource[m.slug];
-      let val: string | number = monthEntry?.value ?? "--";
+  ): HyouRowData[] => {
+    if (!tableData) return emptyMonthlyData();
+
+    const entries = tableData.get(key) || [];
+    return months.map((m) => {
+      const idx = getIndexFromSlug(m.slug);
+      const entry: MonthlyEntry | undefined = entries[idx];
+      let val: string | number = entry?.value ?? "--";
       if (typeof val === "number" && !isSnow) val = val.toFixed(1);
 
       let rank: string | number;
       switch (rankType) {
         case "降順":
-          rank = monthEntry?.rank?.top ?? "--";
+          rank = entry?.top ?? "--";
           break;
         case "昇順":
-          rank = monthEntry?.rank?.bot ?? "--";
+          rank = entry?.bot ?? "--";
           break;
         case "地方別":
-          rank = monthEntry?.rank?.region ?? "--";
+          rank = entry?.region ?? "--";
           break;
         case "県別":
-          rank = monthEntry?.rank?.pre ?? "--";
+          rank = entry?.pre ?? "--";
           break;
         case "島除く":
-          rank = monthEntry?.rank?.island ?? "--";
+          rank = entry?.island ?? "--";
           break;
         case "気象台":
-          rank = monthEntry?.rank?.meteo ?? "--";
+          rank = entry?.meteo ?? "--";
           break;
         default:
-          rank = monthEntry?.rank?.top ?? "--";
+          rank = entry?.top ?? "--";
       }
 
       return { val, rank };
     });
+  };
 
-  const avTemps = station
-    ? mapValueRank(station.data.av_avtemp)
-    : emptyMonthlyData();
-  const hiTemps = station
-    ? mapValueRank(station.data.av_hitemp)
-    : emptyMonthlyData();
-  const lwTemps = station
-    ? mapValueRank(station.data.av_lwtemp)
-    : emptyMonthlyData();
-  const rains = station
-    ? mapValueRank(station.data.sm_rain)
-    : emptyMonthlyData();
-  const snows = station
-    ? mapValueRank(station.data.sm_snowing, true)
-    : emptyMonthlyData();
-  const suns = station ? mapValueRank(station.data.sm_sun) : emptyMonthlyData();
-  const winds = station
-    ? mapValueRank(station.data.av_wind)
-    : emptyMonthlyData();
+  const avTemps = mapValueRank(MetricKey.av_avtemp);
+  const hiTemps = mapValueRank(MetricKey.av_hitemp);
+  const lwTemps = mapValueRank(MetricKey.av_lwtemp);
+  const rains = mapValueRank(MetricKey.sm_rain);
+  const snows = mapValueRank(MetricKey.sm_snowing, true);
+  const suns = mapValueRank(MetricKey.sm_sun);
+  const winds = mapValueRank(MetricKey.av_wind);
 
   const renderRow = (
     label: string,
-    dataArray: TableData[],
+    dataArray: HyouRowData[],
     unit: string,
     type: string
   ) => (
@@ -253,20 +221,18 @@ const HyouTable: React.FC<HyouTableProps> = ({ station, regionColor }) => {
 
   const availableRankTypes = new Set<string>();
 
-  const targetKeys: (keyof StationData["data"])[] = ["av_avtemp", "sm_rain"];
+  const targetKeys: MetricMeta[] = [MetricKey.av_avtemp, MetricKey.sm_rain];
 
-  if (station) {
-    targetKeys.forEach((dataKey) => {
-      const data = station.data[dataKey];
-      if (!data) return;
-
-      Object.values(data).forEach((monthData: any) => {
-        Object.keys(monthData?.rank ?? {}).forEach((key) => {
-          const label = rankMap[key];
-          if (label) {
-            availableRankTypes.add(label);
-          }
-        });
+  if (tableData) {
+    targetKeys.forEach((key) => {
+      const entries = tableData.get(key) || [];
+      entries.forEach((entry) => {
+        if (entry.top !== undefined) availableRankTypes.add(rankMap.top);
+        if (entry.bot !== undefined) availableRankTypes.add(rankMap.bot);
+        if (entry.region !== undefined) availableRankTypes.add(rankMap.region);
+        if (entry.pre !== undefined) availableRankTypes.add(rankMap.pre);
+        if (entry.island !== undefined) availableRankTypes.add(rankMap.island);
+        if (entry.meteo !== undefined) availableRankTypes.add(rankMap.meteo);
       });
     });
   }
@@ -277,20 +243,13 @@ const HyouTable: React.FC<HyouTableProps> = ({ station, regionColor }) => {
 
   return (
     <div className="w-full h-full flex flex-col items-left">
-      <div
-        className="flex flex-row items-center justify-between w-full mb-2 sm:mb-3 sticky top-0 z-10 p-1 rounded"
-        style={{ backgroundColor: regionColor }}
-      >
-        <h2 className="flex items-center font-bold text-base sm:text-xl text-left gap-1">
-          <CiViewTable />
-          月別気候表
-        </h2>
-        <div>
+      <div className="flex justify-end mb-2">
+        <div className="flex items-center">
           <label className="text-sm sm:text-base mr-2">絞り込み:</label>
           <select
             value={rankType}
             onChange={(e) => setRankType(e.target.value)}
-            className="border rounded px-1 py-0.5 text-sm sm:text-base"
+            className="border rounded px-1 py-0.5 text-sm sm:text-base bg-white"
           >
             {rankOptions.map((opt) => (
               <option key={opt} value={opt}>
@@ -298,14 +257,6 @@ const HyouTable: React.FC<HyouTableProps> = ({ station, regionColor }) => {
               </option>
             ))}
           </select>
-        </div>
-      </div>
-      <div className="text-sm mb-2">
-        <div>
-          ・平均・最高・最低気温、降水、降雪、日照、風速の月別値を表にまとめました。
-        </div>
-        <div>
-          ・下段はランキングを示しており、メニューからランキング範囲を絞り込むことができます。
         </div>
       </div>
       <div className="w-full overflow-x-auto">

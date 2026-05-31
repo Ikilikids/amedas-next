@@ -22,12 +22,13 @@ async function generateMaster() {
       
       // 基本データ
       stations[id] = {
+        id: id,
+        prefCode: id.substring(0, 2),
         name: lightData[id]?.観測所名 || "",
         rank: lightData[id]?.rank ?? null,
         lat: latLon.緯度 ?? null,
         lon: latLon.経度 ?? null,
         // 後で詳細データから補完
-        pref: "",
         official_name: "",
         city: ""
       };
@@ -36,7 +37,6 @@ async function generateMaster() {
       const singlePath = path.join(SINGLE_DIR, `${id}.json`);
       if (fs.existsSync(singlePath)) {
         const singleData = JSON.parse(fs.readFileSync(singlePath, 'utf8'));
-        stations[id].pref = singleData.pref || "";
         stations[id].official_name = singleData.official_name || "";
         stations[id].city = singleData.city || "";
       }
