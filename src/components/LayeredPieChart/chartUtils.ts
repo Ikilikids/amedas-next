@@ -73,9 +73,6 @@ export function prepareChartData(
     };
   });
 
-  const hasAnyData = raw.some((x) => x.value !== null && x.value > 0);
-  if (!hasAnyData && ratioInfo.metricTab !== "気温日数") return null;
-
   const monthDays = month ? MONTH_DAYS[month - 1] : 365;
   const layeredValues = computeLayeredValues(
     raw.map((r) => r.value),
@@ -84,7 +81,6 @@ export function prepareChartData(
   );
 
   const total = layeredValues.reduce((a, b) => a + b, 0);
-  if (total === 0) return null;
 
   return layeredValues.map((v, i) => {
     const r = raw[i];

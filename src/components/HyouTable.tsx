@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TableData } from "../types/all";
 import { MonthlyEntry } from "../types/union";
 import { MonthMap } from "../utils/colorUtils";
@@ -10,6 +10,7 @@ import { RankKey, RankValue } from "../utils/rank";
 // ==============================
 interface HyouTableProps {
   tableData?: TableData;
+  rankValue: RankValue;
 }
 
 interface HyouRowData {
@@ -111,9 +112,7 @@ function getColor(
 // ==============================
 // Component
 // ==============================
-const HyouTable: React.FC<HyouTableProps> = ({ tableData }) => {
-  const [rankValue, setRankValue] = useState<RankValue>(RankKey.top.key);
-
+const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
   const months: MonthOption[] = Object.entries(MonthMap).map(
     ([slug, label]) => ({
       slug,
@@ -189,46 +188,8 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData }) => {
     </tr>
   );
 
-  const availableRankValues = new Set<RankValue>();
-
-  const targetKeys: MetricMeta[] = [MetricKey.av_avtemp, MetricKey.sm_rain];
-
-  if (tableData) {
-    targetKeys.forEach((key) => {
-      const entries = tableData.get(key) || [];
-      entries.forEach((entry) => {
-        if (entry.top !== undefined) availableRankValues.add("top");
-        if (entry.bot !== undefined) availableRankValues.add("bot");
-        if (entry.region !== undefined) availableRankValues.add("region");
-        if (entry.pre !== undefined) availableRankValues.add("pre");
-        if (entry.island !== undefined) availableRankValues.add("island");
-        if (entry.meteo !== undefined) availableRankValues.add("meteo");
-      });
-    });
-  }
-
-  const rankOptions = (Object.values(RankKey)).filter((meta) =>
-    availableRankValues.has(meta.key)
-  );
-
   return (
     <div className="w-full h-full flex flex-col items-left">
-      <div className="flex justify-end mb-2">
-        <div className="flex items-center">
-          <label className="text-sm sm:text-base mr-2">絞り込み:</label>
-          <select
-            value={rankValue}
-            onChange={(e) => setRankValue(e.target.value as RankValue)}
-            className="border rounded px-1 py-0.5 text-sm sm:text-base bg-white"
-          >
-            {rankOptions.map((opt) => (
-              <option key={opt.key} value={opt.key}>
-                {opt.ratioLabel}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
       <div className="w-full overflow-x-auto">
         <div className="min-w-max flex justify-center">
           <table className="border-collapse table-fixed text-center shadow-md">

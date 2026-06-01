@@ -37,4 +37,18 @@ export const RankKey = {
   },
 } as const satisfies Record<string, any>;
 
+export const ISLAND_PREFIXES = [
+  "886",
+  "887",
+  "888",
+  "889",
+  "4417",
+  "442",
+  "443",
+  "9",
+];
+
+export const isIslandId = (id: string): boolean =>
+  ISLAND_PREFIXES.some((p) => id.startsWith(p));
+
 export type RankValue = keyof typeof RankKey;

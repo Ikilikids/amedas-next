@@ -2,7 +2,7 @@
 // base types
 // ==============================
 
-import { ReactNode } from "react";
+import { IconType } from "react-icons";
 import { AiFillSun } from "react-icons/ai";
 import { BiWind } from "react-icons/bi";
 import { BsCloudsFill, BsFillCloudRainHeavyFill } from "react-icons/bs";
@@ -31,8 +31,8 @@ export type MetricMeta = {
   unit: MetricUnit;
   tab: MetricTab;
   category: MetricCategory;
-  highIcon?: ReactNode;
-  lowIcon?: ReactNode;
+  highIcon?: IconType;
+  lowIcon?: IconType;
 };
 
 // ==============================
@@ -47,8 +47,8 @@ export const MetricKey = {
     unit: "℃",
     tab: "主要",
     category: "気温",
-    highIcon: <TbTemperaturePlus />,
-    lowIcon: <PiThermometerColdFill />,
+    highIcon: TbTemperaturePlus,
+    lowIcon: PiThermometerColdFill,
   },
   sm_sun: {
     key: "sm_sun",
@@ -56,8 +56,8 @@ export const MetricKey = {
     unit: "時間",
     tab: "主要",
     category: "日照",
-    highIcon: <AiFillSun />,
-    lowIcon: <BsCloudsFill />,
+    highIcon: AiFillSun,
+    lowIcon: BsCloudsFill,
   },
   sm_rain: {
     key: "sm_rain",
@@ -65,8 +65,8 @@ export const MetricKey = {
     unit: "mm",
     tab: "主要",
     category: "降水",
-    highIcon: <BsFillCloudRainHeavyFill />,
-    lowIcon: <PiHairDryer />,
+    highIcon: BsFillCloudRainHeavyFill,
+    lowIcon: PiHairDryer,
   },
   sm_snowing: {
     key: "sm_snowing",
@@ -74,7 +74,7 @@ export const MetricKey = {
     unit: "cm",
     tab: "主要",
     category: "降雪",
-    highIcon: <FaSnowman />,
+    highIcon: FaSnowman,
   },
 
   // ===== 平均 =====
@@ -98,7 +98,7 @@ export const MetricKey = {
     unit: "m/s",
     tab: "平均",
     category: "風",
-    highIcon: <BiWind />,
+    highIcon: BiWind,
   },
 
   // ===== 気温日数 =====
@@ -122,7 +122,7 @@ export const MetricKey = {
     unit: "日",
     tab: "気温日数",
     category: "気温",
-    highIcon: <FaHotjar />,
+    highIcon: FaHotjar,
   },
   lwtemp_0: {
     key: "lwtemp_0",

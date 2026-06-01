@@ -163,7 +163,7 @@ const RankBadge = (props: BadgeData) => {
           pointerEvents: "none",
         }}
       >
-        {Icon}
+        <Icon />
       </span>
     </div>
   );

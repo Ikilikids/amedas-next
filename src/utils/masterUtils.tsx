@@ -17,6 +17,24 @@ function resolvePref(key: string): PrefMeta {
 }
 
 /* =========================================================
+ * Utilities
+ * ========================================================= */
+
+/**
+ * 都道府県ラベルからカッコとその中身を削除する (例: "東京都(東京)" -> "東京都")
+ */
+export function sanitizePrefLabel(label: string): string {
+  return label.replace(/\(.*\)/g, "");
+}
+
+/**
+ * 市区町村名から「●●郡」を削除する (例: "●●郡▲▲町" -> "▲▲町")
+ */
+export function sanitizeCityName(city: string): string {
+  return city.replace(/^.*郡/, "");
+}
+
+/* =========================================================
  * Converters
  * ========================================================= */
 

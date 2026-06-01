@@ -1,24 +1,11 @@
 import { RawRankingData } from "../components/Ranking/types";
 import { PrefKey, PrefMeta } from "./pref";
-import { RankKey, RankMeta } from "./rank";
+import { RankKey, RankMeta, isIslandId } from "./rank";
 import { RegionMeta } from "./region";
 
 /**
  * 島嶼部（小笠原、大東島など）のID判定
  */
-export const ISLAND_PREFIXES = [
-  "886",
-  "887",
-  "888",
-  "889",
-  "4417",
-  "442",
-  "443",
-  "9",
-];
-
-export const isIslandId = (id: string): boolean =>
-  ISLAND_PREFIXES.some((p) => id.startsWith(p));
 
 /**
  * ランキングデータのフィルタリング、ソート、順位付けを行う純粋関数

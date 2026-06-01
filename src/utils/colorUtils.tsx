@@ -17,23 +17,38 @@ export function SectionWithDescription({
   children,
 }: SectionWithDescriptionProps): React.ReactElement {
   return (
-    <div className="">
-      <div
-        className="flex flex-row items-center justify-between w-full z-10 p-1 rounded"
-        style={{ backgroundColor: bgColor }}
-      >
-        <h2 className="flex items-center font-bold text-base sm:text-xl text-left gap-1">
-          {Icon && <Icon />}
-          {title}
-        </h2>
-        {/* childrenをここに置くと右端に */}
-        {children && <div>{children}</div>}
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-row items-center justify-between w-full border-b border-gray-100 pb-3">
+        <div className="flex items-center gap-3 relative">
+          {/* Vertical accent line */}
+          <div
+            className="absolute -left-4 w-1.5 h-8 rounded-full"
+            style={{ backgroundColor: bgColor }}
+          />
+          
+          <div 
+            className="p-2 rounded-xl text-white shadow-sm"
+            style={{ backgroundColor: bgColor }}
+          >
+            {Icon && <Icon className="w-5 h-5" />}
+          </div>
+          
+          <h2 className="font-black text-2xl text-slate-800 tracking-tighter">
+            {title}
+          </h2>
+        </div>
+
+        {/* children (like selects) go to the right */}
+        {children && <div className="z-10">{children}</div>}
       </div>
 
       {description && (
-        <div className="text-sm pt-2">
+        <div className="text-xs font-bold text-slate-400 bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed italic">
           {description.map((line, i) => (
-            <div key={i}>{line}</div>
+            <div key={i} className="flex gap-2">
+              <span className="opacity-50">•</span>
+              <span>{line}</span>
+            </div>
           ))}
         </div>
       )}
