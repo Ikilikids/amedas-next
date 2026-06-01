@@ -55,7 +55,10 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
               className="group inline-block relative"
             >
               <span className="flex items-center gap-2">
-                {stationData.category.icon}
+                {(() => {
+                  const Icon = stationData.category.icon;
+                  return <Icon />;
+                })()}
                 {stationData.official_name}
               </span>
               <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current transition-all duration-200 group-hover:w-full" />

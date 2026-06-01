@@ -41,7 +41,10 @@ const StationGrid: React.FC<StationGridProps> = ({ title, list }) => (
                 className="text-xs shrink-0"
                 style={{ color: s.category.colorFull }}
               >
-                {s.category.icon}
+                {(() => {
+                  const Icon = s.category.icon;
+                  return <Icon />;
+                })()}
               </span>
             )}
             <span

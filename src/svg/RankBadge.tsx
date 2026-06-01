@@ -18,7 +18,7 @@ const medalColors: Record<
   }
 > = {
   rainbow: {
-    stroke: "#dddddd",
+    stroke: "rgba(255,255,255,0.3)",
     shine: "rgba(255,255,255,0.85)",
     icon: "rgba(255,255,255,0.9)",
     isRainbow: true,
@@ -73,11 +73,12 @@ const RankBadge = (props: BadgeData) => {
   const Icon = isHigh ? metricKey.highIcon : metricKey.lowIcon;
   if (!Icon) return null;
 
-  const size = 36;
+  const size = 40;
   const uid = useId();
   const medalGradId = `medal-${uid}`;
   const shineGradId = `shine-${uid}`;
   const rainbowGradId = `rainbow-${uid}`;
+  const clipId = `clip-${uid}`;
 
   const titleText = `${metricKey.label}：${
     isHigh ? ` 上位${rankLabel[rank]}` : `下位${rankLabel[rank]}`
@@ -101,11 +102,11 @@ const RankBadge = (props: BadgeData) => {
           </linearGradient>
 
           <linearGradient id={rainbowGradId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#ff004c" />
-            <stop offset="25%" stopColor="#ffdd00" />
-            <stop offset="50%" stopColor="#00e0ff" />
-            <stop offset="75%" stopColor="#8b00ff" />
-            <stop offset="100%" stopColor="#ff004c" />
+            <stop offset="0%" stopColor="#ff004cee" />
+            <stop offset="25%" stopColor="#ffdd00ee" />
+            <stop offset="50%" stopColor="#00e0ffee" />
+            <stop offset="75%" stopColor="#8b00ffee" />
+            <stop offset="100%" stopColor="#ff004cee" />
           </linearGradient>
 
           <linearGradient id={shineGradId} x1="0" y1="0" x2="1" y2="0">
@@ -113,6 +114,10 @@ const RankBadge = (props: BadgeData) => {
             <stop offset="50%" stopColor={colors.shine} />
             <stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </linearGradient>
+
+          <clipPath id={clipId}>
+            <circle cx="60" cy="60" r="56" />
+          </clipPath>
         </defs>
 
         <circle
@@ -126,23 +131,25 @@ const RankBadge = (props: BadgeData) => {
           strokeWidth="4"
         />
 
-        <rect
-          x="-140"
-          y="0"
-          width="140"
-          height="120"
-          fill={`url(#${shineGradId})`}
-          transform="rotate(20 60 60)"
-        >
-          <animateTransform
-            attributeName="transform"
-            type="translate"
-            from="-250 0"
-            to="250 0"
-            dur={colors.isRainbow ? "2.5s" : "5s"}
-            repeatCount="indefinite"
-          />
-        </rect>
+        <g clipPath={`url(#${clipId})`}>
+          <rect
+            x="-140"
+            y="0"
+            width="140"
+            height="120"
+            fill={`url(#${shineGradId})`}
+            transform="rotate(20 60 60)"
+          >
+            <animateTransform
+              attributeName="transform"
+              type="translate"
+              from="-250 0"
+              to="250 0"
+              dur={colors.isRainbow ? "2.5s" : "5s"}
+              repeatCount="indefinite"
+            />
+          </rect>
+        </g>
       </svg>
 
       <span

@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import HeroSection from "../../components/HeroSection";
 import HyouTable from "../../components/HyouTable";
 import InfoPanel from "../../components/InfoPanel";
 import LayeredPieChart from "../../components/LayeredPieChart";
@@ -50,9 +51,12 @@ const StationPage = (props: RawData) => {
   // Ratio Chart States
   const [ratioType, setRatioType] = useState<ChartType>("気温日数");
   const [ratioMonth, setRatioMonth] = useState<number | null>(null);
-  const [ratioRankValue, setRatioRankValue] = useState<RankValue>(RankKey.top.key);
+  const [ratioRankValue, setRatioRankValue] = useState<RankValue>(
+    RankKey.top.key
+  );
 
   const regionColor = stationData.pref.region.colorBase;
+  const regionGradient = `linear-gradient(to right, ${stationData.pref.region.colorStrong}, ${stationData.pref.region.colorBase})`;
 
   const typeOptions = useMemo(() => {
     const tabs = new Set<string>();
@@ -101,18 +105,24 @@ const StationPage = (props: RawData) => {
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />
 
-        <main className="flex-1 p-2">
-          <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-4">
-            <div className="flex-[5] flex flex-col gap-2">
-              <h1 className="text-3xl font-bold flex gap-2 flex-wrap items-center">
-                {stationData.category.icon}
+        <main className="flex-1">
+          <HeroSection
+            title={
+              <span className="flex gap-2 flex-wrap items-center">
                 {stationData.official_name}
                 {badges &&
                   badges.map((b: BadgeData, i: number) => (
                     <RankBadge key={i} {...b} />
                   ))}
-              </h1>
+              </span>
+            }
+            description={`${stationData.pref.label} ${stationData.city} / ${stationData.category.label}`}
+            Icon={stationData.category.icon}
+            gradient={regionGradient}
+          />
 
+          <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-4 p-4">
+            <div className="flex-[5] flex flex-col gap-2">
               <SectionWithDescription
                 icon={IoBook}
                 title="基本データ"

@@ -16,7 +16,7 @@ const CategoryLegend = () => {
               color: cat.colorFull,
             }}
           >
-            {cat.icon}
+            <cat.icon />
           </div>
 
           <div>

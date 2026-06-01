@@ -156,7 +156,12 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
                                               color: s.category.colorFull,
                                             }}
                                           >
-                                            {s.category.icon}
+                                            {s.category?.icon && (
+                                              (() => {
+                                                const Icon = s.category.icon;
+                                                return <Icon />;
+                                              })()
+                                            )}
                                           </span>
                                         )}
                                         <span

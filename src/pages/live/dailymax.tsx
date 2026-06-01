@@ -182,7 +182,12 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
                             color: s.category?.colorFull,
                           }}
                         >
-                          {s.category?.icon}
+                          {s.category?.icon && (
+                            (() => {
+                              const Icon = s.category.icon;
+                              return <Icon />;
+                            })()
+                          )}
                         </span>
                       )}
                       <span className="text-sm font-bold text-slate-800 truncate">

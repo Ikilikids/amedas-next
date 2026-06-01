@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IoIosTrophy } from "react-icons/io";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import HeroSection from "../components/HeroSection";
 import Ranking from "../components/Ranking/index";
 import { RawRankingData } from "../components/Ranking/types";
 
@@ -31,28 +32,25 @@ const RankingPage: NextPage = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />
 
-        <main className="flex-1 p-4">
-          <div className="max-w-[1280px] mx-auto flex flex-col gap-4">
-            <h1 className="text-3xl font-bold flex items-center gap-2">
-              <IoIosTrophy className="w-8 h-8" />
-              ランキングから探す
-            </h1>
-
-            <div className="text-gray-700 mb-4 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-              <div>
+        <main className="flex-1">
+          <HeroSection
+            title="ランキングから探す"
+            description={
+              <>
                 ・ランキングをクリックすると、右側(下側)の情報パネルに選択した観測所の基本情報（正式名称、都道府県、市町村）と雨温図が表示されます。
-              </div>
-              <div>
+                <br />
                 ・情報パネルの地点名を押すと、各月の平均気温、最高・最低気温、降水量などの詳細データや、割合グラフを確認できます。データは平年値(1991-2020の平均値)です。
-              </div>
-              <div>
+                <br />
                 ・気温関連のデータについては、太平洋の島嶼部は気温が極端に高いため、区別のためランクに順位に*がついています。
-              </div>
-              <div>
-                ・情報パネルの背景色は、地方を表しています。北海道：紺｜東北：水色｜関東：緑｜中部：黄緑｜北陸：黄｜近畿：橙｜中国：紫｜四国：桃色｜九州：赤｜沖縄：淡桃色
-              </div>
-            </div>
+                <br />
+                ・情報パネルの背景色は、地方を表しています。
+              </>
+            }
+            Icon={IoIosTrophy}
+            gradient="bg-gradient-to-r from-amber-500 to-orange-600"
+          />
 
+          <div className="max-w-[1280px] mx-auto flex flex-col gap-4 p-4">
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="h-[600px] lg:h-[800px] lg:flex-[4] xl:flex-[5] overflow-hidden flex flex-col gap-2">
                 <div className="bg-white border rounded-lg">
