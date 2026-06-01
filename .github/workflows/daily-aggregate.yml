@@ -19,12 +19,12 @@ jobs:
           node-version: '20'
           
       - name: Run aggregation script
-        run: node scripts/aggregate-daily-max.mjs
+        run: npx tsx scripts/aggregate-daily-max.ts
 
       - name: Commit and Push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/ranking/daily_max.json
-          git commit -m "Update daily max temperature rankings [skip ci]" || echo "No changes to commit"
+          git add data/daily_data/*.json
+          git commit -m "Archive daily max temperature rankings [skip ci]" || echo "No changes to commit"
           git push

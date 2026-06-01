@@ -5,17 +5,16 @@ import { RankedValue } from "../../types/union";
 import { toMetricMap, toStation } from "../../utils/masterUtils";
 import { MetricMeta } from "../../utils/metric";
 import { PrefMeta } from "../../utils/pref";
-import { RankKey, RankMeta } from "../../utils/rank";
+import { RankMeta } from "../../utils/rank";
 import { RegionMeta } from "../../utils/region";
-import { RankingData } from "./types";
-import { isIslandId } from "./utils";
+import { RawRankingData } from "./types";
 
 // =============================================================================
 // Centralized Cache Mechanism
 // =============================================================================
 
 // Basic station info (from stations.json)
-let stationsMasterCache: Record<string, StationData> | null = null;
+let stationsMasterCache: Record<string, RawStationData> | null = null;
 
 // Ranking data for each metric (from ranking2/${metric}.json)
 let rankingCache: Record<string, Record<string, (number | null)[]>> = {};
@@ -27,23 +26,23 @@ let stationDetailCache: Record<
 > = {};
 
 // Helper to ensure stations master is loaded
-const fetchStationsMaster = async (): Promise<Record<string, StationData>> => {
+const fetchStationsMaster = async (): Promise<
+  Record<string, RawStationData>
+> => {
   if (stationsMasterCache) return stationsMasterCache;
   const res = await fetch("/stations.json");
   if (!res.ok) throw new Error("Failed to load stations master");
 
   const rawData: Record<string, RawStationData> = await res.json();
-  const stationData: Record<string, StationData> = Object.fromEntries(
-    Object.entries(rawData).map(([id, raw]) => [id, toStation(raw)])
-  );
-
-  stationsMasterCache = stationData;
-  return stationData;
+  stationsMasterCache = rawData;
+  return rawData;
 };
 
 // =============================================================================
 // Hook: useRankingData
 // =============================================================================
+
+import { processRankingData } from "../../utils/rankingUtils";
 
 export const useRankingData = (
   sortKey: MetricMeta,
@@ -52,10 +51,10 @@ export const useRankingData = (
   selectedPref: PrefMeta,
   selectedMonth: string
 ) => {
-  const [stations, setStations] = useState<RankingData[]>([]);
+  const [stations, setStations] = useState<RawRankingData[]>([]);
   const [stationsMaster, setStationsMaster] = useState<Record<
     string,
-    StationData
+    RawStationData
   > | null>(stationsMasterCache);
 
   // 1. Fetch stations master on mount if not already cached
@@ -69,7 +68,6 @@ export const useRankingData = (
 
     const metric = sortKey.key.toLowerCase();
     const monthIdx = selectedMonth === "all" ? 12 : parseInt(selectedMonth) - 1;
-    const rankType = rankMeta.key;
 
     const getRankingData = async () => {
       try {
@@ -82,7 +80,7 @@ export const useRankingData = (
         const data = rankingCache[metric];
 
         // Map stations
-        let stationList: RankingData[] = Object.entries(data)
+        let stationList: RawRankingData[] = Object.entries(data)
           .map(([id, values]) => {
             const master = stationsMaster[id];
             if (!master) return null;
@@ -93,56 +91,19 @@ export const useRankingData = (
             return {
               ...master,
               value,
-            } as RankingData;
+              rank: 0, // Will be calculated by processRankingData
+            } as RawRankingData;
           })
-          .filter((s): s is RankingData => s !== null && s.pref !== undefined);
+          .filter((s): s is RawRankingData => s !== null);
 
-        // Filtering logic
-        if (rankType === RankKey.pre.key) {
-          stationList = stationList.filter(
-            (s) => s.pref.code === selectedPref.code
-          );
-        } else if (rankType === RankKey.region.key) {
-          stationList = stationList.filter(
-            (s) => s.pref.region.label === selectedRegion.label
-          );
-        } else if (rankType === RankKey.meteo.key) {
-          stationList = stationList.filter(
-            (s) => s.category.label === "気象台"
-          );
-        } else if (rankType === RankKey.island.key) {
-          // Basic island exclusion logic (Ogasawara, Daito, etc.)
-          stationList = stationList.filter((s) => isIslandId(s.id) === false);
-        }
-
-        // Sorting
-        const isBot = rankType === RankKey.bot.key;
-        stationList.sort((a, b) =>
-          isBot ? a.value - b.value : b.value - a.value
+        const processed = processRankingData(
+          stationList,
+          rankMeta,
+          selectedRegion,
+          selectedPref
         );
 
-        // Apply 100 limit for Top/Bot/Island/Meteo if needed
-        if (
-          rankType === RankKey.top.key ||
-          rankType === RankKey.bot.key ||
-          rankType === RankKey.island.key ||
-          rankType === RankKey.meteo.key
-        ) {
-          stationList = stationList.slice(0, 100);
-        }
-
-        // Calculate ranks with ties
-        let currentRank = 0;
-        let lastValue: number | null = null;
-        const rankedList = stationList.map((s, idx) => {
-          if (s.value !== lastValue) {
-            currentRank = idx + 1;
-            lastValue = s.value;
-          }
-          return { ...s, rank: currentRank };
-        });
-
-        setStations(rankedList);
+        setStations(processed);
       } catch (e) {
         console.error("fetch error:", e);
         setStations([]);
@@ -183,11 +144,11 @@ export const useStationDetail = (stationId: string | null) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const master = await fetchStationsMaster();
-        const info = master[stationId];
+        const masterRaw = await fetchStationsMaster();
+        const raw = masterRaw[stationId];
 
-        if (info) {
-          setStationData(info);
+        if (raw) {
+          setStationData(toStation(raw));
         }
 
         if (stationDetailCache[stationId]) {

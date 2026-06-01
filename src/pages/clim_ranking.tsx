@@ -5,7 +5,7 @@ import { IoIosTrophy } from "react-icons/io";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Ranking from "../components/Ranking/index";
-import { RankingData } from "../components/Ranking/types";
+import { RawRankingData } from "../components/Ranking/types";
 
 import StationDetailPanel from "../components/StationDetailPanel";
 import { SectionWithDescription } from "../utils/colorUtils";
@@ -14,7 +14,7 @@ import { SectionWithDescription } from "../utils/colorUtils";
 //  ページコンポーネント
 // ==============================
 const RankingPage: NextPage = () => {
-  const [selectedStation, setSelectedStation] = useState<RankingData | null>(
+  const [selectedStation, setSelectedStation] = useState<RawRankingData | null>(
     null
   );
 

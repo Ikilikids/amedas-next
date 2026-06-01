@@ -7,9 +7,8 @@ import {
   FaMapLocationDot,
   FaTemperatureArrowDown,
   FaTemperatureArrowUp,
+  FaTemperatureHigh,
 } from "react-icons/fa6";
-import { GiJapan } from "react-icons/gi";
-import { IoIosTrophy } from "react-icons/io";
 import { LiaSnowflake } from "react-icons/lia";
 import { PiThermometerHotFill } from "react-icons/pi";
 import { TbTemperature } from "react-icons/tb";
@@ -23,22 +22,24 @@ export interface NavLink {
 
 export const searchLinks: NavLink[] = [
   {
+    href: "/live/realtime",
+    Icon: FaTemperatureHigh,
+    title: "現在の気温",
+    description: "全国の最新観測データを表示",
+    iconClass: "text-red-500",
+  },
+  {
+    href: "/live/dailymax",
+    Icon: FaTemperatureHigh,
+    title: "今日の最高気温",
+    description: "本日の最高気温ランキング",
+    iconClass: "text-orange-500",
+  },
+  {
     href: "/map",
     Icon: FaMapLocationDot,
     title: "マップから探す",
     description: "地図を見ながらアメダスを選択できます",
-  },
-  {
-    href: "/clim_ranking",
-    Icon: IoIosTrophy,
-    title: "ランキングから探す",
-    description: "雨量や気温のランキングからアメダスを探せます",
-  },
-  {
-    href: "/prefecture",
-    Icon: GiJapan,
-    title: "都道府県から探す",
-    description: "都道府県ごとにアメダスをまとめています",
   },
 ];
 export const featureLinks: NavLink[] = [

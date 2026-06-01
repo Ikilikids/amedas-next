@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from "next";
+import { NextPage } from "next";
 import { FaHome, FaSyncAlt, FaTemperatureHigh } from "react-icons/fa";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -39,18 +39,18 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
           </div>
           <h2 className="text-xl font-bold">今日の観測状況</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-            <LinkCard 
-              href="/realtime" 
-              Icon={FaTemperatureHigh} 
-              title="現在の気温" 
-              description="気象庁の最新データを確認できます" 
+            <LinkCard
+              href="/live/realtime"
+              Icon={FaTemperatureHigh}
+              title="現在の気温"
+              description="気象庁の最新データを確認できます"
               iconClass="text-red-500"
             />
-            <LinkCard 
-              href="/daily-max" 
-              Icon={FaTemperatureHigh} 
-              title="今日の最高気温" 
-              description="全国の最高気温ランキングを確認できます" 
+            <LinkCard
+              href="/live/dailymax"
+              Icon={FaTemperatureHigh}
+              title="今日の最高気温"
+              description="全国の最高気温ランキングを確認できます"
               iconClass="text-orange-500"
             />
           </div>

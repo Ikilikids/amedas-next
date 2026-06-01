@@ -6,8 +6,9 @@ import { IoIosTrophy } from "react-icons/io";
 
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import HeroSection from "../../components/HeroSection";
 import Ranking from "../../components/Ranking";
-import { RankingData } from "../../components/Ranking/types";
+import { RankingItem } from "../../components/Ranking/types";
 import StationFeatureCard from "../../components/StationFeatureCard";
 
 import {
@@ -46,7 +47,7 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
       .sort((a, b) => a.id.localeCompare(b.id));
   }, [data]);
 
-  const handleStationClick = (station: RankingData) => {
+  const handleStationClick = (station: RankingItem) => {
     router.push(`/station/${station.id}`);
   };
 
@@ -62,21 +63,14 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
         <Header />
 
         <main className="flex-1 pb-16">
-          <div
-            className={`bg-gradient-to-br ${config.gradient} text-white py-14 px-4 mb-8`}
-          >
-            <div className="max-w-[1280px] mx-auto">
-              <h1 className="text-4xl font-black flex items-center gap-4 mb-6">
-                <Icon className="w-12 h-12" />
-                {config.title}
-              </h1>
-              <p className="text-white/90 text-lg font-medium">
-                {config.description}
-              </p>
-            </div>
-          </div>
+          <HeroSection
+            title={config.title}
+            description={config.description}
+            Icon={Icon}
+            gradient={`bg-gradient-to-br ${config.gradient}`}
+          />
 
-          <div className="max-w-[1280px] mx-auto px-4">
+          <div className="max-w-[1280px] mx-auto px-4 mt-4">
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col gap-4">

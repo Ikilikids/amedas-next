@@ -1,4 +1,3 @@
-// pages/prefecture.tsx
 import fs from "fs";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
@@ -6,85 +5,54 @@ import Link from "next/link";
 import path from "path";
 import { FaChevronDown } from "react-icons/fa";
 import { GiJapan } from "react-icons/gi";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import { RawStationData } from "../types/raw";
-import { CATEGORY_KEYS } from "../utils/category";
-import { toStation } from "../utils/masterUtils";
-import { PrefKey } from "../utils/pref";
-import { RegionKey } from "../utils/region";
+import CategoryLegend from "../../components/CategoryLegend";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import HeroSection from "../../components/HeroSection";
+import { RawRankingData } from "../../components/Ranking/types";
+import { RawStationData } from "../../types/raw";
+import { getTempColor } from "../../utils/colorUtils";
+import { fetchJmaRealtime } from "../../utils/jma";
+import { toStation } from "../../utils/masterUtils";
+import { PrefKey } from "../../utils/pref";
+import { RegionKey } from "../../utils/region";
 
-// ==============================
-// Types
-// ==============================
-
-interface PageProps {
-  stations: RawStationData[];
+interface Props {
+  stations: RawRankingData[];
+  lastUpdate: string;
 }
 
-// ==============================
-// getStaticProps
-// ==============================
-export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const filePath = path.join(process.cwd(), "public", "stations.json");
-  const jsonData = fs.readFileSync(filePath, "utf-8");
-  const data: Record<string, RawStationData> = JSON.parse(jsonData);
-
-  const stationList: RawStationData[] = Object.values(data).map(
-    (s: RawStationData) => ({
-      id: s.id,
-      category: s.category,
-      pref: s.pref,
-      station_name: s.station_name,
-    })
-  );
-
-  return {
-    props: {
-      stations: stationList,
-    },
-  };
-};
-
-// ==============================
-//  ページコンポーネント
-// ==============================
-const PrefecturePage: NextPage<PageProps> = ({ stations }) => {
-  const stationItem = stations.map((s) => toStation(s));
-  // 地域ごとにグループ化
+const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
   const regions = Object.values(RegionKey);
+
+  // 都道府県ごとの気温マップを作成
+  const tempMap: Record<string, number | null> = {};
+  stations.forEach((s) => {
+    tempMap[s.id] = s.value;
+  });
 
   return (
     <>
       <Head>
-        <title>都道府県から探す - アメダス図鑑</title>
-        <meta
-          name="description"
-          content="都道府県別にアメダス観測所を一覧表示。各観測所の雨温図、降水量、猛暑日日数などの気候データを月別に確認できます。"
-        />
+        <title>現在の気温 (リアルタイム) - アメダス図鑑</title>
       </Head>
 
-      <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+      <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
         <Header />
 
-        <main className="flex-1 pb-12">
-          {/* ヒーローセクション */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white pb-12 pt-6 px-4 shadow-inner">
-            <div className="max-w-[1200px] mx-auto">
-              <h1 className="text-4xl font-extrabold flex items-center gap-3 mb-4 drop-shadow-md">
-                <GiJapan className="w-12 h-12" />
-                都道府県から探す
-              </h1>
-              <p className="text-blue-100 text-lg max-w-2xl leading-relaxed">
-                全国のアメダス観測所を地域別に整理しました。
-                気象台や特別地域気象観測所など、重要度の高い地点を視覚的に探すことができます。
-              </p>
-            </div>
-          </div>
+        <main className="flex-1 pb-16">
+          <HeroSection
+            title="現在の気温 (リアルタイム)"
+            description="気象庁の最新データから取得した全国の気温状況です。10分ごとに自動更新されます。"
+            Icon={GiJapan}
+            gradient="bg-gradient-to-r from-orange-600 to-amber-600"
+            lastUpdateLabel="最新観測"
+            lastUpdateValue={lastUpdate}
+          />
 
-          <div className="max-w-[1200px] mx-auto px-4 -mt-8">
+          <div className="max-w-[1200px] mx-auto px-4 mt-4">
             {/* クイックナビゲーション */}
-            <div className="bg-white p-6 rounded-xl shadow-lg mb-8 flex flex-wrap gap-2 justify-center border border-slate-100">
+            <div className="bg-white p-6 rounded-xl shadow-lg mb-10 flex flex-wrap gap-2 justify-center border border-slate-100">
               {regions.map((region) => (
                 <a
                   key={`nav-${region.label}`}
@@ -100,33 +68,7 @@ const PrefecturePage: NextPage<PageProps> = ({ stations }) => {
               ))}
             </div>
 
-            {/* 凡例説明 */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
-              {Object.values(CATEGORY_KEYS).map((cat) => (
-                <div
-                  key={cat.value}
-                  className="bg-white p-4 rounded-lg shadow-sm border-l-4 flex items-start gap-3"
-                  style={{ borderColor: cat.colorFull }}
-                >
-                  <div
-                    className="p-2 rounded"
-                    style={{
-                      backgroundColor: cat.colorBase,
-                      color: cat.colorFull,
-                    }}
-                  >
-                    {cat.icon}
-                  </div>
-
-                  <div>
-                    <div className="font-bold text-slate-800">{cat.label}</div>
-                    <div className="text-xs text-slate-500">
-                      {cat.description}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <CategoryLegend />
 
             {/* 地域別セクション */}
             <div className="flex flex-col gap-16">
@@ -156,8 +98,9 @@ const PrefecturePage: NextPage<PageProps> = ({ stations }) => {
 
                     <div className="flex flex-col gap-10">
                       {prefsInRegion.map((pref) => {
-                        const stationsInPref = stationItem
-                          .filter((s) => s.pref.code === pref.code)
+                        const stationsInPref = stations
+                          .filter((s) => s.pref === pref.code)
+                          .map((s) => toStation(s))
                           .sort(
                             (a, b) =>
                               a.category.value - b.category.value ||
@@ -195,20 +138,17 @@ const PrefecturePage: NextPage<PageProps> = ({ stations }) => {
                             <div className="p-5">
                               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3">
                                 {stationsInPref.map((s) => {
+                                  const temp = tempMap[s.id];
                                   const baseClasses =
-                                    "group border rounded-lg p-3 transition-all duration-200 flex flex-col items-center justify-center gap-1.5 min-h-[70px] text-center shadow-sm hover:shadow-md hover:-translate-y-0.5";
+                                    "group border rounded-lg p-3 transition-all duration-200 flex flex-col items-center justify-center gap-1 min-h-[85px] text-center shadow-sm hover:shadow-md hover:-translate-y-0.5";
 
                                   return (
                                     <Link
                                       key={`station-${s.id}`}
                                       href={`/station/${s.id}`}
                                       className={`${baseClasses}`}
-                                      style={{
-                                        backgroundColor: s.category.colorBase,
-                                        borderColor: s.category.colorBorder,
-                                      }}
                                     >
-                                      <div className="flex items-center gap-1.5">
+                                      <div className="flex items-center gap-1">
                                         {s.category.value !== 4 && (
                                           <span
                                             className="transform group-hover:scale-110 transition-transform"
@@ -220,17 +160,30 @@ const PrefecturePage: NextPage<PageProps> = ({ stations }) => {
                                           </span>
                                         )}
                                         <span
-                                          className={`text-sm font-bold`}
-                                          style={{
-                                            color: s.category.colorFull,
-                                          }}
+                                          className={`text-sm font-bold truncate`}
                                         >
                                           {s.station_name}
                                         </span>
+                                        <span className="text-[10px] text-slate-400 font-mono tracking-tighter">
+                                          #{s.id}
+                                        </span>
                                       </div>
-                                      <span className="text-[10px] text-slate-400 font-mono tracking-tighter">
-                                        #{s.id}
-                                      </span>
+                                      <div
+                                        className={`text-xl font-mono font-bold ${getTempColor(
+                                          temp
+                                        )}`}
+                                      >
+                                        {typeof temp === "number" ? (
+                                          <>
+                                            {temp.toFixed(1)}
+                                            <span className="text-sm ml-0.5">
+                                              ℃
+                                            </span>
+                                          </>
+                                        ) : (
+                                          "---"
+                                        )}
+                                      </div>
                                     </Link>
                                   );
                                 })}
@@ -249,11 +202,10 @@ const PrefecturePage: NextPage<PageProps> = ({ stations }) => {
 
         <Footer />
 
-        {/* トップへ戻るボタン的なフローティングナビ（オプション） */}
         <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="p-4 bg-white shadow-2xl rounded-full text-slate-400 hover:text-blue-600 border border-slate-100 transition-colors"
+            className="p-4 bg-white shadow-2xl rounded-full text-slate-400 hover:text-orange-600 border border-slate-100 transition-colors"
           >
             <FaChevronDown className="transform rotate-180" />
           </button>
@@ -263,4 +215,41 @@ const PrefecturePage: NextPage<PageProps> = ({ stations }) => {
   );
 };
 
-export default PrefecturePage;
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const masterPath = path.join(process.cwd(), "public/stations.json");
+    const masterData: Record<string, RawStationData> = JSON.parse(
+      fs.readFileSync(masterPath, "utf8")
+    );
+
+    const result = await fetchJmaRealtime();
+    const rawStations = result.stations;
+    const lastUpdate = result.lastUpdate;
+
+    const stations: RawRankingData[] = rawStations
+      .filter((s) => masterData[s.id])
+      .map((s) => {
+        const master = masterData[s.id];
+        return {
+          station_name: master?.station_name,
+          pref: master?.pref,
+          category: master?.category,
+          id: s.id,
+          value: s.value,
+        };
+      });
+
+    return {
+      props: {
+        stations,
+        lastUpdate,
+      },
+      revalidate: 600,
+    };
+  } catch (error) {
+    console.error("Failed to load realtime data:", error);
+    return { notFound: true };
+  }
+};
+
+export default RealtimePage;

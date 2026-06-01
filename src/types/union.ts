@@ -56,7 +56,7 @@ export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
     title: "気象台まとめ",
     subTitle: "気象台",
     description: "都道府県の代表気象台を比較できます。",
-    gradient: "from-blue-600 to-indigo-700",
+    gradient: "bg-gradient-to-r from-pink-600 to-rose-600",
     Icon: FaBuilding,
     ratioTabs: [
       { metricTab: "気温日数", ranking: "meteo", isCut: false },
@@ -90,7 +90,7 @@ export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
     title: "暑い地点まとめ",
     subTitle: "暑い地点",
     description: "夏季に良くニュースになる、暑さで有名な地点をまとめました。",
-    gradient: "from-red-600 to-rose-700",
+    gradient: "bg-gradient-to-r from-red-600 to-rose-500",
     Icon: PiThermometerHotFill,
     ratioTabs: [{ metricTab: "気温日数", ranking: "island", isCut: true }],
     sideRankings: [

@@ -1,10 +1,15 @@
 import { StationData } from "../../types/all";
-import { RankValue } from "../../utils/rank";
+import { RawStationData } from "../../types/raw";
 
-export type { RankValue as RankType };
-
-interface RawRankingData {
+export interface RankingItem {
+  id?: string;
   value: number;
-  rank: number;
+  rank?: number;
+  time?: string | null;
 }
-export type RankingData = StationData & RawRankingData;
+
+// ISR/Propsでも渡せる「純粋なデータ」型
+export type RawRankingData = RawStationData & RankingItem;
+
+// コンポーネント内でアイコン等を復元した「リッチな」型
+export type RankingData = StationData & RankingItem;

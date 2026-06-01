@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
+import { toStation } from "../../utils/masterUtils";
 import { MetricMeta } from "../../utils/metric";
-import { RankingData } from "./types";
-import { isIslandId } from "./utils";
+import { isIslandId } from "../../utils/rankingUtils";
+import { RankingData, RawRankingData } from "./types";
 
 interface RankingListProps {
-  stations: RankingData[];
+  stations: RawRankingData[];
   sortKey: MetricMeta;
-  onStationClick: (station: RankingData) => void;
+  onStationClick: (station: RawRankingData) => void;
   isSimple?: boolean;
 }
 
@@ -16,15 +17,24 @@ const RankingList: React.FC<RankingListProps> = ({
   onStationClick,
   isSimple = false,
 }) => {
-  const filteredStations = useMemo(() => {
-    return stations
+  const rankingData: RankingData[] = useMemo(() => {
+    return stations.map((s) => ({
+      ...toStation(s),
+      value: s.value,
+      rank: s.rank,
+      time: s.time,
+    }));
+  }, [stations]);
+
+  const filteredRankingData: RankingData[] = useMemo(() => {
+    return rankingData
       .filter((s) => s.value != null)
       .sort((a, b) => a.rank - b.rank);
-  }, [stations]);
+  }, [rankingData]);
 
   return (
     <>
-      {filteredStations.map((s) => {
+      {filteredRankingData.map((s) => {
         const val =
           sortKey.key === ("sm_snowing" as any)
             ? s.value
@@ -33,13 +43,16 @@ const RankingList: React.FC<RankingListProps> = ({
         const icon = s.category?.icon;
         const color = s.pref?.region?.colorStrong;
 
+        // originalRawを探す（onStationClick用）
+        const originalRaw = stations.find((raw) => raw.id === s.id);
+
         return (
           <div
             key={s.id}
             className={`flex items-center justify-between ${
               isSimple ? "p-1" : "p-3"
             } bg-white rounded-xl shadow hover:shadow-lg cursor-pointer transition`}
-            onClick={() => onStationClick(s)}
+            onClick={() => originalRaw && onStationClick(originalRaw)}
           >
             <div className="w-10 text-center font-bold text-lg flex flex-col items-center">
               <span>

@@ -61,7 +61,7 @@ const MapPage: NextPage = () => {
                   />
                 </div>
                 <div className="bg-white border rounded-lg flex-1 min-h-0 overflow-hidden">
-                  <MapView onStationClick={setSelectedStation} />
+                  <MapView onStationClick={(s) => setSelectedStation(s.id)} />
                 </div>
               </div>
 

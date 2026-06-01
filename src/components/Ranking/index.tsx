@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { MetricKey, MetricMeta } from "../../utils/metric";
 import { PrefKey, PrefMeta } from "../../utils/pref";
-import { RankKey, RankMeta, RankValue } from "../../utils/rank";
+import { RankKey, RankMeta } from "../../utils/rank";
 import { RegionKey, RegionMeta } from "../../utils/region";
 import MetricPopup from "./MetricPopup";
 import RankingList from "./RankingList";
 import RankingTabs from "./RankingTabs";
-import { RankingData } from "./types";
+import { RawRankingData } from "./types";
 import { useRankingData } from "./useRankingData";
 
 interface RankingProps {
-  onStationClick: (station: RankingData) => void;
+  onStationClick: (station: RawRankingData) => void;
   isSimple?: boolean;
   initialSortKey?: MetricMeta;
   initialRankType?: RankMeta;
