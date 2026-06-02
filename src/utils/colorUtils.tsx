@@ -25,14 +25,14 @@ export function SectionWithDescription({
             className="absolute -left-4 w-1.5 h-8 rounded-full"
             style={{ backgroundColor: bgColor }}
           />
-          
-          <div 
+
+          <div
             className="p-2 rounded-xl text-white shadow-sm"
             style={{ backgroundColor: bgColor }}
           >
             {Icon && <Icon className="w-5 h-5" />}
           </div>
-          
+
           <h2 className="font-black text-2xl text-slate-800 tracking-tighter">
             {title}
           </h2>

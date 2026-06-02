@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { toStation } from "../../utils/masterUtils";
 import { MetricMeta } from "../../utils/metric";
-import { isIslandId } from "../../utils/rankingUtils";
+import { isIslandId } from "../../utils/rank";
 import { RankingData, RawRankingData } from "./types";
 
 interface RankingListProps {
@@ -67,7 +67,12 @@ const RankingList: React.FC<RankingListProps> = ({
                 className="font-bold flex items-center gap-1"
                 style={isSimple ? { color } : {}}
               >
-                {!isSimple && icon}
+                {!isSimple &&
+                  icon &&
+                  (() => {
+                    const Icon = icon;
+                    return <Icon />;
+                  })()}
                 <span>{s.station_name}</span>
                 {!isSimple && (
                   <span className="hidden md:inline text-xs text-gray-400 font-normal ml-1">

@@ -48,17 +48,14 @@ const MapPage: NextPage = () => {
 
           <div className="max-w-[1280px] mx-auto flex flex-col gap-4 p-4">
             <div className="flex flex-col lg:flex-row gap-4">
-              <div className="h-[400px] lg:h-[750px] lg:flex-[4] xl:flex-[5] overflow-hidden flex flex-col gap-2">
-                <h2 className="sr-only">地図</h2>
+              <div className="h-[400px] lg:h-[750px] lg:flex-[4] xl:flex-[5] flex flex-col gap-4">
+                <SectionWithDescription
+                  icon={FaMapLocationDot}
+                  title="マップ"
+                  bgColor="#3b82f6"
+                />
 
-                <div className="bg-white border rounded-lg">
-                  <SectionWithDescription
-                    icon={FaMapLocationDot}
-                    title="マップ"
-                    bgColor=""
-                  />
-                </div>
-                <div className="bg-white border rounded-lg flex-1 min-h-0 overflow-hidden">
+                <div className="bg-white border border-slate-200 rounded-3xl flex-1 min-h-0 overflow-hidden shadow-sm">
                   <MapView onStationClick={(s) => setSelectedStation(s.id)} />
                 </div>
               </div>
