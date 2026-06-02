@@ -12,7 +12,7 @@ const metrics = [
 ];
 
 const srcDir = path.join(process.cwd(), '_ranking_source');
-const distDir = path.join(process.cwd(), 'public');
+const distDir = path.join(process.cwd(), 'public', 'ranking');
 
 if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir, { recursive: true });
@@ -75,9 +75,9 @@ metrics.forEach(metric => {
   });
 
   if (Object.keys(result).length > 0) {
-    const distPath = path.join(distDir, `rank2_${metric}.json`);
+    const distPath = path.join(distDir, `${metric}.json`);
     fs.writeFileSync(distPath, JSON.stringify(result));
-    console.log(`Generated: rank2_${metric}.json (${Object.keys(result).length} stations)`);
+    console.log(`Generated: ${metric}.json (${Object.keys(result).length} stations)`);
   }
 });
 

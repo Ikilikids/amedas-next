@@ -6,8 +6,8 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
-import MapView from "../components/MapView";
 import StationDetailPanel from "../components/StationDetailPanel";
+import StationMap from "../components/StationMap";
 import { SectionWithDescription } from "../utils/colorUtils";
 
 // ==============================
@@ -55,8 +55,10 @@ const MapPage: NextPage = () => {
                   bgColor="#3b82f6"
                 />
 
-                <div className="bg-white border border-slate-200 rounded-3xl flex-1 min-h-0 overflow-hidden shadow-sm">
-                  <MapView onStationClick={(s) => setSelectedStation(s.id)} />
+                <div className="flex-1 min-h-0 overflow-hidden justify-center items-center flex">
+                  <StationMap
+                    onStationClick={(s) => setSelectedStation(s.id)}
+                  />
                 </div>
               </div>
 

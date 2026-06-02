@@ -52,22 +52,18 @@ const RankingPage: NextPage = () => {
 
           <div className="max-w-[1280px] mx-auto flex flex-col gap-4 p-4">
             <div className="flex flex-col lg:flex-row gap-4">
-              <div className="h-[600px] lg:h-[800px] lg:flex-[4] xl:flex-[5] overflow-hidden flex flex-col gap-2">
-                <div className="bg-white border rounded-lg">
-                  <SectionWithDescription
-                    icon={<IoIosTrophy />}
-                    title="ランキング"
-                    bgColor=""
-                  />
-                </div>
-                <div className="flex-1 min-h-0 overflow-hidden bg-white rounded-lg border shadow-sm">
+              <div className="h-[400px] lg:h-[750px] lg:flex-[4] xl:flex-[5] flex flex-col gap-4">
+                <SectionWithDescription
+                  icon={<IoIosTrophy />}
+                  title="ランキング"
+                  bgColor="#f59e0b"
+                />
+                <div className="bg-white border border-slate-200 rounded-3xl flex-1 min-h-0 overflow-hidden shadow-sm">
                   <Ranking onStationClick={setSelectedStation} />
                 </div>
               </div>
 
-              <div className="lg:flex-[3] xl:flex-[2]">
-                <StationDetailPanel stationId={selectedStation?.id} />
-              </div>
+              <StationDetailPanel stationId={selectedStation?.id} />
             </div>
           </div>
         </main>

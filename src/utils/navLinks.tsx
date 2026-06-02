@@ -1,4 +1,5 @@
 // src/data/navLinks.ts
+import React from "react";
 import { AiFillSun } from "react-icons/ai";
 import { BsCloudRainHeavyFill } from "react-icons/bs";
 import { FaBuilding } from "react-icons/fa";
@@ -11,7 +12,8 @@ import {
 import { LiaSnowflake } from "react-icons/lia";
 import { PiThermometerHotFill } from "react-icons/pi";
 import { TbTemperature } from "react-icons/tb";
-import React from "react";
+
+import { IoIosTrophy } from "react-icons/io";
 
 export interface NavLink {
   href: string;
@@ -35,6 +37,13 @@ export const searchLinks: NavLink[] = [
     title: "今日の最高気温",
     description: "本日の最高気温ランキング",
     iconClass: "text-orange-500",
+  },
+  {
+    href: "/clim_ranking",
+    Icon: <IoIosTrophy />,
+    title: "平年値ランキング",
+    description: "全国の平年値データをランキング形式で比較できます",
+    iconClass: "text-yellow-500",
   },
   {
     href: "/map",

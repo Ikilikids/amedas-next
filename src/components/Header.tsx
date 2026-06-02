@@ -29,19 +29,6 @@ const Header: React.FC<HeaderProps> = () => {
             <Link href="/">アメダス図鑑</Link>
           </div>
 
-          {/* 🔴 生HTMLリンク（AdSense用・最重要） */}
-          <div className="hidden lg:flex gap-4 text-sm">
-            <a
-              href="/adsense-info.html"
-              className="text-blue-700 hover:underline"
-            >
-              このサイトについて
-            </a>
-            <Link href="/privacy" className="text-blue-700 hover:underline">
-              プライバシーポリシー
-            </Link>
-          </div>
-
           {/* 検索 */}
           <form
             className="hidden lg:flex"
@@ -79,60 +66,71 @@ const Header: React.FC<HeaderProps> = () => {
             <Link
               key={item.href}
               href={item.href}
-              className="flex-1 text-center font-semibold px-4 relative"
+              className="flex-1 text-center font-bold px-4 relative group"
             >
-              <div className="hover:bg-blue-900 py-2 hover:text-white">
+              <div className="py-3 text-slate-700 group-hover:text-blue-600 transition-colors duration-200">
                 {item.title}
               </div>
+              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
               {index === 0 && (
-                <span className="absolute left-0 top-1/4 h-1/2 border-l border-gray-300" />
+                <span className="absolute left-0 top-1/4 h-1/2 border-l border-gray-200" />
               )}
-              <span className="absolute right-0 top-1/4 h-1/2 border-r border-gray-300" />
+              <span className="absolute right-0 top-1/4 h-1/2 border-r border-gray-200" />
             </Link>
           ))}
 
           {/* アメダス特集 */}
-          <div className="group flex-1 text-center font-semibold px-4 relative cursor-pointer">
-            <div className="hover:bg-blue-900 py-2 hover:text-white">
+          <div className="group flex-1 text-center font-bold px-4 relative cursor-pointer">
+            <div className="py-3 text-slate-700 group-hover:text-blue-600 transition-colors duration-200">
               アメダス特集
             </div>
-            <span className="absolute right-0 top-1/4 h-1/2 border-r border-gray-300" />
+            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
+            <span className="absolute right-0 top-1/4 h-1/2 border-r border-gray-200" />
 
-            <div className="absolute left-0 top-full w-full bg-white shadow-lg hidden group-hover:flex z-50 border-b">
-              <div className="max-w-[1280px] mx-auto flex-col w-full px-4 py-4 gap-4">
+            <div className="absolute left-0 top-full w-full bg-white shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border-t border-blue-50">
+              <div className="flex flex-col w-full p-4 gap-2">
                 {featureLinks.map((f: NavLink) => (
                   <Link
                     key={f.href}
                     href={f.href}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 rounded-lg transition-colors group/item text-left"
                   >
-                    <span className={`text-xl ${f.iconClass || ""}`}>
+                    <span
+                      className={`text-xl transition-transform duration-200 group-hover/item:scale-110 ${
+                        f.iconClass || "text-blue-600"
+                      }`}
+                    >
                       {f.Icon}
                     </span>
-                    <div className="font-bold">{f.title}</div>
+                    <div className="font-bold text-slate-700">{f.title}</div>
                   </Link>
                 ))}
               </div>
             </div>
           </div>
-          <div className="group flex-1 text-center font-semibold px-4 relative cursor-pointer">
-            <div className="hover:bg-blue-900 py-2 hover:text-white">
+          <div className="group flex-1 text-center font-bold px-4 relative cursor-pointer">
+            <div className="py-3 text-slate-700 group-hover:text-blue-600 transition-colors duration-200">
               年別ランキング
             </div>
-            <span className="absolute right-0 top-1/4 h-1/2 border-r border-gray-300" />
+            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center" />
+            <span className="absolute right-0 top-1/4 h-1/2 border-r border-gray-200" />
 
-            <div className="absolute left-0 top-full w-full bg-white shadow-lg hidden group-hover:flex z-50 border-b">
-              <div className="max-w-[1280px] mx-auto flex-col w-full px-4 py-4 gap-4">
+            <div className="absolute left-0 top-full w-full bg-white shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border-t border-blue-50">
+              <div className="flex flex-col w-full p-4 gap-2">
                 {rankingLinks.map((f: NavLink) => (
                   <Link
                     key={f.href}
                     href={f.href}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 rounded-lg transition-colors group/item text-left"
                   >
-                    <span className={`text-xl ${f.iconClass || ""}`}>
+                    <span
+                      className={`text-xl transition-transform duration-200 group-hover/item:scale-110 ${
+                        f.iconClass || "text-blue-600"
+                      }`}
+                    >
                       {f.Icon}
                     </span>
-                    <div className="font-bold">{f.title}</div>
+                    <div className="font-bold text-slate-700">{f.title}</div>
                   </Link>
                 ))}
               </div>

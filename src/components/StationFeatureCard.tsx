@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import { AllData } from "../types/all";
 import { RatioInfo } from "../types/union";
 import LayeredPieChart from "./LayeredPieChart";
-import MiniMap from "./MiniMap";
+import StationMap from "./StationMap";
 import UonzuChart from "./UonzuChart";
 import Description from "./description";
 
@@ -104,8 +104,8 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
           {(() => {
             if (selectedBar === "map") {
               return (
-                <div className="w-full h-full">
-                  <MiniMap lat={station.lat} lng={station.lon} />
+                <div className="w-full h-full items-center justify-center flex">
+                  <StationMap isMini lat={station.lat} lng={station.lon} />
                 </div>
               );
             }
@@ -135,7 +135,7 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
             return (
               <div className="w-full h-full p-2">
                 <UonzuChart
-                  uonzuData={uonzuMap as any}
+                  uonzuData={uonzuMap}
                   selectedBar={selectedBar as any}
                   height="380px"
                 />

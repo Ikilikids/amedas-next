@@ -72,7 +72,7 @@ export const useRankingData = (
     const getRankingData = async () => {
       try {
         if (!rankingCache[metric]) {
-          const res = await fetch(`/rank2_${metric}.json`);
+          const res = await fetch(`/ranking/${metric}.json`);
           if (!res.ok) throw new Error(`Ranking data not found for ${metric}`);
           rankingCache[metric] = await res.json();
         }

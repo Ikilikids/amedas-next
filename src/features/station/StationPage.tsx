@@ -10,7 +10,7 @@ import InfoPanel from "../../components/InfoPanel";
 import LayeredPieChart from "../../components/LayeredPieChart";
 import ChartControls from "../../components/LayeredPieChart/ChartControls";
 import { ChartType } from "../../components/LayeredPieChart/types";
-import MiniMap from "../../components/MiniMap";
+import StationMap from "../../components/StationMap";
 import UonzuChart from "../../components/UonzuChart";
 import Similar from "../../components/similar";
 import RankBadge from "../../svg/RankBadge";
@@ -155,17 +155,17 @@ const StationPage = (props: RawData) => {
                 bgColor={regionColor}
               />
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 justify-center items-center">
                 <InfoPanel
                   stationData={stationData}
                   overViewData={overviewData}
                   loading={false}
                   isTitle={false}
                 />
-                <MiniMap
+                <StationMap
+                  isMini
                   lat={stationData.lat}
                   lng={stationData.lon}
-                  height="280px"
                 />
               </div>
 
