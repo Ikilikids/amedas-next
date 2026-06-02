@@ -7,7 +7,7 @@ import { IconType } from "react-icons";
 // ==============================
 interface LinkCardProps {
   href: string;
-  Icon: IconType;
+  Icon: React.ReactNode;
   title: string;
   description: string;
   iconClass?: string;
@@ -29,7 +29,11 @@ const LinkCard: React.FC<LinkCardProps> = ({
       className="border rounded-lg p-6 text-center bg-white shadow hover:shadow-lg transition"
     >
       <h3 className="text-lg font-semibold mb-2 flex items-center justify-center gap-1">
-        {Icon && <Icon className={`w-6 h-6 ${iconClass || ""}`} />}
+        {Icon && (
+          <span className={`text-2xl ${iconClass || ""}`}>
+            {Icon}
+          </span>
+        )}
         {title}
       </h3>
       <p className="text-sm text-gray-600">{description}</p>

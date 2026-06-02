@@ -46,7 +46,7 @@ export interface FeatureConfig {
   subTitle: string;
   description: string;
   gradient: string;
-  Icon: IconType;
+  Icon: React.ReactNode;
   ratioTabs: RatioInfo[];
   sideRankings: RankingSidebarConfig[];
 }
@@ -57,7 +57,7 @@ export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
     subTitle: "気象台",
     description: "都道府県の代表気象台を比較できます。",
     gradient: "bg-gradient-to-r from-pink-600 to-rose-600",
-    Icon: FaBuilding,
+    Icon: <FaBuilding />,
     ratioTabs: [
       { metricTab: "気温日数", ranking: "meteo", isCut: false },
       { metricTab: "降水日数", ranking: "meteo", isCut: true },
@@ -91,7 +91,7 @@ export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
     subTitle: "暑い地点",
     description: "夏季に良くニュースになる、暑さで有名な地点をまとめました。",
     gradient: "bg-gradient-to-r from-red-600 to-rose-500",
-    Icon: PiThermometerHotFill,
+    Icon: <PiThermometerHotFill />,
     ratioTabs: [{ metricTab: "気温日数", ranking: "island", isCut: true }],
     sideRankings: [
       ...(

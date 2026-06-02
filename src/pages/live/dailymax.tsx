@@ -63,7 +63,7 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
           <HeroSection
             title="今日の最高気温ランキング"
             description="今日これまでに観測された最高気温の全国ランキングです。気象庁から取得した最新の観測データに基づいています。"
-            Icon={GiJapan}
+            Icon={<GiJapan />}
             gradient="bg-gradient-to-r from-red-600 to-orange-600"
             lastUpdateLabel="データ更新"
             lastUpdateValue={lastUpdate}
@@ -182,12 +182,7 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
                             color: s.category?.colorFull,
                           }}
                         >
-                          {s.category?.icon && (
-                            (() => {
-                              const Icon = s.category.icon;
-                              return <Icon />;
-                            })()
-                          )}
+                          {s.category?.icon}
                         </span>
                       )}
                       <span className="text-sm font-bold text-slate-800 truncate">

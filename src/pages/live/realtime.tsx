@@ -44,7 +44,7 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
           <HeroSection
             title="現在の気温 (リアルタイム)"
             description="気象庁の最新データから取得した全国の気温状況です。10分ごとに自動更新されます。"
-            Icon={GiJapan}
+            Icon={<GiJapan />}
             gradient="bg-gradient-to-r from-orange-600 to-amber-600"
             lastUpdateLabel="最新観測"
             lastUpdateValue={lastUpdate}
@@ -156,12 +156,7 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
                                               color: s.category.colorFull,
                                             }}
                                           >
-                                            {s.category?.icon && (
-                                              (() => {
-                                                const Icon = s.category.icon;
-                                                return <Icon />;
-                                              })()
-                                            )}
+                                            {s.category?.icon}
                                           </span>
                                         )}
                                         <span

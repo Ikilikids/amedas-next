@@ -90,11 +90,8 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
                 href={`/station/${stationData.id}`}
                 className="group flex items-center gap-3 hover:text-blue-600 transition-colors"
               >
-                <span className="p-2 bg-slate-100 rounded-2xl group-hover:bg-blue-50 transition-colors">
-                  {(() => {
-                    const Icon = stationData.category.icon;
-                    return <Icon className="w-8 h-8" />;
-                  })()}
+                <span className="p-2 bg-slate-100 rounded-2xl group-hover:bg-blue-50 transition-colors text-3xl">
+                  {stationData.category.icon}
                 </span>
                 <span className="relative">
                   {stationData.official_name}
@@ -144,10 +141,10 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
             return (
               <div key={`rank-${idx}`} className="flex items-center gap-4">
                 <div
-                  className={`p-2.5 bg-white rounded-xl shadow-sm border border-slate-50 ${colorClass}`}
+                  className={`p-2.5 bg-white rounded-xl shadow-sm border border-slate-50 flex items-center justify-center ${colorClass}`}
                 >
                   {key.highIcon ? (
-                    <key.highIcon className="w-4 h-4" />
+                    <span className="text-base">{key.highIcon}</span>
                   ) : (
                     <div className="w-4 h-4 bg-slate-200 rounded-full animate-pulse" />
                   )}

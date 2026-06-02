@@ -15,7 +15,7 @@ export type CategoryMeta = {
   colorBase: string;
   colorBorder: string;
   colorFull: string;
-  icon: IconType;
+  icon: React.ReactNode;
   description: string;
 };
 // ==============================
@@ -28,7 +28,7 @@ export const CATEGORY_KEYS = {
     colorBase: "rgba(239, 68, 68, 0.1)",
     colorBorder: "rgba(239, 68, 68, 0.2)",
     colorFull: "rgba(239, 68, 68, 1)",
-    icon: FaBuilding,
+    icon: <FaBuilding />,
     description: "地域気象の中核を担う地点（赤色）",
   },
   special: {
@@ -37,7 +37,7 @@ export const CATEGORY_KEYS = {
     colorBase: "rgba(245, 158, 11, 0.1)",
     colorBorder: "rgba(245, 158, 11, 0.2)",
     colorFull: "rgba(245, 158, 11, 1)",
-    icon: FaSatelliteDish,
+    icon: <FaSatelliteDish />,
     description: "気象台に次ぐ高度な観測地点（黄色）",
   },
   aviation: {
@@ -46,7 +46,7 @@ export const CATEGORY_KEYS = {
     colorBase: "rgba(56, 189, 248, 0.1)",
     colorBorder: "rgba(56, 189, 248, 0.2)",
     colorFull: "rgba(56, 189, 248, 1)",
-    icon: FaPlane,
+    icon: <FaPlane />,
     description: "空港に設置される観測地点（青色）",
   },
   amedas: {
@@ -55,7 +55,7 @@ export const CATEGORY_KEYS = {
     colorBase: "rgba(100, 116, 139, 0.05)",
     colorBorder: "rgba(100, 116, 139, 0.2)",
     colorFull: "rgba(80, 96, 110, 1)",
-    icon: FaMapMarkerAlt,
+    icon: <FaMapMarkerAlt />,
     description: "全国に展開される観測地点（白色）",
   },
 } as const satisfies Record<string, CategoryMeta>;

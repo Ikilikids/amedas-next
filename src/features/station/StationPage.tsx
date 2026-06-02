@@ -150,7 +150,7 @@ const StationPage = (props: RawData) => {
           <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row gap-4 p-4">
             <div className="flex-[5] min-w-0 flex flex-col gap-2">
               <SectionWithDescription
-                icon={IoBook}
+                icon={<IoBook />}
                 title="基本データ"
                 bgColor={regionColor}
               />
@@ -170,7 +170,7 @@ const StationPage = (props: RawData) => {
               </div>
 
               <SectionWithDescription
-                icon={LuChartNoAxesCombined}
+                icon={<LuChartNoAxesCombined />}
                 title="雨温図"
                 bgColor={regionColor}
                 description={[
@@ -212,7 +212,7 @@ const StationPage = (props: RawData) => {
               />
 
               <SectionWithDescription
-                icon={FaChartPie}
+                icon={<FaChartPie />}
                 title="割合データ"
                 bgColor={regionColor}
                 description={[
@@ -243,7 +243,7 @@ const StationPage = (props: RawData) => {
               />
 
               <SectionWithDescription
-                icon={CiViewTable}
+                icon={<CiViewTable />}
                 title="月別気候表"
                 bgColor={regionColor}
                 description={[

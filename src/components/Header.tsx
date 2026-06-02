@@ -106,7 +106,9 @@ const Header: React.FC<HeaderProps> = () => {
                     href={f.href}
                     className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded"
                   >
-                    <f.Icon className={`text-xl ${f.iconClass || ""}`} />
+                    <span className={`text-xl ${f.iconClass || ""}`}>
+                      {f.Icon}
+                    </span>
                     <div className="font-bold">{f.title}</div>
                   </Link>
                 ))}
@@ -127,7 +129,9 @@ const Header: React.FC<HeaderProps> = () => {
                     href={f.href}
                     className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded"
                   >
-                    <f.Icon className={`text-xl ${f.iconClass || ""}`} />
+                    <span className={`text-xl ${f.iconClass || ""}`}>
+                      {f.Icon}
+                    </span>
                     <div className="font-bold">{f.title}</div>
                   </Link>
                 ))}

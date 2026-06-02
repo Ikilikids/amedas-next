@@ -2,7 +2,7 @@ import React from "react";
 import { IconType } from "react-icons";
 
 interface SectionWithDescriptionProps {
-  icon: IconType;
+  icon: React.ReactNode;
   title: string;
   bgColor: string;
   description?: string[];
@@ -27,10 +27,10 @@ export function SectionWithDescription({
           />
 
           <div
-            className="p-2 rounded-xl text-white shadow-sm"
+            className="p-2 rounded-xl text-white shadow-sm flex items-center justify-center"
             style={{ backgroundColor: bgColor }}
           >
-            {Icon && <Icon className="w-5 h-5" />}
+            {Icon && <span className="text-xl">{Icon}</span>}
           </div>
 
           <h2 className="font-black text-2xl text-slate-800 tracking-tighter">

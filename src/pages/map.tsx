@@ -42,7 +42,7 @@ const MapPage: NextPage = () => {
                 ・情報パネルの背景色は、地方を表しています。
               </>
             }
-            Icon={FaMapLocationDot}
+            Icon={<FaMapLocationDot />}
             gradient="bg-gradient-to-r from-blue-600 to-cyan-700"
           />
 
@@ -50,7 +50,7 @@ const MapPage: NextPage = () => {
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="h-[400px] lg:h-[750px] lg:flex-[4] xl:flex-[5] flex flex-col gap-4">
                 <SectionWithDescription
-                  icon={FaMapLocationDot}
+                  icon={<FaMapLocationDot />}
                   title="マップ"
                   bgColor="#3b82f6"
                 />

@@ -5,7 +5,7 @@ import { FaSyncAlt } from "react-icons/fa";
 interface HeroSectionProps {
   title: React.ReactNode;
   description: React.ReactNode;
-  Icon: IconType;
+  Icon: React.ReactNode;
   gradient?: string;
   lastUpdateLabel?: string;
   lastUpdateValue?: string;
@@ -33,7 +33,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       >
         <div>
           <h1 className="text-4xl font-black flex items-center gap-4 mb-4 drop-shadow-md flex-wrap">
-            {Icon && <Icon className="w-12 h-12 shrink-0" />}
+            {Icon && (
+              <span className="text-5xl shrink-0 flex items-center justify-center">
+                {Icon}
+              </span>
+            )}
             <span>{title}</span>
           </h1>
           <div className="text-white/90 text-lg font-medium leading-relaxed whitespace-pre-wrap">

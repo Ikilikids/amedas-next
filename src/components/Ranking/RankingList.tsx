@@ -67,12 +67,7 @@ const RankingList: React.FC<RankingListProps> = ({
                 className="font-bold flex items-center gap-1"
                 style={isSimple ? { color } : {}}
               >
-                {!isSimple &&
-                  icon &&
-                  (() => {
-                    const Icon = icon;
-                    return <Icon />;
-                  })()}
+                {!isSimple && icon && icon}
                 <span>{s.station_name}</span>
                 {!isSimple && (
                   <span className="hidden md:inline text-xs text-gray-400 font-normal ml-1">

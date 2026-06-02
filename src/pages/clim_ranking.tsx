@@ -46,7 +46,7 @@ const RankingPage: NextPage = () => {
                 ・情報パネルの背景色は、地方を表しています。
               </>
             }
-            Icon={IoIosTrophy}
+            Icon={<IoIosTrophy />}
             gradient="bg-gradient-to-r from-amber-500 to-orange-600"
           />
 
@@ -55,7 +55,7 @@ const RankingPage: NextPage = () => {
               <div className="h-[600px] lg:h-[800px] lg:flex-[4] xl:flex-[5] overflow-hidden flex flex-col gap-2">
                 <div className="bg-white border rounded-lg">
                   <SectionWithDescription
-                    icon={IoIosTrophy}
+                    icon={<IoIosTrophy />}
                     title="ランキング"
                     bgColor=""
                   />

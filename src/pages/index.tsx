@@ -28,21 +28,21 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
               ・年度別ランキングでは1991-2025(最新)の猛暑日日数や降水量のランキングを確認できます。
             </>
           }
-          Icon={FaHome}
+          Icon={<FaHome />}
         />
         <div className="max-w-[1280px] mx-auto flex flex-col gap-4 p-4">
           <h2 className="text-xl font-bold">今日の観測状況</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
             <LinkCard
               href="/live/realtime"
-              Icon={FaTemperatureHigh}
+              Icon={<FaTemperatureHigh />}
               title="現在の気温"
               description="気象庁の最新データを確認できます"
               iconClass="text-red-500"
             />
             <LinkCard
               href="/live/dailymax"
-              Icon={FaTemperatureHigh}
+              Icon={<FaTemperatureHigh />}
               title="今日の最高気温"
               description="全国の最高気温ランキングを確認できます"
               iconClass="text-orange-500"

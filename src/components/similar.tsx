@@ -11,7 +11,7 @@ import { sanitizeCityName, sanitizePrefLabel } from "../utils/masterUtils";
 type StationListProps = {
   title: string;
   items: StationData[];
-  icon: React.ElementType;
+  icon: React.ReactNode;
 };
 
 type SimilarPageProps = {
@@ -29,7 +29,7 @@ const StationList: React.FC<StationListProps> = ({
 }) => (
   <div className="mb-10">
     <SectionWithDescription
-      icon={Icon as any}
+      icon={Icon}
       title={title}
       bgColor="rgb(30, 41, 59)"
     />
@@ -99,7 +99,7 @@ const SimilarPage: React.FC<SimilarPageProps> = ({
         <StationList
           title="類似する地点"
           items={similarDataAll}
-          icon={FaLayerGroup}
+          icon={<FaLayerGroup />}
         />
       )}
 
@@ -107,7 +107,7 @@ const SimilarPage: React.FC<SimilarPageProps> = ({
         <StationList
           title="類似する気象台"
           items={similarDataMeteo}
-          icon={FaBuilding}
+          icon={<FaBuilding />}
         />
       )}
     </div>

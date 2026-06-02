@@ -161,9 +161,12 @@ const RankBadge = (props: BadgeData) => {
           fontSize: size * 0.55,
           color: colors.icon,
           pointerEvents: "none",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <Icon />
+        {Icon}
       </span>
     </div>
   );

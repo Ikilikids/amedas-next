@@ -26,7 +26,7 @@ const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
       
       <div className="flex flex-col gap-2">
         <SectionWithDescription 
-          icon={IoBook} 
+          icon={<IoBook />} 
           title="基本情報" 
           bgColor={bgColor === "white" ? "#3b82f6" : bgColor} 
         />
@@ -44,7 +44,7 @@ const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
 
       <div className="flex flex-col gap-2 flex-1 min-h-0">
         <SectionWithDescription
-          icon={LuChartNoAxesCombined}
+          icon={<LuChartNoAxesCombined />}
           title="雨温図"
           bgColor={bgColor === "white" ? "#3b82f6" : bgColor}
         />

@@ -15,35 +15,30 @@ const SummaryStats: React.FC<SummaryStatsProps> = ({ overviewData }) => {
   const stats = [
     {
       meta: MetricKey.av_avtemp,
-      icon: TbTemperaturePlus,
       color: "text-rose-500",
       iconBg: "bg-rose-500/10",
       label: "気温",
     },
     {
       meta: MetricKey.sm_rain,
-      icon: BsFillCloudRainHeavyFill,
       color: "text-blue-500",
       iconBg: "bg-blue-500/10",
       label: "降水",
     },
     {
       meta: MetricKey.sm_snowing,
-      icon: FaSnowman,
       color: "text-sky-400",
       iconBg: "bg-sky-400/10",
       label: "降雪",
     },
     {
       meta: MetricKey.sm_sun,
-      icon: AiFillSun,
       color: "text-amber-500",
       iconBg: "bg-amber-500/10",
       label: "日照",
     },
     {
       meta: MetricKey.av_wind,
-      icon: BiWind,
       color: "text-emerald-500",
       iconBg: "bg-emerald-500/10",
       label: "風速",
@@ -62,8 +57,10 @@ const SummaryStats: React.FC<SummaryStatsProps> = ({ overviewData }) => {
             className="relative overflow-hidden bg-white/10 backdrop-blur-md rounded-3xl p-5 border border-white/20 shadow-2xl group transition-all duration-300 hover:bg-white/20 hover:scale-[1.02]"
           >
             <div className="flex justify-between items-start mb-4">
-              <div className={`p-3 rounded-2xl ${stat.iconBg}`}>
-                <stat.icon className={`w-6 h-6 ${stat.color}`} />
+              <div className={`p-3 rounded-2xl ${stat.iconBg} flex items-center justify-center`}>
+                <span className={`text-2xl ${stat.color}`}>
+                  {stat.meta.highIcon}
+                </span>
               </div>
               <div className="bg-white/20 px-3 py-1 rounded-full text-[10px] font-black tracking-tighter uppercase text-white/80 border border-white/10">
                 RANK {data.rank}

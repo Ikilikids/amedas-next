@@ -15,7 +15,7 @@ interface PrefecturePartProps {
 interface StationGridProps {
   title: string;
   list: StationData[];
-  icon: React.ElementType;
+  icon: React.ReactNode;
   showIcon?: boolean;
 }
 
@@ -26,19 +26,18 @@ interface StationGridProps {
 const StationGrid: React.FC<StationGridProps> = ({
   title,
   list,
-  icon: Icon,
+  icon,
   showIcon = true,
 }) => (
   <div className="mb-10 last:mb-0">
     <SectionWithDescription
-      icon={Icon as any}
+      icon={icon}
       title={title}
       bgColor="rgb(30, 41, 59)"
     />
 
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
       {list.map((s) => {
-        const CategoryIcon = s.category.icon;
         return (
           <Link
             key={s.id}
@@ -47,10 +46,12 @@ const StationGrid: React.FC<StationGridProps> = ({
           >
             {showIcon && (
               <div
-                className="p-2 rounded-xl bg-slate-50 group-hover:bg-blue-50 transition-colors"
+                className="p-2 rounded-xl bg-slate-50 group-hover:bg-blue-50 transition-colors flex items-center justify-center"
                 style={{ color: s.category.colorFull }}
               >
-                <CategoryIcon className="w-5 h-5" />
+                <span className="text-xl">
+                  {s.category.icon}
+                </span>
               </div>
             )}
 
@@ -84,7 +85,7 @@ const PrefecturePart: React.FC<PrefecturePartProps> = ({
         <StationGrid
           title="同じ県の観測所"
           list={sortedSamePref}
-          icon={FaMapMarkerAlt}
+          icon={<FaMapMarkerAlt />}
         />
       )}
 
@@ -92,7 +93,7 @@ const PrefecturePart: React.FC<PrefecturePartProps> = ({
         <StationGrid
           title="全国の主要拠点"
           list={sortedMeteo}
-          icon={FaGlobeAsia}
+          icon={<FaGlobeAsia />}
           showIcon={false}
         />
       )}
