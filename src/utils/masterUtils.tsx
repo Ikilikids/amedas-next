@@ -1,6 +1,5 @@
 import { AllData, BadgeData, StationData } from "../types/all";
 import { RawBadgeData, RawData, RawStationData } from "../types/raw";
-import { StationId } from "../types/union";
 import { CATEGORY_KEYS, CategoryMeta } from "../utils/category";
 import { MetricKey, MetricMeta, MetricValue } from "../utils/metric";
 import { PrefKey, PrefMeta } from "../utils/pref";

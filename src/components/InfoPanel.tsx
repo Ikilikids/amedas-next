@@ -9,6 +9,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { OverviewData, StationData } from "../types/all";
+import { sanitizeCityName, sanitizePrefLabel } from "../utils/masterUtils";
 import { MetricKey, MetricMeta } from "../utils/metric";
 
 interface InfoPanelProps {
@@ -57,15 +58,25 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
   const locationItems = [
     {
       label: "都道府県",
-      value: stationData?.pref?.label,
+      value:
+        isTitle && stationData
+          ? sanitizePrefLabel(stationData?.pref.label)
+          : stationData?.pref.label,
       icon: FaMapMarkerAlt,
     },
-    { label: "市町村", value: stationData?.city, icon: FaCity },
+    {
+      label: "市町村",
+      value:
+        isTitle && stationData
+          ? sanitizeCityName(stationData?.city)
+          : stationData?.city,
+      icon: FaCity,
+    },
     { label: "観測所名", value: stationData?.station_name, icon: FaMap },
     {
       label: "緯度・経度",
       value: stationData
-        ? `(${showValue(stationData.lat)}, ${showValue(stationData.lon)})`
+        ? `${showValue(stationData.lat)}, ${showValue(stationData.lon)}`
         : null,
       icon: FaArrowsAltH,
     },
@@ -82,27 +93,34 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
 
   return (
     <div className="w-full flex flex-col gap-0">
-      {isTitle && (
+      {isTitle && stationData && (
         <div className="mb-2">
-          <h3 className="font-black text-3xl text-slate-800 tracking-tighter">
+          <h3
+            className={`font-black text-slate-800 tracking-tighter ${
+              stationData.official_name.length >= 12 ? "text-xl" : "text-2xl"
+            }`}
+          >
             {stationData ? (
               <Link
                 href={`/station/${stationData.id}`}
-                className="group flex items-center gap-3 hover:text-blue-600 transition-colors"
+                className="group flex items-center gap-1 hover:text-blue-600"
               >
-                <span className="p-2 bg-slate-100 rounded-2xl group-hover:bg-blue-50 transition-colors text-3xl">
-                  {stationData.category.icon}
-                </span>
+                <span className="p-2">{stationData.category.icon}</span>
                 <span className="relative">
                   {stationData.official_name}
                   <span className="absolute left-0 -bottom-1 w-0 h-1 bg-blue-600 transition-all duration-300 group-hover:w-full" />
                 </span>
               </Link>
             ) : (
-              <span className="flex items-center gap-3 text-slate-400">
-                <BsFillQuestionCircleFill className="w-8 h-8" />
-                地点を選択してください
-              </span>
+              <div className="group flex items-center gap-1 text-slate-400">
+                <span className="p-2">
+                  <BsFillQuestionCircleFill />
+                </span>
+                <span className="relative">
+                  地点を選択してください!!
+                  <span className="absolute left-0 -bottom-1 w-0 h-1 bg-blue-600 transition-all duration-300 group-hover:w-full" />{" "}
+                </span>
+              </div>
             )}
           </h3>
         </div>

@@ -1,4 +1,3 @@
-import { IconType } from "react-icons";
 import {
   FaBuilding,
   FaMapMarkerAlt,
@@ -54,7 +53,7 @@ export const CATEGORY_KEYS = {
     value: 4,
     colorBase: "rgba(100, 116, 139, 0.05)",
     colorBorder: "rgba(100, 116, 139, 0.2)",
-    colorFull: "rgba(80, 96, 110, 1)",
+    colorFull: "rgba(50, 66, 80, 1)",
     icon: <FaMapMarkerAlt />,
     description: "全国に展開される観測地点（白色）",
   },
