@@ -2,12 +2,13 @@
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 import { SectionWithDescription } from "../utils/colorUtils";
+import { StationId } from "../types/union";
 import InfoPanel from "./InfoPanel";
 import { useStationDetail } from "./Ranking/useRankingData";
 import UonzuChart from "./UonzuChart";
 
 interface StationDetailPanelProps {
-  stationId: string | null | undefined;
+  stationId: StationId | null | undefined;
 }
 
 const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {

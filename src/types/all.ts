@@ -2,7 +2,7 @@ import { CategoryMeta } from "../utils/category";
 import { MetricMeta } from "../utils/metric";
 import { PrefMeta } from "../utils/pref";
 import { BadgeRank } from "./raw";
-import { DescriptionData, MonthlyEntry, RankedValue } from "./union";
+import { DescriptionData, MonthlyEntry, RankedValue, StationId } from "./union";
 
 export interface AllData {
   station: StationData;
@@ -19,7 +19,7 @@ export interface AllData {
 }
 
 export type StationData = {
-  id: string;
+  id: StationId;
   category: CategoryMeta;
   pref: PrefMeta;
   station_name: string;
@@ -32,9 +32,9 @@ export type StationData = {
 } & { similar?: number };
 
 export type OverviewData = Map<MetricMeta, RankedValue>;
-export type UonzuData = Map<MetricMeta, number[]>;
-export type TableData = Map<MetricMeta, MonthlyEntry[]>;
-export type RatioData = Map<MetricMeta, MonthlyEntry[]>;
+export type UonzuData = Map<MetricMeta, (number | null)[]>;
+export type TableData = Map<MetricMeta, (MonthlyEntry | null)[]>;
+export type RatioData = Map<MetricMeta, (MonthlyEntry | null)[]>;
 
 export interface BadgeData {
   metric: MetricMeta;

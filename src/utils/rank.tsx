@@ -48,7 +48,9 @@ export const ISLAND_PREFIXES = [
   "9",
 ];
 
-export const isIslandId = (id: string): boolean =>
+import { StationId } from "../types/union";
+
+export const isIslandId = (id: StationId): boolean =>
   ISLAND_PREFIXES.some((p) => id.startsWith(p));
 
 export type RankValue = keyof typeof RankKey;

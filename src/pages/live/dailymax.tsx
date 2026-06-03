@@ -1,8 +1,6 @@
-import fs from "fs";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import path from "path";
 import { useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { GiJapan } from "react-icons/gi";
@@ -11,7 +9,6 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
 import { RankingData, RawRankingData } from "../../components/Ranking/types";
-import { RawStationData } from "../../types/raw";
 import { getTempColor } from "../../utils/colorUtils";
 import { fetchJmaDailyMaxRanking } from "../../utils/jma";
 import { toStation } from "../../utils/masterUtils";
@@ -19,6 +16,7 @@ import { PrefKey, PrefMeta } from "../../utils/pref";
 import { RankKey, RankMeta } from "../../utils/rank";
 import { processRankingData } from "../../utils/rankingUtils";
 import { RegionKey, RegionMeta } from "../../utils/region";
+import { loadMaster } from "../../utils/ssgLoader";
 
 interface Props {
   allStations: RawRankingData[];
@@ -238,12 +236,10 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const masterPath = path.join(process.cwd(), "public/stations.json");
-    const masterData: Record<string, RawStationData> = JSON.parse(
-      fs.readFileSync(masterPath, "utf8")
-    );
+    const masterData = loadMaster();
 
     const rawStations = await fetchJmaDailyMaxRanking();
+
     const lastUpdate = new Date().toLocaleString("ja-JP");
 
     const allStations: RawRankingData[] = rawStations

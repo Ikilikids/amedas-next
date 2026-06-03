@@ -1,11 +1,13 @@
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import React, { useEffect, useMemo, useState } from "react";
 
+import { StationId } from "../types/union";
+
 // ==============================
 // Types
 // ==============================
 interface Station {
-  id: string;
+  id: StationId;
   lat: number;
   lon: number;
   name: string;

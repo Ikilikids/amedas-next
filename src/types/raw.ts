@@ -1,6 +1,6 @@
 import { CategoryValue } from "../utils/category";
 import { MetricValue } from "../utils/metric";
-import { DescriptionData, MonthlyEntry, RankedValue } from "./union";
+import { DescriptionData, MonthlyEntry, RankedValue, StationId } from "./union";
 
 export interface RawData {
   station: RawStationData;
@@ -17,7 +17,7 @@ export interface RawData {
 }
 
 export type RawStationData = {
-  id: string;
+  id: StationId;
   category: CategoryValue;
   pref: string;
   station_name: string;
@@ -29,13 +29,13 @@ export type RawStationData = {
   lat?: number;
 } & { similar?: number };
 
-export type RawOverviewData = Record<MetricValue, RankedValue>;
-export type RawUonzuData = Record<MetricValue, number[]>;
-export type RawTableData = Record<MetricValue, MonthlyEntry[]>;
-export type RawRatioData = Record<MetricValue, MonthlyEntry[]>;
+export type RawOverviewData = Record<string, RankedValue>;
+export type RawUonzuData = Record<string, number[]>;
+export type RawTableData = Record<string, MonthlyEntry[]>;
+export type RawRatioData = Record<string, MonthlyEntry[]>;
 
 export interface RawBadgeData {
-  metric: MetricValue;
+  metric: string;
   rank: BadgeRank;
   isHigh: boolean;
 }

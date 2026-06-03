@@ -1,8 +1,6 @@
-import fs from "fs";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import path from "path";
 import { FaChevronDown } from "react-icons/fa";
 import { GiJapan } from "react-icons/gi";
 import CategoryLegend from "../../components/CategoryLegend";
@@ -10,12 +8,12 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
 import { RawRankingData } from "../../components/Ranking/types";
-import { RawStationData } from "../../types/raw";
 import { getTempColor } from "../../utils/colorUtils";
 import { fetchJmaRealtime } from "../../utils/jma";
 import { toStation } from "../../utils/masterUtils";
 import { PrefKey } from "../../utils/pref";
 import { RegionKey } from "../../utils/region";
+import { loadMaster } from "../../utils/ssgLoader";
 
 interface Props {
   stations: RawRankingData[];
@@ -217,10 +215,7 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const masterPath = path.join(process.cwd(), "public/stations.json");
-    const masterData: Record<string, RawStationData> = JSON.parse(
-      fs.readFileSync(masterPath, "utf8")
-    );
+    const masterData = loadMaster();
 
     const result = await fetchJmaRealtime();
     const rawStations = result.stations;

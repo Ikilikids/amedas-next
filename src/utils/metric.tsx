@@ -2,7 +2,6 @@
 // base types
 // ==============================
 
-import { IconType } from "react-icons";
 import { AiFillSun } from "react-icons/ai";
 import { BiWind } from "react-icons/bi";
 import { BsCloudsFill, BsFillCloudRainHeavyFill } from "react-icons/bs";
@@ -293,29 +292,7 @@ export const MetricKey = {
     tab: "風速日数",
     category: "風",
   },
-
-  // ===== 極値 =====
-  max_snowed: {
-    key: "max_snowed",
-    label: "最深積雪",
-    unit: "cm",
-    tab: "極値",
-    category: "積雪",
-  },
-  max_hitemp: {
-    key: "max_hitemp",
-    label: "最高気温",
-    unit: "℃",
-    tab: "極値",
-    category: "気温",
-  },
-  min_lwtemp: {
-    key: "min_lwtemp",
-    label: "最低気温",
-    unit: "℃",
-    tab: "極値",
-    category: "気温",
-  },
 } as const satisfies Record<string, any>;
 
 export type MetricValue = keyof typeof MetricKey;
+export const METRIC_KEYS = Object.keys(MetricKey) as MetricValue[];

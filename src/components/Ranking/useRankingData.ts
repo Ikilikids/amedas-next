@@ -1,40 +1,32 @@
 import { useEffect, useState } from "react";
 import { OverviewData, StationData, UonzuData } from "../../types/all";
 import { RawStationData } from "../../types/raw";
-import { RankedValue } from "../../types/union";
+import { MonthlyEntry, StationId } from "../../types/union";
 import { toMetricMap, toStation } from "../../utils/masterUtils";
-import { MetricMeta } from "../../utils/metric";
+import { MetricMeta, MetricValue } from "../../utils/metric";
 import { PrefMeta } from "../../utils/pref";
 import { RankMeta } from "../../utils/rank";
 import { RegionMeta } from "../../utils/region";
 import { RawRankingData } from "./types";
 
-// =============================================================================
-// Centralized Cache Mechanism
-// =============================================================================
+import {
+  getClimate,
+  getMaster,
+  getStation,
+  hasMetric,
+  setMaster,
+} from "../../utils/climateCache";
 
-// Basic station info (from stations.json)
-let stationsMasterCache: Record<string, RawStationData> | null = null;
-
-// Ranking data for each metric (from ranking2/${metric}.json)
-let rankingCache: Record<string, Record<string, (number | null)[]>> = {};
-
-// Detailed data for individual stations (overview, uonzu)
-let stationDetailCache: Record<
-  string,
-  { uonzuData: UonzuData; overviewData: OverviewData }
-> = {};
-
-// Helper to ensure stations master is loaded
 const fetchStationsMaster = async (): Promise<
-  Record<string, RawStationData>
+  Record<StationId, RawStationData>
 > => {
-  if (stationsMasterCache) return stationsMasterCache;
+  const cached = getMaster();
+  if (cached) return cached;
+
   const res = await fetch("/stations.json");
   if (!res.ok) throw new Error("Failed to load stations master");
-
-  const rawData: Record<string, RawStationData> = await res.json();
-  stationsMasterCache = rawData;
+  const rawData: Record<StationId, RawStationData> = await res.json();
+  setMaster(rawData);
   return rawData;
 };
 
@@ -42,7 +34,10 @@ const fetchStationsMaster = async (): Promise<
 // Hook: useRankingData
 // =============================================================================
 
-import { processRankingData } from "../../utils/rankingUtils";
+import {
+  assembleDisplayData,
+  processRankingData,
+} from "../../utils/rankingUtils";
 
 export const useRankingData = (
   sortKey: MetricMeta,
@@ -53,46 +48,43 @@ export const useRankingData = (
 ) => {
   const [stations, setStations] = useState<RawRankingData[]>([]);
   const [stationsMaster, setStationsMaster] = useState<Record<
-    string,
+    StationId,
     RawStationData
-  > | null>(stationsMasterCache);
+  > | null>(getMaster());
 
-  // 1. Fetch stations master on mount if not already cached
   useEffect(() => {
     fetchStationsMaster().then(setStationsMaster).catch(console.error);
   }, []);
 
-  // 2. Fetch and process ranking data
   useEffect(() => {
     if (!stationsMaster) return;
 
-    const metric = sortKey.key.toLowerCase();
+    const metric = sortKey.key.toLowerCase() as MetricValue;
     const monthIdx = selectedMonth === "all" ? 12 : parseInt(selectedMonth) - 1;
 
     const getRankingData = async () => {
       try {
-        if (!rankingCache[metric]) {
-          const res = await fetch(`/ranking/${metric}.json`);
+        let integrated: Record<StationId, MonthlyEntry[]>;
+
+        if (hasMetric(metric)) {
+          // すでにキャッシュがあればそれを使う
+          integrated = getClimate(metric, stationsMaster, {});
+        } else {
+          // なければフェッチしてキャッシュする
+          const res = await fetch(`/ranking_not_null/${metric}.json`);
           if (!res.ok) throw new Error(`Ranking data not found for ${metric}`);
-          rankingCache[metric] = await res.json();
+          const rawData = await res.json();
+          integrated = getClimate(metric, stationsMaster, rawData);
         }
 
-        const data = rankingCache[metric];
-
-        // Map stations
-        let stationList: RawRankingData[] = Object.entries(data)
-          .map(([id, values]) => {
-            const master = stationsMaster[id];
+        // 3. 表示用に変換してフィルタリング
+        const stationList = Object.entries(integrated)
+          .map(([id, entries]) => {
+            const master = stationsMaster[id as StationId];
             if (!master) return null;
-
-            const value = values[monthIdx];
-            if (value === null) return null;
-
-            return {
-              ...master,
-              value,
-              rank: 0, // Will be calculated by processRankingData
-            } as RawRankingData;
+            const entry = entries[monthIdx];
+            if (!entry) return null; // データがない月は除外
+            return { ...master, value: entry.value, rank: 0 } as RawRankingData;
           })
           .filter((s): s is RawRankingData => s !== null);
 
@@ -100,7 +92,8 @@ export const useRankingData = (
           stationList,
           rankMeta,
           selectedRegion,
-          selectedPref
+          selectedPref,
+          100
         );
 
         setStations(processed);
@@ -124,10 +117,10 @@ export const useRankingData = (
 };
 
 // =============================================================================
-// Hook: useStationDetail (Replacement for useStationData)
+// Hook: useStationDetail
 // =============================================================================
 
-export const useStationDetail = (stationId: string | null) => {
+export const useStationDetail = (stationId: StationId | null) => {
   const [stationData, setStationData] = useState<StationData | null>(null);
   const [uonzuData, setUonzuData] = useState<UonzuData | null>(null);
   const [overviewData, setOverviewData] = useState<OverviewData | null>(null);
@@ -146,38 +139,45 @@ export const useStationDetail = (stationId: string | null) => {
       try {
         const masterRaw = await fetchStationsMaster();
         const raw = masterRaw[stationId];
+        if (raw) setStationData(toStation(raw));
 
-        if (raw) {
-          setStationData(toStation(raw));
-        }
+        // 主要な項目をロード
+        const metricsToFetch: MetricValue[] = [
+          "av_avtemp",
+          "sm_rain",
+          "av_hitemp",
+          "av_lwtemp",
+          "sm_sun",
+          "sm_snowing",
+        ];
 
-        if (stationDetailCache[stationId]) {
-          setUonzuData(stationDetailCache[stationId].uonzuData);
-          setOverviewData(stationDetailCache[stationId].overviewData);
-          return;
-        }
+        await Promise.all(
+          metricsToFetch.map(async (m) => {
+            if (hasMetric(m)) return; // すでにキャッシュがあればスキップ
 
-        const [resOverview, resUonzu] = await Promise.all([
-          fetch(`/infotable/overview/${stationId}.json`),
-          fetch(`/infotable/uonzu/${stationId}.json`),
-        ]);
+            const res = await fetch(`/ranking_not_null/${m}.json`);
+            if (res.ok) {
+              const rawData = await res.json();
+              getClimate(m, masterRaw, rawData);
+            }
+          })
+        );
 
-        const overviewJson: Record<string, RankedValue> =
-          await resOverview.json();
-        const uonzuJson: Record<string, number[]> = await resUonzu.json();
+        // キャッシュからこの地点の統合済みデータをガサッと引く
+        const integratedData = getStation(stationId);
+        const { overview, table, ratio, uonzu } = assembleDisplayData(
+          integratedData as any
+        );
 
         const result = {
-          uonzuData: toMetricMap(uonzuJson, (v) => v),
-          overviewData: toMetricMap(overviewJson, (v) => v),
+          uonzuData: toMetricMap(uonzu, (v) => v),
+          overviewData: toMetricMap(overview, (v) => v),
         };
-        stationDetailCache[stationId] = result;
+
         setUonzuData(result.uonzuData);
         setOverviewData(result.overviewData);
       } catch (e) {
         console.error("fetch error:", e);
-        setStationData(null);
-        setUonzuData(null);
-        setOverviewData(null);
       } finally {
         setLoading(false);
       }
@@ -186,5 +186,10 @@ export const useStationDetail = (stationId: string | null) => {
     fetchData();
   }, [stationId]);
 
-  return { stationData, uonzuData, overviewData, loading };
+  return {
+    stationData,
+    uonzuData,
+    overviewData,
+    loading,
+  };
 };

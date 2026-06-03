@@ -1,21 +1,22 @@
-import fs from "fs";
 import { GetStaticProps } from "next";
-import path from "path";
+import { RawData, RawRatioData } from "../../types/raw";
 import {
-  RawData,
-  RawRatioData,
-  RawStationData,
-  RawUonzuData,
-} from "../../types/raw";
-import { DescriptionData, FEATURE_CONFIGS, FeatureName } from "../../types/union";
+  DescriptionData,
+  FEATURE_CONFIGS,
+  FeatureName,
+  StationId,
+} from "../../types/union";
+import { getStation } from "../../utils/climateCache";
 import { MetricKey, MetricValue } from "../../utils/metric";
-
-const readFile = <T>(p: string): T | null => {
-  return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf-8")) : null;
-};
+import { assembleDisplayData } from "../../utils/rankingUtils";
+import {
+  ensureAllDataLoaded,
+  loadMaster,
+  readJson,
+} from "../../utils/ssgLoader";
 
 export interface FeaturePageProps {
-  data: Record<string, RawData>;
+  data: Record<StationId, RawData>;
   featureName: FeatureName;
 }
 
@@ -24,57 +25,59 @@ export const getFeatureStaticProps =
   async () => {
     const dataDir = process.cwd();
 
-    const rawMasterAll: Record<string, RawStationData> = JSON.parse(
-      fs.readFileSync(path.join(dataDir, "public/stations.json"), "utf-8")
-    );
+    // キャッシュを埋める（マスターも内部でロードされる）
+    ensureAllDataLoaded();
+    const rawMasterAll = loadMaster();
 
-    const descriptionData = readFile<Record<string, DescriptionData>>(
-      path.join(dataDir, `data/feature/${featureName}.json`)
+    const descriptionData = readJson<Record<StationId, DescriptionData>>(
+      "data",
+      "feature",
+      `${featureName}.json`
     );
 
     if (!descriptionData) {
       return { notFound: true };
     }
 
-    const idList = Object.keys(descriptionData);
-
-    const result: Record<string, RawData> = {};
+    const idList = Object.keys(descriptionData) as StationId[];
+    const result: Record<StationId, RawData> = {};
 
     for (const id of idList) {
       const station = rawMasterAll[id];
+      // キャッシュから地点ごとのデータを取得
+      const integratedData = getStation(id);
+      const { overview, table, ratio, uonzu } =
+        assembleDisplayData(integratedData);
 
-      const uonzu = readFile<RawUonzuData>(
-        path.join(dataDir, "data/uonzu", `${id}.json`)
+      // 特集ページ固有の ratio フィルタリング
+      const config = FEATURE_CONFIGS[featureName];
+
+      const allowedTabs = config.ratioTabs.map((info) => info.metricTab);
+
+      const rankingMap = Object.fromEntries(
+        config.ratioTabs.map((info) => [info.metricTab, info.ranking])
       );
 
-      const rawRatio = readFile<RawRatioData>(
-        path.join(dataDir, "data/ratio", `${id}.json`)
-      );
+      const filteredRatio: RawRatioData = {};
 
-      const description = descriptionData[id];
-      const allowedTabs = FEATURE_CONFIGS[featureName].ratioTabs.map(
-        (info) => info.metricTab
-      );
+      Object.entries(ratio).forEach(([m, data]) => {
+        const meta = MetricKey[m as MetricValue];
 
-      const ratio = rawRatio
-        ? (Object.fromEntries(
-            Object.entries(rawRatio)
-              .filter(([k]) => {
-                const meta = MetricKey[k as MetricValue];
-                return meta && allowedTabs.includes(meta.tab);
-              })
-              .map(([k, v]) => [
-                k,
-                Array.isArray(v) && v.length >= 13 ? [v[12]] : v,
-              ])
-          ) as RawRatioData)
-        : null;
+        if (meta && allowedTabs.includes(meta.tab)) {
+          const ranking = rankingMap[meta.tab]; // "meteo" など
 
+          filteredRatio[m] = data.map((d) => ({
+            value: d.value,
+            [ranking]: d[ranking],
+          }));
+        }
+      });
+      console.log(station);
       result[id] = {
         station,
         uonzu,
-        ratio,
-        description,
+        ratio: filteredRatio,
+        description: descriptionData[id],
       };
     }
 

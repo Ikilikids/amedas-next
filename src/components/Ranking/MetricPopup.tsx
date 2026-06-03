@@ -31,7 +31,7 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
       const tab = key.tab;
 
       // 除外
-      if (tab === "主要" || tab === "極値") return acc;
+      if ((tab as string) === "主要" || (tab as string) === "極値") return acc;
 
       if (!acc[tab]) acc[tab] = [];
 

@@ -1,14 +1,15 @@
 import { AllData, BadgeData, StationData } from "../types/all";
 import { RawBadgeData, RawData, RawStationData } from "../types/raw";
+import { StationId } from "../types/union";
 import { CATEGORY_KEYS, CategoryMeta } from "../utils/category";
-import { MetricKey, MetricMeta } from "../utils/metric";
+import { MetricKey, MetricMeta, MetricValue } from "../utils/metric";
 import { PrefKey, PrefMeta } from "../utils/pref";
 function resolveCategory(key: string): CategoryMeta {
   return CATEGORY_KEYS[key as keyof typeof CATEGORY_KEYS];
 }
 
 function resolveMetric(key: string): MetricMeta {
-  return MetricKey[key as keyof typeof MetricKey];
+  return MetricKey[key as MetricValue];
 }
 
 function resolvePref(key: string): PrefMeta {
@@ -69,7 +70,7 @@ export function toMetricMap<V, R>(
   if (!raw) return map;
 
   for (const [k, v] of Object.entries(raw)) {
-    const meta = resolveMetric(k);
+    const meta = resolveMetric(k as MetricValue);
     if (!meta) continue;
 
     map.set(meta, fn(v));
@@ -93,10 +94,10 @@ function toBadge(raw: RawBadgeData): BadgeData {
 export function toAllData(raw: RawData): AllData {
   return {
     station: toStation(raw.station),
-    overview: toMetricMap(raw.overview, (v) => v) ?? undefined,
-    uonzu: toMetricMap(raw.uonzu, (v) => v) ?? undefined,
-    table: toMetricMap(raw.table, (v) => v) ?? undefined,
-    ratio: toMetricMap(raw.ratio, (v) => v) ?? undefined,
+    overview: toMetricMap(raw.overview, (v) => v),
+    uonzu: toMetricMap(raw.uonzu, (v) => v),
+    table: toMetricMap(raw.table, (v) => v),
+    ratio: toMetricMap(raw.ratio, (v) => v),
     similarAll: raw.similarAll?.map(toStation),
     similarMeteo: raw.similarMeteo?.map(toStation),
     sameStations: raw.sameStations?.map(toStation),

@@ -1,8 +1,9 @@
-import { IconType } from "react-icons";
 import { FaBuilding } from "react-icons/fa";
 import { PiThermometerHotFill } from "react-icons/pi";
 import { MetricKey, MetricMeta, MetricTab } from "../utils/metric";
 import { RankKey, RankMeta, RankValue } from "../utils/rank";
+
+export type StationId = string;
 
 export interface RankedValue {
   value: number;
@@ -11,16 +12,16 @@ export interface RankedValue {
 
 export interface MonthlyEntry {
   value: number;
-  top: number;
-  bot: number;
-  island?: number;
-  region: number;
-  pre: number;
-  meteo?: number;
+  top?: number;
+  bot?: number;
+  island?: number | null;
+  region?: number;
+  pre?: number;
+  meteo?: number | null;
 }
 
 export interface OriginSimilarItem {
-  id: string;
+  id: StationId;
   similar: number;
 }
 
