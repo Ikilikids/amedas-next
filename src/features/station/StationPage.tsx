@@ -22,6 +22,8 @@ import { FaChartPie } from "react-icons/fa";
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 import PrefecturePart from "../../components/prefecturePart";
+import CustomSelect from "../../components/UI/CustomSelect";
+import SegmentedControl from "../../components/UI/SegmentedControl";
 import { AllData, BadgeData } from "../../types/all";
 import { RawData } from "../../types/raw";
 import { CATEGORY_KEYS } from "../../utils/category";
@@ -184,25 +186,16 @@ const StationPage = (props: RawData) => {
                   "・月降水量が500mmを超える地点は、棒グラフの最大値が1000mmになります。",
                 ]}
               >
-                <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-inner ml-2">
-                  {[
+                <SegmentedControl
+                  value={selectedBar}
+                  onChange={(v) => setSelectedBar(v)}
+                  options={[
                     { key: "rain", label: "降水量" },
                     { key: "snowing", label: "降雪量" },
                     { key: "sun", label: "日照時間" },
-                  ].map((opt) => (
-                    <button
-                      key={opt.key}
-                      onClick={() => setSelectedBar(opt.key as any)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-tighter transition-all duration-200 ${
-                        selectedBar === opt.key
-                          ? "bg-white text-blue-600 shadow-sm"
-                          : "text-slate-500 hover:text-slate-800"
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
+                  ]}
+                  className="ml-2"
+                />
               </SectionWithDescription>
 
               <UonzuChart
@@ -252,24 +245,14 @@ const StationPage = (props: RawData) => {
                 ]}
               >
                 <div className="flex items-center gap-2 ml-2">
-                  <div className="relative">
-                    <select
-                      value={tableRankValue}
-                      onChange={(e) =>
-                        setTableRankValue(e.target.value as RankValue)
-                      }
-                      className="appearance-none bg-white border border-slate-200 rounded-xl px-4 py-1.5 pr-8 text-xs font-black text-slate-700 shadow-sm focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500/50 outline-none transition-all cursor-pointer"
-                    >
-                      {tableRankOptions.map((opt) => (
-                        <option key={opt} value={opt}>
-                          {RankKey[opt].ratioLabel}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[8px]">
-                      ▼
-                    </div>
-                  </div>
+                  <CustomSelect
+                    value={tableRankValue}
+                    onChange={(v) => setTableRankValue(v)}
+                    options={tableRankOptions.map((opt) => ({
+                      value: opt,
+                      label: RankKey[opt].ratioLabel,
+                    }))}
+                  />
                 </div>
               </SectionWithDescription>
               <HyouTable tableData={tableData} rankValue={tableRankValue} />

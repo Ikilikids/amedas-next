@@ -2,8 +2,10 @@ import React from "react";
 import { MonthMap } from "../../utils/colorUtils";
 import { MetricKey, MetricMeta } from "../../utils/metric";
 import { PrefKey, PrefMeta } from "../../utils/pref";
-import { RankKey, RankMeta, RankValue } from "../../utils/rank";
+import { RankKey, RankMeta } from "../../utils/rank";
 import { RegionKey, RegionMeta } from "../../utils/region";
+import CustomSelect from "../UI/CustomSelect";
+import SegmentedControl from "../UI/SegmentedControl";
 import { isCombinationValid } from "./utils";
 
 interface RankingTabsProps {
@@ -43,138 +45,99 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
   const prefs = Object.values(PrefKey);
 
   return (
-    <>
+    <div className="flex flex-col gap-3">
       {/* ================= MAIN METRICS ================= */}
-      <div className="flex gap-2 mb-2 flex-wrap">
-        {mainMetrics.map((m) => {
-          const disabled = !isCombinationValid(rankType, m);
-
-          return (
-            <button
-              key={m.key}
-              disabled={disabled}
-              className={`px-3 py-1 rounded ${
-                disabled
-                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                  : sortKey === m
-                  ? "bg-orange-400 text-white"
-                  : "bg-gray-200 hover:bg-orange-100"
-              }`}
-              onClick={() => {
-                if (!disabled) {
-                  setSortKey(m);
-                  setSelectedMetricKey(null);
-                }
-              }}
-            >
-              {m.label}
-            </button>
-          );
-        })}
-
-        <button
-          className={`px-3 py-1 rounded ${
-            selectedMetricKey
-              ? "bg-orange-400 text-white"
-              : "bg-gray-200 hover:bg-orange-100"
-          }`}
-          onClick={() => setShowPopup(true)}
+      <div className="flex gap-2 flex-wrap items-center">
+        <SegmentedControl
+          value={selectedMetricKey ? "" : sortKey.key}
+          onChange={(val) => {
+            const found = mainMetrics.find((m) => m.key === val);
+            if (found) {
+              setSortKey(found);
+              setSelectedMetricKey(null);
+            }
+          }}
+          options={mainMetrics.map((m) => ({
+            key: m.key,
+            label: m.label,
+            disabled: !isCombinationValid(rankType, m),
+          }))}
+          className="flex-wrap"
         >
-          {selectedMetricKey?.label ?? "その他 ▸"}
-        </button>
+          <button
+            className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-tighter transition-all duration-200 ${
+              selectedMetricKey
+                ? "bg-white text-blue-600 shadow-sm"
+                : "text-slate-500 hover:text-slate-800"
+            }`}
+            onClick={() => setShowPopup(true)}
+          >
+            {selectedMetricKey?.label ?? "その他 ▸"}
+          </button>
+        </SegmentedControl>
       </div>
 
-      {/* ================= RANK TYPE ================= */}
-      <div className="flex gap-2 mb-2 flex-wrap">
-        {(Object.values(RankKey)).map((val) => {
-          const disabled = !isCombinationValid(val, sortKey);
+      {/* ================= RANK TYPE & MONTH & FILTERS ================= */}
+      <div className="flex flex-wrap items-center gap-2">
+        {/* RANK TYPE */}
+        <SegmentedControl
+          value={rankType.key}
+          onChange={(val) => {
+            const found = Object.values(RankKey).find((rk) => rk.key === val);
+            if (found) {
+              setRankType(found);
+              if (found.key === RankKey.region.key) setSelectedRegion(RegionKey.kanto);
+              if (found.key === RankKey.pre.key) setSelectedPref(PrefKey.tokyo);
+            }
+          }}
+          options={Object.values(RankKey).map((rk) => ({
+            key: rk.key,
+            label: rk.rankingLabel,
+            disabled: !isCombinationValid(rk, sortKey),
+          }))}
+        />
 
-          return (
-            <button
-              key={val.key}
-              disabled={disabled}
-              className={`px-2 py-1 rounded text-sm ${
-                disabled
-                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                  : rankType.key === val.key
-                  ? "bg-green-400 text-white"
-                  : "bg-gray-200 hover:bg-green-200"
-              }`}
-              onClick={() => {
-                if (disabled) return;
-                setRankType(val);
+        {/* MONTH SELECT */}
+        <CustomSelect
+          value={selectedMonth}
+          onChange={(v) => setSelectedMonth(v)}
+          options={Object.entries(MonthMap).map(([k, v]) => ({
+            value: k,
+            label: v,
+          }))}
+        />
 
-                if (val.key === RankKey.region.key) {
-                  setSelectedRegion(RegionKey.kanto);
-                }
-
-                if (val.key === RankKey.pre.key) {
-                  setSelectedPref(PrefKey.tokyo);
-                }
-              }}
-            >
-              {val.rankingLabel}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ================= DROPDOWN ================= */}
-      {rankType.key === RankKey.region.key && (
-        <div className="mb-2">
-          <select
+        {/* REGION FILTER */}
+        {rankType.key === RankKey.region.key && (
+          <CustomSelect
             value={selectedRegion.label}
-            onChange={(e) => {
-              const found = regions.find((r) => r.label === e.target.value);
+            onChange={(val) => {
+              const found = regions.find((r) => r.label === val);
               if (found) setSelectedRegion(found);
             }}
-            className="px-2 py-1 rounded bg-gray-100"
-          >
-            {regions.map((r) => (
-              <option key={r.label} value={r.label}>
-                {r.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+            options={regions.map((r) => ({
+              value: r.label,
+              label: r.label,
+            }))}
+          />
+        )}
 
-      {rankType.key === RankKey.pre.key && (
-        <div className="mb-2">
-          <select
+        {/* PREF FILTER */}
+        {rankType.key === RankKey.pre.key && (
+          <CustomSelect
             value={selectedPref.code}
-            onChange={(e) => {
-              const found = prefs.find((p) => p.code === e.target.value);
+            onChange={(val) => {
+              const found = prefs.find((p) => p.code === val);
               if (found) setSelectedPref(found);
             }}
-            className="px-2 py-1 rounded bg-gray-100"
-          >
-            {prefs.map((p) => (
-              <option key={p.code} value={p.code}>
-                {p.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {/* ================= MONTH ================= */}
-      <div className="flex gap-1.5 mb-2 flex-wrap">
-        {Object.entries(MonthMap).map(([k, v]) => (
-          <button
-            key={k}
-            className={`px-1.5 py-1 rounded text-sm ${
-              selectedMonth === k
-                ? "bg-indigo-400 text-white"
-                : "bg-gray-200 hover:bg-indigo-200"
-            }`}
-            onClick={() => setSelectedMonth(k)}
-          >
-            {v}
-          </button>
-        ))}
+            options={prefs.map((p) => ({
+              value: p.code,
+              label: p.label,
+            }))}
+          />
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
