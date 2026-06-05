@@ -1,10 +1,9 @@
 import React from "react";
-import { IconType } from "react-icons";
 import { FaSyncAlt } from "react-icons/fa";
 
 interface HeroSectionProps {
   title: React.ReactNode;
-  description: React.ReactNode;
+  description?: React.ReactNode;
   Icon: React.ReactNode;
   gradient?: string;
   lastUpdateLabel?: string;
@@ -32,7 +31,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         className={`max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6`}
       >
         <div>
-          <h1 className="text-4xl font-black flex items-center gap-4 mb-4 drop-shadow-md flex-wrap">
+          <h1 className="text-4xl font-black flex items-center gap-4 mb-4 drop-shadow-md">
             {Icon && (
               <span className="text-5xl shrink-0 flex items-center justify-center">
                 {Icon}
@@ -40,9 +39,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             )}
             <span>{title}</span>
           </h1>
-          <div className="text-white/90 text-lg font-medium leading-relaxed whitespace-pre-wrap">
-            {description}
-          </div>
+          {description && (
+            <div className="text-white/90 text-lg font-medium leading-relaxed whitespace-pre-wrap">
+              {description}
+            </div>
+          )}
         </div>
         {lastUpdateValue && (
           <div className="flex items-center gap-3 text-sm font-bold bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20 shadow-lg shrink-0">

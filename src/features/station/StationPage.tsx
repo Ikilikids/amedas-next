@@ -176,10 +176,12 @@ const StationPage = (props: RawData) => {
             title={
               <span className="flex gap-2 flex-wrap items-center">
                 {stationData.official_name}
-                {badges &&
-                  badges.map((b: BadgeData, i: number) => (
-                    <RankBadge key={i} {...b} />
-                  ))}
+                <span className="flex gap-2 flex-wrap items-center">
+                  {badges &&
+                    badges.map((b: BadgeData, i: number) => (
+                      <RankBadge key={i} {...b} />
+                    ))}
+                </span>
               </span>
             }
             description={`${stationData.pref.label} ${stationData.city} / ${stationData.category.label}`}
