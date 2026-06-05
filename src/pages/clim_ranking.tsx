@@ -38,12 +38,6 @@ const RankingPage: NextPage = () => {
             description={
               <>
                 ・ランキングをクリックすると、右側(下側)の情報パネルに選択した観測所の基本情報（正式名称、都道府県、市町村）と雨温図が表示されます。
-                <br />
-                ・情報パネルの地点名を押すと、各月の平均気温、最高・最低気温、降水量などの詳細データや、割合グラフを確認できます。データは平年値(1991-2020の平均値)です。
-                <br />
-                ・気温関連のデータについては、太平洋の島嶼部は気温が極端に高いため、区別のためランクに順位に*がついています。
-                <br />
-                ・情報パネルの背景色は、地方を表しています。
               </>
             }
             Icon={<IoIosTrophy />}
@@ -52,7 +46,7 @@ const RankingPage: NextPage = () => {
 
           <div className="max-w-[1280px] mx-auto flex flex-col gap-4 p-4">
             <div className="flex flex-col lg:flex-row gap-4">
-              <div className="h-[400px] lg:h-[750px] lg:flex-[4] xl:flex-[5] flex flex-col gap-4">
+              <div className="h-[450px] lg:h-[750px] lg:flex-[4] xl:flex-[5] flex flex-col gap-4">
                 <SectionWithDescription
                   icon={<IoIosTrophy />}
                   title="ランキング"
@@ -63,7 +57,9 @@ const RankingPage: NextPage = () => {
                 </div>
               </div>
 
-              <StationDetailPanel stationId={selectedStation?.id} />
+              <div className="lg:flex-[2]">
+                <StationDetailPanel stationId={selectedStation?.id} />
+              </div>
             </div>
           </div>
         </main>

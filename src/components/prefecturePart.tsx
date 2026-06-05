@@ -17,6 +17,7 @@ interface StationGridProps {
   list: StationData[];
   icon: React.ReactNode;
   showIcon?: boolean;
+  hoverColorMode?: "category" | "region";
 }
 
 // ==============================
@@ -28,6 +29,7 @@ const StationGrid: React.FC<StationGridProps> = ({
   list,
   icon,
   showIcon = true,
+  hoverColorMode = "category",
 }) => (
   <div className="mb-10 last:mb-0">
     <SectionWithDescription
@@ -38,24 +40,44 @@ const StationGrid: React.FC<StationGridProps> = ({
 
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
       {list.map((s) => {
+        const hColor =
+          hoverColorMode === "category"
+            ? s.category.colorFull
+            : s.pref.region.colorStrong;
+        const hBorder =
+          hoverColorMode === "category"
+            ? s.category.colorBorder
+            : s.pref.region.colorBase;
+        const hBg =
+          hoverColorMode === "category"
+            ? s.category.colorBase
+            : s.pref.region.colorBase;
+
         return (
           <Link
             key={s.id}
             href={`/station/${s.id}`}
-            className="group relative bg-white border border-slate-100 rounded-2xl p-3 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-200 flex flex-col items-center justify-center gap-2 text-center"
+            className="group relative bg-white border border-slate-100 rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col items-center justify-center gap-2 text-center"
+            style={
+              {
+                "--h-color": hColor,
+                "--h-border": hBorder,
+                "--h-bg": hBg,
+              } as React.CSSProperties
+            }
           >
+            <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-[var(--h-border)] transition-colors pointer-events-none" />
+
             {showIcon && (
               <div
-                className="p-2 rounded-xl bg-slate-50 group-hover:bg-blue-50 transition-colors flex items-center justify-center"
+                className="p-2 rounded-xl bg-slate-50 group-hover:bg-[var(--h-bg)] transition-colors flex items-center justify-center"
                 style={{ color: s.category.colorFull }}
               >
-                <span className="text-xl">
-                  {s.category.icon}
-                </span>
+                <span className="text-xl">{s.category.icon}</span>
               </div>
             )}
 
-            <span className="text-xs font-black text-slate-800 group-hover:text-blue-600 transition-colors truncate w-full">
+            <span className="text-xs font-black text-slate-800 group-hover:text-[var(--h-color)] transition-colors truncate w-full">
               {s.station_name}
             </span>
           </Link>
@@ -86,6 +108,7 @@ const PrefecturePart: React.FC<PrefecturePartProps> = ({
           title="同じ県の観測所"
           list={sortedSamePref}
           icon={<FaMapMarkerAlt />}
+          hoverColorMode="category"
         />
       )}
 
@@ -95,6 +118,7 @@ const PrefecturePart: React.FC<PrefecturePartProps> = ({
           list={sortedMeteo}
           icon={<FaGlobeAsia />}
           showIcon={false}
+          hoverColorMode="region"
         />
       )}
     </div>

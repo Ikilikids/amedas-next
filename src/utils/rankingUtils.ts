@@ -82,8 +82,8 @@ export function integrateSingleMetric(
 ): Record<StationId, MonthlyEntry[]> {
   const result: Record<StationId, MonthlyEntry[]> = {};
 
-  // 初期化
-  Object.keys(stationsMaster).forEach((id) => {
+  // 初期化 (元データにある地点のみを対象にする)
+  Object.keys(rawData).forEach((id) => {
     result[id as StationId] = [];
   });
 

@@ -12,7 +12,7 @@ interface ChartControlsProps {
   rankType: RankValue;
   setRankType: (rank: RankValue) => void;
   rankOptions: RankValue[];
-  typeOptions: { key: ChartType; label: string }[];
+  typeOptions: { key: ChartType; label: string; activeClassName?: string }[];
 }
 
 const ChartControls: React.FC<ChartControlsProps> = ({

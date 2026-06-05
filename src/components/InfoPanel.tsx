@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { OverviewData, StationData } from "../types/all";
 import { sanitizeCityName, sanitizePrefLabel } from "../utils/masterUtils";
-import { MetricKey, MetricMeta } from "../utils/metric";
+import { METRIC_CATEGORY_KEYS, MetricKey, MetricMeta } from "../utils/metric";
 
 interface InfoPanelProps {
   stationData: StationData | null;
@@ -93,32 +93,51 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
 
   return (
     <div className="w-full flex flex-col gap-0">
-      {isTitle && stationData && (
+      {isTitle && (
         <div className="mb-2">
           <h3
             className={`font-black text-slate-800 tracking-tighter ${
-              stationData.official_name.length >= 12 ? "text-xl" : "text-2xl"
+              stationData && stationData.official_name.length >= 12 ? "text-xl" : "text-2xl"
             }`}
           >
             {stationData ? (
               <Link
                 href={`/station/${stationData.id}`}
-                className="group flex items-center gap-1 hover:text-blue-600"
+                className="group flex items-center gap-0 transition-colors"
               >
-                <span className="p-2">{stationData.category.icon}</span>
-                <span className="relative">
+                <span
+                  className="p-2 text-slate-400 group-hover:text-[var(--icon-hover)] transition-colors"
+                  style={
+                    {
+                      "--icon-hover": stationData.category.colorFull,
+                    } as React.CSSProperties
+                  }
+                >
+                  {stationData.category.icon}
+                </span>
+                <span
+                  className="relative group-hover:text-[var(--name-hover)] transition-colors"
+                  style={
+                    {
+                      "--name-hover": stationData.pref.region.colorStrong,
+                    } as React.CSSProperties
+                  }
+                >
                   {stationData.official_name}
-                  <span className="absolute left-0 -bottom-1 w-0 h-1 bg-blue-600 transition-all duration-300 group-hover:w-full" />
+                  <span
+                    className="absolute left-0 -bottom-1 w-0 h-1 transition-all duration-300 group-hover:w-full"
+                    style={{ backgroundColor: "var(--name-hover)" }}
+                  />
                 </span>
               </Link>
             ) : (
               <div className="group flex items-center gap-1 text-slate-400">
-                <span className="p-2">
+                <span className="p-2 text-2xl">
                   <BsFillQuestionCircleFill />
                 </span>
                 <span className="relative">
                   地点を選択してください!!
-                  <span className="absolute left-0 -bottom-1 w-0 h-1 bg-blue-600 transition-all duration-300 group-hover:w-full" />{" "}
+                  <span className="absolute left-0 -bottom-1 w-0 h-1 bg-slate-200 transition-all duration-300 group-hover:w-full" />{" "}
                 </span>
               </div>
             )}
@@ -148,18 +167,14 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
         {/* 気候ランキング項目 */}
         {!isTitle &&
           rankingItems.map(([key, d], idx) => {
-            let colorClass = "text-slate-400";
-            if (key.category === "気温") colorClass = "text-red-500";
-            else if (key.category === "風") colorClass = "text-green-500";
-            else if (key.category === "降水") colorClass = "text-blue-700";
-            else if (key.category === "降雪" || key.category === "積雪")
-              colorClass = "text-sky-400";
-            else if (key.category === "日照") colorClass = "text-orange-500";
-
+            const categoryMeta = METRIC_CATEGORY_KEYS[key.category];
             return (
               <div key={`rank-${idx}`} className="flex items-center gap-4">
                 <div
-                  className={`p-2.5 bg-white rounded-xl shadow-sm border border-slate-50 flex items-center justify-center ${colorClass}`}
+                  className="p-2.5 bg-white rounded-xl shadow-sm border border-slate-50 flex items-center justify-center"
+                  style={{
+                    color: categoryMeta.color,
+                  }}
                 >
                   {key.highIcon ? (
                     <span className="text-base">{key.highIcon}</span>

@@ -21,13 +21,19 @@ import { CiViewTable } from "react-icons/ci";
 import { FaChartPie } from "react-icons/fa";
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
-import PrefecturePart from "../../components/prefecturePart";
 import CustomSelect from "../../components/UI/CustomSelect";
 import SegmentedControl from "../../components/UI/SegmentedControl";
+import PrefecturePart from "../../components/prefecturePart";
 import { AllData, BadgeData } from "../../types/all";
 import { RawData } from "../../types/raw";
 import { CATEGORY_KEYS } from "../../utils/category";
 import { toAllData } from "../../utils/masterUtils";
+import {
+  METRIC_CATEGORY_KEYS,
+  MetricCategoryValue,
+  MetricKey,
+  MetricMeta,
+} from "../../utils/metric";
 import { RankKey, RankValue, isIslandId } from "../../utils/rank";
 
 const StationPage = (props: RawData) => {
@@ -46,9 +52,34 @@ const StationPage = (props: RawData) => {
     badge: badges,
   } = allData;
 
-  const [selectedBar, setSelectedBar] = useState<"rain" | "snowing" | "sun">(
-    "rain"
-  );
+  const [selectedBar, setSelectedBar] = useState<MetricMeta>(MetricKey.sm_rain);
+
+  const uonzuOptions = useMemo(() => {
+    const targets = [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun];
+
+    return targets
+      .filter((meta) => uonzuData.has(meta))
+      .map((meta) => {
+        const cat = METRIC_CATEGORY_KEYS[meta.category];
+        return {
+          key: meta.key,
+          label: meta.label,
+          color: cat.color,
+          borderColor: cat.borderColor,
+          shadowColor: cat.shadowColor,
+          meta: meta, // Store original meta for easier access
+        };
+      });
+  }, [uonzuData]);
+
+  // Ensure selectedBar is valid when uonzuOptions change
+  useEffect(() => {
+    if (!uonzuOptions.some((opt) => opt.key === selectedBar.key)) {
+      if (uonzuOptions.length > 0) {
+        setSelectedBar(uonzuOptions[0].meta);
+      }
+    }
+  }, [uonzuOptions, selectedBar.key]);
 
   // Ratio Chart States
   const [ratioMonth, setRatioMonth] = useState<number | null>(null);
@@ -78,10 +109,17 @@ const StationPage = (props: RawData) => {
       }
     }
 
-    return Array.from(tabs).map((tab) => ({
-      key: tab as ChartType,
-      label: tab.replace("日数", ""),
-    }));
+    return Array.from(tabs).map((tab) => {
+      const label = tab.replace("日数", "");
+      const cat = METRIC_CATEGORY_KEYS[label as MetricCategoryValue];
+      return {
+        key: tab as ChartType,
+        label,
+        color: cat?.color,
+        borderColor: cat?.borderColor,
+        shadowColor: cat?.shadowColor,
+      };
+    });
   }, [ratioData]);
 
   useEffect(() => {
@@ -150,25 +188,32 @@ const StationPage = (props: RawData) => {
           />
 
           <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row gap-4 p-4">
-            <div className="flex-[5] min-w-0 flex flex-col gap-2">
+            <div className="min-w-0 flex flex-col gap-2 flex-[4]">
               <SectionWithDescription
                 icon={<IoBook />}
                 title="基本データ"
                 bgColor={regionColor}
               />
 
-              <div className="flex gap-2 justify-center items-center">
-                <InfoPanel
-                  stationData={stationData}
-                  overViewData={overviewData}
-                  loading={false}
-                  isTitle={false}
-                />
-                <StationMap
-                  isMini
-                  lat={stationData.lat}
-                  lng={stationData.lon}
-                />
+              <div className="flex flex-col lg:flex-row gap-2 items-stretch">
+                {/* InfoPanel */}
+                <div className="sm:min-w-[420px] flex-1">
+                  <InfoPanel
+                    stationData={stationData}
+                    overViewData={overviewData}
+                    loading={false}
+                    isTitle={false}
+                  />
+                </div>
+
+                {/* Map */}
+                <div className="lg:flex-1 lg:min-w-0 h-[336px]">
+                  <StationMap
+                    isMini
+                    lat={stationData.lat}
+                    lng={stationData.lon}
+                  />
+                </div>
               </div>
 
               <SectionWithDescription
@@ -176,24 +221,14 @@ const StationPage = (props: RawData) => {
                 title="雨温図"
                 bgColor={regionColor}
                 description={[
-                  `・棒グラフは${
-                    selectedBar === "rain"
-                      ? "降水量"
-                      : selectedBar === "snowing"
-                      ? "降雪量"
-                      : "日照時間"
-                  }、折れ線グラフは平均気温・最低気温・最高気温を表しています。`,
+                  `・棒グラフは${selectedBar.label}、折れ線グラフは平均気温・最低気温・最高気温を表しています。`,
                   "・月降水量が500mmを超える地点は、棒グラフの最大値が1000mmになります。",
                 ]}
               >
                 <SegmentedControl
-                  value={selectedBar}
-                  onChange={(v) => setSelectedBar(v)}
-                  options={[
-                    { key: "rain", label: "降水量" },
-                    { key: "snowing", label: "降雪量" },
-                    { key: "sun", label: "日照時間" },
-                  ]}
+                  value={selectedBar.key}
+                  onChange={(v) => setSelectedBar(MetricKey[v])}
+                  options={uonzuOptions}
                   className="ml-2"
                 />
               </SectionWithDescription>
@@ -201,7 +236,7 @@ const StationPage = (props: RawData) => {
               <UonzuChart
                 uonzuData={uonzuData}
                 selectedBar={selectedBar}
-                height="800px"
+                height="400px"
               />
 
               <SectionWithDescription
@@ -258,7 +293,7 @@ const StationPage = (props: RawData) => {
               <HyouTable tableData={tableData} rankValue={tableRankValue} />
             </div>
 
-            <div className="flex-[2] min-w-0">
+            <div className="flex-[1]">
               <div className="sticky top-4 flex flex-col gap-4">
                 {similarAll && similarMeteo && (
                   <Similar

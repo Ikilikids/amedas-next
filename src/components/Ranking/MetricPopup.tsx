@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { MetricKey, MetricMeta, MetricTab } from "../../utils/metric";
+import {
+  METRIC_CATEGORY_KEYS,
+  MetricKey,
+  MetricMeta,
+  MetricTab,
+} from "../../utils/metric";
 import { RankMeta } from "../../utils/rank";
 import SegmentedControl from "../UI/SegmentedControl";
 import { isCombinationValid } from "./utils";
@@ -75,11 +80,17 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
                   const found = items.find((m) => m.key === val);
                   if (found) setSelectedKey(found);
                 }}
-                options={items.map((m) => ({
-                  key: m.key,
-                  label: formatLabel(m.label),
-                  disabled: !isCombinationValid(rankType, m),
-                }))}
+                options={items.map((m) => {
+                  const cat = METRIC_CATEGORY_KEYS[m.category];
+                  return {
+                    key: m.key,
+                    label: formatLabel(m.label),
+                    disabled: !isCombinationValid(rankType, m),
+                    color: cat.color,
+                    borderColor: cat.borderColor,
+                    shadowColor: cat.shadowColor,
+                  };
+                })}
                 className="flex-wrap"
               />
             </div>

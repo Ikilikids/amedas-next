@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { Chart } from "react-chartjs-2";
 import { UonzuData } from "../types/all";
-import { MetricKey } from "../utils/metric";
+import { METRIC_CATEGORY_KEYS, MetricKey, MetricMeta } from "../utils/metric";
 
 ChartJS.register(
   BarController,
@@ -28,12 +28,13 @@ ChartJS.register(
 );
 
 // ==============================
-// Props（シンプル化）
+// Props
 // ==============================
 interface UonzuChartProps {
-  uonzuData: UonzuData; // 必須にする
-  selectedBar: "rain" | "snowing" | "sun";
+  uonzuData: UonzuData;
+  selectedBar: MetricMeta;
   height?: string;
+  hideLegend?: boolean;
 }
 
 // ==============================
@@ -43,44 +44,35 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
   uonzuData,
   selectedBar,
   height = "350px",
+  hideLegend = false,
 }) => {
   const months = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
 
-  // ===== データ取得（全部ここで統一） =====
+  // ===== データ取得 =====
   const temps = uonzuData.get(MetricKey.av_avtemp) ?? [];
   const lows = uonzuData.get(MetricKey.av_lwtemp) ?? [];
   const highs = uonzuData.get(MetricKey.av_hitemp) ?? [];
-  const rains = uonzuData.get(MetricKey.sm_rain) ?? [];
-  const snowings = uonzuData.get(MetricKey.sm_snowing) ?? [];
-  const suns = uonzuData.get(MetricKey.sm_sun) ?? [];
+  const bars = uonzuData.get(selectedBar) ?? [];
 
   // ===== 棒グラフ切り替え =====
   const getBarData = () => {
-    switch (selectedBar) {
-      case "rain": {
-        const maxRain = Math.max(...rains);
-        return {
-          label: "降水量 (mm)",
-          data: rains,
-          backgroundColor:
-            maxRain > 500 ? "rgba(100,100,255,0.6)" : "rgba(54,162,235,0.6)",
-        };
-      }
-      case "snowing":
-        return {
-          label: "降雪量 (cm)",
-          data: snowings,
-          backgroundColor: "rgba(75,192,75,0.6)",
-        };
-      case "sun":
-        return {
-          label: "日照時間 (h)",
-          data: suns,
-          backgroundColor: "rgba(255,175,0,0.6)",
-        };
-      default:
-        return { label: "", data: [], backgroundColor: "transparent" };
+    const maxBar = Math.max(...bars);
+    const category = METRIC_CATEGORY_KEYS[selectedBar.category];
+
+    let backgroundColor = category.color + "99"; // Add transparency
+
+    // 特殊ルール: 降水量が多すぎる場合は色を濃くする (既存ロジックの継承)
+    if (selectedBar.key === "sm_rain" && maxBar > 500) {
+      backgroundColor = "rgba(100,100,255,0.6)";
     }
+
+    return {
+      label: `${selectedBar.label} (${
+        selectedBar.unit === "時間" ? "h" : selectedBar.unit
+      })`,
+      data: bars,
+      backgroundColor,
+    };
   };
 
   const barData = getBarData();
@@ -127,12 +119,21 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
     interaction: { mode: "index" as const, intersect: false },
     maintainAspectRatio: false,
     scales: {
-      x: { ticks: { autoSkip: false } },
+      x: {
+        ticks: {
+          autoSkip: false,
+          maxRotation: 0,
+          minRotation: 0,
+        },
+      },
       bar: {
         type: "linear" as const,
         position: "left" as const,
         min: 0,
         max: maxBarValue > 500 ? 1000 : 500,
+        ticks: {
+          stepSize: maxBarValue > 500 ? 100 : 50,
+        },
       },
       temp: {
         type: "linear" as const,
@@ -140,17 +141,34 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
         min: -15,
         max: 35,
         grid: { drawOnChartArea: false },
+        ticks: {
+          stepSize: 5,
+        },
       },
     },
-    plugins: { legend: { position: "bottom" as const } },
+    plugins: {
+      legend: {
+        display: !hideLegend,
+        position: "bottom" as const,
+        labels: {
+          boxWidth: 12,
+          padding: 20,
+        },
+      },
+    },
   };
 
   return (
     <div
-      className="w-full flex flex-col items-center justify-center"
-      style={{ height }}
+      className="w-full relative flex-none p-2"
+      style={{ height, minHeight: height, maxHeight: height }}
     >
-      <Chart type="bar" data={chartData} options={options} />
+      <Chart
+        type="bar"
+        data={chartData}
+        options={options}
+        style={{ height: "100%", width: "100%" }}
+      />
     </div>
   );
 };

@@ -50,12 +50,12 @@ const LayeredPieChart: React.FC<
   const containerClass =
     layout === "vertical"
       ? "flex flex-col w-full items-center gap-2"
-      : "sm:flex flex-col w-full sm:flex-row items-start gap-2";
+      : "sm:flex flex-col w-full sm:flex-row items-center gap-2";
 
   return (
     <div className="w-full">
       <div className={containerClass}>
-        <div className="flex-1 min-w-0 flex justify-center items-start">
+        <div className="flex-[2] min-w-0 flex justify-center items-start">
           {data && data.length > 0 ? (
             <ChartPieSection
               data={data}
@@ -67,9 +67,7 @@ const LayeredPieChart: React.FC<
             </div>
           )}
         </div>
-        <div
-          className={layout === "vertical" ? "w-full" : "flex-[1.5] min-w-0"}
-        >
+        <div className={layout === "vertical" ? "w-full" : "flex-[3] min-w-0"}>
           {data && data.length > 0 && (
             <ChartTableSection
               data={data}

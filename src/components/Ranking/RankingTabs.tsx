@@ -1,6 +1,10 @@
 import React from "react";
 import { MonthMap } from "../../utils/colorUtils";
-import { MetricKey, MetricMeta } from "../../utils/metric";
+import {
+  METRIC_CATEGORY_KEYS,
+  MetricKey,
+  MetricMeta,
+} from "../../utils/metric";
 import { PrefKey, PrefMeta } from "../../utils/pref";
 import { RankKey, RankMeta } from "../../utils/rank";
 import { RegionKey, RegionMeta } from "../../utils/region";
@@ -57,19 +61,38 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
               setSelectedMetricKey(null);
             }
           }}
-          options={mainMetrics.map((m) => ({
-            key: m.key,
-            label: m.label,
-            disabled: !isCombinationValid(rankType, m),
-          }))}
+          options={mainMetrics.map((m) => {
+            const cat = METRIC_CATEGORY_KEYS[m.category];
+            return {
+              key: m.key,
+              label: m.label,
+              disabled: !isCombinationValid(rankType, m),
+              color: cat.color,
+              borderColor: cat.borderColor,
+              shadowColor: cat.shadowColor,
+            };
+          })}
           className="flex-wrap"
         >
           <button
             className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-tighter transition-all duration-200 ${
-              selectedMetricKey
-                ? "bg-white text-blue-600 shadow-sm"
-                : "text-slate-500 hover:text-slate-800"
+              !selectedMetricKey ? "text-slate-500 hover:text-slate-800" : ""
             }`}
+            style={
+              selectedMetricKey
+                ? {
+                    color:
+                      METRIC_CATEGORY_KEYS[selectedMetricKey.category].color,
+                    borderColor:
+                      METRIC_CATEGORY_KEYS[selectedMetricKey.category]
+                        .borderColor,
+                    boxShadow: `0 1px 3px 0 ${
+                      METRIC_CATEGORY_KEYS[selectedMetricKey.category]
+                        .shadowColor
+                    }`,
+                  }
+                : { border: "1px solid transparent" }
+            }
             onClick={() => setShowPopup(true)}
           >
             {selectedMetricKey?.label ?? "その他 ▸"}
@@ -86,13 +109,14 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
             const found = Object.values(RankKey).find((rk) => rk.key === val);
             if (found) {
               setRankType(found);
-              if (found.key === RankKey.region.key) setSelectedRegion(RegionKey.kanto);
+              if (found.key === RankKey.region.key)
+                setSelectedRegion(RegionKey.kanto);
               if (found.key === RankKey.pre.key) setSelectedPref(PrefKey.tokyo);
             }
           }}
           options={Object.values(RankKey).map((rk) => ({
             key: rk.key,
-            label: rk.rankingLabel,
+            label: rk.ratioLabel,
             disabled: !isCombinationValid(rk, sortKey),
           }))}
         />

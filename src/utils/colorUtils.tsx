@@ -1,5 +1,4 @@
 import React from "react";
-import { IconType } from "react-icons";
 
 interface SectionWithDescriptionProps {
   icon: React.ReactNode;
@@ -18,11 +17,11 @@ export function SectionWithDescription({
 }: SectionWithDescriptionProps): React.ReactElement {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row items-center justify-between w-full border-b border-gray-100 pb-3">
+      <div className="flex flex-row flex-wrap items-center justify-between w-full border-b border-gray-100 pb-3 gap-y-4">
         <div className="flex items-center gap-3 relative">
           {/* Vertical accent line */}
           <div
-            className="absolute -left-4 w-1.5 h-8 rounded-full"
+            className="w-1.5 h-8 rounded-full"
             style={{ backgroundColor: bgColor }}
           />
 

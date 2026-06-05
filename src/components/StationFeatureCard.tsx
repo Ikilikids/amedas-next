@@ -5,6 +5,7 @@ import { RatioInfo } from "../types/union";
 import LayeredPieChart from "./LayeredPieChart";
 import StationMap from "./StationMap";
 import UonzuChart from "./UonzuChart";
+import { MetricKey } from "../utils/metric";
 import Description from "./description";
 
 interface StationFeatureCardProps {
@@ -132,11 +133,18 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
                 </div>
               );
             }
+            const barMeta =
+              selectedBar === "snowing"
+                ? MetricKey.sm_snowing
+                : selectedBar === "sun"
+                ? MetricKey.sm_sun
+                : MetricKey.sm_rain;
+
             return (
               <div className="w-full h-full p-2">
                 <UonzuChart
                   uonzuData={uonzuMap}
-                  selectedBar={selectedBar as any}
+                  selectedBar={barMeta}
                   height="380px"
                 />
               </div>

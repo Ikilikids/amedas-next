@@ -57,8 +57,8 @@ const StationMap: React.FC<StationMapProps> = ({
   const zoom = isMini ? 9 : 6;
 
   const mapContainerStyle = {
-    width: "95%",
-    height: "95%",
+    width: "100%",
+    height: "100%",
     borderRadius: "12px",
     overflow: "hidden",
   };

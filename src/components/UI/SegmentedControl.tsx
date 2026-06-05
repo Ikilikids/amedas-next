@@ -4,6 +4,10 @@ interface Option<T> {
   key: T;
   label: string;
   disabled?: boolean;
+  activeClassName?: string;
+  color?: string;
+  borderColor?: string;
+  shadowColor?: string;
 }
 
 interface SegmentedControlProps<T extends string | number> {
@@ -11,6 +15,10 @@ interface SegmentedControlProps<T extends string | number> {
   onChange: (value: T) => void;
   options: Option<T>[];
   className?: string;
+  activeClassName?: string;
+  color?: string;
+  borderColor?: string;
+  shadowColor?: string;
   children?: React.ReactNode;
 }
 
@@ -19,6 +27,10 @@ const SegmentedControl = <T extends string | number>({
   onChange,
   options,
   className = "",
+  activeClassName = "bg-white shadow-sm border",
+  color,
+  borderColor,
+  shadowColor,
   children,
 }: SegmentedControlProps<T>) => {
   return (
@@ -34,9 +46,23 @@ const SegmentedControl = <T extends string | number>({
             opt.disabled
               ? "opacity-30 cursor-not-allowed"
               : value === opt.key
-              ? "bg-white text-blue-600 shadow-sm"
-              : "text-slate-500 hover:text-slate-800"
+              ? `${activeClassName} ${
+                  opt.activeClassName ?? "border-slate-400"
+                }`
+              : "text-slate-500 hover:text-slate-800 border border-transparent"
           }`}
+          style={
+            value === opt.key
+              ? {
+                  color: opt.color ?? color,
+                  borderColor: opt.borderColor ?? borderColor,
+                  boxShadow:
+                    (opt.shadowColor ?? shadowColor)
+                      ? `0 1px 3px 0 ${opt.shadowColor ?? shadowColor}`
+                      : undefined,
+                }
+              : {}
+          }
         >
           {opt.label}
         </button>
