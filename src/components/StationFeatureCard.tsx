@@ -2,10 +2,10 @@ import Link from "next/link";
 import React, { useMemo, useState } from "react";
 import { AllData } from "../types/all";
 import { RatioInfo } from "../types/union";
+import { MetricKey } from "../utils/metric";
 import LayeredPieChart from "./LayeredPieChart";
 import StationMap from "./StationMap";
 import UonzuChart from "./UonzuChart";
-import { MetricKey } from "../utils/metric";
 import Description from "./description";
 
 interface StationFeatureCardProps {
@@ -105,7 +105,7 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
           {(() => {
             if (selectedBar === "map") {
               return (
-                <div className="w-full h-full items-center justify-center flex">
+                <div className="w-full lg:h-full items-center justify-center flex h-[380px]">
                   <StationMap isMini lat={station.lat} lng={station.lon} />
                 </div>
               );
