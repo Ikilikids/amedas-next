@@ -12,6 +12,15 @@ export default async function handler(
     return res.status(401).json({ error: "Unauthorized" });
   }
 
+  // 診断情報をサーバーログに出力（ブラウザには返さない）
+  console.log("Environment Check:", {
+    hasProjectId: !!process.env.FIREBASE_PROJECT_ID,
+    hasEmail: !!process.env.FIREBASE_CLIENT_EMAIL,
+    hasKey: !!process.env.FIREBASE_PRIVATE_KEY,
+    keyLength: process.env.FIREBASE_PRIVATE_KEY?.length,
+    cronSecretLoaded: !!process.env.CRON_SECRET,
+  });
+
   try {
     console.log("Fetching JMA data...");
     // 気象庁から昨日の最高気温ランキング（全国）を取得
@@ -87,8 +96,10 @@ export default async function handler(
     }
 
     return res.status(200).json({ success: true, count: rankings.length });
-  } catch (error) {
+  } catch (error: any) {
     console.error("CRON Error:", error);
-    return res.status(500).json({ error: String(error) });
+    // 本番環境では詳細なエラーをブラウザに返さない方が安全ですが、
+    // 現在は調査のため、エラーメッセージのみ返すようにします。
+    return res.status(500).json({ error: error?.message || String(error) });
   }
 }
