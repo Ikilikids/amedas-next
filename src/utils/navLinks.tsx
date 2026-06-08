@@ -32,10 +32,10 @@ export const searchLinks: NavLink[] = [
     iconClass: "text-red-500",
   },
   {
-    href: "/live/dailymax",
+    href: "/live/daily_ranking",
     Icon: <FaTemperatureHigh />,
-    title: "今日の最高気温",
-    description: "本日の最高気温ランキング",
+    title: "今日のランキング",
+    description: "本日の最高・最低気温ランキング",
     iconClass: "text-orange-500",
   },
   {

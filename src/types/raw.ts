@@ -1,5 +1,5 @@
 import { CategoryValue } from "../utils/category";
-import { MetricValue } from "../utils/metric";
+import { PrefValue } from "../utils/pref";
 import { DescriptionData, MonthlyEntry, RankedValue, StationId } from "./union";
 
 export interface RawData {
@@ -14,15 +14,31 @@ export interface RawData {
   meteoStations?: RawStationData[];
   badge?: RawBadgeData[];
   description?: DescriptionData;
-  history?: { date: string; temp: number }[];
-  stats?: { extremeHotDays: number; maxTempYear: number };
+  history?: { 
+    date: string; 
+    hi: number | null; 
+    lw: number | null; 
+    rain: number | null; 
+  }[];
+  stats?: { 
+    hitemp_40?: number;
+    hitemp_35?: number;
+    hitemp_30?: number;
+    hitemp_25?: number;
+    hitemp_0?: number;
+    max_hitemp?: number;
+    lwtemp_25?: number;
+    lwtemp_0?: number;
+    min_lwtemp?: number;
+    sm_rain?: number;
+  };
 }
 
 export type RawStationData = {
-  id: StationId;
-  category: CategoryValue;
-  pref: string;
-  station_name: string;
+  id?: StationId;
+  category?: CategoryValue;
+  pref?: PrefValue;
+  station_name?: string;
 } & {
   official_name?: string;
   city?: string;

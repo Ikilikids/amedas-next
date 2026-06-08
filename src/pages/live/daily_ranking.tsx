@@ -8,50 +8,126 @@ import CategoryLegend from "../../components/CategoryLegend";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
-import { RankingData, RawRankingData } from "../../components/Ranking/types";
-import { getTempColor } from "../../utils/colorUtils";
+import {
+  RankingData,
+  RankingItem,
+  RawRankingData,
+} from "../../components/Ranking/types";
+import { CategoryValue } from "../../utils/category";
+import { getRainColor, getTempColor } from "../../utils/colorUtils";
 import { fetchJmaDailyMaxRanking } from "../../utils/jma";
 import { toStation } from "../../utils/masterUtils";
-import { PrefKey, PrefMeta } from "../../utils/pref";
+import { PrefKey, PrefMeta, PrefValue } from "../../utils/pref";
 import { RankKey, RankMeta } from "../../utils/rank";
 import { processRankingData } from "../../utils/rankingUtils";
 import { RegionKey, RegionMeta } from "../../utils/region";
 import { loadMaster } from "../../utils/ssgLoader";
 
+type MetricType = "av_hitemp" | "av_lwtemp" | "sm_rain";
+
+interface MetricEntry {
+  value: number;
+  time: string | null;
+}
+
+interface StationData {
+  station_name: string;
+  pref: PrefValue;
+  category: CategoryValue;
+  av_hitemp?: MetricEntry;
+  av_lwtemp?: MetricEntry;
+  sm_rain?: MetricEntry;
+}
+
 interface Props {
-  allStations: RawRankingData[];
+  stations: Record<string, StationData>;
   lastUpdate: string;
 }
 
-const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
+const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
+  const [metric, setMetric] = useState<MetricType>("av_hitemp");
   const [rankMeta, setRankMeta] = useState<RankMeta>(RankKey.top);
   const [selectedRegion, setSelectedRegion] = useState<RegionMeta>(
     RegionKey.kanto
   );
   const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
 
+  const config = useMemo(() => {
+    switch (metric) {
+      case "av_hitemp":
+        return {
+          title: "今日の最高気温ランキング",
+          description:
+            "今日これまでに観測された最高気温の全国ランキングです。気象庁から取得した最新の観測データに基づいています。",
+          gradient: "bg-gradient-to-r from-red-600 to-orange-600",
+          accentColor: "bg-orange-500",
+          ringColor: "focus:ring-orange-500",
+          hoverColor: "hover:text-orange-600",
+          unit: "°C",
+        };
+      case "av_lwtemp":
+        return {
+          title: "今日の最低気温ランキング",
+          description:
+            "今日これまでに観測された最低気温の全国ランキングです。気象庁から取得した最新の観測データに基づいています。",
+          gradient: "bg-gradient-to-r from-blue-600 to-cyan-600",
+          accentColor: "bg-blue-500",
+          ringColor: "focus:ring-blue-500",
+          hoverColor: "hover:text-blue-600",
+          unit: "°C",
+        };
+      case "sm_rain":
+        return {
+          title: "今日の降水量ランキング",
+          description:
+            "今日これまでに観測された降水量の全国ランキングです。気象庁から取得した最新の観測データに基づいています。",
+          gradient: "bg-gradient-to-r from-indigo-600 to-blue-600",
+          accentColor: "bg-indigo-500",
+          ringColor: "focus:ring-indigo-500",
+          hoverColor: "hover:text-indigo-600",
+          unit: "mm",
+        };
+    }
+  }, [metric]);
+
   const displayList: RankingData[] = useMemo(() => {
-    // 2. 共通ロジックでランキング処理 (県フィルタリング、ソート、順位付け、100件制限など)
+    // 1. Recordから現在のメトリックを持つ地点を抽出し、RawRankingData[] を作成
+    const rawList: RawRankingData[] = Object.entries(stations)
+      .filter(([, s]) => s[metric] !== undefined)
+      .map(([id, s]) => {
+        const mData = s[metric]!;
+        return {
+          id,
+          station_name: s.station_name,
+          pref: s.pref,
+          category: s.category,
+          value: mData.value,
+          time: mData.time,
+        };
+      });
+
+    // 2. 共通ロジックでランキング処理 (ソート、フィルタリング、順位付け)
     const processed = processRankingData(
-      allStations,
+      rawList,
       rankMeta,
       selectedRegion,
-      selectedPref
+      selectedPref,
+      100
     );
 
-    // 3. 表示用にRich化 (アイコンやRegion情報の復元)
+    // 3. 表示用にRich化
     return processed.map((s) => ({
       ...toStation(s),
       value: s.value,
       rank: s.rank,
       time: s.time,
     }));
-  }, [allStations, rankMeta, selectedRegion, selectedPref]);
+  }, [metric, stations, rankMeta, selectedRegion, selectedPref]);
 
   return (
     <>
       <Head>
-        <title>今日の最高気温ランキング - アメダス図鑑</title>
+        <title>{config.title} - アメダス図鑑</title>
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
@@ -59,33 +135,67 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
 
         <main className="flex-1 pb-16">
           <HeroSection
-            title="今日の最高気温ランキング"
-            description="今日これまでに観測された最高気温の全国ランキングです。気象庁から取得した最新の観測データに基づいています。"
+            title={config.title}
+            description={config.description}
             Icon={<GiJapan />}
-            gradient="bg-gradient-to-r from-red-600 to-orange-600"
+            gradient={config.gradient}
             lastUpdateLabel="データ更新"
             lastUpdateValue={lastUpdate}
           />
 
           <div className="max-w-[1200px] mx-auto px-4 mt-4">
+            {/* メトリック選択タブ */}
+            <div className="flex justify-center mb-6">
+              <div className="bg-white p-1 rounded-xl shadow-sm border border-slate-200 flex gap-1">
+                <button
+                  onClick={() => setMetric("av_hitemp")}
+                  className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+                    metric === "av_hitemp"
+                      ? "bg-orange-500 text-white shadow-md"
+                      : "text-slate-500 hover:bg-slate-50"
+                  }`}
+                >
+                  最高気温
+                </button>
+                <button
+                  onClick={() => setMetric("av_lwtemp")}
+                  className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+                    metric === "av_lwtemp"
+                      ? "bg-blue-500 text-white shadow-md"
+                      : "text-slate-500 hover:bg-slate-50"
+                  }`}
+                >
+                  最低気温
+                </button>
+                <button
+                  onClick={() => setMetric("sm_rain")}
+                  className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+                    metric === "sm_rain"
+                      ? "bg-indigo-500 text-white shadow-md"
+                      : "text-slate-500 hover:bg-slate-50"
+                  }`}
+                >
+                  降水量
+                </button>
+              </div>
+            </div>
+
             {/* しぼりこみナビゲーション */}
             <div className="bg-white p-6 rounded-xl shadow-lg mb-10 flex flex-col gap-4 border border-slate-100">
               <div className="flex flex-wrap gap-2 justify-center">
-                {[RankKey.top, RankKey.island, RankKey.region, RankKey.pre].map(
-                  (rk) => (
-                    <button
-                      key={rk.key}
-                      onClick={() => setRankMeta(rk)}
-                      className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-                        rankMeta.key === rk.key
-                          ? "bg-orange-500 text-white shadow-md scale-105"
-                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                      }`}
-                    >
-                      {rk.rankingLabel}
-                    </button>
-                  )
-                )}
+                {Object.values(RankKey).map((rk) => (
+                  <button
+                    key={rk.key}
+                    onClick={() => setRankMeta(rk)}
+                    className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
+                      rankMeta.key === rk.key
+                        ? `${config.accentColor} text-white shadow-md scale-105`
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    {rk.rankingLabel}
+                  </button>
+                ))}
               </div>
 
               {rankMeta.key === "region" && (
@@ -128,7 +238,7 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
                       );
                       if (found) setSelectedPref(found);
                     }}
-                    className="px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className={`px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm font-bold focus:outline-none focus:ring-2 ${config.ringColor}`}
                   >
                     {Object.values(PrefKey).map((p) => (
                       <option key={p.code} value={p.code}>
@@ -192,11 +302,17 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
                     </div>
                     <div className="flex-1 flex flex-col justify-end">
                       <div
-                        className={`text-2xl font-mono font-bold ${getTempColor(
-                          s.value
-                        )}`}
+                        className={`text-2xl font-mono font-bold ${
+                          metric === "sm_rain"
+                            ? getRainColor(s.value)
+                            : getTempColor(s.value)
+                        }`}
                       >
-                        {s.value !== null ? `${s.value.toFixed(1)}°C` : "---"}
+                        {s.value !== null
+                          ? `${s.value.toFixed(metric === "sm_rain" ? 0 : 1)}${
+                              config.unit
+                            }`
+                          : "---"}
                       </div>
                       {s.time !== null && (
                         <div className="text-[10px] text-slate-500 font-medium mt-1">
@@ -224,7 +340,7 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
         <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="p-4 bg-white shadow-2xl rounded-full text-slate-400 hover:text-orange-600 border border-slate-100 transition-colors"
+            className={`p-4 bg-white shadow-2xl rounded-full text-slate-400 border border-slate-100 transition-colors ${config.hoverColor}`}
           >
             <FaChevronDown className="transform rotate-180" />
           </button>
@@ -237,36 +353,52 @@ const DailyMaxPage: NextPage<Props> = ({ allStations, lastUpdate }) => {
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     const masterData = loadMaster();
-
-    const rawStations = await fetchJmaDailyMaxRanking();
-
+    const result = await fetchJmaDailyMaxRanking(null);
     const lastUpdate = new Date().toLocaleString("ja-JP");
 
-    const allStations: RawRankingData[] = rawStations
-      .filter((s) => masterData[s.id])
-      .map((s) => {
-        const master = masterData[s.id];
-        return {
-          station_name: master?.station_name,
-          pref: master?.pref,
-          category: master?.category,
-          id: s.id,
-          value: s.value,
-          time: s.time ?? null,
+    const stations: Record<string, StationData> = {};
+
+    const mergeData = (m: MetricType, items: RankingItem[]) => {
+      items.forEach((item) => {
+        const id = item.id;
+        if (!id) return;
+
+        if (!stations[id]) {
+          const master = masterData[id];
+          if (!master) return;
+          stations[id] = {
+            station_name: master.station_name,
+            pref: master.pref,
+            category: master.category,
+          };
+        }
+
+        const entry: MetricEntry = {
+          value: item.value,
+          time: item.time ?? null,
         };
+
+        if (m === "av_hitemp") stations[id].av_hitemp = entry;
+        else if (m === "av_lwtemp") stations[id].av_lwtemp = entry;
+        else if (m === "sm_rain") stations[id].sm_rain = entry;
       });
+    };
+
+    mergeData("av_hitemp", result.av_hitemp);
+    mergeData("av_lwtemp", result.av_lwtemp);
+    mergeData("sm_rain", result.sm_rain);
 
     return {
       props: {
-        allStations,
+        stations,
         lastUpdate,
       },
       revalidate: 1800,
     };
   } catch (error) {
-    console.error("Failed to load daily-max data:", error);
+    console.error("Failed to load daily-ranking data:", error);
     return { notFound: true };
   }
 };
 
-export default DailyMaxPage;
+export default DailyRankingPage;

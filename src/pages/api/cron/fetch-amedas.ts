@@ -32,51 +32,117 @@ export default async function handler(
     });
     const mmdd = dateStr.split("-").slice(1).join("");
 
-    // 気象庁から昨日の最高気温ランキング（全国）を取得
-    const rankings = await fetchJmaDailyMaxRanking(mmdd);
+    // 気象庁から昨日の最高・最低気温・降水量ランキング（全国）を取得
+    const { av_hitemp, av_lwtemp, sm_rain } = await fetchJmaDailyMaxRanking(
+      mmdd
+    );
 
-    console.log(`Processing ${rankings.length} stations for date: ${dateStr}`);
+    /*const av_hitemp: RankingItem[] = [
+      { id: "1", value: 35.0 },
+      { id: "10", value: 32.0 },
+    ];
+    const av_lwtemp: RankingItem[] = [
+      { id: "1", value: 5.0 },
+      { id: "10", value: -2.0 },
+    ];
+    const sm_rain: RankingItem[] = [{ id: "1", value: 10.0 }];*/
+
+    // 全地点のデータをIDごとにマッピングして統合
+    const stationMap: Record<
+      string,
+      { hi?: number; lw?: number; rain?: number }
+    > = {};
+
+    av_hitemp.forEach((s) => {
+      if (s.id) stationMap[s.id] = { ...stationMap[s.id], hi: s.value };
+    });
+    av_lwtemp.forEach((s) => {
+      if (s.id) stationMap[s.id] = { ...stationMap[s.id], lw: s.value };
+    });
+    sm_rain.forEach((s) => {
+      if (s.id) stationMap[s.id] = { ...stationMap[s.id], rain: s.value };
+    });
+
+    const stationIds = Object.keys(stationMap);
+    console.log(
+      `Processing ${stationIds.length} stations for date: ${dateStr}`
+    );
+
     const batchSize = 100;
-    for (let i = 0; i < rankings.length; i += batchSize) {
-      const chunk = rankings.slice(i, i + batchSize);
+    for (let i = 0; i < stationIds.length; i += batchSize) {
+      const chunkIds = stationIds.slice(i, i + batchSize);
       const batch = db.batch();
 
       // まとめてドキュメントを取得
-      const refs = chunk.map((item) => db.collection("stations").doc(item.id));
+      const refs = chunkIds.map((id) => db.collection("stations").doc(id));
       const snapshots = await db.getAll(...refs);
 
-      chunk.forEach((item, index) => {
+      chunkIds.forEach((id, index) => {
         const doc = snapshots[index];
+        const update = stationMap[id];
+
         let data = doc.exists
           ? (doc.data() as any)
-          : {
-              history: [],
-              stats: { extremeHotDays: 0, maxTempYear: -99 },
-            };
+          : { history: [], stats: {} };
+        if (!data.stats) data.stats = {};
+        const s = data.stats;
 
-        // 年が変わったらリセットするロジック (1月1日)
-        if (today.getMonth() === 0 && today.getDate() === 1) {
-          data.stats.extremeHotDays = 0;
-          data.stats.maxTempYear = -99;
+        // 1. 最高気温の統計更新
+        if (update.hi !== undefined) {
+          if (s.max_hitemp === undefined) {
+            s.hitemp_40 = 0;
+            s.hitemp_35 = 0;
+            s.hitemp_30 = 0;
+            s.hitemp_25 = 0;
+            s.hitemp_0 = 0;
+            s.max_hitemp = -99;
+          }
+          if (update.hi >= 40.0) s.hitemp_40 = (s.hitemp_40 || 0) + 1;
+          if (update.hi >= 35.0) s.hitemp_35 = (s.hitemp_35 || 0) + 1;
+          if (update.hi >= 30.0) s.hitemp_30 = (s.hitemp_30 || 0) + 1;
+          if (update.hi >= 25.0) s.hitemp_25 = (s.hitemp_25 || 0) + 1;
+          if (update.hi <= 0.0) s.hitemp_0 = (s.hitemp_0 || 0) + 1;
+
+          if (update.hi > s.max_hitemp) {
+            s.max_hitemp = update.hi;
+          }
         }
 
-        // 猛暑日判定
-        if (item.value >= 35.0) {
-          data.stats.extremeHotDays = (data.stats.extremeHotDays || 0) + 1;
+        // 2. 最低気温の統計更新
+        if (update.lw !== undefined) {
+          if (s.min_lwtemp === undefined) {
+            s.lwtemp_25 = 0;
+            s.lwtemp_0 = 0;
+            s.min_lwtemp = 99;
+          }
+          if (update.lw >= 25.0) s.lwtemp_25 = (s.lwtemp_25 || 0) + 1;
+          if (update.lw <= 0.0) s.lwtemp_0 = (s.lwtemp_0 || 0) + 1;
+
+          if (update.lw < s.min_lwtemp) {
+            s.min_lwtemp = update.lw;
+          }
         }
 
-        // 今年の最高気温更新
-        if (item.value > (data.stats.maxTempYear || -99)) {
-          data.stats.maxTempYear = item.value;
+        // 3. 降水量の統計更新 (合計)
+        if (update.rain !== undefined) {
+          s.sm_rain = (s.sm_rain || 0) + update.rain;
         }
 
-        // 履歴の更新（最新15日分を保持）
-        const newEntry = { date: dateStr, temp: item.value };
+        // 履歴の更新
+        const newEntry = {
+          date: dateStr,
+          hi: update.hi ?? null,
+          lw: update.lw ?? null,
+          rain: update.rain ?? null,
+        };
         const existingIndex = data.history.findIndex(
           (h: any) => h.date === dateStr
         );
         if (existingIndex > -1) {
-          data.history[existingIndex] = newEntry;
+          data.history[existingIndex] = {
+            ...data.history[existingIndex],
+            ...newEntry,
+          };
         } else {
           data.history.push(newEntry);
         }
@@ -85,22 +151,23 @@ export default async function handler(
         data.history = data.history.slice(0, 15);
 
         data.lastUpdate = new Date().toISOString();
-        data.stationId = item.id;
+        data.stationId = id;
 
         batch.set(refs[index], data, { merge: true });
       });
 
       await batch.commit();
       console.log(
-        `Processed ${Math.min(i + batchSize, rankings.length)} stations...`
+        `Processed chunk ${i / batchSize + 1} (${Math.min(
+          i + batchSize,
+          stationIds.length
+        )} stations)...`
       );
     }
 
-    return res.status(200).json({ success: true, count: rankings.length });
+    return res.status(200).json({ success: true, count: stationIds.length });
   } catch (error: any) {
     console.error("CRON Error:", error);
-    // 本番環境では詳細なエラーをブラウザに返さない方が安全ですが、
-    // 現在は調査のため、エラーメッセージのみ返すようにします。
     return res.status(500).json({ error: error?.message || String(error) });
   }
 }

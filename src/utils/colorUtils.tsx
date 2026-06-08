@@ -71,15 +71,29 @@ export const MonthMap: { [key: string]: string } = {
   "12": "12月",
 };
 
-export function getTempColor(temp: number | null | undefined) {
-  if (temp == null) return "text-slate-400";
-  if (temp >= 35) return "text-red-700";
-  if (temp >= 30) return "text-red-500";
-  if (temp >= 25) return "text-orange-500";
-  if (temp >= 20) return "text-yellow-500";
-  if (temp >= 15) return "text-lime-500";
-  if (temp >= 10) return "text-green-500";
-  if (temp >= 5) return "text-cyan-500";
-  if (temp >= 0) return "text-blue-500";
+export function getTempColor(value: number | null | undefined) {
+  if (value == null) return "text-slate-400";
+  if (value >= 35) return "text-red-700";
+  if (value >= 30) return "text-red-500";
+  if (value >= 25) return "text-orange-500";
+  if (value >= 20) return "text-yellow-500";
+  if (value >= 15) return "text-lime-500";
+  if (value >= 10) return "text-green-500";
+  if (value >= 5) return "text-cyan-500";
+  if (value >= 0) return "text-blue-500";
   return "text-indigo-600";
+}
+
+export function getRainColor(value: number | null | undefined) {
+  if (value == null) return "text-slate-400";
+  if (value >= 500) return "text-red-700";
+  if (value >= 300) return "text-red-500";
+  if (value >= 250) return "text-orange-500";
+  if (value >= 200) return "text-yellow-500";
+  if (value >= 150) return "text-lime-500";
+  if (value >= 100) return "text-green-500";
+  if (value >= 50) return "text-cyan-500";
+  if (value >= 25) return "text-blue-500";
+  if (value > 0) return "text-sky-500";
+  return "text-slate-500";
 }

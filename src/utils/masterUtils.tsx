@@ -3,7 +3,7 @@ import { RawBadgeData, RawData, RawStationData } from "../types/raw";
 import { CATEGORY_KEYS, CategoryMeta } from "../utils/category";
 import { MetricKey, MetricMeta, MetricValue } from "../utils/metric";
 import { PrefKey, PrefMeta } from "../utils/pref";
-function resolveCategory(key: string): CategoryMeta {
+export function resolveCategory(key: string): CategoryMeta {
   return CATEGORY_KEYS[key as keyof typeof CATEGORY_KEYS];
 }
 

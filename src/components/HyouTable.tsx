@@ -2,8 +2,13 @@ import React from "react";
 import { TableData } from "../types/all";
 import { MonthlyEntry } from "../types/union";
 import { MonthMap } from "../utils/colorUtils";
-import { MetricKey, MetricMeta } from "../utils/metric";
-import { RankKey, RankValue } from "../utils/rank";
+import {
+  METRIC_CATEGORY_KEYS,
+  MetricCategoryMeta,
+  MetricKey,
+  MetricMeta,
+} from "../utils/metric";
+import { RankValue } from "../utils/rank";
 
 // ==============================
 // Types
@@ -26,6 +31,7 @@ interface MonthOption {
 // ==============================
 // Helpers
 // ==============================
+
 function mixColor(c1: string, c2: string, t: number): string {
   const rgb1 = c1.match(/\d+/g)?.map(Number) || [0, 0, 0];
   const rgb2 = c2.match(/\d+/g)?.map(Number) || [0, 0, 0];
@@ -36,24 +42,24 @@ function mixColor(c1: string, c2: string, t: number): string {
 }
 
 function getColor(
-  type: string,
+  category: MetricCategoryMeta,
   val: string | number,
   isAnnual: boolean = false
 ): string {
   if (val === "--" || isNaN(Number(val))) return "white";
   const v = Number(val);
 
-  let min, mid, max;
+  let min: number, mid: number, max: number;
   let colors: string[];
 
-  switch (type) {
-    case "temp":
+  switch (category.label) {
+    case "気温":
       min = -15;
       mid = 10;
       max = 35;
       colors = ["rgb(100,180,255)", "rgb(255,255,255)", "rgb(255,70,70)"];
       break;
-    case "rain":
+    case "降水":
       if (isAnnual) {
         min = 0;
         mid = 1600;
@@ -65,7 +71,7 @@ function getColor(
       }
       colors = ["rgb(255,255,255)", "rgb(120,180,255)", "rgb(100,80,255)"];
       break;
-    case "snow":
+    case "降雪":
       if (isAnnual) {
         min = 0;
         mid = 450;
@@ -75,9 +81,9 @@ function getColor(
         mid = 50;
         max = 450;
       }
-      colors = ["rgb(255,255,255)", "rgb(120,230,245)", "rgb(30,255,150)"];
+      colors = ["rgb(255,255,255)", "rgb(200,160,255)", "rgb(234,80,147)"];
       break;
-    case "sun":
+    case "日照":
       if (isAnnual) {
         min = 0;
         mid = 1800;
@@ -89,7 +95,7 @@ function getColor(
       }
       colors = ["rgb(220,220,220)", "rgb(255,255,130)", "rgb(255,180,50)"];
       break;
-    case "wind":
+    case "風速":
       min = 0;
       mid = 3;
       max = 10;
@@ -128,97 +134,116 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
     return parseInt(slug) - 1;
   };
 
-  const mapValueRank = (
-    key: MetricMeta,
-    isSnow: boolean = false
-  ): HyouRowData[] => {
+  const mapValueRank = (meta: MetricMeta): HyouRowData[] => {
     if (!tableData) return emptyMonthlyData();
 
-    const entries = tableData.get(key) || [];
+    const isSnow = meta.unit === "cm";
+    const entries = tableData.get(meta) || [];
     return months.map((m) => {
       const idx = getIndexFromSlug(m.slug);
       const entry: MonthlyEntry | undefined = entries[idx];
       let val: string | number = entry?.value ?? "--";
       if (typeof val === "number" && !isSnow) val = val.toFixed(1);
 
-      let rank: string | number = entry ? (entry[rankValue] ?? "--") : "--";
+      let rank: string | number = entry ? entry[rankValue] ?? "--" : "--";
 
       return { val, rank };
     });
   };
 
-  const avTemps = mapValueRank(MetricKey.av_avtemp);
-  const hiTemps = mapValueRank(MetricKey.av_hitemp);
-  const lwTemps = mapValueRank(MetricKey.av_lwtemp);
-  const rains = mapValueRank(MetricKey.sm_rain);
-  const snows = mapValueRank(MetricKey.sm_snowing, true);
-  const suns = mapValueRank(MetricKey.sm_sun);
-  const winds = mapValueRank(MetricKey.av_wind);
+  const renderRow = (meta: MetricMeta) => {
+    const dataArray = mapValueRank(meta);
+    const icon = meta.highIcon || meta.lowIcon;
+    const category = METRIC_CATEGORY_KEYS[meta.category];
 
-  const renderRow = (
-    label: string,
-    dataArray: HyouRowData[],
-    unit: string,
-    type: string
-  ) => (
-    <tr key={label}>
-      <td className="border border-gray-300 w-16 h-7 sm:h-10 text-center align-middle font-bold text-xs sm:text-sm">
-        {label}
-        <br />
-        <span className="text-[10px] sm:text-xs">({unit})</span>
-      </td>
-      {dataArray.map((d, i) => {
-        const isAnnual = months[i].slug === "all";
-        const bgColor = getColor(type, d.val, isAnnual);
-        return (
-          <td
-            key={i}
-            className="border border-gray-300 w-12 h-7 sm:h-10 text-center align-middle text-xs sm:text-sm"
-            style={{ backgroundColor: bgColor }}
-          >
-            <div className="flex flex-col justify-center items-center">
-              <span>{d.val}</span>
-              <small className="text-gray-700">
-                {d.rank !== "--" ? `(${d.rank})` : "(--)"}
-              </small>
+    return (
+      <tr
+        key={meta.key}
+        className="group hover:bg-slate-50/30 transition-colors"
+      >
+        <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] h-10 sm:h-12 text-center align-middle font-bold text-xs sm:text-sm shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)] group-hover:bg-slate-50 transition-colors">
+          <div className="flex flex-col items-center justify-center leading-tight px-1 gap-0.5">
+            <div className="flex items-center gap-1">
+              <span className="text-slate-800 whitespace-nowrap">
+                {meta.label.replace("平均最", "最")}
+              </span>
+              {icon && (
+                <span
+                  className="text-sm sm:text-base opacity-80"
+                  style={{ color: category?.color }}
+                >
+                  {icon}
+                </span>
+              )}
             </div>
-          </td>
-        );
-      })}
-    </tr>
-  );
+            <span className="text-[10px] sm:text-xs text-slate-400 font-normal">
+              ({meta.unit})
+            </span>
+          </div>
+        </td>
+        {dataArray.map((d, i) => {
+          const isAnnual = months[i].slug === "all";
+          const bgColor = getColor(category, d.val, isAnnual);
+          return (
+            <td
+              key={i}
+              className={`border-r border-slate-100 min-w-[56px] sm:min-w-[64px] h-10 sm:h-12 text-center align-middle transition-colors ${
+                isAnnual ? "ring-1 ring-inset ring-slate-200/50" : ""
+              }`}
+              style={{ backgroundColor: bgColor }}
+            >
+              <div className="flex flex-col justify-center items-center -space-y-0.5 sm:space-y-0">
+                <span className="font-bold text-xs sm:text-sm text-slate-900 tracking-tighter">
+                  {d.val}
+                </span>
+                <span className="text-[9px] sm:text-[10px] text-slate-600/80 font-medium">
+                  {d.rank !== "--" ? `${d.rank}位` : "-"}
+                </span>
+              </div>
+            </td>
+          );
+        })}
+      </tr>
+    );
+  };
+
+  const displayMetrics = [
+    MetricKey.av_avtemp,
+    MetricKey.av_hitemp,
+    MetricKey.av_lwtemp,
+    MetricKey.sm_rain,
+    MetricKey.sm_snowing,
+    MetricKey.sm_sun,
+    MetricKey.av_wind,
+  ];
 
   return (
-    <div className="w-full h-full flex flex-col items-left">
-      <div className="w-full overflow-x-auto">
-        <div className="min-w-max flex justify-center">
-          <table className="border-collapse table-fixed text-center shadow-md">
-            <thead>
-              <tr className="bg-gray-100 text-xs sm:text-sm">
-                <th className="border border-gray-300 w-19 h-7 sm:h-10">
-                  項目
+    <div className="w-full">
+      <div className="w-full overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
+        <table className="w-full border-collapse text-center table-auto">
+          <thead>
+            <tr className="bg-slate-50 text-xs sm:text-sm">
+              <th className="sticky left-0 top-0 z-20 bg-slate-100 border-r border-b border-slate-200 w-24 min-w-[104px] h-10 sm:h-12 font-bold text-slate-600 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)]">
+                項目
+              </th>
+              {months.map((m) => (
+                <th
+                  key={m.slug}
+                  className={`border-b border-r border-slate-200 min-w-[56px] sm:min-w-[64px] h-10 sm:h-12 font-bold ${
+                    m.slug === "all"
+                      ? "text-blue-700 bg-blue-50/50"
+                      : "text-slate-600"
+                  }`}
+                >
+                  {m.label}
                 </th>
-                {months.map((m) => (
-                  <th
-                    key={m.slug}
-                    className="border border-gray-300 w-16 h-7 sm:h-10"
-                  >
-                    {m.label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {renderRow("平均気温", avTemps, "℃", "temp")}
-              {renderRow("最高気温", hiTemps, "℃", "temp")}
-              {renderRow("最低気温", lwTemps, "℃", "temp")}
-              {renderRow("降水量", rains, "mm", "rain")}
-              {renderRow("積雪量", snows, "cm", "snow")}
-              {renderRow("日照時間", suns, "h", "sun")}
-              {renderRow("平均風速", winds, "m/s", "wind")}
-            </tbody>
-          </table>
-        </div>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100">
+            {displayMetrics.map((meta) => renderRow(meta))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

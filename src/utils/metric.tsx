@@ -3,7 +3,11 @@ import { AiFillSun } from "react-icons/ai";
 import { BiWind } from "react-icons/bi";
 import { BsCloudsFill, BsFillCloudRainHeavyFill } from "react-icons/bs";
 import { FaHotjar } from "react-icons/fa";
-import { FaSnowman } from "react-icons/fa6";
+import {
+  FaSnowman,
+  FaTemperatureArrowDown,
+  FaTemperatureArrowUp,
+} from "react-icons/fa6";
 import { PiHairDryer, PiThermometerColdFill } from "react-icons/pi";
 import { TbTemperaturePlus } from "react-icons/tb";
 
@@ -178,6 +182,7 @@ export const MetricKey: Record<MetricValue, MetricMeta> = {
     unit: "℃",
     tab: "平均",
     category: "気温",
+    highIcon: <FaTemperatureArrowUp />,
   },
   av_lwtemp: {
     key: "av_lwtemp",
@@ -185,6 +190,7 @@ export const MetricKey: Record<MetricValue, MetricMeta> = {
     unit: "℃",
     tab: "平均",
     category: "気温",
+    highIcon: <FaTemperatureArrowDown />,
   },
   av_wind: {
     key: "av_wind",
