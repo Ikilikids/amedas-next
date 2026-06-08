@@ -17,7 +17,7 @@ import { CategoryValue } from "../../utils/category";
 import { getRainColor, getTempColor } from "../../utils/colorUtils";
 import { fetchJmaDailyMaxRanking } from "../../utils/jma";
 import { toStation } from "../../utils/masterUtils";
-import { PrefKey, PrefMeta, PrefValue } from "../../utils/pref";
+import { PrefKey, PrefMeta } from "../../utils/pref";
 import { RankKey, RankMeta } from "../../utils/rank";
 import { processRankingData } from "../../utils/rankingUtils";
 import { RegionKey, RegionMeta } from "../../utils/region";
@@ -32,7 +32,7 @@ interface MetricEntry {
 
 interface StationData {
   station_name: string;
-  pref: PrefValue;
+  pref: string;
   category: CategoryValue;
   av_hitemp?: MetricEntry;
   av_lwtemp?: MetricEntry;
