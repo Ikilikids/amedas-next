@@ -14,6 +14,8 @@ export interface RawData {
   meteoStations?: RawStationData[];
   badge?: RawBadgeData[];
   description?: DescriptionData;
+  history?: { date: string; temp: number }[];
+  stats?: { extremeHotDays: number; maxTempYear: number };
 }
 
 export type RawStationData = {

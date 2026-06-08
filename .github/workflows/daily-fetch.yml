@@ -1,0 +1,15 @@
+name: Daily AMeDAS Fetch
+
+on:
+  schedule:
+    # 毎日日本時間 午前1:00 (UTC 16:00) に実行
+    - cron: '0 16 * * *'
+  workflow_dispatch: # 手動実行ボタンも有効にする
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call AMeDAS Fetch API
+        run: |
+          curl -f "https://amedas-next--amedas-ppp.asia-east1.hosted.app/api/cron/fetch-amedas?secret=${{ secrets.CRON_SECRET }}"

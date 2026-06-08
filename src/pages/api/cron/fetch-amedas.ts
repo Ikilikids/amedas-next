@@ -23,8 +23,6 @@ export default async function handler(
 
   try {
     console.log("Fetching JMA data...");
-    // 気象庁から昨日の最高気温ランキング（全国）を取得
-    const rankings = await fetchJmaDailyMaxRanking();
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
@@ -32,9 +30,12 @@ export default async function handler(
     const dateStr = yesterday.toLocaleDateString("sv-SE", {
       timeZone: "Asia/Tokyo",
     });
+    const mmdd = dateStr.split("-").slice(1).join("");
+
+    // 気象庁から昨日の最高気温ランキング（全国）を取得
+    const rankings = await fetchJmaDailyMaxRanking(mmdd);
 
     console.log(`Processing ${rankings.length} stations for date: ${dateStr}`);
-
     const batchSize = 100;
     for (let i = 0; i < rankings.length; i += batchSize) {
       const chunk = rankings.slice(i, i + batchSize);

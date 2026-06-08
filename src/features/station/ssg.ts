@@ -1,17 +1,19 @@
 // features/station/ssg.ts
 
-import fs from "fs";
 import { GetStaticPaths, GetStaticProps } from "next";
-import path from "path";
 import { RawBadgeData, RawData, RawStationData } from "../../types/raw";
 import { OriginSimilarItem, StationId } from "../../types/union";
 import { BadgeLogic } from "../../utils/badgeLogic";
-import { METRIC_KEYS } from "../../utils/metric";
+import { db } from "../../utils/firebaseAdmin";
 import { getStation } from "../../utils/climateCache";
 import { assembleDisplayData } from "../../utils/rankingUtils";
 import { buildSimilar } from "./transformSimilar";
 
-import { ensureAllDataLoaded, loadMaster, readJson } from "../../utils/ssgLoader";
+import {
+  ensureAllDataLoaded,
+  loadMaster,
+  readJson,
+} from "../../utils/ssgLoader";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const master = loadMaster();
@@ -30,23 +32,36 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
 
   const master = loadMaster();
   const rawStationData = master[id];
-  
+
   if (!rawStationData) return { notFound: true };
+
+  // --- Firestoreから履歴と統計を取得 ---
+  let history = [];
+  let stats = null;
+  try {
+    const doc = await db.collection("stations").doc(id).get();
+    if (doc.exists) {
+      const data = doc.data();
+      history = data?.history || [];
+      stats = data?.stats || null;
+    }
+  } catch (e) {
+    console.error(`Failed to fetch firestore data for station ${id}:`, e);
+  }
 
   // --- キャッシュからこの地点のデータを取得 ---
   const integratedData = getStation(id);
-  const { overview, table, ratio, uonzu } = assembleDisplayData(integratedData as any);
+  const { overview, table, ratio, uonzu } = assembleDisplayData(
+    integratedData as any
+  );
 
   // --- 既存のSimilar等はそのまま ---
   const similarFile = readJson<any>("data", "similar", `${id}.json`);
   const rawSimilarAllItem: OriginSimilarItem[] = similarFile?.similar_all || [];
-  const rawSimilarMeteoItem: OriginSimilarItem[] = similarFile?.similar_meteo || [];
+  const rawSimilarMeteoItem: OriginSimilarItem[] =
+    similarFile?.similar_meteo || [];
 
-  const result = buildSimilar(
-    rawSimilarAllItem,
-    rawSimilarMeteoItem,
-    master
-  );
+  const result = buildSimilar(rawSimilarAllItem, rawSimilarMeteoItem, master);
 
   const rawSameStations: RawStationData[] = [];
   const rawMeteoStations: RawStationData[] = [];
@@ -80,6 +95,9 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       sameStations: rawSameStations,
       meteoStations: rawMeteoStations,
       badge: badgeinfo,
+      history,
+      stats,
     },
+    revalidate: 86400, // 24時間ごとに再生成
   };
 };

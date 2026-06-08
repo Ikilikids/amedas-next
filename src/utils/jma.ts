@@ -7,9 +7,12 @@ import { RankingItem } from "../components/Ranking/types";
 /**
  * 気象庁の最新の最高気温ランキングCSVを取得して解析する
  */
-export async function fetchJmaDailyMaxRanking(): Promise<RankingItem[]> {
-  const CSV_URL =
-    "https://www.data.jma.go.jp/stats/data/mdrr/tem_rct/alltable/mxtemsadext00_rct.csv";
+export async function fetchJmaDailyMaxRanking(
+  mmdd = null
+): Promise<RankingItem[]> {
+  const CSV_URL = mmdd
+    ? `https://www.data.jma.go.jp/stats/data/mdrr/tem_rct/alltable/mxtemsadext${mmdd}.csv`
+    : "https://www.data.jma.go.jp/stats/data/mdrr/tem_rct/alltable/mxtemsadext00_rct.csv";
 
   const res = await fetch(CSV_URL);
   if (!res.ok) throw new Error("JMA CSV data not found.");

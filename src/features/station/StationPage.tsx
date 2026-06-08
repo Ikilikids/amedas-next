@@ -10,6 +10,7 @@ import InfoPanel from "../../components/InfoPanel";
 import LayeredPieChart from "../../components/LayeredPieChart";
 import ChartControls from "../../components/LayeredPieChart/ChartControls";
 import { ChartType } from "../../components/LayeredPieChart/types";
+import RecentTrendChart from "../../components/RecentTrendChart";
 import StationMap from "../../components/StationMap";
 import UonzuChart from "../../components/UonzuChart";
 import Similar from "../../components/similar";
@@ -293,6 +294,26 @@ const StationPage = (props: RawData) => {
                 </div>
               </SectionWithDescription>
               <HyouTable tableData={tableData} rankValue={tableRankValue} />
+
+              {/* 最近のデータセクション */}
+              {props.history && props.history.length > 0 && (
+                <>
+                  <SectionWithDescription
+                    icon={<LuChartNoAxesCombined />}
+                    title="最近のデータ"
+                    bgColor={regionColor}
+                    description={[
+                      "・気象庁から取得した直近15日間の最高気温推移を表示しています。",
+                      "・右側の数値は今年の累計データ（1月1日〜）です。",
+                    ]}
+                  />
+                  <RecentTrendChart
+                    history={props.history}
+                    stats={props.stats}
+                    color={regionColor}
+                  />
+                </>
+              )}
             </div>
 
             <div className="flex-[1]">
