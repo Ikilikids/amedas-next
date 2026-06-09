@@ -84,10 +84,11 @@ export async function fetchJmaRealtime(): Promise<{
   );
   const isoTime = await timeRes.text();
   const formattedTime = isoTime.replace(/[-T:]/g, "").substring(0, 14);
-  const displayTime = new Date(isoTime).toLocaleString("ja-JP");
+  const displayTime = new Date(isoTime).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
   const observationTime = new Date(isoTime).toLocaleTimeString("ja-JP", {
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "Asia/Tokyo",
   });
 
   // 2. 全国データの取得

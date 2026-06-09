@@ -26,7 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   const id = params?.id as StationId;
-  console.log(`[ISR] Generating StationPage for ${id} at`, new Date().toLocaleString("ja-JP"));
+  console.log(`[ISR] Generating StationPage for ${id} at`, new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
 
   // 全データをキャッシュに埋める
   ensureAllDataLoaded();

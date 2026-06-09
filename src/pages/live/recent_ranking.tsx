@@ -441,11 +441,11 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  console.log("[ISR] Generating RecentRankingPage at", new Date().toLocaleString("ja-JP"));
+  console.log("[ISR] Generating RecentRankingPage at", new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
   try {
     const masterData = loadMaster();
     const rankingsSnapshot = await db.collection("rankings").get();
-    const lastUpdate = new Date().toLocaleString("ja-JP");
+    const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
 
     const stations: Record<string, StationData> = {};
 

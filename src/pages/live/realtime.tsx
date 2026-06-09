@@ -214,7 +214,7 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  console.log("[ISR] Generating RealtimePage at", new Date().toLocaleString("ja-JP"));
+  console.log("[ISR] Generating RealtimePage at", new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
   try {
     const masterData = loadMaster();
 
