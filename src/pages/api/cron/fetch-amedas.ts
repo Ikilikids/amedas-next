@@ -105,6 +105,7 @@ export default async function handler(
 
           if (update.hi > s.max_hitemp) {
             s.max_hitemp = update.hi;
+            s.max_hitemp_date = dateStr;
           }
         }
 
@@ -120,6 +121,7 @@ export default async function handler(
 
           if (update.lw < s.min_lwtemp) {
             s.min_lwtemp = update.lw;
+            s.min_lwtemp_date = dateStr;
           }
         }
 
@@ -150,6 +152,16 @@ export default async function handler(
         data.history.sort((a: any, b: any) => b.date.localeCompare(a.date));
         data.history = data.history.slice(0, 15);
 
+        // 降水量移動合計の更新
+        const rain7 = data.history
+          .slice(0, 7)
+          .reduce((sum: number, h: any) => sum + (h.rain || 0), 0);
+        const rain15 = data.history.reduce(
+          (sum: number, h: any) => sum + (h.rain || 0), 0
+        );
+        s.rain_7d = Math.round(rain7 * 10) / 10;
+        s.rain_15d = Math.round(rain15 * 10) / 10;
+
         data.lastUpdate = new Date().toISOString();
         data.stationId = id;
 
@@ -163,6 +175,57 @@ export default async function handler(
           stationIds.length
         )} stations)...`
       );
+    }
+
+    // --- 4. 全地点の統計データ集計と保存 ---
+    console.log("Generating separate documents for each metric ranking...");
+
+    // 対象とする全項目の定義
+    const rankingMetrics = [
+      { key: "max_hitemp", hasDate: true },
+      { key: "min_lwtemp", hasDate: true },
+      { key: "hitemp_40", hasDate: false },
+      { key: "hitemp_35", hasDate: false },
+      { key: "hitemp_30", hasDate: false },
+      { key: "hitemp_25", hasDate: false },
+      { key: "hitemp_0", hasDate: false },
+      { key: "lwtemp_25", hasDate: false },
+      { key: "lwtemp_0", hasDate: false },
+      { key: "rain_7d", hasDate: false },
+      { key: "rain_15d", hasDate: false },
+      { key: "sm_rain", hasDate: false },
+    ];
+
+    const allStationsSnapshot = await db
+      .collection("stations")
+      .select("stats")
+      .get();
+
+    const allStatsData: Array<{ id: string; stats: any }> = [];
+    allStationsSnapshot.forEach((doc) => {
+      allStatsData.push({ id: doc.id, stats: doc.data().stats || {} });
+    });
+
+    const updatedAt = new Date().toISOString();
+
+    for (const metric of rankingMetrics) {
+      const list = allStatsData
+        .filter((s) => s.stats[metric.key] !== undefined && s.stats[metric.key] !== null)
+        .map((s) => ({
+          id: s.id,
+          val: s.stats[metric.key],
+          ...(metric.hasDate && s.stats[metric.key + "_date"]
+            ? { d: s.stats[metric.key + "_date"] }
+            : {}),
+        }));
+
+      if (list.length > 0) {
+        await db.collection("rankings").doc(metric.key).set({
+          updatedAt,
+          list,
+        });
+        console.log(`Saved stats list: ${metric.key} (${list.length} stations)`);
+      }
     }
 
     return res.status(200).json({ success: true, count: stationIds.length });

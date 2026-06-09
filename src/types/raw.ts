@@ -13,24 +13,8 @@ export interface RawData {
   meteoStations?: RawStationData[];
   badge?: RawBadgeData[];
   description?: DescriptionData;
-  history?: {
-    date: string;
-    hi: number | null;
-    lw: number | null;
-    rain: number | null;
-  }[];
-  stats?: {
-    hitemp_40?: number;
-    hitemp_35?: number;
-    hitemp_30?: number;
-    hitemp_25?: number;
-    hitemp_0?: number;
-    max_hitemp?: number;
-    lwtemp_25?: number;
-    lwtemp_0?: number;
-    min_lwtemp?: number;
-    sm_rain?: number;
-  };
+  history?: RawHistoryData[];
+  stats?: RawStatusData;
 }
 
 export type RawStationData = {
@@ -50,6 +34,25 @@ export type RawOverviewData = Record<string, RankedValue>;
 export type RawUonzuData = Record<string, number[]>;
 export type RawTableData = Record<string, MonthlyEntry[]>;
 export type RawRatioData = Record<string, MonthlyEntry[]>;
+export interface RawHistoryData {
+  date: string;
+  hi: number | null;
+  lw: number | null;
+  rain: number | null;
+}
+
+export interface RawStatusData {
+  hitemp_40?: number;
+  hitemp_35?: number;
+  hitemp_30?: number;
+  hitemp_25?: number;
+  hitemp_0?: number;
+  max_hitemp?: number;
+  lwtemp_25?: number;
+  lwtemp_0?: number;
+  min_lwtemp?: number;
+  sm_rain?: number;
+}
 
 export interface RawBadgeData {
   metric: string;

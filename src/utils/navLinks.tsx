@@ -39,6 +39,13 @@ export const searchLinks: NavLink[] = [
     iconClass: "text-orange-500",
   },
   {
+    href: "/live/recent_ranking",
+    Icon: <IoIosTrophy />,
+    title: "通年・最近のランキング",
+    description: "今年の最高気温や降水量などの累計データ",
+    iconClass: "text-yellow-600",
+  },
+  {
     href: "/clim_ranking",
     Icon: <IoIosTrophy />,
     title: "平年値ランキング",

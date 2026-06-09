@@ -33,6 +33,7 @@ ChartJS.register(
 interface UonzuChartProps {
   uonzuData: UonzuData;
   selectedBar: MetricMeta;
+  labels?: string[]; // Optional: defaults to 1..12
   height?: string;
   hideLegend?: boolean;
 }
@@ -43,26 +44,31 @@ interface UonzuChartProps {
 const UonzuChart: React.FC<UonzuChartProps> = ({
   uonzuData,
   selectedBar,
+  labels,
   height = "350px",
   hideLegend = false,
 }) => {
-  const months = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
+  const isDaily = !!labels;
+  const defaultMonths = Array.from({ length: 12 }, (_, i) =>
+    (i + 1).toString()
+  );
+  const displayLabels = labels || defaultMonths;
 
   // ===== データ取得 =====
-  const temps = uonzuData.get(MetricKey.av_avtemp) ?? [];
-  const lows = uonzuData.get(MetricKey.av_lwtemp) ?? [];
-  const highs = uonzuData.get(MetricKey.av_hitemp) ?? [];
+  const temps = uonzuData.get(MetricKey.av_avtemp);
+  const lows = uonzuData.get(MetricKey.av_lwtemp);
+  const highs = uonzuData.get(MetricKey.av_hitemp);
   const bars = uonzuData.get(selectedBar) ?? [];
-
+  const threshold = isDaily ? 200 : 500;
   // ===== 棒グラフ切り替え =====
   const getBarData = () => {
-    const maxBar = Math.max(...bars);
+    const maxBar = bars.length > 0 ? Math.max(...bars.map((v) => v || 0)) : 0;
     const category = METRIC_CATEGORY_KEYS[selectedBar.category];
 
     let backgroundColor = category.color + "99"; // Add transparency
 
     // 特殊ルール: 降水量が多すぎる場合は色を濃くする (既存ロジックの継承)
-    if (selectedBar.key === "sm_rain" && maxBar > 500) {
+    if (selectedBar.key === "sm_rain" && maxBar > threshold) {
       backgroundColor = "rgba(100,100,255,0.6)";
     }
 
@@ -76,42 +82,67 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
   };
 
   const barData = getBarData();
-  const maxBarValue = Math.max(...barData.data);
+  const maxBarValue =
+    bars.length > 0 ? Math.max(...bars.map((v) => v || 0)) : 0;
+
+  const barMax = maxBarValue > threshold ? threshold * 2 : threshold;
+
+  const barStepSize = barMax / 10;
+
+  const datasets: any[] = [
+    {
+      ...barData,
+      yAxisID: "bar",
+      type: "bar" as const,
+      borderWidth: 1,
+    },
+  ];
+
+  if (temps) {
+    datasets.push({
+      label: "平均気温 (℃)",
+      data: temps,
+      yAxisID: "temp",
+      type: "line" as const,
+      borderColor: "rgba(255, 175, 0, 0.9)",
+      backgroundColor: "rgba(255, 175, 0, 0.9)",
+      borderWidth: 2,
+      pointRadius: 2,
+      tension: 0.3,
+    });
+  }
+
+  if (lows) {
+    datasets.push({
+      label: "最低気温 (℃)",
+      data: lows,
+      yAxisID: "temp",
+      type: "line" as const,
+      borderColor: "rgba(75, 75, 255, 0.9)",
+      backgroundColor: "rgba(75, 75, 255, 0.9)",
+      borderWidth: 2,
+      pointRadius: 2,
+      tension: 0.3,
+    });
+  }
+
+  if (highs) {
+    datasets.push({
+      label: "最高気温 (℃)",
+      data: highs,
+      yAxisID: "temp",
+      type: "line" as const,
+      borderColor: "rgba(255, 75, 75, 0.9)",
+      backgroundColor: "rgba(255, 75, 75, 0.9)",
+      borderWidth: 2,
+      pointRadius: 2,
+      tension: 0.3,
+    });
+  }
 
   const chartData = {
-    labels: months,
-    datasets: [
-      {
-        ...barData,
-        yAxisID: "bar",
-        type: "bar" as const,
-        borderWidth: 1,
-      },
-      {
-        label: "平均気温 (℃)",
-        data: temps,
-        yAxisID: "temp",
-        type: "line" as const,
-        borderColor: "rgba(255, 175, 0, 0.9)",
-        tension: 0.3,
-      },
-      {
-        label: "最低気温 (℃)",
-        data: lows,
-        yAxisID: "temp",
-        type: "line" as const,
-        borderColor: "rgba(75, 75, 255, 0.9)",
-        tension: 0.3,
-      },
-      {
-        label: "最高気温 (℃)",
-        data: highs,
-        yAxisID: "temp",
-        type: "line" as const,
-        borderColor: "rgba(255, 75, 75, 0.9)",
-        tension: 0.3,
-      },
-    ],
+    labels: displayLabels,
+    datasets,
   };
 
   const options = {
@@ -120,29 +151,40 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
     maintainAspectRatio: false,
     scales: {
       x: {
+        grid: { display: false },
         ticks: {
           autoSkip: false,
           maxRotation: 0,
           minRotation: 0,
+          color: "#64748b",
+          font: { size: 10 },
         },
       },
       bar: {
         type: "linear" as const,
         position: "left" as const,
         min: 0,
-        max: maxBarValue > 500 ? 1000 : 500,
+        max: barMax,
+        grid: { drawOnChartArea: false },
+
         ticks: {
-          stepSize: maxBarValue > 500 ? 100 : 50,
+          stepSize: barStepSize,
+          color: "#64748b",
+          font: { size: 10 },
+          callback: (value: any) => `${value}`,
         },
       },
       temp: {
         type: "linear" as const,
         position: "right" as const,
-        min: -15,
-        max: 35,
-        grid: { drawOnChartArea: false },
+        min: -20,
+        max: 40,
+        grid: { color: "#f1f5f9" },
         ticks: {
           stepSize: 5,
+          color: "#64748b",
+          font: { size: 10 },
+          callback: (value: any) => `${value}`,
         },
       },
     },
@@ -152,8 +194,18 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
         position: "bottom" as const,
         labels: {
           boxWidth: 12,
-          padding: 20,
+          padding: 15,
+          font: { size: 11 },
         },
+      },
+      tooltip: {
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        titleColor: "#334155",
+        bodyColor: "#475569",
+        borderColor: "#e2e8f0",
+        borderWidth: 1,
+        padding: 12,
+        cornerRadius: 8,
       },
     },
   };

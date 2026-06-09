@@ -4,8 +4,8 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { RawBadgeData, RawData, RawStationData } from "../../types/raw";
 import { OriginSimilarItem, StationId } from "../../types/union";
 import { BadgeLogic } from "../../utils/badgeLogic";
-import { db } from "../../utils/firebaseAdmin";
 import { getStation } from "../../utils/climateCache";
+import { db } from "../../utils/firebaseAdmin";
 import { assembleDisplayData } from "../../utils/rankingUtils";
 import { buildSimilar } from "./transformSimilar";
 
