@@ -1,12 +1,14 @@
-import { StationId, MonthlyEntry } from "../types/union";
 import { RawStationData } from "../types/raw";
+import { MonthlyEntry, StationId } from "../types/union";
 import { MetricValue } from "./metric";
 import { integrateSingleMetric } from "./rankingUtils";
 
 /**
  * 全体から参照できる変数 (キャッシュ)
  */
-let climateCache: Record<string, Record<string, MonthlyEntry[]>> | null = null;
+let climateCache: Partial<
+  Record<MetricValue, Record<StationId, MonthlyEntry[]>>
+> | null = null;
 let stationsMaster: Record<StationId, RawStationData> | null = null;
 
 /**
@@ -19,7 +21,7 @@ export function setMaster(master: Record<StationId, RawStationData>) {
 /**
  * 地点マスターを取得する
  */
-export function getMaster() {
+export function getMaster(): Record<StationId, RawStationData> | null {
   return stationsMaster;
 }
 
@@ -39,19 +41,23 @@ export function getClimate(
   master: Record<StationId, RawStationData>,
   rawData: Record<StationId, number[]>
 ): Record<StationId, MonthlyEntry[]> {
-  
   // 初期化
   if (!climateCache) {
     climateCache = {};
   }
 
   // 1. キャッシュがあればそれを返す
-  if (climateCache[metric]) {
-    return climateCache[metric];
+  const cached = climateCache[metric];
+  if (cached) {
+    return cached;
   }
 
   // 2. 順位計算を実行
-  const result = integrateSingleMetric(metric, rawData, master);
+  const result: Record<StationId, MonthlyEntry[]> = integrateSingleMetric(
+    metric,
+    rawData,
+    master
+  );
 
   // 3. キャッシュに格納して返す
   climateCache[metric] = result;
@@ -61,14 +67,17 @@ export function getClimate(
 /**
  * 地点IDから、ロード済みの全データを取得する
  */
-export function getStation(stationId: StationId): Record<string, MonthlyEntry[]> {
+export function getStation(
+  stationId: StationId
+): Record<string, MonthlyEntry[]> {
   const result: Record<string, MonthlyEntry[]> = {};
-  
+
   if (!climateCache) return result;
 
-  Object.keys(climateCache).forEach((m) => {
-    if (climateCache![m][stationId]) {
-      result[m] = climateCache![m][stationId];
+  (Object.keys(climateCache) as MetricValue[]).forEach((m) => {
+    const metricData = climateCache![m];
+    if (metricData && metricData[stationId]) {
+      result[m] = metricData[stationId];
     }
   });
   return result;

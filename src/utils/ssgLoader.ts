@@ -22,7 +22,10 @@ export function loadMaster(): Record<StationId, RawStationData> {
   if (cached) return cached as Record<StationId, RawStationData>;
 
   const master: Record<StationId, RawStationData> = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), "public", "stations.json"), "utf-8")
+    fs.readFileSync(
+      path.join(process.cwd(), "public", "stations.json"),
+      "utf-8"
+    )
   );
   setMaster(master);
   return master;
@@ -38,7 +41,9 @@ export function ensureAllDataLoaded() {
   METRIC_KEYS.forEach((m) => {
     const p = path.join(rankingDir, `${m}.json`);
     if (fs.existsSync(p)) {
-      const rawData = JSON.parse(fs.readFileSync(p, "utf-8"));
+      const rawData: Record<StationId, number[]> = JSON.parse(
+        fs.readFileSync(p, "utf-8")
+      );
       // キャッシュ管理と計算を唯一の関数 getClimate で行う
       getClimate(m, master, rawData);
     }

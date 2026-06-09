@@ -26,6 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   const id = params?.id as StationId;
+  console.log(`[ISR] Generating StationPage for ${id} at`, new Date().toLocaleString("ja-JP"));
 
   // 全データをキャッシュに埋める
   ensureAllDataLoaded();
@@ -98,6 +99,6 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       history,
       stats,
     },
-    revalidate: 86400, // 24時間ごとに再生成
+    revalidate: 3600, // 24時間ごとに再生成
   };
 };

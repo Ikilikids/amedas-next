@@ -441,6 +441,7 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  console.log("[ISR] Generating RecentRankingPage at", new Date().toLocaleString("ja-JP"));
   try {
     const masterData = loadMaster();
     const rankingsSnapshot = await db.collection("rankings").get();

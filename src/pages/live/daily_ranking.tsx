@@ -351,6 +351,7 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  console.log("[ISR] Generating DailyRankingPage at", new Date().toLocaleString("ja-JP"));
   try {
     const masterData = loadMaster();
     const result = await fetchJmaDailyMaxRanking(null);

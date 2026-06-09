@@ -214,6 +214,7 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  console.log("[ISR] Generating RealtimePage at", new Date().toLocaleString("ja-JP"));
   try {
     const masterData = loadMaster();
 

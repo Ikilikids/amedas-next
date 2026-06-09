@@ -20,9 +20,9 @@ export async function fetchJmaDailyMaxRanking(mmdd: string | null): Promise<{
     };
     const { type, file } = config[metric];
     const Time = mmdd ? mmdd : "00_rct";
-    const CSV_URL = `https://www.data.jma.go.jp/stats/data/mdrr/${type}_rct/alltable/${file}${Time}.csv`;
+    const CSV_URL = `https://www.data.jma.go.jp/stats/data/mdrr/${type}_rct/alltable/${file}${Time}.csv?t=${Date.now()}`;
 
-    const res = await fetch(CSV_URL);
+    const res = await fetch(CSV_URL, { cache: "no-store" });
     if (!res.ok) throw new Error(`JMA CSV data not found: ${CSV_URL}`);
 
     const buffer = await res.arrayBuffer();
@@ -79,7 +79,8 @@ export async function fetchJmaRealtime(): Promise<{
 }> {
   // 1. 最新時刻の取得
   const timeRes = await fetch(
-    "https://www.jma.go.jp/bosai/amedas/data/latest_time.txt"
+    `https://www.jma.go.jp/bosai/amedas/data/latest_time.txt?t=${Date.now()}`,
+    { cache: "no-store" }
   );
   const isoTime = await timeRes.text();
   const formattedTime = isoTime.replace(/[-T:]/g, "").substring(0, 14);
@@ -91,9 +92,11 @@ export async function fetchJmaRealtime(): Promise<{
 
   // 2. 全国データの取得
   const dataRes = await fetch(
-    `https://www.jma.go.jp/bosai/amedas/data/map/${formattedTime}.json`
+    `https://www.jma.go.jp/bosai/amedas/data/map/${formattedTime}.json?t=${Date.now()}`,
+    { cache: "no-store" }
   );
   const allData = await dataRes.json();
+
 
   const stations: RankingItem[] = Object.keys(allData).map((id) => ({
     id,
