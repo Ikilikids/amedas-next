@@ -479,7 +479,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         stations,
         lastUpdate,
       },
-      revalidate: 3600, // 1時間ごとに再生成
+      revalidate: 10, // 10秒ごとに再生成
     };
   } catch (error) {
     console.error("Failed to load recent-ranking data:", error);

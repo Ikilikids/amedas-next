@@ -393,7 +393,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         stations,
         lastUpdate,
       },
-      revalidate: 1800,
+      revalidate: 10,
     };
   } catch (error) {
     console.error("Failed to load daily-ranking data:", error);

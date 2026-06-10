@@ -6,6 +6,20 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // マルチインスタンスでのキャッシュ整合性を保つためのビルドID固定
+  generateBuildId: async () => {
+    return process.env.GIT_COMMIT_SHA || 'amedas-next-build';
+  },
+  logging: {
+    fetches: {
+      fullUrl: false,
+    },
+  },
+  experimental: {
+    // サーバーレス環境でのメモリリーク防止とディスクキャッシュ活用
+    isrMemoryCacheSize: 50, // メモリキャッシュを絞り、ディスク/プラットフォームキャッシュを優先
+    isrFlushToDisk: true,
+  },
   async headers() {
     return [
       {

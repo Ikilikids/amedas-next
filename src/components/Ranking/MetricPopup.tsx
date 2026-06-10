@@ -34,9 +34,15 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
     initialMetricKey
   );
 
-  useEffect(() => {
+  // レンダリング中にPropsの変更を検知して状態を同期 (React 19 推奨パターン)
+  const [prevProps, setPrevProps] = useState({ initialMetricKey, isOpen });
+  if (
+    isOpen !== prevProps.isOpen ||
+    initialMetricKey !== prevProps.initialMetricKey
+  ) {
+    setPrevProps({ initialMetricKey, isOpen });
     setSelectedKey(initialMetricKey);
-  }, [initialMetricKey, isOpen]);
+  }
 
   const groupedMetrics = useMemo(() => {
     return Object.values(MetricKey).reduce((acc, key) => {

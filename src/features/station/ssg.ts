@@ -97,7 +97,13 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       badge: badgeinfo,
       history,
       stats,
+      // デバッグ用: いつ、どのインスタンスで生成されたか
+      _isr: {
+        generatedAt: new Date().toISOString(),
+        instance: process.env.HOSTNAME || "local",
+        buildId: process.env.NEXT_PUBLIC_BUILD_ID || "static",
+      }
     },
-    revalidate: 86400, // 24時間ごとに再生成
+    revalidate: 10, // 10秒ごとに再生成
   };
 };

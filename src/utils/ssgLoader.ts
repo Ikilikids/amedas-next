@@ -32,15 +32,25 @@ export function loadMaster(): Record<StationId, RawStationData> {
  * ビルド時に全ランキングデータをキャッシュに埋める
  */
 export function ensureAllDataLoaded() {
+  const start = Date.now();
   const master = loadMaster();
 
   const rankingDir = path.join(process.cwd(), "public/ranking_not_null");
+  let loadedCount = 0;
+
   METRIC_KEYS.forEach((m) => {
+    // すでにキャッシュにあれば読み込みをスキップ (ISR時の最重要最適化)
+    if (hasMetric(m)) return;
+
     const p = path.join(rankingDir, `${m}.json`);
     if (fs.existsSync(p)) {
       const rawData = JSON.parse(fs.readFileSync(p, "utf-8"));
-      // キャッシュ管理と計算を唯一の関数 getClimate で行う
       getClimate(m, master, rawData);
+      loadedCount++;
     }
   });
+
+  if (loadedCount > 0) {
+    console.log(`[ISR_OPTIMIZER] Loaded ${loadedCount} metrics in ${Date.now() - start}ms`);
+  }
 }

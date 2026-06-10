@@ -38,14 +38,18 @@ const Ranking: React.FC<RankingProps> = ({
     null
   );
 
-  // Simpleモード時に外部からの変更を反映
-  useEffect(() => {
-    if (isSimple) {
-      setSortKey(initialSortKey);
-      setRankType(initialRankType);
-      setSelectedMonth(initialMonth);
-    }
-  }, [isSimple, initialSortKey, initialRankType, initialMonth]);
+  // Simpleモード時に外部からの変更を反映 (レンダリング中に同期)
+  const [prevInit, setPrevInit] = useState({ initialSortKey, initialRankType, initialMonth });
+  if (isSimple && (
+    initialSortKey !== prevInit.initialSortKey ||
+    initialRankType !== prevInit.initialRankType ||
+    initialMonth !== prevInit.initialMonth
+  )) {
+    setPrevInit({ initialSortKey, initialRankType, initialMonth });
+    setSortKey(initialSortKey);
+    setRankType(initialRankType);
+    setSelectedMonth(initialMonth);
+  }
 
   const { stations } = useRankingData(
     sortKey,

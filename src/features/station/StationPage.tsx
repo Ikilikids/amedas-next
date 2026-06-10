@@ -37,6 +37,8 @@ import {
 } from "../../utils/metric";
 import { RankKey, RankValue, isIslandId } from "../../utils/rank";
 
+const BASE_RANK_VALUES: RankValue[] = ["top", "bot", "region", "pre"];
+
 const StationPage = (props: RawData) => {
   const allData: AllData = useMemo(() => toAllData(props), [props]);
 
@@ -73,14 +75,16 @@ const StationPage = (props: RawData) => {
       });
   }, [uonzuData]);
 
-  // Ensure selectedBar is valid when uonzuOptions change
-  useEffect(() => {
+  // レンダリング中にProps/Optionsの変更を検知して状態を同期 (React 19 推奨パターン)
+  const [prevUonzuOptions, setPrevUonzuOptions] = useState(uonzuOptions);
+  if (uonzuOptions !== prevUonzuOptions) {
+    setPrevUonzuOptions(uonzuOptions);
     if (!uonzuOptions.some((opt) => opt.key === selectedBar.key)) {
       if (uonzuOptions.length > 0) {
         setSelectedBar(uonzuOptions[0].meta);
       }
     }
-  }, [uonzuOptions, selectedBar.key]);
+  }
 
   // Ratio Chart States
   const [ratioMonth, setRatioMonth] = useState<number | null>(null);
@@ -123,35 +127,31 @@ const StationPage = (props: RawData) => {
     });
   }, [ratioData]);
 
-  useEffect(() => {
-    setRatioType(null);
-  }, [stationData.id]);
-  // ★これが本体
-  useEffect(() => {
-    if (
-      ratioType === null ||
-      !typeOptions.some((opt) => opt.key === ratioType)
-    ) {
-      setRatioType(typeOptions[0]?.key ?? null);
+  // レンダリング中に同期
+  const [prevSync, setPrevSync] = useState({ id: stationData.id, options: typeOptions });
+  if (stationData.id !== prevSync.id || typeOptions !== prevSync.options) {
+    setPrevSync({ id: stationData.id, options: typeOptions });
+    if (stationData.id !== prevSync.id) {
+       setRatioType(typeOptions[0]?.key ?? null);
+    } else if (ratioType === null || !typeOptions.some((opt) => opt.key === ratioType)) {
+       setRatioType(typeOptions[0]?.key ?? null);
     }
-  }, [typeOptions, ratioType]);
+  }
 
   const isMeteo = stationData.category === CATEGORY_KEYS.meteo;
   const isIsland = isIslandId(stationData.id);
 
-  const baseRankValues: RankValue[] = ["top", "bot", "region", "pre"];
-
   const ratioRankOptions = useMemo(() => {
-    const rankValues = new Set<RankValue>(baseRankValues);
+    const rankValues = new Set<RankValue>(BASE_RANK_VALUES);
 
     if (isMeteo) rankValues.add("meteo");
     if (!isIsland && ratioType === "気温日数") rankValues.add("island");
 
     return Array.from(rankValues);
-  }, [ratioType]);
+  }, [ratioType, isMeteo, isIsland]);
 
   const tableRankOptions = useMemo(() => {
-    const rankValues = new Set<RankValue>(baseRankValues);
+    const rankValues = new Set<RankValue>(BASE_RANK_VALUES);
 
     if (isMeteo) rankValues.add("meteo");
     if (
@@ -161,7 +161,7 @@ const StationPage = (props: RawData) => {
       rankValues.add("island");
 
     return Array.from(rankValues);
-  }, [tableData]);
+  }, [tableData, isMeteo, isIsland]);
 
   return (
     <>

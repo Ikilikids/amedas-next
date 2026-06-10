@@ -67,6 +67,7 @@ const RankBadge = (props: BadgeData) => {
   const rank = props.rank;
   const isHigh = props.isHigh;
   const metricKey = props.metric;
+  const uid = useId();
 
   const colors = medalColors[rank] || medalColors.bronze;
 
@@ -74,7 +75,6 @@ const RankBadge = (props: BadgeData) => {
   if (!Icon) return null;
 
   const size = 40;
-  const uid = useId();
   const medalGradId = `medal-${uid}`;
   const shineGradId = `shine-${uid}`;
   const rainbowGradId = `rainbow-${uid}`;

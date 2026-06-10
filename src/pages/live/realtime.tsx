@@ -239,7 +239,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         stations,
         lastUpdate,
       },
-      revalidate: 600,
+      revalidate: 10,
     };
   } catch (error) {
     console.error("Failed to load realtime data:", error);

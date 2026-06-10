@@ -43,7 +43,7 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
       });
     });
     return options;
-  }, [ratioMap]);
+  }, [ratioInfo]);
 
   const [selectedBar, setSelectedBar] = useState<string>(
     visualOptions[0]?.value || "rain"

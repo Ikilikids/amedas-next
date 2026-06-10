@@ -20,8 +20,6 @@ const LayeredPieChart: React.FC<
   rankType,
   layout = "horizontal",
 }) => {
-  if (!ratioInfo) return null;
-
   const groupedData = useMemo(() => {
     const map = new Map<MetricTab, Map<MetricMeta, MonthlyEntry[]>>();
     if (ratioData) {
@@ -39,13 +37,15 @@ const LayeredPieChart: React.FC<
   const data = useMemo(
     () =>
       prepareChartData(
-        groupedData.get(ratioInfo.metricTab) || null,
+        groupedData.get(ratioInfo?.metricTab || (null as any)) || null,
         ratioInfo,
         selectedMonth,
         rankType
       ),
     [groupedData, ratioInfo, selectedMonth, rankType]
   );
+
+  if (!ratioInfo) return null;
 
   const containerClass =
     layout === "vertical"

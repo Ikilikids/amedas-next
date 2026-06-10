@@ -86,5 +86,6 @@ export const getFeatureStaticProps =
         data: result,
         featureName,
       },
+      revalidate: 10,
     };
   };

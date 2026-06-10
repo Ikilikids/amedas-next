@@ -34,6 +34,39 @@ interface RecentTrendChartProps {
   color: string;
 }
 
+const StatBox = ({
+  label,
+  value,
+  unit,
+  color,
+  bgColor,
+  borderColor,
+}: {
+  label: string;
+  value: number | string | undefined;
+  unit: string;
+  color: string;
+  bgColor: string;
+  borderColor: string;
+  date?: string;
+}) => (
+  <div
+    className="px-3 py-1.5 rounded-lg border min-w-[80px] text-center"
+    style={{ backgroundColor: bgColor, borderColor: borderColor }}
+  >
+    <span className="text-[10px] font-bold block" style={{ color: color }}>
+      {label}
+    </span>
+    <span
+      className="text-lg font-black block leading-tight"
+      style={{ color: color }}
+    >
+      {value === -99 || value === 99 || value === undefined ? "---" : value}
+      <small className="text-[10px] ml-0.5">{unit}</small>
+    </span>
+  </div>
+);
+
 const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
   history,
   stats,
@@ -63,40 +96,6 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
   if (rainValues.some((v) => v !== null)) {
     uonzuMap.set(MetricKey.sm_rain, rainValues);
   }
-
-  const StatBox = ({
-    label,
-    value,
-    unit,
-    color,
-    bgColor,
-    borderColor,
-    date,
-  }: {
-    label: string;
-    value: number | string | undefined;
-    unit: string;
-    color: string;
-    bgColor: string;
-    borderColor: string;
-    date?: string;
-  }) => (
-    <div
-      className="px-3 py-1.5 rounded-lg border min-w-[80px] text-center"
-      style={{ backgroundColor: bgColor, borderColor: borderColor }}
-    >
-      <span className="text-[10px] font-bold block" style={{ color: color }}>
-        {label}
-      </span>
-      <span
-        className="text-lg font-black block leading-tight"
-        style={{ color: color }}
-      >
-        {value === -99 || value === 99 || value === undefined ? "---" : value}
-        <small className="text-[10px] ml-0.5">{unit}</small>
-      </span>
-    </div>
-  );
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mt-2">
