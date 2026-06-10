@@ -214,11 +214,8 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
-  console.log(`[ISR_SYSTEM_MONITOR] Starting RealtimePage generation at ${timestamp}`);
   try {
     const masterData = loadMaster();
-
     const result = await fetchJmaRealtime();
     const rawStations = result.stations;
     const lastUpdate = result.lastUpdate;
@@ -236,18 +233,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         };
       });
 
-    console.log(`[ISR_SYSTEM_MONITOR] SUCCESS: RealtimePage generated at ${timestamp} with ${stations.length} stations.`);
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 60,
+      revalidate: 600,
     };
-  } catch (error: any) {
-    console.error(`[ISR_SYSTEM_MONITOR] FATAL_ERROR: RealtimePage failure at ${timestamp}:`, error?.message || error);
-    // 失敗しても現在のデータを維持するために、実行を継続する（ただしNext.jsはエラー時キャッシュを更新しない）
-    throw error;
+  } catch (error) {
+    console.error("[ISR Error] Failed to load realtime data:", error);
+    return { notFound: true };
   }
 };
 

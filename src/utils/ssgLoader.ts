@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
-import { getClimate, getMaster, setMaster } from "./climateCache";
+import { getClimate, getMaster, setMaster, hasMetric } from "./climateCache";
 import { METRIC_KEYS } from "./metric";
 
 /**
@@ -32,20 +32,33 @@ export function loadMaster(): Record<StationId, RawStationData> {
 }
 
 /**
- * ビルド時に全ランキングデータをキャッシュに埋める
+ * ビルド時またはISR実行時に全ランキングデータをキャッシュに埋める
  */
 export function ensureAllDataLoaded() {
   const master = loadMaster();
 
   const rankingDir = path.join(process.cwd(), "public/ranking_not_null");
+  
+  // すべてのメトリクスがすでにキャッシュされているかチェック
+  const allLoaded = METRIC_KEYS.every(m => hasMetric(m));
+  if (allLoaded) {
+    return;
+  }
+
   METRIC_KEYS.forEach((m) => {
+    // 個別にキャッシュチェック（すでにメモリにあればディスクを読み込まない）
+    if (hasMetric(m)) return;
+
     const p = path.join(rankingDir, `${m}.json`);
     if (fs.existsSync(p)) {
-      const rawData: Record<StationId, number[]> = JSON.parse(
-        fs.readFileSync(p, "utf-8")
-      );
-      // キャッシュ管理と計算を唯一の関数 getClimate で行う
-      getClimate(m, master, rawData);
+      try {
+        const rawData: Record<StationId, number[]> = JSON.parse(
+          fs.readFileSync(p, "utf-8")
+        );
+        getClimate(m, master, rawData);
+      } catch (e) {
+        console.error(`[ISR_SYSTEM_MONITOR] Failed to load ranking JSON for ${m}:`, e);
+      }
     }
   });
 }

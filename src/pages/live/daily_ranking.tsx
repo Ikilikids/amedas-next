@@ -351,12 +351,10 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
-  console.log(`[ISR_SYSTEM_MONITOR] Starting DailyRankingPage generation at ${timestamp}`);
   try {
     const masterData = loadMaster();
     const result = await fetchJmaDailyMaxRanking(null);
-    const lastUpdate = timestamp;
+    const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
 
     const stations: Record<string, StationData> = {};
 
@@ -390,17 +388,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     mergeData("av_lwtemp", result.av_lwtemp);
     mergeData("sm_rain", result.sm_rain);
 
-    console.log(`[ISR_SYSTEM_MONITOR] SUCCESS: DailyRankingPage generated at ${timestamp}. Stations merged: ${Object.keys(stations).length}`);
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 60,
+      revalidate: 1800,
     };
-  } catch (error: any) {
-    console.error(`[ISR_SYSTEM_MONITOR] FATAL_ERROR: DailyRankingPage failure at ${timestamp}:`, error?.message || error);
-    throw error;
+  } catch (error) {
+    console.error("[ISR Error] Failed to load daily-ranking data:", error);
+    return { notFound: true };
   }
 };
 

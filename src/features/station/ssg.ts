@@ -26,8 +26,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   const id = params?.id as StationId;
-  const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
-  console.log(`[ISR_SYSTEM_MONITOR] Starting StationPage generation for ${id} at ${timestamp}`);
   
   try {
     // 全データをキャッシュに埋める
@@ -36,10 +34,7 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
     const master = loadMaster();
     const rawStationData = master[id];
 
-    if (!rawStationData) {
-      console.warn(`[ISR_SYSTEM_MONITOR] Station ${id} not found in master.`);
-      return { notFound: true };
-    }
+    if (!rawStationData) return { notFound: true };
 
     // --- Firestoreから履歴と統計を取得 ---
     let history: any[] = [];
@@ -51,8 +46,8 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
         history = data?.history || [];
         stats = data?.stats || null;
       }
-    } catch (e: any) {
-      console.error(`[ISR_SYSTEM_MONITOR] Firestore FETCH_ERROR for ${id}:`, e?.message || e);
+    } catch (e) {
+      console.error(`[ISR Error] Failed to fetch Firestore data for ${id}:`, e);
     }
 
     // --- キャッシュからこの地点のデータを取得 ---
@@ -89,9 +84,8 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       ratio as any
     );
 
-    const lastUpdate = timestamp;
+    const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
 
-    console.log(`[ISR_SYSTEM_MONITOR] SUCCESS: StationPage generated for ${id} at ${timestamp}`);
     return {
       props: {
         station: rawStationData,
@@ -108,10 +102,10 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
         stats,
         lastUpdate,
       },
-      revalidate: 60,
+      revalidate: 3600,
     };
-  } catch (error: any) {
-    console.error(`[ISR_SYSTEM_MONITOR] FATAL_ERROR: StationPage failure for ${id} at ${timestamp}:`, error?.message || error);
-    throw error;
+  } catch (error) {
+    console.error(`[ISR Error] Fatal error in StationPage ${id}:`, error);
+    return { notFound: true };
   }
 };
