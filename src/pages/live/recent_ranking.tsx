@@ -441,11 +441,12 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  console.log("[ISR] Generating RecentRankingPage at", new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
+  const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+  console.log(`[ISR_SYSTEM_MONITOR] Starting RecentRankingPage generation at ${timestamp}`);
   try {
     const masterData = loadMaster();
     const rankingsSnapshot = await db.collection("rankings").get();
-    const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+    const lastUpdate = timestamp;
 
     const stations: Record<string, StationData> = {};
 
@@ -475,17 +476,17 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       });
     });
 
-    console.log(`[ISR] RecentRankingPage generated at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}. Metrics processed: ${Object.keys(stations).length} stations.`);
+    console.log(`[ISR_SYSTEM_MONITOR] SUCCESS: RecentRankingPage generated at ${timestamp}. Processed: ${Object.keys(stations).length} stations.`);
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 3600, // 1時間ごとに再生成
+      revalidate: 60,
     };
-  } catch (error) {
-    console.error(`[ISR Error] Failed to load recent-ranking data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);
-    return { notFound: true };
+  } catch (error: any) {
+    console.error(`[ISR_SYSTEM_MONITOR] FATAL_ERROR: RecentRankingPage failure at ${timestamp}:`, error?.message || error);
+    throw error;
   }
 };
 

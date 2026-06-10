@@ -351,11 +351,12 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  console.log("[ISR] Generating DailyRankingPage at", new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
+  const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+  console.log(`[ISR_SYSTEM_MONITOR] Starting DailyRankingPage generation at ${timestamp}`);
   try {
     const masterData = loadMaster();
     const result = await fetchJmaDailyMaxRanking(null);
-    const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+    const lastUpdate = timestamp;
 
     const stations: Record<string, StationData> = {};
 
@@ -389,17 +390,17 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     mergeData("av_lwtemp", result.av_lwtemp);
     mergeData("sm_rain", result.sm_rain);
 
-    console.log(`[ISR] DailyRankingPage generated at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}. Stations merged: ${Object.keys(stations).length}`);
+    console.log(`[ISR_SYSTEM_MONITOR] SUCCESS: DailyRankingPage generated at ${timestamp}. Stations merged: ${Object.keys(stations).length}`);
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 1800,
+      revalidate: 60,
     };
-  } catch (error) {
-    console.error(`[ISR Error] Failed to load daily-ranking data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);
-    return { notFound: true };
+  } catch (error: any) {
+    console.error(`[ISR_SYSTEM_MONITOR] FATAL_ERROR: DailyRankingPage failure at ${timestamp}:`, error?.message || error);
+    throw error;
   }
 };
 

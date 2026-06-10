@@ -26,85 +26,92 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   const id = params?.id as StationId;
-  console.log(`[ISR] Generating StationPage for ${id} at`, new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
-
-  // 全データをキャッシュに埋める
-  ensureAllDataLoaded();
-
-  const master = loadMaster();
-  const rawStationData = master[id];
-
-  if (!rawStationData) return { notFound: true };
-
-  // --- Firestoreから履歴と統計を取得 ---
-  let history: any[] = [];
-  let stats: any = null;
+  const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+  console.log(`[ISR_SYSTEM_MONITOR] Starting StationPage generation for ${id} at ${timestamp}`);
+  
   try {
-    const doc = await db.collection("stations").doc(id).get();
-    if (doc.exists) {
-      const data = doc.data();
-      history = data?.history || [];
-      stats = data?.stats || null;
-      console.log(`[ISR] Firestore data fetched for ${id}. History: ${history.length} entries.`);
-    } else {
-      console.log(`[ISR] No Firestore document found for station ${id}. Using empty history.`);
+    // 全データをキャッシュに埋める
+    ensureAllDataLoaded();
+
+    const master = loadMaster();
+    const rawStationData = master[id];
+
+    if (!rawStationData) {
+      console.warn(`[ISR_SYSTEM_MONITOR] Station ${id} not found in master.`);
+      return { notFound: true };
     }
-  } catch (e) {
-    console.error(`[ISR Error] Failed to fetch Firestore data for station ${id} at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, e);
-  }
 
-  // --- キャッシュからこの地点のデータを取得 ---
-  const integratedData = getStation(id);
-  const { overview, table, ratio, uonzu } = assembleDisplayData(
-    integratedData as any
-  );
+    // --- Firestoreから履歴と統計を取得 ---
+    let history: any[] = [];
+    let stats: any = null;
+    try {
+      const doc = await db.collection("stations").doc(id).get();
+      if (doc.exists) {
+        const data = doc.data();
+        history = data?.history || [];
+        stats = data?.stats || null;
+      }
+    } catch (e: any) {
+      console.error(`[ISR_SYSTEM_MONITOR] Firestore FETCH_ERROR for ${id}:`, e?.message || e);
+    }
 
-  // --- 既存のSimilar等はそのまま ---
-  const similarFile = readJson<any>("data", "similar", `${id}.json`);
-  const rawSimilarAllItem: OriginSimilarItem[] = similarFile?.similar_all || [];
-  const rawSimilarMeteoItem: OriginSimilarItem[] =
-    similarFile?.similar_meteo || [];
+    // --- キャッシュからこの地点のデータを取得 ---
+    const integratedData = getStation(id);
+    const { overview, table, ratio, uonzu } = assembleDisplayData(
+      integratedData as any
+    );
 
-  const result = buildSimilar(rawSimilarAllItem, rawSimilarMeteoItem, master);
+    // --- 既存のSimilar等はそのまま ---
+    const similarFile = readJson<any>("data", "similar", `${id}.json`);
+    const rawSimilarAllItem: OriginSimilarItem[] = similarFile?.similar_all || [];
+    const rawSimilarMeteoItem: OriginSimilarItem[] =
+      similarFile?.similar_meteo || [];
 
-  const rawSameStations: RawStationData[] = [];
-  const rawMeteoStations: RawStationData[] = [];
+    const result = buildSimilar(rawSimilarAllItem, rawSimilarMeteoItem, master);
 
-  Object.entries(master).forEach(([sid, s]) => {
-    const item: RawStationData = {
-      id: s.id,
-      pref: s.pref,
-      category: s.category,
-      station_name: s.station_name,
+    const rawSameStations: RawStationData[] = [];
+    const rawMeteoStations: RawStationData[] = [];
+
+    Object.entries(master).forEach(([sid, s]) => {
+      const item: RawStationData = {
+        id: s.id,
+        pref: s.pref,
+        category: s.category,
+        station_name: s.station_name,
+      };
+
+      if (s.pref === rawStationData.pref) rawSameStations.push(item);
+      if (s.category === "meteo") rawMeteoStations.push(item);
+    });
+
+    const badgeinfo: RawBadgeData[] = BadgeLogic.getBadges(
+      overview as any,
+      ratio as any
+    );
+
+    const lastUpdate = timestamp;
+
+    console.log(`[ISR_SYSTEM_MONITOR] SUCCESS: StationPage generated for ${id} at ${timestamp}`);
+    return {
+      props: {
+        station: rawStationData,
+        overview,
+        uonzu,
+        table,
+        ratio,
+        similarAll: result.rawSimilarAll,
+        similarMeteo: result.rawSimilarMeteo,
+        sameStations: rawSameStations,
+        meteoStations: rawMeteoStations,
+        badge: badgeinfo,
+        history,
+        stats,
+        lastUpdate,
+      },
+      revalidate: 60,
     };
-
-    if (s.pref === rawStationData.pref) rawSameStations.push(item);
-    if (s.category === "meteo") rawMeteoStations.push(item);
-  });
-
-  const badgeinfo: RawBadgeData[] = BadgeLogic.getBadges(
-    overview as any,
-    ratio as any
-  );
-
-  const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
-
-  return {
-    props: {
-      station: rawStationData,
-      overview,
-      uonzu,
-      table,
-      ratio,
-      similarAll: result.rawSimilarAll,
-      similarMeteo: result.rawSimilarMeteo,
-      sameStations: rawSameStations,
-      meteoStations: rawMeteoStations,
-      badge: badgeinfo,
-      history,
-      stats,
-      lastUpdate,
-    },
-    revalidate: 3600, // 1時間ごとに再生成
-  };
+  } catch (error: any) {
+    console.error(`[ISR_SYSTEM_MONITOR] FATAL_ERROR: StationPage failure for ${id} at ${timestamp}:`, error?.message || error);
+    throw error;
+  }
 };

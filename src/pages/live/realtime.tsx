@@ -214,7 +214,8 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  console.log("[ISR] Generating RealtimePage at", new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
+  const timestamp = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+  console.log(`[ISR_SYSTEM_MONITOR] Starting RealtimePage generation at ${timestamp}`);
   try {
     const masterData = loadMaster();
 
@@ -235,17 +236,18 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         };
       });
 
-    console.log(`[ISR] RealtimePage generated successfully at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })} with ${stations.length} stations.`);
+    console.log(`[ISR_SYSTEM_MONITOR] SUCCESS: RealtimePage generated at ${timestamp} with ${stations.length} stations.`);
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 600,
+      revalidate: 60,
     };
-  } catch (error) {
-    console.error(`[ISR Error] Failed to load realtime data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);
-    return { notFound: true };
+  } catch (error: any) {
+    console.error(`[ISR_SYSTEM_MONITOR] FATAL_ERROR: RealtimePage failure at ${timestamp}:`, error?.message || error);
+    // 失敗しても現在のデータを維持するために、実行を継続する（ただしNext.jsはエラー時キャッシュを更新しない）
+    throw error;
   }
 };
 
