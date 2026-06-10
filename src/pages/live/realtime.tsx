@@ -216,7 +216,6 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     const masterData = loadMaster();
-
     const result = await fetchJmaRealtime();
     const rawStations = result.stations;
     const lastUpdate = result.lastUpdate;
@@ -242,7 +241,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       revalidate: 10,
     };
   } catch (error) {
-    console.error("Failed to load realtime data:", error);
+    console.error("[ISR Error] Failed to load realtime data:", error);
     return { notFound: true };
   }
 };

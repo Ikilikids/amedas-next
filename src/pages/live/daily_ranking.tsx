@@ -354,7 +354,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     const masterData = loadMaster();
     const result = await fetchJmaDailyMaxRanking(null);
-    const lastUpdate = new Date().toLocaleString("ja-JP");
+    const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
 
     const stations: Record<string, StationData> = {};
 
@@ -396,7 +396,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       revalidate: 10,
     };
   } catch (error) {
-    console.error("Failed to load daily-ranking data:", error);
+    console.error("[ISR Error] Failed to load daily-ranking data:", error);
     return { notFound: true };
   }
 };

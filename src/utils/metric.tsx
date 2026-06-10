@@ -8,7 +8,8 @@ import {
   FaTemperatureArrowDown,
   FaTemperatureArrowUp,
 } from "react-icons/fa6";
-import { PiHairDryer, PiThermometerColdFill } from "react-icons/pi";
+import { MdDryCleaning } from "react-icons/md";
+import { PiThermometerColdFill } from "react-icons/pi";
 import { TbTemperaturePlus } from "react-icons/tb";
 
 // ==============================
@@ -164,7 +165,7 @@ export const MetricKey: Record<MetricValue, MetricMeta> = {
     tab: "主要",
     category: "降水",
     highIcon: <BsFillCloudRainHeavyFill />,
-    lowIcon: <PiHairDryer />,
+    lowIcon: <MdDryCleaning />,
   },
   sm_snowing: {
     key: "sm_snowing",

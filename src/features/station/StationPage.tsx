@@ -188,6 +188,8 @@ const StationPage = (props: RawData) => {
             description={`${stationData.pref.label} ${stationData.city} / ${stationData.category.label}`}
             Icon={stationData.category.icon}
             gradient={regionGradient}
+            lastUpdateLabel="最終更新"
+            lastUpdateValue={props.lastUpdate}
           />
 
           <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row gap-4 p-4">

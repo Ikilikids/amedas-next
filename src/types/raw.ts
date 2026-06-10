@@ -15,6 +15,7 @@ export interface RawData {
   description?: DescriptionData;
   history?: RawHistoryData[];
   stats?: RawStatusData;
+  lastUpdate?: string;
 }
 
 export type RawStationData = {
