@@ -235,15 +235,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         };
       });
 
+    console.log(`[ISR] RealtimePage generated successfully at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })} with ${stations.length} stations.`);
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 600,
+      revalidate: 60,
     };
   } catch (error) {
-    console.error("Failed to load realtime data:", error);
+    console.error(`[ISR Error] Failed to load realtime data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);
     return { notFound: true };
   }
 };

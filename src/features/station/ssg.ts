@@ -37,17 +37,20 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   if (!rawStationData) return { notFound: true };
 
   // --- Firestoreから履歴と統計を取得 ---
-  let history = [];
-  let stats = null;
+  let history: any[] = [];
+  let stats: any = null;
   try {
     const doc = await db.collection("stations").doc(id).get();
     if (doc.exists) {
       const data = doc.data();
       history = data?.history || [];
       stats = data?.stats || null;
+      console.log(`[ISR] Firestore data fetched for ${id}. History: ${history.length} entries.`);
+    } else {
+      console.log(`[ISR] No Firestore document found for station ${id}. Using empty history.`);
     }
   } catch (e) {
-    console.error(`Failed to fetch firestore data for station ${id}:`, e);
+    console.error(`[ISR Error] Failed to fetch Firestore data for station ${id} at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, e);
   }
 
   // --- キャッシュからこの地点のデータを取得 ---
@@ -84,6 +87,8 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
     ratio as any
   );
 
+  const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+
   return {
     props: {
       station: rawStationData,
@@ -98,7 +103,8 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       badge: badgeinfo,
       history,
       stats,
+      lastUpdate,
     },
-    revalidate: 3600, // 24時間ごとに再生成
+    revalidate: 60, // 1分ごとに再生成
   };
 };

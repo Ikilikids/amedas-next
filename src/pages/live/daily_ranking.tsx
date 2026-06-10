@@ -389,15 +389,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     mergeData("av_lwtemp", result.av_lwtemp);
     mergeData("sm_rain", result.sm_rain);
 
+    console.log(`[ISR] DailyRankingPage generated at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}. Stations merged: ${Object.keys(stations).length}`);
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 1800,
+      revalidate: 60,
     };
   } catch (error) {
-    console.error("Failed to load daily-ranking data:", error);
+    console.error(`[ISR Error] Failed to load daily-ranking data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);
     return { notFound: true };
   }
 };

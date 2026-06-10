@@ -475,15 +475,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       });
     });
 
+    console.log(`[ISR] RecentRankingPage generated at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}. Metrics processed: ${Object.keys(stations).length} stations.`);
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 3600, // 1時間ごとに再生成
+      revalidate: 60, // 1分ごとに再生成
     };
   } catch (error) {
-    console.error("Failed to load recent-ranking data:", error);
+    console.error(`[ISR Error] Failed to load recent-ranking data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);
     return { notFound: true };
   }
 };
