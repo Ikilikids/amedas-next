@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
-import { getClimate, getMaster, setMaster } from "./climateCache";
+import { getClimate, getMaster, hasMetric, setMaster } from "./climateCache";
 import { METRIC_KEYS } from "./metric";
 
 /**

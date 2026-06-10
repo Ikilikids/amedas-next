@@ -17,7 +17,6 @@ const nextConfig = {
   },
   experimental: {
     // サーバーレス環境でのメモリリーク防止とディスクキャッシュ活用
-    isrMemoryCacheSize: 50, // メモリキャッシュを絞り、ディスク/プラットフォームキャッシュを優先
     isrFlushToDisk: true,
   },
   async headers() {
