@@ -241,7 +241,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         stations,
         lastUpdate,
       },
-      revalidate: 60,
+      revalidate: 600,
     };
   } catch (error) {
     console.error(`[ISR Error] Failed to load realtime data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);

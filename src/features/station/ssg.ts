@@ -105,6 +105,6 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       stats,
       lastUpdate,
     },
-    revalidate: 60, // 1分ごとに再生成
+    revalidate: 3600, // 1時間ごとに再生成
   };
 };

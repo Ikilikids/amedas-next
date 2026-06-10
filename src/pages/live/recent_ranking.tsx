@@ -481,7 +481,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         stations,
         lastUpdate,
       },
-      revalidate: 60, // 1分ごとに再生成
+      revalidate: 3600, // 1時間ごとに再生成
     };
   } catch (error) {
     console.error(`[ISR Error] Failed to load recent-ranking data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);

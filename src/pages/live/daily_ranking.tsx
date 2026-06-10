@@ -395,7 +395,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         stations,
         lastUpdate,
       },
-      revalidate: 60,
+      revalidate: 1800,
     };
   } catch (error) {
     console.error(`[ISR Error] Failed to load daily-ranking data at ${new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })}:`, error);
