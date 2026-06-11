@@ -160,6 +160,9 @@ const StationPage = (props: RawData) => {
   const isMeteo = stationData?.category === CATEGORY_KEYS.meteo;
   const isIsland = isIslandId(stationData?.id || "");
 
+  const regionColor = stationData?.pref?.region?.colorBase || "#777777";
+  const regionGradient = `linear-gradient(to right, ${stationData?.pref?.region?.colorStrong || "#777777"}, ${stationData?.pref?.region?.colorBase || "#999999"})`;
+
   const ratioRankOptions = useMemo(() => {
     const rankValues = new Set<RankValue>(BASE_RANK_VALUES);
 
