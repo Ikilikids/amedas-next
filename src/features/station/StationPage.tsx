@@ -108,6 +108,17 @@ const StationPage = (props: RawData) => {
     }
   }
 
+  // Ratio Chart States
+  const [ratioMonth, setRatioMonth] = useState<number | null>(null);
+  const [ratioRankValue, setRatioRankValue] = useState<RankValue>(
+    RankKey.top.key
+  );
+
+  // Table State
+  const [tableRankValue, setTableRankValue] = useState<RankValue>(
+    RankKey.top.key
+  );
+
   const typeOptions = useMemo(() => {
     try {
       const tabs = new Set();
