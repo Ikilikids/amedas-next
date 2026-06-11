@@ -1,10 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import {
-  METRIC_CATEGORY_KEYS,
-  MetricKey,
-  MetricMeta,
-  MetricTab,
-} from "../../utils/metric";
+import React, { useMemo, useState } from "react";
+import { MetricKey, MetricMeta, MetricTab } from "../../utils/metric";
 import { RankMeta } from "../../utils/rank";
 import SegmentedControl from "../UI/SegmentedControl";
 import { isCombinationValid } from "./utils";
@@ -16,12 +11,6 @@ interface MetricPopupProps {
   rankType: RankMeta;
   initialMetricKey: MetricMeta | null;
 }
-
-const formatLabel = (label: string) => {
-  // 数字が含まれている場合、その数字以降の文字列（数字を含む）を表示
-  const match = label.match(/\d+.*/);
-  return match ? match[0] : label;
-};
 
 const MetricPopup: React.FC<MetricPopupProps> = ({
   isOpen,
@@ -49,7 +38,7 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
       const tab = key.tab;
 
       // 除外
-      if ((tab as string) === "主要" || (tab as string) === "極値") return acc;
+      if ((tab as string) === "主要" || !tab) return acc;
 
       if (!acc[tab]) acc[tab] = [];
 
@@ -86,17 +75,21 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
                   const found = items.find((m) => m.key === val);
                   if (found) setSelectedKey(found);
                 }}
-                options={items.map((m) => {
-                  const cat = METRIC_CATEGORY_KEYS[m.category];
-                  return {
-                    key: m.key,
-                    label: formatLabel(m.label),
-                    disabled: !isCombinationValid(rankType, m),
-                    color: cat.color,
-                    borderColor: cat.borderColor,
-                    shadowColor: cat.shadowColor,
-                  };
-                })}
+                options={items
+                  .filter(
+                    (p) =>
+                      !["~", "その他"].some((prefix) =>
+                        p.label.startsWith(prefix)
+                      )
+                  )
+                  .map((m) => {
+                    return {
+                      key: m.key,
+                      label: m.label,
+                      disabled: !isCombinationValid(rankType, m),
+                      color: m.color,
+                    };
+                  })}
                 className="flex-wrap"
               />
             </div>

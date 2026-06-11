@@ -26,12 +26,6 @@ const Footer: React.FC<FooterProps> = () => {
             >
               このサイトについて
             </a>
-            <Link
-              href="/privacy"
-              className="hover:text-white transition-colors"
-            >
-              プライバシーポリシー
-            </Link>
             <a
               href="https://www.jma.go.jp/"
               target="_blank"

@@ -1,19 +1,10 @@
-// src/data/navLinks.ts
+// src/utils/navLinks.tsx
 import React from "react";
-import { AiFillSun } from "react-icons/ai";
-import { BsCloudRainHeavyFill } from "react-icons/bs";
-import { FaBuilding } from "react-icons/fa";
-import {
-  FaMapLocationDot,
-  FaTemperatureArrowDown,
-  FaTemperatureArrowUp,
-  FaTemperatureHigh,
-} from "react-icons/fa6";
-import { LiaSnowflake } from "react-icons/lia";
-import { PiThermometerHotFill } from "react-icons/pi";
-import { TbTemperature } from "react-icons/tb";
-
+import { FaBuilding, FaClock, FaSearch, FaStar } from "react-icons/fa";
+import { FaMapLocationDot } from "react-icons/fa6";
 import { IoIosTrophy } from "react-icons/io";
+import { PiRankingDuotone, PiThermometerHotFill } from "react-icons/pi";
+import { TbTemperatureSun } from "react-icons/tb";
 
 export interface NavLink {
   href: string;
@@ -23,28 +14,57 @@ export interface NavLink {
   iconClass?: string;
 }
 
-export const searchLinks: NavLink[] = [
+export interface NavSection {
+  id: string;
+  title: string;
+  description: string;
+  Icon: React.ReactNode;
+  bgColor: string;
+  links: NavLink[];
+}
+
+export const realtimeLinks: NavLink[] = [
   {
     href: "/live/realtime",
-    Icon: <FaTemperatureHigh />,
+    Icon: <TbTemperatureSun />,
     title: "現在の気温",
     description: "全国の最新観測データを表示",
-    iconClass: "text-red-500",
-  },
-  {
-    href: "/live/daily_ranking",
-    Icon: <FaTemperatureHigh />,
-    title: "今日のランキング",
-    description: "本日の最高・最低気温ランキング",
     iconClass: "text-orange-500",
   },
   {
-    href: "/live/recent_ranking",
-    Icon: <IoIosTrophy />,
-    title: "通年・最近のランキング",
-    description: "今年の最高気温や降水量などの累計データ",
-    iconClass: "text-yellow-600",
+    href: "/live/daily_ranking",
+    Icon: <PiRankingDuotone />,
+    title: "今日のランキング",
+    description: "本日の気温・降水ランキング",
+    iconClass: "text-yellow-500",
   },
+];
+
+export const yearlyRankingLinks: NavLink[] = [
+  {
+    href: "/live/recent_ranking/heat",
+    Icon: <IoIosTrophy />,
+    title: "暑さのランキング",
+    description: "今年の最高気温や猛暑日など",
+    iconClass: "text-red-600",
+  },
+  {
+    href: "/live/recent_ranking/cold",
+    Icon: <IoIosTrophy />,
+    title: "寒さのランキング",
+    description: "今年の最低気温や冬日など",
+    iconClass: "text-sky-400",
+  },
+  {
+    href: "/live/recent_ranking/rain",
+    Icon: <IoIosTrophy />,
+    title: "降水量のランキング",
+    description: "最近の降水量や今年の累計など",
+    iconClass: "text-indigo-800",
+  },
+];
+
+export const searchLinks: NavLink[] = [
   {
     href: "/clim_ranking",
     Icon: <IoIosTrophy />,
@@ -57,16 +77,18 @@ export const searchLinks: NavLink[] = [
     Icon: <FaMapLocationDot />,
     title: "マップから探す",
     description: "地図を見ながらアメダスを選択できます",
+    iconClass: "text-green-600",
   },
 ];
+
 export const featureLinks: NavLink[] = [
   {
     href: "/feature/meteo",
     Icon: <FaBuilding />,
     title: "気象台まとめ",
     description: "都道府県の代表地点です",
+    iconClass: "text-blue-700",
   },
-
   {
     href: "/feature/hot",
     Icon: <PiThermometerHotFill />,
@@ -74,70 +96,41 @@ export const featureLinks: NavLink[] = [
     description: "夏季に良くニュースになる地点をまとめました",
     iconClass: "text-red-500",
   },
-  /*{
-    href: "/feature/rain",
-    Icon: <BsCloudRainHeavyFill />,
-    title: "雨が多い地点まとめ",
-    description: "降水量が多い地点をまとめました",
-    iconClass: "text-indigo-800",
-  },*/
 ];
-export const rankingLinks: NavLink[] = [
-  {
-    href: "/ranking_y/av_avtemp/2025",
-    Icon: <TbTemperature />,
-    title: "平均気温ランキング",
-    description: "1991-2025の平均気温を年ごとにランキングにしました",
-    iconClass: "text-orange-500",
-  },
-  {
-    href: "/ranking_y/hitemp_35/2025",
-    Icon: <PiThermometerHotFill />,
-    title: "猛暑日ランキング",
-    description: "1991-2025の猛暑日を年ごとにランキングにしました",
-    iconClass: "text-red-500",
-  },
 
+export const navSections: NavSection[] = [
   {
-    href: "/ranking_y/sm_rain/2025",
-    Icon: <BsCloudRainHeavyFill />,
-    title: "降水量ランキング",
-    description: "1991-2025の降水量を年ごとにランキングにしました",
-    iconClass: "text-indigo-800",
+    id: "realtime",
+    title: "リアルタイム更新",
+    description: "現在の気温や、今日のランキングを確認できます。",
+    Icon: <FaClock />,
+    bgColor: "#ef4444",
+    links: realtimeLinks,
   },
   {
-    href: "/ranking_y/sm_snowing/2025",
-    Icon: <LiaSnowflake />,
-    title: "降雪量ランキング",
-    description: "1991-2025の降雪量を年ごとにランキングにしました",
-    iconClass: "text-teal-500",
+    id: "yearly",
+    title: "今年のランキング",
+    description:
+      "今年これまでの最高気温、最低気温、降水量などのランキングです。",
+    Icon: <IoIosTrophy />,
+    bgColor: "#f59e0b",
+    links: yearlyRankingLinks,
   },
   {
-    href: "/ranking_y/sm_sun/2025",
-    Icon: <AiFillSun />,
-    title: "日照時間ランキング",
-    description: "1991-2025の日照時間を年ごとにランキングにしました",
-    iconClass: "text-yellow-500",
-  },
-  /*{
-    href: "/ranking_y/max_snowed/2025",
-    Icon: <FaSnowman />,
-    title: "最深積雪ランキング",
-    description: "1991-2025の最大積雪量を年ごとにランキングにしました",
-    iconClass: "text-teal-500",
-  },*/
-  {
-    href: "/ranking_y/max_hitemp/2025",
-    Icon: <FaTemperatureArrowUp />,
-    title: "最高気温ランキング",
-    description: "1991-2025の最高気温を年ごとにランキングにしました",
-    iconClass: "text-pink-500",
+    id: "search",
+    title: "アメダスを探す",
+    description: "マップや平年値のランキングから地点を探すことができます。",
+    Icon: <FaSearch />,
+    bgColor: "#3b82f6",
+    links: searchLinks,
   },
   {
-    href: "/ranking_y/min_lwtemp/2025",
-    Icon: <FaTemperatureArrowDown />,
-    title: "最低気温ランキング",
-    description: "1991-2025の最低気温を年ごとにランキングにしました",
-    iconClass: "text-blue-500",
+    id: "feature",
+    title: "アメダス特集",
+    description:
+      "気象台や特定の気候的特徴を持つ地点をピックアップして紹介しています。",
+    Icon: <FaStar />,
+    bgColor: "#8b5cf6",
+    links: featureLinks,
   },
 ];

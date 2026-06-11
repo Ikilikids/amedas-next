@@ -54,7 +54,7 @@ const RankingList: React.FC<RankingListProps> = ({
             id={s.id}
             rank={s.rank}
             rankSuffix={
-              isIslandId(s.id) && sortKey.category === "気温" ? "*" : ""
+              isIslandId(s.id) && sortKey.unit === "℃" ? "*" : ""
             }
             name={s.station_name}
             officialName={s.official_name}

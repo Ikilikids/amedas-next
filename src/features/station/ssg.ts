@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       stats = data?.stats || null;
     }
   } catch (e) {
-    console.error(`Failed to fetch firestore data for station ${id}:`, e);
+    // 静かにする
   }
 
   // --- キャッシュからこの地点のデータを取得 ---
@@ -83,6 +83,10 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
     ratio as any
   );
 
+  const lastUpdate = new Date().toLocaleString("ja-JP", {
+    timeZone: "Asia/Tokyo",
+  });
+
   return {
     props: {
       station: rawStationData,
@@ -97,13 +101,14 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       badge: badgeinfo,
       history,
       stats,
+      lastUpdate,
       // デバッグ用: いつ、どのインスタンスで生成されたか
       _isr: {
         generatedAt: new Date().toISOString(),
         instance: process.env.HOSTNAME || "local",
         buildId: process.env.NEXT_PUBLIC_BUILD_ID || "static",
-      }
+      },
     },
-    revalidate: 10, // 10秒ごとに再生成
+    revalidate: 3600, // 1時間ごとに再生成
   };
 };

@@ -1,10 +1,6 @@
 import React from "react";
 import { MonthMap } from "../../utils/colorUtils";
-import {
-  METRIC_CATEGORY_KEYS,
-  MetricKey,
-  MetricMeta,
-} from "../../utils/metric";
+import { MetricKey, MetricMeta } from "../../utils/metric";
 import { PrefKey, PrefMeta } from "../../utils/pref";
 import { RankKey, RankMeta } from "../../utils/rank";
 import { RegionKey, RegionMeta } from "../../utils/region";
@@ -47,6 +43,8 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
 
   const regions = Object.values(RegionKey);
   const prefs = Object.values(PrefKey);
+  const tab = selectedMetricKey?.tab ?? "";
+  const label = selectedMetricKey?.label ?? "その他 ▸";
 
   return (
     <div className="flex flex-col gap-3">
@@ -62,40 +60,35 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
             }
           }}
           options={mainMetrics.map((m) => {
-            const cat = METRIC_CATEGORY_KEYS[m.category];
             return {
               key: m.key,
               label: m.label,
               disabled: !isCombinationValid(rankType, m),
-              color: cat.color,
-              borderColor: cat.borderColor,
-              shadowColor: cat.shadowColor,
+              color: m.color,
             };
           })}
           className="flex-wrap"
         >
           <button
             className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-tighter transition-all duration-200 ${
-              !selectedMetricKey ? "text-slate-500 hover:text-slate-800" : ""
+              selectedMetricKey
+                ? "bg-white shadow-sm border"
+                : "text-slate-500 hover:text-slate-800 border border-transparent"
             }`}
             style={
               selectedMetricKey
                 ? {
-                    color:
-                      METRIC_CATEGORY_KEYS[selectedMetricKey.category].color,
-                    borderColor:
-                      METRIC_CATEGORY_KEYS[selectedMetricKey.category]
-                        .borderColor,
-                    boxShadow: `0 1px 3px 0 ${
-                      METRIC_CATEGORY_KEYS[selectedMetricKey.category]
-                        .shadowColor
-                    }`,
+                    color: selectedMetricKey.color,
+                    borderColor: selectedMetricKey.color,
+                    boxShadow: `0 1px 3px 0 ${selectedMetricKey.color.slice(0, 7) + "33"}`,
                   }
-                : { border: "1px solid transparent" }
+                : {}
             }
             onClick={() => setShowPopup(true)}
           >
-            {selectedMetricKey?.label ?? "その他 ▸"}
+            {["気温日数", "平均"].includes(tab)
+              ? label
+              : `${tab.replace("日数", "")}${label}`}
           </button>
         </SegmentedControl>
       </div>

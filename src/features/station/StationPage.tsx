@@ -1,7 +1,7 @@
 // features/station/StationPage.tsx
 
 import Head from "next/head";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
@@ -22,6 +22,7 @@ import { CiViewTable } from "react-icons/ci";
 import { FaChartPie } from "react-icons/fa";
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
+import { CHART_METRICS } from "../../components/LayeredPieChart/constants";
 import CustomSelect from "../../components/UI/CustomSelect";
 import SegmentedControl from "../../components/UI/SegmentedControl";
 import PrefecturePart from "../../components/prefecturePart";
@@ -29,12 +30,7 @@ import { AllData, BadgeData } from "../../types/all";
 import { RawData } from "../../types/raw";
 import { CATEGORY_KEYS } from "../../utils/category";
 import { toAllData } from "../../utils/masterUtils";
-import {
-  METRIC_CATEGORY_KEYS,
-  MetricCategoryValue,
-  MetricKey,
-  MetricMeta,
-} from "../../utils/metric";
+import { MetricKey, MetricMeta, MetricTab } from "../../utils/metric";
 import { RankKey, RankValue, isIslandId } from "../../utils/rank";
 
 const BASE_RANK_VALUES: RankValue[] = ["top", "bot", "region", "pre"];
@@ -55,25 +51,24 @@ const StationPage = (props: RawData) => {
     badge: badges,
   } = allData;
 
-  const [selectedBar, setSelectedBar] = useState<MetricMeta>(MetricKey.sm_rain);
-
   const uonzuOptions = useMemo(() => {
     const targets = [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun];
 
     return targets
       .filter((meta) => uonzuData.has(meta))
       .map((meta) => {
-        const cat = METRIC_CATEGORY_KEYS[meta.category];
         return {
           key: meta.key,
           label: meta.label,
-          color: cat.color,
-          borderColor: cat.borderColor,
-          shadowColor: cat.shadowColor,
+          color: meta.color,
           meta: meta, // Store original meta for easier access
         };
       });
   }, [uonzuData]);
+
+  const [selectedBar, setSelectedBar] = useState<MetricMeta>(
+    uonzuOptions[0]?.meta || MetricKey.sm_rain
+  );
 
   // レンダリング中にProps/Optionsの変更を検知して状態を同期 (React 19 推奨パターン)
   const [prevUonzuOptions, setPrevUonzuOptions] = useState(uonzuOptions);
@@ -99,42 +94,44 @@ const StationPage = (props: RawData) => {
 
   const regionColor = stationData.pref.region.colorBase;
   const regionGradient = `linear-gradient(to right, ${stationData.pref.region.colorStrong}, ${stationData.pref.region.colorBase})`;
-
-  // Ratio Chart States
-  const [ratioType, setRatioType] = useState<ChartType | null>(null);
-
   const typeOptions = useMemo(() => {
-    const tabs = new Set<string>();
+    const tabs = new Set([...ratioData.keys()].map((meta) => meta.tab));
+    return Object.keys(CHART_METRICS)
+      .filter((p) => tabs.has(p as MetricTab))
+      .map((tab) => {
+        const label = tab.replace("日数", "");
+        const schema = CHART_METRICS[tab];
+        const baseMetric = schema?.[tab === "気温日数" ? 0 : 2]
+          ?.metric as MetricMeta;
+        const baseColor = baseMetric?.color;
 
-    if (ratioData) {
-      for (const meta of ratioData.keys()) {
-        if (meta.tab.endsWith("日数")) {
-          tabs.add(meta.tab);
-        }
-      }
-    }
-
-    return Array.from(tabs).map((tab) => {
-      const label = tab.replace("日数", "");
-      const cat = METRIC_CATEGORY_KEYS[label as MetricCategoryValue];
-      return {
-        key: tab as ChartType,
-        label,
-        color: cat?.color,
-        borderColor: cat?.borderColor,
-        shadowColor: cat?.shadowColor,
-      };
-    });
+        return {
+          key: tab as ChartType,
+          label,
+          color: baseColor,
+        };
+      });
   }, [ratioData]);
 
+  // Ratio Chart States
+  const [ratioType, setRatioType] = useState<ChartType | null>(
+    typeOptions[0]?.key || null
+  );
+
   // レンダリング中に同期
-  const [prevSync, setPrevSync] = useState({ id: stationData.id, options: typeOptions });
+  const [prevSync, setPrevSync] = useState({
+    id: stationData.id,
+    options: typeOptions,
+  });
   if (stationData.id !== prevSync.id || typeOptions !== prevSync.options) {
     setPrevSync({ id: stationData.id, options: typeOptions });
     if (stationData.id !== prevSync.id) {
-       setRatioType(typeOptions[0]?.key ?? null);
-    } else if (ratioType === null || !typeOptions.some((opt) => opt.key === ratioType)) {
-       setRatioType(typeOptions[0]?.key ?? null);
+      setRatioType(typeOptions[0]?.key ?? null);
+    } else if (
+      ratioType === null ||
+      !typeOptions.some((opt) => opt.key === ratioType)
+    ) {
+      setRatioType(typeOptions[0]?.key ?? null);
     }
   }
 

@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { Chart } from "react-chartjs-2";
 import { UonzuData } from "../types/all";
-import { METRIC_CATEGORY_KEYS, MetricKey, MetricMeta } from "../utils/metric";
+import { MetricKey, MetricMeta } from "../utils/metric";
 
 ChartJS.register(
   BarController,
@@ -63,13 +63,12 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
   // ===== 棒グラフ切り替え =====
   const getBarData = () => {
     const maxBar = bars.length > 0 ? Math.max(...bars.map((v) => v || 0)) : 0;
-    const category = METRIC_CATEGORY_KEYS[selectedBar.category];
 
-    let backgroundColor = category.color + "99"; // Add transparency
+    let backgroundColor = selectedBar.color.slice(0, 7) + "99"; // Add transparency
 
     // 特殊ルール: 降水量が多すぎる場合は色を濃くする (既存ロジックの継承)
-    if (selectedBar.key === "sm_rain" && maxBar > threshold) {
-      backgroundColor = "rgba(100,100,255,0.6)";
+    if (selectedBar.key === "sm_rain") {
+      backgroundColor = maxBar > threshold ? "#1e60cc99" : "#1eaadd99";
     }
 
     return {
@@ -104,8 +103,8 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
       data: temps,
       yAxisID: "temp",
       type: "line" as const,
-      borderColor: "rgba(255, 175, 0, 0.9)",
-      backgroundColor: "rgba(255, 175, 0, 0.9)",
+      borderColor: "#ffaf00e6",
+      backgroundColor: "#ffaf00e6",
       borderWidth: 2,
       pointRadius: 2,
       tension: 0.3,
@@ -118,8 +117,8 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
       data: lows,
       yAxisID: "temp",
       type: "line" as const,
-      borderColor: "rgba(75, 75, 255, 0.9)",
-      backgroundColor: "rgba(75, 75, 255, 0.9)",
+      borderColor: "#4b4be6e6",
+      backgroundColor: "#4b4be6e6",
       borderWidth: 2,
       pointRadius: 2,
       tension: 0.3,
@@ -132,8 +131,8 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
       data: highs,
       yAxisID: "temp",
       type: "line" as const,
-      borderColor: "rgba(255, 75, 75, 0.9)",
-      backgroundColor: "rgba(255, 75, 75, 0.9)",
+      borderColor: "#ff4b4be6",
+      backgroundColor: "#ff4b4be6",
       borderWidth: 2,
       pointRadius: 2,
       tension: 0.3,
@@ -199,7 +198,7 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
         },
       },
       tooltip: {
-        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        backgroundColor: "#fffffff2",
         titleColor: "#334155",
         bodyColor: "#475569",
         borderColor: "#e2e8f0",

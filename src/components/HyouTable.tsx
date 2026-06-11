@@ -2,12 +2,7 @@ import React from "react";
 import { TableData } from "../types/all";
 import { MonthlyEntry } from "../types/union";
 import { MonthMap } from "../utils/colorUtils";
-import {
-  METRIC_CATEGORY_KEYS,
-  MetricCategoryMeta,
-  MetricKey,
-  MetricMeta,
-} from "../utils/metric";
+import { MetricKey, MetricMeta } from "../utils/metric";
 import { RankValue } from "../utils/rank";
 
 // ==============================
@@ -42,7 +37,7 @@ function mixColor(c1: string, c2: string, t: number): string {
 }
 
 function getColor(
-  category: MetricCategoryMeta,
+  label: string,
   val: string | number,
   isAnnual: boolean = false
 ): string {
@@ -52,57 +47,51 @@ function getColor(
   let min: number, mid: number, max: number;
   let colors: string[];
 
-  switch (category.label) {
-    case "気温":
-      min = -15;
-      mid = 10;
-      max = 35;
-      colors = ["rgb(100,180,255)", "rgb(255,255,255)", "rgb(255,70,70)"];
-      break;
-    case "降水":
-      if (isAnnual) {
-        min = 0;
-        mid = 1600;
-        max = 4600;
-      } else {
-        min = 0;
-        mid = 200;
-        max = 1000;
-      }
-      colors = ["rgb(255,255,255)", "rgb(120,180,255)", "rgb(100,80,255)"];
-      break;
-    case "降雪":
-      if (isAnnual) {
-        min = 0;
-        mid = 450;
-        max = 1700;
-      } else {
-        min = 0;
-        mid = 50;
-        max = 450;
-      }
-      colors = ["rgb(255,255,255)", "rgb(200,160,255)", "rgb(234,80,147)"];
-      break;
-    case "日照":
-      if (isAnnual) {
-        min = 0;
-        mid = 1800;
-        max = 2800;
-      } else {
-        min = 0;
-        mid = 150;
-        max = 300;
-      }
-      colors = ["rgb(220,220,220)", "rgb(255,255,130)", "rgb(255,180,50)"];
-      break;
-    case "風速":
+  if (label.includes("気温")) {
+    min = -15;
+    mid = 10;
+    max = 35;
+    colors = ["rgb(100,180,255)", "rgb(255,255,255)", "rgb(255,70,70)"];
+  } else if (label.includes("降水")) {
+    if (isAnnual) {
       min = 0;
-      mid = 3;
-      max = 10;
-      colors = ["rgb(255,255,255)", "rgb(175,255,200)", "rgb(50,255,75)"];
-      break;
-    default:
-      return "white";
+      mid = 1600;
+      max = 4600;
+    } else {
+      min = 0;
+      mid = 200;
+      max = 1000;
+    }
+    colors = ["rgb(255,255,255)", "rgb(120,180,255)", "rgb(100,80,255)"];
+  } else if (label.includes("降雪") || label.includes("積雪")) {
+    if (isAnnual) {
+      min = 0;
+      mid = 450;
+      max = 1700;
+    } else {
+      min = 0;
+      mid = 50;
+      max = 450;
+    }
+    colors = ["rgb(255,255,255)", "rgb(200,160,255)", "rgb(234,80,147)"];
+  } else if (label.includes("日照")) {
+    if (isAnnual) {
+      min = 0;
+      mid = 1800;
+      max = 2800;
+    } else {
+      min = 0;
+      mid = 150;
+      max = 300;
+    }
+    colors = ["rgb(220,220,220)", "rgb(255,255,130)", "rgb(255,180,50)"];
+  } else if (label.includes("風速")) {
+    min = 0;
+    mid = 3;
+    max = 10;
+    colors = ["rgb(255,255,255)", "rgb(175,255,200)", "rgb(50,255,75)"];
+  } else {
+    return "white";
   }
 
   let t;
@@ -154,14 +143,13 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
   const renderRow = (meta: MetricMeta) => {
     const dataArray = mapValueRank(meta);
     const icon = meta.highIcon || meta.lowIcon;
-    const category = METRIC_CATEGORY_KEYS[meta.category];
 
     return (
       <tr
         key={meta.key}
         className="group hover:bg-slate-50/30 transition-colors"
       >
-        <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] h-10 sm:h-12 text-center align-middle font-bold text-xs sm:text-sm shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)] group-hover:bg-slate-50 transition-colors">
+        <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] h-10 sm:h-12 text-center align-middle font-bold text-xs sm:text-sm shadow-[2px_0_4px_-2px_#0000001a] group-hover:bg-slate-50 transition-colors">
           <div className="flex flex-col items-center justify-center leading-tight px-1 gap-0.5">
             <div className="flex items-center gap-1">
               <span className="text-slate-800 whitespace-nowrap">
@@ -170,7 +158,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
               {icon && (
                 <span
                   className="text-sm sm:text-base opacity-80"
-                  style={{ color: category?.color }}
+                  style={{ color: meta.color }}
                 >
                   {icon}
                 </span>
@@ -183,7 +171,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
         </td>
         {dataArray.map((d, i) => {
           const isAnnual = months[i].slug === "all";
-          const bgColor = getColor(category, d.val, isAnnual);
+          const bgColor = getColor(meta.label, d.val, isAnnual);
           return (
             <td
               key={i}
@@ -223,7 +211,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
         <table className="w-full border-collapse text-center table-auto">
           <thead>
             <tr className="bg-slate-50 text-xs sm:text-sm">
-              <th className="sticky left-0 top-0 z-20 bg-slate-100 border-r border-b border-slate-200 w-24 min-w-[104px] h-10 sm:h-12 font-bold text-slate-600 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)]">
+              <th className="sticky left-0 top-0 z-20 bg-slate-100 border-r border-b border-slate-200 w-24 min-w-[104px] h-10 sm:h-12 font-bold text-slate-600 shadow-[2px_0_4px_-2px_#0000001a]">
                 項目
               </th>
               {months.map((m) => (

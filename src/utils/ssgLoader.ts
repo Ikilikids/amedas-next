@@ -11,7 +11,9 @@ import { METRIC_KEYS } from "./metric";
 export function readJson<T>(...paths: string[]): T | null {
   const p = path.join(process.cwd(), ...paths);
   if (!fs.existsSync(p)) return null;
-  return JSON.parse(fs.readFileSync(p, "utf-8"));
+  const content = fs.readFileSync(p, "utf-8");
+  if (!content || content.trim() === "") return null;
+  return JSON.parse(content);
 }
 
 /**
@@ -21,9 +23,12 @@ export function loadMaster(): Record<StationId, RawStationData> {
   const cached = getMaster();
   if (cached) return cached as Record<StationId, RawStationData>;
 
-  const master: Record<StationId, RawStationData> = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), "public", "stations.json"), "utf-8")
-  );
+  const p = path.join(process.cwd(), "public", "stations.json");
+  const content = fs.readFileSync(p, "utf-8");
+  if (!content || content.trim() === "") {
+    throw new Error(`Master file is empty: ${p}`);
+  }
+  const master: Record<StationId, RawStationData> = JSON.parse(content);
   setMaster(master);
   return master;
 }
@@ -44,13 +49,12 @@ export function ensureAllDataLoaded() {
 
     const p = path.join(rankingDir, `${m}.json`);
     if (fs.existsSync(p)) {
-      const rawData = JSON.parse(fs.readFileSync(p, "utf-8"));
-      getClimate(m, master, rawData);
-      loadedCount++;
+      const content = fs.readFileSync(p, "utf-8");
+      if (content && content.trim() !== "") {
+        const rawData = JSON.parse(content);
+        getClimate(m, master, rawData);
+        loadedCount++;
+      }
     }
   });
-
-  if (loadedCount > 0) {
-    console.log(`[ISR_OPTIMIZER] Loaded ${loadedCount} metrics in ${Date.now() - start}ms`);
-  }
 }

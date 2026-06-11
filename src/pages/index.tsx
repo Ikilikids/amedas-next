@@ -1,11 +1,11 @@
 import { NextPage } from "next";
-import { FaHistory, FaHome, FaSearch, FaStar } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import LinkCard from "../components/LinkCard";
 import { SectionWithDescription } from "../utils/colorUtils";
-import { featureLinks, rankingLinks, searchLinks } from "../utils/navLinks";
+import { navSections } from "../utils/navLinks";
 
 interface Props {
   lastUpdated: string;
@@ -41,59 +41,23 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
         />
 
         <div className="max-w-[1280px] mx-auto flex flex-col gap-16 p-8 relative z-10">
-          <section className="relative">
-            <div className="mb-8">
-              <SectionWithDescription
-                icon={<FaSearch />}
-                title="観測データを検索"
-                bgColor="#3b82f6"
-                description={[
-                  "リアルタイムの観測データや、平年値のランキングから地点を探すことができます。",
-                ]}
-              />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {searchLinks.map((link) => (
-                <LinkCard key={link.title} {...link} />
-              ))}
-            </div>
-          </section>
-
-          <section className="relative">
-            <div className="mb-8">
-              <SectionWithDescription
-                icon={<FaStar />}
-                title="アメダス特集"
-                bgColor="#ef4444"
-                description={[
-                  "気象台や特定の気候的特徴を持つ地点をピックアップして紹介しています。",
-                ]}
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featureLinks.map((link) => (
-                <LinkCard key={link.title} {...link} />
-              ))}
-            </div>
-          </section>
-
-          <section className="relative pb-12">
-            <div className="mb-8">
-              <SectionWithDescription
-                icon={<FaHistory />}
-                title="年度別ランキング"
-                bgColor="#f59e0b"
-                description={[
-                  "1991年から現在までの、年ごとの極値や日数のランキングを確認できます。",
-                ]}
-              />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {rankingLinks.map((link) => (
-                <LinkCard key={link.title} {...link} />
-              ))}
-            </div>
-          </section>
+          {navSections.map((section) => (
+            <section key={section.id} className="relative">
+              <div className="mb-8">
+                <SectionWithDescription
+                  icon={section.Icon}
+                  title={section.title}
+                  bgColor={section.bgColor}
+                  description={[section.description]}
+                />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {section.links.map((link) => (
+                  <LinkCard key={link.title} {...link} />
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
       </main>
       <Footer />

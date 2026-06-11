@@ -1,201 +1,76 @@
-import { GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { GiJapan } from "react-icons/gi";
-import CategoryLegend from "../../components/CategoryLegend";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import HeroSection from "../../components/HeroSection";
+import CategoryLegend from "../../../components/CategoryLegend";
+import Footer from "../../../components/Footer";
+import Header from "../../../components/Header";
+import HeroSection from "../../../components/HeroSection";
+import { RankingData, RawRankingData } from "../../../components/Ranking/types";
+import { CategoryValue } from "../../../utils/category";
+import { getRainColor, getTempColor } from "../../../utils/colorUtils";
+import { db } from "../../../utils/firebaseAdmin";
+import { toStation } from "../../../utils/masterUtils";
+import { PrefKey, PrefMeta } from "../../../utils/pref";
+import { RankKey, RankMeta } from "../../../utils/rank";
+import { processRankingData } from "../../../utils/rankingUtils";
+import { RegionKey, RegionMeta } from "../../../utils/region";
+import { loadMaster } from "../../../utils/ssgLoader";
+
+import { colorWithAlpha } from "../../../components/LayeredPieChart/chartUtils";
 import {
-  RankingData,
-  RawRankingData,
-} from "../../components/Ranking/types";
-import { CategoryValue } from "../../utils/category";
-import { getRainColor, getTempColor } from "../../utils/colorUtils";
-import { toStation } from "../../utils/masterUtils";
-import { PrefKey, PrefMeta } from "../../utils/pref";
-import { RankKey, RankMeta } from "../../utils/rank";
-import { processRankingData } from "../../utils/rankingUtils";
-import { RegionKey, RegionMeta } from "../../utils/region";
-import { loadMaster } from "../../utils/ssgLoader";
-import { db } from "../../utils/firebaseAdmin";
-
-type MetricType =
-  | "max_hitemp"
-  | "min_lwtemp"
-  | "hitemp_40"
-  | "hitemp_35"
-  | "hitemp_30"
-  | "hitemp_25"
-  | "hitemp_0"
-  | "lwtemp_25"
-  | "lwtemp_0"
-  | "rain_7d"
-  | "rain_15d"
-  | "sm_rain";
-
-interface MetricEntry {
-  value: number;
-  time: string | null;
-}
+  MetricGroup,
+  MetricKey,
+  MetricValue,
+  RANKING_GROUP_META,
+} from "../../../utils/metric";
 
 interface StationData {
   station_name: string;
   pref: string;
   category: CategoryValue;
-  max_hitemp?: MetricEntry;
-  min_lwtemp?: MetricEntry;
-  hitemp_40?: MetricEntry;
-  hitemp_35?: MetricEntry;
-  hitemp_30?: MetricEntry;
-  hitemp_25?: MetricEntry;
-  hitemp_0?: MetricEntry;
-  lwtemp_25?: MetricEntry;
-  lwtemp_0?: MetricEntry;
-  rain_7d?: MetricEntry;
-  rain_15d?: MetricEntry;
-  sm_rain?: MetricEntry;
+  [key: string]: any;
 }
 
 interface Props {
   stations: Record<string, StationData>;
   lastUpdate: string;
+  type: MetricGroup;
 }
 
-const METRIC_CONFIG = {
-  max_hitemp: {
-    label: "最高気温",
-    title: "通年最高気温ランキング",
-    description: "今年これまでに観測された最高気温の全国ランキングです。",
-    unit: "°C",
-    gradient: "bg-gradient-to-r from-red-600 to-orange-600",
-    accentColor: "bg-orange-500",
-    ringColor: "focus:ring-orange-500",
-    hoverColor: "hover:text-orange-600",
-  },
-  min_lwtemp: {
-    label: "最低気温",
-    title: "通年最低気温ランキング",
-    description: "今年これまでに観測された最低気温の全国ランキングです。",
-    unit: "°C",
-    gradient: "bg-gradient-to-r from-blue-600 to-cyan-600",
-    accentColor: "bg-blue-500",
-    ringColor: "focus:ring-blue-500",
-    hoverColor: "hover:text-blue-600",
-  },
-  hitemp_40: {
-    label: "40℃以上",
-    title: "40℃以上の日数ランキング",
-    description: "今年これまでに最高気温40℃以上を観測した日数のランキングです。",
-    unit: "日",
-    gradient: "bg-gradient-to-r from-red-900 to-red-600",
-    accentColor: "bg-red-800",
-    ringColor: "focus:ring-red-800",
-    hoverColor: "hover:text-red-900",
-  },
-  hitemp_35: {
-    label: "猛暑日",
-    title: "猛暑日日数ランキング",
-    description: "今年これまでに観測された猛暑日（最高気温35℃以上）の日数ランキングです。",
-    unit: "日",
-    gradient: "bg-gradient-to-r from-red-700 to-red-500",
-    accentColor: "bg-red-600",
-    ringColor: "focus:ring-red-600",
-    hoverColor: "hover:text-red-700",
-  },
-  hitemp_30: {
-    label: "真夏日",
-    title: "真夏日日数ランキング",
-    description: "今年これまでに観測された真夏日（最高気温30℃以上）の日数ランキングです。",
-    unit: "日",
-    gradient: "bg-gradient-to-r from-orange-600 to-orange-400",
-    accentColor: "bg-orange-500",
-    ringColor: "focus:ring-orange-500",
-    hoverColor: "hover:text-orange-600",
-  },
-  hitemp_25: {
-    label: "夏日",
-    title: "夏日日数ランキング",
-    description: "今年これまでに観測された夏日（最高気温25℃以上）の日数ランキングです。",
-    unit: "日",
-    gradient: "bg-gradient-to-r from-orange-400 to-yellow-400",
-    accentColor: "bg-orange-400",
-    ringColor: "focus:ring-orange-400",
-    hoverColor: "hover:text-orange-500",
-  },
-  hitemp_0: {
-    label: "真冬日",
-    title: "真冬日日数ランキング",
-    description: "今年これまでに観測された真冬日（最高気温0℃未満）の日数ランキングです。",
-    unit: "日",
-    gradient: "bg-gradient-to-r from-blue-900 to-blue-600",
-    accentColor: "bg-blue-800",
-    ringColor: "focus:ring-blue-800",
-    hoverColor: "hover:text-blue-900",
-  },
-  lwtemp_25: {
-    label: "熱帯夜",
-    title: "熱帯夜日数ランキング",
-    description: "今年これまでに観測された熱帯夜（最低気温25℃以上）の日数ランキングです。",
-    unit: "日",
-    gradient: "bg-gradient-to-r from-purple-600 to-blue-600",
-    accentColor: "bg-purple-500",
-    ringColor: "focus:ring-purple-500",
-    hoverColor: "hover:text-purple-600",
-  },
-  lwtemp_0: {
-    label: "冬日",
-    title: "冬日日数ランキング",
-    description: "今年これまでに観測された冬日（最低気温0℃未満）の日数ランキングです。",
-    unit: "日",
-    gradient: "bg-gradient-to-r from-cyan-600 to-blue-400",
-    accentColor: "bg-cyan-500",
-    ringColor: "focus:ring-cyan-500",
-    hoverColor: "hover:text-cyan-600",
-  },
-  rain_7d: {
-    label: "7日降水",
-    title: "7日間降水量ランキング",
-    description: "最近7日間の合計降水量の全国ランキングです。",
-    unit: "mm",
-    gradient: "bg-gradient-to-r from-indigo-600 to-blue-600",
-    accentColor: "bg-indigo-500",
-    ringColor: "focus:ring-indigo-500",
-    hoverColor: "hover:text-indigo-600",
-  },
-  rain_15d: {
-    label: "15日降水",
-    title: "15日間降水量ランキング",
-    description: "最近15日間の合計降水量の全国ランキングです。",
-    unit: "mm",
-    gradient: "bg-gradient-to-r from-indigo-700 to-blue-700",
-    accentColor: "bg-indigo-600",
-    ringColor: "focus:ring-indigo-600",
-    hoverColor: "hover:text-indigo-700",
-  },
-  sm_rain: {
-    label: "累計降水",
-    title: "年間降水量ランキング",
-    description: "今年これまでに観測された累計降水量の全国ランキングです。",
-    unit: "mm",
-    gradient: "bg-gradient-to-r from-blue-700 to-slate-700",
-    accentColor: "bg-blue-800",
-    ringColor: "focus:ring-blue-800",
-    hoverColor: "hover:text-blue-900",
-  },
-};
+const RecentRankingDynamicPage: NextPage<Props> = ({
+  stations,
+  lastUpdate,
+  type,
+}) => {
+  const router = useRouter();
+  const groupMeta = RANKING_GROUP_META[type];
 
-const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
-  const [metric, setMetric] = useState<MetricType>("max_hitemp");
+  // このグループに属するメトリクスを自動抽出
+  const groupMetrics = useMemo(
+    () =>
+      Object.values(MetricKey)
+        .filter((m) => m.detail.group === type)
+        .map((m) => m.key),
+    [type]
+  );
+
+  const [metric, setMetric] = useState<MetricValue>(groupMetrics[0]);
   const [rankMeta, setRankMeta] = useState<RankMeta>(RankKey.top);
   const [selectedRegion, setSelectedRegion] = useState<RegionMeta>(
     RegionKey.kanto
   );
   const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
 
-  const config = useMemo(() => METRIC_CONFIG[metric], [metric]);
+  // Reset metric when type changes
+  useEffect(() => {
+    setMetric(groupMetrics[0]);
+  }, [type, groupMetrics]);
+
+  const config = useMemo(() => MetricKey[metric], [metric]);
+  const detail = useMemo(() => config.detail, [config]);
 
   const displayList: RankingData[] = useMemo(() => {
     const rawList: RawRankingData[] = Object.entries(stations)
@@ -229,12 +104,20 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
   }, [metric, stations, rankMeta, selectedRegion, selectedPref]);
 
   const isRainMetric = metric.includes("rain");
-  const isCountMetric = metric.includes("hitemp_") || metric.includes("lwtemp_");
+  const isCountMetric =
+    metric.includes("hitemp_") || metric.includes("lwtemp_");
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  const pageTitle = `2026年${groupMeta.label}ランキング`;
+  const pageDescription = `2026年の${groupMeta.label}に関する項目のランキングです。`;
 
   return (
     <>
       <Head>
-        <title>{config.title} - アメダス図鑑</title>
+        <title>{`2026年${config.label}ランキング - アメダス図鑑`}</title>
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
@@ -242,10 +125,10 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 
         <main className="flex-1 pb-16">
           <HeroSection
-            title={config.title}
-            description={config.description}
-            Icon={<GiJapan />}
-            gradient={config.gradient}
+            title={pageTitle}
+            description={pageDescription}
+            Icon={config.highIcon}
+            gradient={detail.gradient}
             lastUpdateLabel="データ更新"
             lastUpdateValue={lastUpdate}
           />
@@ -254,17 +137,22 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
             {/* メトリック選択タブ */}
             <div className="flex flex-col items-center mb-6 gap-3">
               <div className="bg-white p-1 rounded-xl shadow-sm border border-slate-200 flex flex-wrap justify-center gap-1">
-                {(Object.keys(METRIC_CONFIG) as MetricType[]).map((m) => (
+                {groupMetrics.map((m) => (
                   <button
                     key={m}
                     onClick={() => setMetric(m)}
                     className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                       metric === m
-                        ? `${METRIC_CONFIG[m].accentColor} text-white shadow-md`
+                        ? `text-white shadow-md`
                         : "text-slate-500 hover:bg-slate-50"
                     }`}
+                    style={
+                      metric === m
+                        ? { backgroundColor: MetricKey[m].color }
+                        : {}
+                    }
                   >
-                    {METRIC_CONFIG[m].label}
+                    {MetricKey[m].label}
                   </button>
                 ))}
               </div>
@@ -279,9 +167,14 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                     onClick={() => setRankMeta(rk)}
                     className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
                       rankMeta.key === rk.key
-                        ? `${config.accentColor} text-white shadow-md scale-105`
+                        ? `text-white shadow-md scale-105`
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
+                    style={
+                      rankMeta.key === rk.key
+                        ? { backgroundColor: config.color }
+                        : {}
+                    }
                   >
                     {rk.rankingLabel}
                   </button>
@@ -305,9 +198,9 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                               backgroundColor: r.colorStrong,
                             }
                           : {
-                              backgroundColor: r.colorBase.replace(
-                                "0.7",
-                                "0.15"
+                              backgroundColor: colorWithAlpha(
+                                r.colorBase,
+                                0.15
                               ),
                             }
                       }
@@ -328,7 +221,8 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                       );
                       if (found) setSelectedPref(found);
                     }}
-                    className={`px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm font-bold focus:outline-none focus:ring-2 ${config.ringColor}`}
+                    className="px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm font-bold focus:outline-none focus:ring-2"
+                    style={{ outlineColor: config.color } as any}
                   >
                     {Object.values(PrefKey).map((p) => (
                       <option key={p.code} value={p.code}>
@@ -353,13 +247,13 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                   <div
                     className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 hover:border-slate-300 relative overflow-hidden h-full flex flex-col"
                     style={{
-                      backgroundColor: s.pref?.region?.colorBase?.replace(
-                        "0.7",
-                        "0.1"
+                      backgroundColor: colorWithAlpha(
+                        s.pref?.region?.colorBase,
+                        0.1
                       ),
-                      borderColor: s.pref?.region?.colorBase?.replace(
-                        "0.7",
-                        "0.3"
+                      borderColor: colorWithAlpha(
+                        s.pref?.region?.colorBase,
+                        0.3
                       ),
                     }}
                   >
@@ -399,9 +293,9 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                         }`}
                       >
                         {s.value !== null
-                          ? `${s.value.toFixed(isRainMetric || isCountMetric ? 0 : 1)}${
-                              config.unit
-                            }`
+                          ? `${s.value.toFixed(
+                              isRainMetric || isCountMetric ? 0 : 1
+                            )}${config.unit}`
                           : "---"}
                       </div>
                       {s.time !== null && (
@@ -430,7 +324,7 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
         <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`p-4 bg-white shadow-2xl rounded-full text-slate-400 border border-slate-100 transition-colors ${config.hoverColor}`}
+            className={`p-4 bg-white shadow-2xl rounded-full text-slate-400 border border-slate-100 transition-colors hover:text-slate-600`}
           >
             <FaChevronDown className="transform rotate-180" />
           </button>
@@ -440,21 +334,43 @@ const RecentRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [
+      { params: { type: "heat" } },
+      { params: { type: "cold" } },
+      { params: { type: "rain" } },
+    ],
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+  const type = params?.type as MetricGroup;
+  if (!RANKING_GROUP_META[type]) {
+    return { notFound: true };
+  }
+
   try {
     const masterData = loadMaster();
     const rankingsSnapshot = await db.collection("rankings").get();
-    const lastUpdate = new Date().toLocaleString("ja-JP");
+    const lastUpdate = new Date().toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+    });
 
     const stations: Record<string, StationData> = {};
+    const targetMetrics = Object.values(MetricKey)
+      .filter((m) => m.detail.group === type)
+      .map((m) => m.key);
 
     rankingsSnapshot.forEach((doc) => {
-      const metricId = doc.id as MetricType;
-      // 今回定義したMetricTypeに含まれるものだけ処理
-      if (!METRIC_CONFIG[metricId]) return;
+      const metricId = doc.id as MetricValue;
+      if (!targetMetrics.includes(metricId)) return;
 
-      const data = doc.data() as { list: Array<{ id: string; val: number; d?: string }> };
-      
+      const data = doc.data() as {
+        list: Array<{ id: string; val: number; d?: string }>;
+      };
+
       data.list.forEach((item) => {
         const id = item.id;
         if (!stations[id]) {
@@ -466,7 +382,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
             category: master.category,
           };
         }
-        
+
         stations[id][metricId] = {
           value: item.val,
           time: item.d || null,
@@ -478,13 +394,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       props: {
         stations,
         lastUpdate,
+        type,
       },
-      revalidate: 10, // 10秒ごとに再生成
+      revalidate: 3600,
     };
   } catch (error) {
-    console.error("Failed to load recent-ranking data:", error);
+    console.error(`Failed to load ${type} ranking data:`, error);
     return { notFound: true };
   }
 };
 
-export default RecentRankingPage;
+export default RecentRankingDynamicPage;

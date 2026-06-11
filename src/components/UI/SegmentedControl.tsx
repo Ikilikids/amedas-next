@@ -6,8 +6,6 @@ interface Option<T> {
   disabled?: boolean;
   activeClassName?: string;
   color?: string;
-  borderColor?: string;
-  shadowColor?: string;
 }
 
 interface SegmentedControlProps<T extends string | number> {
@@ -17,8 +15,6 @@ interface SegmentedControlProps<T extends string | number> {
   className?: string;
   activeClassName?: string;
   color?: string;
-  borderColor?: string;
-  shadowColor?: string;
   children?: React.ReactNode;
 }
 
@@ -29,8 +25,6 @@ const SegmentedControl = <T extends string | number>({
   className = "",
   activeClassName = "bg-white shadow-sm border",
   color,
-  borderColor,
-  shadowColor,
   children,
 }: SegmentedControlProps<T>) => {
   return (
@@ -55,10 +49,10 @@ const SegmentedControl = <T extends string | number>({
             value === opt.key
               ? {
                   color: opt.color ?? color,
-                  borderColor: opt.borderColor ?? borderColor,
+                  borderColor: opt.color ?? color,
                   boxShadow:
-                    (opt.shadowColor ?? shadowColor)
-                      ? `0 1px 3px 0 ${opt.shadowColor ?? shadowColor}`
+                    opt.color ?? color
+                      ? `0 1px 3px 0 ${(opt.color ?? color).slice(0, 7) + "33"}`
                       : undefined,
                 }
               : {}

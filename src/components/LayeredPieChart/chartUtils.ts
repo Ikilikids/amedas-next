@@ -5,12 +5,10 @@ import { CHART_METRICS, MONTH_DAYS } from "./constants";
 import { ChartDataItem, ChartType } from "./types";
 
 export function colorWithAlpha(color: string, alpha: number = 0.8): string {
-  if (color.startsWith("rgba")) return color.replace(/[^,]+(?=\))/, `${alpha}`);
-  const bigint = parseInt(color.replace("#", ""), 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
-  return `rgba(${r},${g},${b},${alpha})`;
+  const hexAlpha = Math.round(alpha * 255)
+    .toString(16)
+    .padStart(2, "0");
+  return color.slice(0, 7) + hexAlpha;
 }
 
 function computeLayeredValues(
@@ -52,9 +50,15 @@ export function prepareChartData(
 
   // Resolve raw data based on schema
   const raw = schema.map((s) => {
-    const isVirtual = !!s.key;
-    const meta = isVirtual ? null : (s.metric as MetricMeta);
-    const entries = meta ? tabRecords.get(meta) : null;
+    const meta = s.metric as MetricMeta;
+    // 仮想メトリクス（その他、〜1mmなどデータファイルがないもの）の判定
+    const isVirtual =
+      meta.key === "temp_other" ||
+      (meta.key.endsWith("_0") &&
+        meta.key !== "lwtemp_0" &&
+        meta.key !== "hitemp_0");
+
+    const entries = isVirtual ? null : tabRecords.get(meta);
 
     // データが1つしかない場合（SSG最適化時など）は、それを選択する
     if (entries && entries.length === 1) {
@@ -65,11 +69,11 @@ export function prepareChartData(
     return {
       label: s.chartLabel,
       color: s.color,
-      value: entry?.value ?? (meta ? 0 : null),
+      value: entry?.value ?? (isVirtual ? null : 0),
       rank: entry
         ? (entry[currentRankKey as keyof MonthlyEntry] as number)
         : null,
-      key: isVirtual ? s.key : meta?.key,
+      key: meta.key,
     };
   });
 

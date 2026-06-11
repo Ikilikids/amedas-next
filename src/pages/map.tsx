@@ -37,7 +37,7 @@ const MapPage: NextPage = () => {
               </>
             }
             Icon={<FaMapLocationDot />}
-            gradient="bg-gradient-to-r from-blue-600 to-cyan-700"
+            gradient="bg-gradient-to-r from-green-600 to-emerald-500"
           />
 
           <div className="max-w-[1280px] mx-auto flex flex-col gap-4 p-4 w-full">

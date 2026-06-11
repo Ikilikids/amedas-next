@@ -18,30 +18,30 @@ const medalColors: Record<
   }
 > = {
   rainbow: {
-    stroke: "rgba(255,255,255,0.3)",
-    shine: "rgba(255,255,255,0.85)",
-    icon: "rgba(255,255,255,0.9)",
+    stroke: "#ffffff4d",
+    shine: "#ffffffd9",
+    icon: "#ffffffe6",
     isRainbow: true,
   },
   gold: {
     mainTop: "#FFDD00",
     mainBottom: "#DDBB00",
     stroke: "#B89600",
-    shine: "rgba(255,255,255,0.6)",
+    shine: "#ffffff99",
     icon: "#B89600",
   },
   silver: {
     mainTop: "#E5E5E5",
     mainBottom: "#BFC3C7",
     stroke: "#9A9EA3",
-    shine: "rgba(255,255,255,0.7)",
+    shine: "#ffffffb3",
     icon: "#8C8F94",
   },
   bronze: {
     mainTop: "#E6B17E",
     mainBottom: "#C68642",
     stroke: "#9C5A1A",
-    shine: "rgba(255,255,255,0.5)",
+    shine: "#ffffff80",
     icon: "#8A4B12",
   },
 };
@@ -110,9 +110,9 @@ const RankBadge = (props: BadgeData) => {
           </linearGradient>
 
           <linearGradient id={shineGradId} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+            <stop offset="0%" stopColor="#ffffff00" />
             <stop offset="50%" stopColor={colors.shine} />
-            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+            <stop offset="100%" stopColor="#ffffff00" />
           </linearGradient>
 
           <clipPath id={clipId}>

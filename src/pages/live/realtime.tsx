@@ -2,7 +2,6 @@ import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { FaChevronDown } from "react-icons/fa";
-import { GiJapan } from "react-icons/gi";
 import CategoryLegend from "../../components/CategoryLegend";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -15,6 +14,10 @@ import { PrefKey } from "../../utils/pref";
 import { RegionKey } from "../../utils/region";
 import { loadMaster } from "../../utils/ssgLoader";
 
+import { TbTemperatureSun } from "react-icons/tb";
+import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
+import { MetricKey } from "../../utils/metric";
+
 interface Props {
   stations: RawRankingData[];
   lastUpdate: string;
@@ -22,6 +25,7 @@ interface Props {
 
 const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
   const regions = Object.values(RegionKey);
+  const config = MetricKey.av_avtemp;
 
   // 都道府県ごとの気温マップを作成
   const tempMap: Record<string, number | null> = {};
@@ -32,7 +36,7 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
   return (
     <>
       <Head>
-        <title>現在の気温 (リアルタイム) - アメダス図鑑</title>
+        <title>{`現在の気温 (リアルタイム) - アメダス図鑑`}</title>
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
@@ -42,8 +46,11 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
           <HeroSection
             title="現在の気温 (リアルタイム)"
             description="気象庁の最新データから取得した全国の気温状況です。10分ごとに自動更新されます。"
-            Icon={<GiJapan />}
-            gradient="bg-gradient-to-r from-orange-600 to-amber-600"
+            Icon={<TbTemperatureSun />}
+            gradient={
+              config.detail?.gradient ||
+              "bg-gradient-to-r from-orange-600 to-amber-600"
+            }
             lastUpdateLabel="最新観測"
             lastUpdateValue={lastUpdate}
           />
@@ -115,13 +122,13 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
                             <div
                               className="px-5 py-3 flex items-center justify-between border-b border-slate-100"
                               style={{
-                                backgroundColor: region.colorBase.replace(
-                                  "0.7",
-                                  "0.1"
+                                backgroundColor: colorWithAlpha(
+                                  region.colorBase,
+                                  0.1
                                 ),
-                                borderColor: region.colorBase.replace(
-                                  "0.7",
-                                  "0.3"
+                                borderColor: colorWithAlpha(
+                                  region.colorBase,
+                                  0.3
                                 ),
                               }}
                             >
@@ -203,7 +210,7 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
         <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="p-4 bg-white shadow-2xl rounded-full text-slate-400 hover:text-orange-600 border border-slate-100 transition-colors"
+            className={`p-4 bg-white shadow-2xl rounded-full text-slate-400 border border-slate-100 transition-colors hover:text-slate-600`}
           >
             <FaChevronDown className="transform rotate-180" />
           </button>
@@ -238,7 +245,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         stations,
         lastUpdate,
       },
-      revalidate: 10,
+      revalidate: 600,
     };
   } catch (error) {
     console.error("[ISR Error] Failed to load realtime data:", error);

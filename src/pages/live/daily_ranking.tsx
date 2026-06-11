@@ -3,7 +3,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { GiJapan } from "react-icons/gi";
 import CategoryLegend from "../../components/CategoryLegend";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -23,7 +22,8 @@ import { processRankingData } from "../../utils/rankingUtils";
 import { RegionKey, RegionMeta } from "../../utils/region";
 import { loadMaster } from "../../utils/ssgLoader";
 
-type MetricType = "av_hitemp" | "av_lwtemp" | "sm_rain";
+import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
+import { MetricKey, MetricValue } from "../../utils/metric";
 
 interface MetricEntry {
   value: number;
@@ -34,9 +34,7 @@ interface StationData {
   station_name: string;
   pref: string;
   category: CategoryValue;
-  av_hitemp?: MetricEntry;
-  av_lwtemp?: MetricEntry;
-  sm_rain?: MetricEntry;
+  [key: string]: any;
 }
 
 interface Props {
@@ -45,50 +43,15 @@ interface Props {
 }
 
 const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
-  const [metric, setMetric] = useState<MetricType>("av_hitemp");
+  const [metric, setMetric] = useState<MetricValue>("av_hitemp");
   const [rankMeta, setRankMeta] = useState<RankMeta>(RankKey.top);
   const [selectedRegion, setSelectedRegion] = useState<RegionMeta>(
     RegionKey.kanto
   );
   const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
 
-  const config = useMemo(() => {
-    switch (metric) {
-      case "av_hitemp":
-        return {
-          title: "今日の最高気温ランキング",
-          description:
-            "今日これまでに観測された最高気温の全国ランキングです。気象庁から取得した最新の観測データに基づいています。",
-          gradient: "bg-gradient-to-r from-red-600 to-orange-600",
-          accentColor: "bg-orange-500",
-          ringColor: "focus:ring-orange-500",
-          hoverColor: "hover:text-orange-600",
-          unit: "°C",
-        };
-      case "av_lwtemp":
-        return {
-          title: "今日の最低気温ランキング",
-          description:
-            "今日これまでに観測された最低気温の全国ランキングです。気象庁から取得した最新の観測データに基づいています。",
-          gradient: "bg-gradient-to-r from-blue-600 to-cyan-600",
-          accentColor: "bg-blue-500",
-          ringColor: "focus:ring-blue-500",
-          hoverColor: "hover:text-blue-600",
-          unit: "°C",
-        };
-      case "sm_rain":
-        return {
-          title: "今日の降水量ランキング",
-          description:
-            "今日これまでに観測された降水量の全国ランキングです。気象庁から取得した最新の観測データに基づいています。",
-          gradient: "bg-gradient-to-r from-indigo-600 to-blue-600",
-          accentColor: "bg-indigo-500",
-          ringColor: "focus:ring-indigo-500",
-          hoverColor: "hover:text-indigo-600",
-          unit: "mm",
-        };
-    }
-  }, [metric]);
+  const config = useMemo(() => MetricKey[metric], [metric]);
+  const detail = useMemo(() => config.detail!, [config]);
 
   const displayList: RankingData[] = useMemo(() => {
     // 1. Recordから現在のメトリックを持つ地点を抽出し、RawRankingData[] を作成
@@ -127,7 +90,7 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
   return (
     <>
       <Head>
-        <title>{config.title} - アメダス図鑑</title>
+        <title>{`今日の${config.label}ランキング - アメダス図鑑`}</title>
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
@@ -135,10 +98,10 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 
         <main className="flex-1 pb-16">
           <HeroSection
-            title={config.title}
-            description={config.description}
-            Icon={<GiJapan />}
-            gradient={config.gradient}
+            title={`今日の${config.label}ランキング`}
+            description={`今日これまでに観測された${config.label}の全国ランキングです。気象庁から取得した最新の観測データに基づいています。`}
+            Icon={config.highIcon}
+            gradient={detail.gradient}
             lastUpdateLabel="データ更新"
             lastUpdateValue={lastUpdate}
           />
@@ -147,36 +110,26 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
             {/* メトリック選択タブ */}
             <div className="flex justify-center mb-6">
               <div className="bg-white p-1 rounded-xl shadow-sm border border-slate-200 flex gap-1">
-                <button
-                  onClick={() => setMetric("av_hitemp")}
-                  className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
-                    metric === "av_hitemp"
-                      ? "bg-orange-500 text-white shadow-md"
-                      : "text-slate-500 hover:bg-slate-50"
-                  }`}
-                >
-                  最高気温
-                </button>
-                <button
-                  onClick={() => setMetric("av_lwtemp")}
-                  className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
-                    metric === "av_lwtemp"
-                      ? "bg-blue-500 text-white shadow-md"
-                      : "text-slate-500 hover:bg-slate-50"
-                  }`}
-                >
-                  最低気温
-                </button>
-                <button
-                  onClick={() => setMetric("sm_rain")}
-                  className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
-                    metric === "sm_rain"
-                      ? "bg-indigo-500 text-white shadow-md"
-                      : "text-slate-500 hover:bg-slate-50"
-                  }`}
-                >
-                  降水量
-                </button>
+                {(["av_hitemp", "av_lwtemp", "sm_rain"] as MetricValue[]).map(
+                  (m) => (
+                    <button
+                      key={m}
+                      onClick={() => setMetric(m)}
+                      className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+                        metric === m
+                          ? `text-white shadow-md`
+                          : "text-slate-500 hover:bg-slate-50"
+                      }`}
+                      style={
+                        metric === m
+                          ? { backgroundColor: MetricKey[m].color }
+                          : {}
+                      }
+                    >
+                      {MetricKey[m].label}
+                    </button>
+                  )
+                )}
               </div>
             </div>
 
@@ -189,9 +142,14 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                     onClick={() => setRankMeta(rk)}
                     className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
                       rankMeta.key === rk.key
-                        ? `${config.accentColor} text-white shadow-md scale-105`
+                        ? `text-white shadow-md scale-105`
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
+                    style={
+                      rankMeta.key === rk.key
+                        ? { backgroundColor: config.color }
+                        : {}
+                    }
                   >
                     {rk.rankingLabel}
                   </button>
@@ -215,9 +173,9 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                               backgroundColor: r.colorStrong,
                             }
                           : {
-                              backgroundColor: r.colorBase.replace(
-                                "0.7",
-                                "0.15"
+                              backgroundColor: colorWithAlpha(
+                                r.colorBase,
+                                0.15
                               ),
                             }
                       }
@@ -238,7 +196,8 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                       );
                       if (found) setSelectedPref(found);
                     }}
-                    className={`px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm font-bold focus:outline-none focus:ring-2 ${config.ringColor}`}
+                    className="px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm font-bold focus:outline-none focus:ring-2"
+                    style={{ outlineColor: config.color } as any}
                   >
                     {Object.values(PrefKey).map((p) => (
                       <option key={p.code} value={p.code}>
@@ -263,13 +222,13 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
                   <div
                     className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 hover:border-slate-300 relative overflow-hidden h-full flex flex-col"
                     style={{
-                      backgroundColor: s.pref?.region?.colorBase?.replace(
-                        "0.7",
-                        "0.1"
+                      backgroundColor: colorWithAlpha(
+                        s.pref?.region?.colorBase,
+                        0.1
                       ),
-                      borderColor: s.pref?.region?.colorBase?.replace(
-                        "0.7",
-                        "0.3"
+                      borderColor: colorWithAlpha(
+                        s.pref?.region?.colorBase,
+                        0.3
                       ),
                     }}
                   >
@@ -340,7 +299,7 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
         <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`p-4 bg-white shadow-2xl rounded-full text-slate-400 border border-slate-100 transition-colors ${config.hoverColor}`}
+            className={`p-4 bg-white shadow-2xl rounded-full text-slate-400 border border-slate-100 transition-colors hover:text-slate-600`}
           >
             <FaChevronDown className="transform rotate-180" />
           </button>
@@ -354,11 +313,13 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     const masterData = loadMaster();
     const result = await fetchJmaDailyMaxRanking(null);
-    const lastUpdate = new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+    const lastUpdate = new Date().toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+    });
 
     const stations: Record<string, StationData> = {};
 
-    const mergeData = (m: MetricType, items: RankingItem[]) => {
+    const mergeData = (m: MetricValue, items: RankingItem[]) => {
       items.forEach((item) => {
         const id = item.id;
         if (!id) return;
@@ -378,9 +339,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
           time: item.time ?? null,
         };
 
-        if (m === "av_hitemp") stations[id].av_hitemp = entry;
-        else if (m === "av_lwtemp") stations[id].av_lwtemp = entry;
-        else if (m === "sm_rain") stations[id].sm_rain = entry;
+        stations[id][m] = entry;
       });
     };
 
@@ -393,7 +352,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
         stations,
         lastUpdate,
       },
-      revalidate: 10,
+      revalidate: 1800,
     };
   } catch (error) {
     console.error("[ISR Error] Failed to load daily-ranking data:", error);

@@ -28,14 +28,11 @@ function initializeFirebase() {
           privateKey: cleanKey,
         }),
       });
-      console.log(`Firebase initialized with Service Account for project: ${projectId}`);
     } else {
       // 環境変数が足りない場合は、ADC（環境のデフォルト権限）を試みる
       initializeApp();
-      console.log("Firebase initialized with Default Credentials (ADC)");
     }
   } catch (error: any) {
-    console.error("Firebase initialization failed, trying fallback:", error.message);
     // すでに初期化されている場合はスキップ、そうでなければ引数なしで初期化
     if (getApps().length === 0) {
       initializeApp();

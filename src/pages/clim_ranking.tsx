@@ -41,7 +41,7 @@ const RankingPage: NextPage = () => {
               </>
             }
             Icon={<IoIosTrophy />}
-            gradient="bg-gradient-to-r from-amber-500 to-orange-600"
+            gradient="bg-gradient-to-r from-amber-600 to-yellow-500"
           />
 
           <div className="max-w-[1280px] mx-auto flex flex-col gap-4 p-4">

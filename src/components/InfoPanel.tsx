@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { OverviewData, StationData } from "../types/all";
 import { sanitizeCityName, sanitizePrefLabel } from "../utils/masterUtils";
-import { METRIC_CATEGORY_KEYS, MetricKey, MetricMeta } from "../utils/metric";
+import { MetricKey, MetricMeta } from "../utils/metric";
 
 interface InfoPanelProps {
   stationData: StationData | null;
@@ -97,7 +97,9 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
         <div className="mb-2">
           <h3
             className={`font-black text-slate-800 tracking-tighter ${
-              stationData && stationData.official_name.length >= 12 ? "text-xl" : "text-2xl"
+              stationData && stationData.official_name.length >= 12
+                ? "text-xl"
+                : "text-2xl"
             }`}
           >
             {stationData ? (
@@ -167,13 +169,12 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
         {/* 気候ランキング項目 */}
         {!isTitle &&
           rankingItems.map(([key, d], idx) => {
-            const categoryMeta = METRIC_CATEGORY_KEYS[key.category];
             return (
               <div key={`rank-${idx}`} className="flex items-center gap-4">
                 <div
                   className="p-2.5 bg-white rounded-xl shadow-sm border border-slate-50 flex items-center justify-center"
                   style={{
-                    color: categoryMeta.color,
+                    color: key.color,
                   }}
                 >
                   {key.highIcon ? (

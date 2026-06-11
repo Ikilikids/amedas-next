@@ -16,62 +16,62 @@ type RegionMap = Record<string, RegionMeta>;
 export const RegionKey = {
   hokkaido: {
     label: "北海道",
-    colorBase: "rgba(142,134,212,0.7)",
-    colorStrong: "rgba(73,58,207,1)",
+    colorBase: "#8e86d4b3",
+    colorStrong: "#493acf",
   },
 
   tohoku: {
     label: "東北",
-    colorBase: "rgba(50,191,204,0.7)",
-    colorStrong: "rgba(61,189,209,1)",
+    colorBase: "#32bfccb3",
+    colorStrong: "#3db1d1",
   },
 
   kanto: {
     label: "関東",
-    colorBase: "rgba(109,189,139,0.7)",
-    colorStrong: "rgba(46,177,96,1)",
+    colorBase: "#6dbd8bb3",
+    colorStrong: "#2eb160",
   },
 
   hokuriku: {
     label: "北陸",
-    colorBase: "rgba(200,200,80,0.7)",
-    colorStrong: "rgba(160,160,20,1)",
+    colorBase: "#c8c850b3",
+    colorStrong: "#a0a014",
   },
 
   chubu: {
     label: "中部",
-    colorBase: "rgba(153,204,105,0.7)",
-    colorStrong: "rgba(130,204,60,1)",
+    colorBase: "#99cc69b3",
+    colorStrong: "#82cc3c",
   },
 
   kinki: {
     label: "近畿",
-    colorBase: "rgba(236,173,114,0.7)",
-    colorStrong: "rgba(233,142,58,1)",
+    colorBase: "#ecad72b3",
+    colorStrong: "#e98e3a",
   },
 
   chugoku: {
     label: "中国",
-    colorBase: "rgba(197,117,221,0.7)",
-    colorStrong: "rgba(183,65,219,1)",
+    colorBase: "#c575ddb3",
+    colorStrong: "#b741db",
   },
 
   shikoku: {
     label: "四国",
-    colorBase: "rgba(233,130,187,0.7)",
-    colorStrong: "rgba(228,69,156,1)",
+    colorBase: "#e982bbb3",
+    colorStrong: "#e4459c",
   },
 
   kyushu: {
     label: "九州",
-    colorBase: "rgba(236,126,126,0.7)",
-    colorStrong: "rgba(240,58,58,1)",
+    colorBase: "#ec7e7eb3",
+    colorStrong: "#f03a3a",
   },
 
   okinawa: {
     label: "沖縄",
-    colorBase: "rgba(200,160,160,0.7)",
-    colorStrong: "rgba(200,100,120,1)",
+    colorBase: "#c8a0a0b3",
+    colorStrong: "#c86478",
   },
 } as const satisfies RegionMap;
 

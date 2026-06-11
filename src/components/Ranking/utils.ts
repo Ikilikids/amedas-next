@@ -8,7 +8,7 @@ export const isCombinationValid = (
   const config = key;
 
   if (rank.key === RankKey.island.key) {
-    if (config.category !== "気温") return false;
+    if (config.unit !== "℃") return false;
   }
 
   if (rank.key === RankKey.bot.key) {
