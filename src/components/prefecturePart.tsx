@@ -88,16 +88,16 @@ const StationGrid: React.FC<StationGridProps> = ({
 );
 
 const PrefecturePart: React.FC<PrefecturePartProps> = ({
-  sameStations,
-  meteoStations,
+  sameStations = [],
+  meteoStations = [],
 }) => {
   // 同じ県の観測所を category順 -> id順にソート
-  const sortedSamePref = [...sameStations].sort(
-    (a, b) => a.category.value - b.category.value || a.id.localeCompare(b.id)
+  const sortedSamePref = [...(sameStations || [])].sort(
+    (a, b) => (a.category?.value || 0) - (b.category?.value || 0) || a.id.localeCompare(b.id)
   );
 
   // 気象台リストを id順にソート
-  const sortedMeteo = [...meteoStations].sort((a, b) =>
+  const sortedMeteo = [...(meteoStations || [])].sort((a, b) =>
     a.id.localeCompare(b.id)
   );
 

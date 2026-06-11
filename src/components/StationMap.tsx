@@ -87,7 +87,7 @@ const StationMap: React.FC<StationMapProps> = ({
         />
       ) : (
         // 通常モード: 全地点にマーカーを表示
-        stationList.map((s) => (
+        stationList?.map((s) => (
           <Marker
             key={s.id}
             position={{ lat: s.lat, lng: s.lon }}
