@@ -37,8 +37,8 @@ const BASE_RANK_VALUES: RankValue[] = ["top", "bot", "region", "pre"];
 
 const StationPage = (props: RawData) => {
   // 1. データの存在チェック（ガード）
-  // データの準備が整っていない場合は、何もレンダリングせずに中断する
   if (!props || !props.station) {
+    console.warn("[StationPage] Missing props.station, showing loading state.");
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
@@ -49,7 +49,14 @@ const StationPage = (props: RawData) => {
     );
   }
 
-  const allData: AllData = useMemo(() => toAllData(props), [props]);
+  const allData: AllData = useMemo(() => {
+    try {
+      return toAllData(props);
+    } catch (e) {
+      console.error("[StationPage] toAllData failed:", e, props);
+      throw e;
+    }
+  }, [props]);
 
   const {
     station: stationData,
@@ -65,65 +72,67 @@ const StationPage = (props: RawData) => {
   } = allData;
 
   const uonzuOptions = useMemo(() => {
-    const targets = [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun];
+    try {
+      const targets = [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun];
+      if (!uonzuData || !(uonzuData instanceof Map)) {
+        console.warn("[StationPage] uonzuData is not a Map:", uonzuData);
+        return [];
+      }
 
-    return targets
-      .filter((meta) => uonzuData?.has(meta))
-      .map((meta) => {
-        return {
+      return targets
+        .filter((meta) => uonzuData.has(meta))
+        .map((meta) => ({
           key: meta.key,
           label: meta.label,
           color: meta.color,
-          meta: meta, // Store original meta for easier access
-        };
-      });
+          meta: meta,
+        }));
+    } catch (e) {
+      console.error("[StationPage] Error in uonzuOptions useMemo:", e);
+      return [];
+    }
   }, [uonzuData]);
 
   const [selectedBar, setSelectedBar] = useState<MetricMeta>(
     uonzuOptions?.[0]?.meta || MetricKey.sm_rain
   );
 
-  // レンダリング中にProps/Optionsの変更を検知して状態を同期 (React 19 推奨パターン)
+  // レンダリング中に同期
   const [prevUonzuOptions, setPrevUonzuOptions] = useState(uonzuOptions);
   if (uonzuOptions !== prevUonzuOptions) {
     setPrevUonzuOptions(uonzuOptions);
-    if (!uonzuOptions?.some((opt) => opt.key === selectedBar.key)) {
+    if (!uonzuOptions?.some((opt) => opt.key === selectedBar?.key)) {
       if (uonzuOptions?.length > 0) {
         setSelectedBar(uonzuOptions[0].meta);
       }
     }
   }
 
-  // Ratio Chart States
-  const [ratioMonth, setRatioMonth] = useState<number | null>(null);
-  const [ratioRankValue, setRatioRankValue] = useState<RankValue>(
-    RankKey.top.key
-  );
-
-  // Table State
-  const [tableRankValue, setTableRankValue] = useState<RankValue>(
-    RankKey.top.key
-  );
-
-  const regionColor = stationData?.pref?.region?.colorBase || "#777777";
-  const regionGradient = `linear-gradient(to right, ${stationData?.pref?.region?.colorStrong || "#777777"}, ${stationData?.pref?.region?.colorBase || "#999999"})`;
   const typeOptions = useMemo(() => {
-    const tabs = new Set([...(ratioData?.keys() || [])].map((meta) => meta.tab));
-    return Object.keys(CHART_METRICS)
-      .filter((p) => tabs.has(p as MetricTab))
-      .map((tab) => {
-        const label = tab.replace("日数", "");
-        const schema = CHART_METRICS[tab];
-        const baseMetric = schema?.[tab === "気温日数" ? 0 : 2]
-          ?.metric as MetricMeta;
-        const baseColor = baseMetric?.color;
+    try {
+      const tabs = new Set();
+      if (ratioData && ratioData instanceof Map) {
+        for (const meta of ratioData.keys()) {
+          if (meta && meta.tab) tabs.add(meta.tab);
+        }
+      } else {
+        console.warn("[StationPage] ratioData is not a Map:", ratioData);
+      }
 
-        return {
-          key: tab as ChartType,
-          label,
-          color: baseColor,
-        };
-      });
+      return Object.keys(CHART_METRICS)
+        .filter((p) => tabs.has(p as MetricTab))
+        .map((tab) => {
+          const label = tab.replace("日数", "");
+          const schema = CHART_METRICS[tab];
+          const baseMetric = schema?.[tab === "気温日数" ? 0 : 2]?.metric as MetricMeta;
+          const baseColor = baseMetric?.color;
+
+          return { key: tab as ChartType, label, color: baseColor };
+        });
+    } catch (e) {
+      console.error("[StationPage] Error in typeOptions useMemo:", e);
+      return [];
+    }
   }, [ratioData]);
 
   // Ratio Chart States

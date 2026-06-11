@@ -66,7 +66,7 @@ export function toMetricMap<V, R>(
   fn: (v: V) => R
 ): Map<MetricMeta, R> {
   const map = new Map<MetricMeta, R>();
-  if (!raw) return map;
+  if (!raw || typeof raw !== "object") return map;
 
   for (const [k, v] of Object.entries(raw)) {
     const meta = resolveMetric(k as MetricValue);
@@ -91,17 +91,19 @@ function toBadge(raw: RawBadgeData): BadgeData {
  * ========================================================= */
 
 export function toAllData(raw: RawData): AllData {
+  if (!raw) return {} as AllData;
+
   return {
-    station: toStation(raw.station),
+    station: raw.station ? toStation(raw.station) : ({} as StationData),
     overview: toMetricMap(raw.overview, (v) => v),
     uonzu: toMetricMap(raw.uonzu, (v) => v),
     table: toMetricMap(raw.table, (v) => v),
     ratio: toMetricMap(raw.ratio, (v) => v),
-    similarAll: raw.similarAll?.map(toStation),
-    similarMeteo: raw.similarMeteo?.map(toStation),
-    sameStations: raw.sameStations?.map(toStation),
-    meteoStations: raw.meteoStations?.map(toStation),
-    badge: raw.badge?.map(toBadge),
+    similarAll: Array.isArray(raw.similarAll) ? raw.similarAll.map(toStation) : [],
+    similarMeteo: Array.isArray(raw.similarMeteo) ? raw.similarMeteo.map(toStation) : [],
+    sameStations: Array.isArray(raw.sameStations) ? raw.sameStations.map(toStation) : [],
+    meteoStations: Array.isArray(raw.meteoStations) ? raw.meteoStations.map(toStation) : [],
+    badge: Array.isArray(raw.badge) ? raw.badge.map(toBadge) : [],
     description: raw.description ?? undefined,
   };
 }

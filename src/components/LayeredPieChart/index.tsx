@@ -22,7 +22,7 @@ const LayeredPieChart: React.FC<
 }) => {
   const groupedData = useMemo(() => {
     const map = new Map<MetricTab, Map<MetricMeta, MonthlyEntry[]>>();
-    if (ratioData) {
+    if (ratioData && ratioData instanceof Map) {
       for (const [meta, entries] of ratioData.entries()) {
         if (!meta.tab.endsWith("日数")) continue;
         if (!map.has(meta.tab)) {
@@ -35,17 +35,19 @@ const LayeredPieChart: React.FC<
   }, [ratioData]);
 
   const data = useMemo(
-    () =>
-      prepareChartData(
-        groupedData.get(ratioInfo?.metricTab || (null as any)) || null,
+    () => {
+      if (!ratioInfo?.metricTab) return null;
+      return prepareChartData(
+        groupedData.get(ratioInfo.metricTab) || null,
         ratioInfo,
         selectedMonth,
         rankType
-      ),
+      );
+    },
     [groupedData, ratioInfo, selectedMonth, rankType]
   );
 
-  if (!ratioInfo) return null;
+  if (!ratioInfo || !ratioInfo.metricTab) return null;
 
   const containerClass =
     layout === "vertical"

@@ -42,8 +42,9 @@ export function prepareChartData(
   month: number | null = null,
   rankType: RankValue = "top"
 ): ChartDataItem[] | null {
+  if (!ratioInfo?.metricTab) return null;
   const schema = CHART_METRICS[ratioInfo.metricTab];
-  if (!tabRecords || !schema) return null;
+  if (!tabRecords || !schema || !Array.isArray(schema)) return null;
 
   const currentRankKey = rankType;
   let targetIdx = month !== null ? month - 1 : 12;
