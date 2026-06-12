@@ -3,6 +3,7 @@ import { FaBuilding } from "react-icons/fa";
 import { PiThermometerHotFill } from "react-icons/pi";
 import { MetricKey, MetricMeta, MetricTab } from "../utils/metric";
 import { RankKey, RankMeta, RankValue } from "../utils/rank";
+import { StationId } from "./ids";
 
 export type { StationId } from "./ids";
 

@@ -64,10 +64,12 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
   );
   const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
 
-  // Reset metric when type changes
-  useEffect(() => {
+  // Reset metric when type changes (Render-time synchronization)
+  const [prevType, setPrevType] = useState(type);
+  if (type !== prevType) {
+    setPrevType(type);
     setMetric(groupMetrics[0]);
-  }, [type, groupMetrics]);
+  }
 
   const config = useMemo(() => MetricKey[metric], [metric]);
   const detail = useMemo(() => config.detail, [config]);

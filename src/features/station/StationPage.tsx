@@ -1,7 +1,7 @@
 // features/station/StationPage.tsx
 
 import Head from "next/head";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
@@ -30,27 +30,15 @@ import { AllData, BadgeData } from "../../types/all";
 import { RawData } from "../../types/raw";
 import { CATEGORY_KEYS } from "../../utils/category";
 import { toAllData } from "../../utils/masterUtils";
-import { MetricKey, MetricMeta, MetricTab } from "../../utils/metric";
+import { MetricKey, MetricMeta, MetricTab, MetricValue } from "../../utils/metric";
 import { RankKey, RankValue, isIslandId } from "../../utils/rank";
 
 const BASE_RANK_VALUES: RankValue[] = ["top", "bot", "region", "pre"];
 
 const StationPage = (props: RawData) => {
-  // 1. データの存在チェック（ガード）
-  if (!props || !props.station) {
-    console.warn("[StationPage] Missing props.station, showing loading state.");
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-400 font-bold animate-pulse">データを読み込み中...</p>
-        </div>
-      </div>
-    );
-  }
-
   const allData: AllData = useMemo(() => {
     try {
+      if (!props || !props.station) return {} as AllData;
       return toAllData(props);
     } catch (e) {
       console.error("[StationPage] toAllData failed:", e, props);
@@ -75,7 +63,6 @@ const StationPage = (props: RawData) => {
     try {
       const targets = [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun];
       if (!uonzuData || !(uonzuData instanceof Map)) {
-        console.warn("[StationPage] uonzuData is not a Map:", uonzuData);
         return [];
       }
 
@@ -96,15 +83,17 @@ const StationPage = (props: RawData) => {
   // 初期値は MetricKey.sm_rain。ただし uonzuOptions に含まれるものを優先する
   const [selectedBar, setSelectedBar] = useState<MetricMeta>(MetricKey.sm_rain);
 
-  // データが切り替わった時に選択中のバーが新データになければリセット
-  useEffect(() => {
+  // データが切り替わった時に選択中のバーが新データになければリセット (Render-time synchronization)
+  const [prevUonzuOptions, setPrevUonzuOptions] = useState(uonzuOptions);
+  if (uonzuOptions !== prevUonzuOptions) {
+    setPrevUonzuOptions(uonzuOptions);
     if (uonzuOptions.length > 0) {
       const currentExists = uonzuOptions.some((opt) => opt.key === selectedBar?.key);
       if (!currentExists) {
         setSelectedBar(uonzuOptions[0].meta);
       }
     }
-  }, [uonzuOptions, selectedBar]);
+  }
 
   // Ratio Chart States
   const [ratioMonth, setRatioMonth] = useState<number | null>(null);
@@ -124,8 +113,6 @@ const StationPage = (props: RawData) => {
         for (const meta of ratioData.keys()) {
           if (meta && meta.tab) tabs.add(meta.tab);
         }
-      } else {
-        console.warn("[StationPage] ratioData is not a Map:", ratioData);
       }
 
       return Object.keys(CHART_METRICS)
@@ -149,8 +136,12 @@ const StationPage = (props: RawData) => {
   // Ratio Chart States
   const [ratioType, setRatioType] = useState<ChartType | null>(null);
 
-  // 地点やタブ構成が変わった時の同期
-  useEffect(() => {
+  // 地点やタブ構成が変わった時の同期 (Render-time synchronization)
+  const [prevTypeOptions, setPrevTypeOptions] = useState(typeOptions);
+  const [prevStationId, setPrevStationId] = useState(stationData?.id);
+  if (typeOptions !== prevTypeOptions || stationData?.id !== prevStationId) {
+    setPrevTypeOptions(typeOptions);
+    setPrevStationId(stationData?.id);
     if (typeOptions.length > 0) {
       const currentExists = typeOptions.some((opt) => opt.key === ratioType);
       if (!currentExists || !ratioType) {
@@ -159,35 +150,53 @@ const StationPage = (props: RawData) => {
     } else {
       setRatioType(null);
     }
-  }, [typeOptions, ratioType, stationData?.id]);
-
-  const isMeteo = stationData?.category === CATEGORY_KEYS.meteo;
-  const isIsland = isIslandId(stationData?.id || "");
-
-  const regionColor = stationData?.pref?.region?.colorBase || "#777777";
-  const regionGradient = `linear-gradient(to right, ${stationData?.pref?.region?.colorStrong || "#777777"}, ${stationData?.pref?.region?.colorBase || "#999999"})`;
+  }
 
   const ratioRankOptions = useMemo(() => {
+    const isMeteo = stationData?.category === CATEGORY_KEYS.meteo;
+    const isIsland = isIslandId(stationData?.id || "");
     const rankValues = new Set<RankValue>(BASE_RANK_VALUES);
 
     if (isMeteo) rankValues.add("meteo");
     if (!isIsland && ratioType === "気温日数") rankValues.add("island");
 
     return Array.from(rankValues);
-  }, [ratioType, isMeteo, isIsland]);
+  }, [ratioType, stationData?.id, stationData?.category]);
 
   const tableRankOptions = useMemo(() => {
+    const isMeteo = stationData?.category === CATEGORY_KEYS.meteo;
+    const isIsland = isIslandId(stationData?.id || "");
     const rankValues = new Set<RankValue>(BASE_RANK_VALUES);
 
     if (isMeteo) rankValues.add("meteo");
     if (
       !isIsland &&
-      Array.from(tableData?.keys() || []).some((meta) => meta?.key === "av_avtemp")
+      tableData instanceof Map &&
+      Array.from(tableData.keys() || []).some((meta) => meta?.key === "av_avtemp")
     )
       rankValues.add("island");
 
     return Array.from(rankValues);
-  }, [tableData, isMeteo, isIsland]);
+  }, [tableData, stationData?.id, stationData?.category]);
+
+  // データの存在チェック（ガード） - Hookの後に移動
+  if (!props || !props.station) {
+    console.warn("[StationPage] Missing props.station, showing loading state.");
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-slate-400 font-bold animate-pulse">データを読み込み中...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const isMeteo = stationData?.category === CATEGORY_KEYS.meteo;
+  const isIsland = isIslandId(stationData?.id || "");
+
+  const regionColor = stationData?.pref?.region?.colorBase || "#777777";
+  const regionGradient = `linear-gradient(to right, ${stationData?.pref?.region?.colorStrong || "#777777"}, ${stationData?.pref?.region?.colorBase || "#999999"})`;
 
   return (
     <>
@@ -296,7 +305,7 @@ const StationPage = (props: RawData) => {
               <LayeredPieChart
                 ratioData={ratioData}
                 ratioInfo={{
-                  metricTab: ratioType,
+                  metricTab: ratioType || "気温日数",
                   ranking: ratioRankValue,
                   isCut: false,
                 }}
