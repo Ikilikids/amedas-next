@@ -184,7 +184,9 @@ export function assembleDisplayData(
           "sm_snowing",
         ].includes(m)
       ) {
-        uonzu[m as MetricValue] = fullEntries.slice(0, 12).map((e) => e.value);
+        uonzu[m as MetricValue] = fullEntries
+          .slice(0, 12)
+          .map((e) => (e ? e.value : null));
       }
     }
   );

@@ -109,6 +109,6 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
         buildId: process.env.NEXT_PUBLIC_BUILD_ID || "static",
       },
     },
-    revalidate: 3600, // 1時間ごとに再生成
+    revalidate: 3600, // 1時間ごとに再生成 (元に戻す)
   };
 };

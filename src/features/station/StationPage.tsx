@@ -80,7 +80,7 @@ const StationPage = (props: RawData) => {
       }
 
       return targets
-        .filter((meta) => uonzuData.has(meta))
+        .filter((meta) => meta && uonzuData.has(meta))
         .map((meta) => ({
           key: meta.key,
           label: meta.label,
@@ -101,8 +101,8 @@ const StationPage = (props: RawData) => {
   const [prevUonzuOptions, setPrevUonzuOptions] = useState(uonzuOptions);
   if (uonzuOptions !== prevUonzuOptions) {
     setPrevUonzuOptions(uonzuOptions);
-    if (!uonzuOptions?.some((opt) => opt.key === selectedBar?.key)) {
-      if (uonzuOptions?.length > 0) {
+    if (uonzuOptions && !uonzuOptions.some((opt) => opt.key === selectedBar?.key)) {
+      if (uonzuOptions.length > 0) {
         setSelectedBar(uonzuOptions[0].meta);
       }
     }
@@ -121,7 +121,7 @@ const StationPage = (props: RawData) => {
 
   const typeOptions = useMemo(() => {
     try {
-      const tabs = new Set();
+      const tabs = new Set<string>();
       if (ratioData && ratioData instanceof Map) {
         for (const meta of ratioData.keys()) {
           if (meta && meta.tab) tabs.add(meta.tab);
@@ -131,12 +131,12 @@ const StationPage = (props: RawData) => {
       }
 
       return Object.keys(CHART_METRICS)
-        .filter((p) => tabs.has(p as MetricTab))
+        .filter((p) => tabs.has(p))
         .map((tab) => {
           const label = tab.replace("日数", "");
           const schema = CHART_METRICS[tab];
           const baseMetric = schema?.[tab === "気温日数" ? 0 : 2]?.metric as MetricMeta;
-          const baseColor = baseMetric?.color;
+          const baseColor = baseMetric?.color || "#64748b";
 
           return { key: tab as ChartType, label, color: baseColor };
         });
@@ -162,7 +162,7 @@ const StationPage = (props: RawData) => {
       setRatioType(typeOptions?.[0]?.key ?? null);
     } else if (
       ratioType === null ||
-      !typeOptions?.some((opt) => opt.key === ratioType)
+      (typeOptions && !typeOptions.some((opt) => opt.key === ratioType))
     ) {
       setRatioType(typeOptions?.[0]?.key ?? null);
     }
@@ -321,10 +321,12 @@ const StationPage = (props: RawData) => {
                   <CustomSelect
                     value={tableRankValue}
                     onChange={(v) => setTableRankValue(v)}
-                    options={(tableRankOptions || []).map((opt) => ({
-                      value: opt,
-                      label: RankKey[opt].ratioLabel,
-                    }))}
+                    options={(tableRankOptions || [])
+                      .filter((opt) => opt && RankKey[opt])
+                      .map((opt) => ({
+                        value: opt,
+                        label: RankKey[opt].ratioLabel,
+                      }))}
                   />
                 </div>
               </SectionWithDescription>
