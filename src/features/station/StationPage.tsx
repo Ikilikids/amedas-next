@@ -93,20 +93,18 @@ const StationPage = (props: RawData) => {
     }
   }, [uonzuData]);
 
-  const [selectedBar, setSelectedBar] = useState<MetricMeta>(
-    uonzuOptions?.[0]?.meta || MetricKey.sm_rain
-  );
+  // 初期値は MetricKey.sm_rain。ただし uonzuOptions に含まれるものを優先する
+  const [selectedBar, setSelectedBar] = useState<MetricMeta>(MetricKey.sm_rain);
 
-  // レンダリング中に同期
-  const [prevUonzuOptions, setPrevUonzuOptions] = useState(uonzuOptions);
-  if (uonzuOptions !== prevUonzuOptions) {
-    setPrevUonzuOptions(uonzuOptions);
-    if (uonzuOptions && !uonzuOptions.some((opt) => opt.key === selectedBar?.key)) {
-      if (uonzuOptions.length > 0) {
+  // データが切り替わった時に選択中のバーが新データになければリセット
+  useEffect(() => {
+    if (uonzuOptions.length > 0) {
+      const currentExists = uonzuOptions.some((opt) => opt.key === selectedBar?.key);
+      if (!currentExists) {
         setSelectedBar(uonzuOptions[0].meta);
       }
     }
-  }
+  }, [uonzuOptions, selectedBar]);
 
   // Ratio Chart States
   const [ratioMonth, setRatioMonth] = useState<number | null>(null);
@@ -135,11 +133,13 @@ const StationPage = (props: RawData) => {
         .map((tab) => {
           const label = tab.replace("日数", "");
           const schema = CHART_METRICS[tab];
-          const baseMetric = schema?.[tab === "気温日数" ? 0 : 2]?.metric as MetricMeta;
+          if (!schema || !Array.isArray(schema)) return null;
+
+          const baseMetric = schema[tab === "気温日数" ? 0 : (schema.length > 2 ? 2 : 0)]?.metric as MetricMeta;
           const baseColor = baseMetric?.color || "#64748b";
 
           return { key: tab as ChartType, label, color: baseColor };
-        });
+        }).filter((opt): opt is NonNullable<typeof opt> => opt !== null);
     } catch (e) {
       console.error("[StationPage] Error in typeOptions useMemo:", e);
       return [];
@@ -147,26 +147,19 @@ const StationPage = (props: RawData) => {
   }, [ratioData]);
 
   // Ratio Chart States
-  const [ratioType, setRatioType] = useState<ChartType | null>(
-    typeOptions?.[0]?.key || null
-  );
+  const [ratioType, setRatioType] = useState<ChartType | null>(null);
 
-  // レンダリング中に同期
-  const [prevSync, setPrevSync] = useState({
-    id: stationData?.id,
-    options: typeOptions,
-  });
-  if (stationData?.id !== prevSync.id || typeOptions !== prevSync.options) {
-    setPrevSync({ id: stationData?.id, options: typeOptions });
-    if (stationData?.id !== prevSync.id) {
-      setRatioType(typeOptions?.[0]?.key ?? null);
-    } else if (
-      ratioType === null ||
-      (typeOptions && !typeOptions.some((opt) => opt.key === ratioType))
-    ) {
-      setRatioType(typeOptions?.[0]?.key ?? null);
+  // 地点やタブ構成が変わった時の同期
+  useEffect(() => {
+    if (typeOptions.length > 0) {
+      const currentExists = typeOptions.some((opt) => opt.key === ratioType);
+      if (!currentExists || !ratioType) {
+        setRatioType(typeOptions[0].key);
+      }
+    } else {
+      setRatioType(null);
     }
-  }
+  }, [typeOptions, ratioType, stationData?.id]);
 
   const isMeteo = stationData?.category === CATEGORY_KEYS.meteo;
   const isIsland = isIslandId(stationData?.id || "");
@@ -189,7 +182,7 @@ const StationPage = (props: RawData) => {
     if (isMeteo) rankValues.add("meteo");
     if (
       !isIsland &&
-      Array.from(tableData?.keys() || []).some((meta) => meta.key === "av_avtemp")
+      Array.from(tableData?.keys() || []).some((meta) => meta?.key === "av_avtemp")
     )
       rankValues.add("island");
 
@@ -209,11 +202,11 @@ const StationPage = (props: RawData) => {
           <HeroSection
             title={
               <span className="flex gap-2 flex-wrap items-center">
-                {stationData?.official_name}
+                {stationData?.official_name || "地点名不明"}
                 <span className="flex gap-2 flex-wrap items-center">
-                  {badges &&
+                  {badges && Array.isArray(badges) &&
                     badges.map((b: BadgeData, i: number) => (
-                      <RankBadge key={i} {...b} />
+                      b && b.metric && <RankBadge key={`${b.metric.key || "badge"}-${i}`} {...b} />
                     ))}
                 </span>
               </span>
@@ -259,13 +252,16 @@ const StationPage = (props: RawData) => {
                 title="雨温図"
                 bgColor={regionColor}
                 description={[
-                  `・棒グラフは${selectedBar?.label || ""}、折れ線グラフは平均気温・最低気温・最高気温を表しています。`,
+                  `・棒グラフは${selectedBar?.label || "降水量"}、折れ線グラフは平均気温・最低気温・最高気温を表しています。`,
                   "・月降水量が500mmを超える地点は、棒グラフの最大値が1000mmになります。",
                 ]}
               >
                 <SegmentedControl
                   value={selectedBar?.key}
-                  onChange={(v) => setSelectedBar(MetricKey[v])}
+                  onChange={(v) => {
+                    const next = MetricKey[v as MetricValue];
+                    if (next) setSelectedBar(next);
+                  }}
                   options={uonzuOptions || []}
                   className="ml-2"
                 />
@@ -325,7 +321,7 @@ const StationPage = (props: RawData) => {
                       .filter((opt) => opt && RankKey[opt])
                       .map((opt) => ({
                         value: opt,
-                        label: RankKey[opt].ratioLabel,
+                        label: RankKey[opt]?.ratioLabel || "不明",
                       }))}
                   />
                 </div>

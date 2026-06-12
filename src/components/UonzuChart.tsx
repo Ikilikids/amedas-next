@@ -55,16 +55,26 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
   const displayLabels = labels || defaultMonths;
 
   // ===== データ取得 =====
+  if (!uonzuData || !(uonzuData instanceof Map)) {
+    return (
+      <div className="flex items-center justify-center text-slate-400" style={{ height }}>
+        データがありません
+      </div>
+    );
+  }
+
   const temps = uonzuData.get(MetricKey.av_avtemp);
   const lows = uonzuData.get(MetricKey.av_lwtemp);
   const highs = uonzuData.get(MetricKey.av_hitemp);
-  const bars = uonzuData.get(selectedBar) ?? [];
+  const bars = selectedBar ? uonzuData.get(selectedBar) ?? [] : [];
   const threshold = isDaily ? 200 : 500;
   // ===== 棒グラフ切り替え =====
   const getBarData = () => {
+    if (!selectedBar) return { label: "データなし", data: [], backgroundColor: "#ccc" };
+
     const maxBar = bars.length > 0 ? Math.max(...bars.map((v) => v || 0)) : 0;
 
-    let backgroundColor = selectedBar.color.slice(0, 7) + "99"; // Add transparency
+    let backgroundColor = (selectedBar.color || "#cccccc").slice(0, 7) + "99"; // Add transparency
 
     // 特殊ルール: 降水量が多すぎる場合は色を濃くする (既存ロジックの継承)
     if (selectedBar.key === "sm_rain") {
@@ -72,8 +82,8 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
     }
 
     return {
-      label: `${selectedBar.label} (${
-        selectedBar.unit === "時間" ? "h" : selectedBar.unit
+      label: `${selectedBar.label || "項目"} (${
+        selectedBar.unit === "時間" ? "h" : selectedBar.unit || ""
       })`,
       data: bars,
       backgroundColor,

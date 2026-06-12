@@ -180,8 +180,9 @@ export function getPrefMeta(pref: PrefValue): PrefMeta {
 }
 
 export function getRegionMeta(prefCode: string): RegionMeta {
-  const pref: PrefMeta = Object.values(PrefKey).find(
+  const pref: PrefMeta | undefined = Object.values(PrefKey).find(
     (p) => p.code === prefCode
   );
+  if (!pref) return RegionKey.kanto; // Fallback
   return pref.region;
 }

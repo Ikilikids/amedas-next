@@ -20,18 +20,34 @@ function computeLayeredValues(
   const v = rawValues.map((val) => val ?? 0);
 
   if (type === "気温日数") {
-    layered.push(v[0]); // 猛暑日
-    layered.push(v[1] - v[0]); // 真夏日
-    layered.push(v[2] - v[1]); // 夏日
-    layered.push(monthDays - v[2] - v[4]); // その他
-    layered.push(v[4] - v[5]); // 冬日
-    layered.push(v[5]); // 真冬日
+    // 6つのデータが必要: 猛暑日, 真夏日, 夏日, その他, 冬日, 真冬日
+    // 不足している場合は 0 で埋める
+    const safeV = [
+      v[0] ?? 0,
+      v[1] ?? 0,
+      v[2] ?? 0,
+      v[3] ?? 0,
+      v[4] ?? 0,
+      v[5] ?? 0,
+    ];
+    layered.push(safeV[0]); // 猛暑日
+    layered.push(Math.max(0, safeV[1] - safeV[0])); // 真夏日
+    layered.push(Math.max(0, safeV[2] - safeV[1])); // 夏日
+    layered.push(Math.max(0, monthDays - safeV[2] - safeV[4])); // その他
+    layered.push(Math.max(0, safeV[4] - safeV[5])); // 冬日
+    layered.push(safeV[5]); // 真冬日
   } else {
+    if (v.length === 0) return [];
     layered.push(v[0]);
     for (let i = 1; i < v.length - 1; i++) {
-      layered.push(v[i] - v[i - 1]);
+      layered.push(Math.max(0, v[i] - v[i - 1]));
     }
-    layered.push(monthDays - v[v.length - 2]);
+    // 最後のスライス (例: ~1mm)
+    if (v.length > 1) {
+      layered.push(Math.max(0, monthDays - v[v.length - 2]));
+    } else {
+      layered.push(Math.max(0, monthDays - v[0]));
+    }
   }
   return layered;
 }
@@ -44,7 +60,7 @@ export function prepareChartData(
 ): ChartDataItem[] | null {
   if (!ratioInfo?.metricTab) return null;
   const schema = CHART_METRICS[ratioInfo.metricTab];
-  if (!tabRecords || !schema || !Array.isArray(schema)) return null;
+  if (!schema || !Array.isArray(schema) || schema.length === 0) return null;
 
   const currentRankKey = rankType;
   let targetIdx = month !== null ? month - 1 : 12;
@@ -52,6 +68,8 @@ export function prepareChartData(
   // Resolve raw data based on schema
   const raw = schema.map((s) => {
     const meta = s.metric as MetricMeta;
+    if (!meta) return null;
+
     // 仮想メトリクス（その他、〜1mmなどデータファイルがないもの）の判定
     const isVirtual =
       meta.key === "temp_other" ||
@@ -59,7 +77,7 @@ export function prepareChartData(
         meta.key !== "lwtemp_0" &&
         meta.key !== "hitemp_0");
 
-    const entries = isVirtual ? null : tabRecords.get(meta);
+    const entries = isVirtual ? null : tabRecords?.get(meta);
 
     // データが1つしかない場合（SSG最適化時など）は、それを選択する
     if (entries && entries.length === 1) {
@@ -68,26 +86,30 @@ export function prepareChartData(
     const entry = entries ? entries[targetIdx] : null;
 
     return {
-      label: s.chartLabel,
-      color: s.color,
+      label: s.chartLabel || meta.label || "不明",
+      color: s.color || meta.color || "#cccccc",
       value: entry?.value ?? (isVirtual ? null : 0),
       rank: entry
         ? (entry[currentRankKey as keyof MonthlyEntry] as number)
         : null,
       key: meta.key,
     };
-  });
+  }).filter((r): r is NonNullable<typeof r> => r !== null);
 
-  const monthDays = month ? MONTH_DAYS[month - 1] : 365;
+  if (raw.length === 0) return null;
+
+  const monthDays = month && month >= 1 && month <= 12 ? MONTH_DAYS[month - 1] : 365;
   const layeredValues = computeLayeredValues(
     raw.map((r) => r.value),
     ratioInfo.metricTab,
     monthDays
   );
 
-  const total = layeredValues.reduce((a, b) => a + b, 0);
+  // layeredValues と raw の長さが一致しない場合に備えて、短い方に合わせる
+  const resultLen = Math.min(raw.length, layeredValues.length);
+  const total = layeredValues.reduce((a, b) => a + b, 0) || 1;
 
-  return layeredValues.map((v, i) => {
+  return layeredValues.slice(0, resultLen).map((v, i) => {
     const r = raw[i];
     return {
       name: r.label,

@@ -92,14 +92,20 @@ const PrefecturePart: React.FC<PrefecturePartProps> = ({
   meteoStations = [],
 }) => {
   // 同じ県の観測所を category順 -> id順にソート
-  const sortedSamePref = [...(sameStations || [])].sort(
-    (a, b) => (a.category?.value || 0) - (b.category?.value || 0) || a.id.localeCompare(b.id)
-  );
+  const sortedSamePref = [...(sameStations || [])].sort((a, b) => {
+    const catA = a?.category?.value ?? 999;
+    const catB = b?.category?.value ?? 999;
+    const idA = a?.id ?? "";
+    const idB = b?.id ?? "";
+    return catA - catB || idA.localeCompare(idB);
+  });
 
   // 気象台リストを id順にソート
-  const sortedMeteo = [...(meteoStations || [])].sort((a, b) =>
-    a.id.localeCompare(b.id)
-  );
+  const sortedMeteo = [...(meteoStations || [])].sort((a, b) => {
+    const idA = a?.id ?? "";
+    const idB = b?.id ?? "";
+    return idA.localeCompare(idB);
+  });
 
   return (
     <div className="flex flex-col">
