@@ -36,12 +36,15 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
       { value: "sun", label: "日照時間" },
       { value: "map", label: "マップ" },
     ];
-    ratioInfo.forEach((info) => {
-      options.push({
-        value: `ratio_${info.metricTab}`,
-        label: info.metricTab.replace("日数", "割合"),
+    if (ratioInfo && Array.isArray(ratioInfo)) {
+      ratioInfo.forEach((info) => {
+        if (!info || !info.metricTab) return;
+        options.push({
+          value: `ratio_${info.metricTab}`,
+          label: info.metricTab.replace("日数", "割合"),
+        });
       });
-    });
+    }
     return options;
   }, [ratioInfo]);
 

@@ -75,10 +75,15 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
   const detail = useMemo(() => config.detail, [config]);
 
   const displayList: RankingData[] = useMemo(() => {
+    if (!stations) return [];
+    
     const rawList: RawRankingData[] = Object.entries(stations)
-      .filter(([, s]) => s[metric] !== undefined)
+      .filter(([, s]) => s && metric && s[metric] !== undefined)
       .map(([id, s]) => {
-        const mData = s[metric]!;
+        if (!s || !metric) return null;
+        const mData = s[metric];
+        if (!mData) return null;
+        
         return {
           id,
           station_name: s.station_name,
@@ -87,7 +92,8 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
           value: mData.value,
           time: mData.time,
         };
-      });
+      })
+      .filter((s): s is NonNullable<typeof s> => s !== null);
 
     const processed = processRankingData(
       rawList,
@@ -97,12 +103,15 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
       100
     );
 
-    return processed.map((s) => ({
-      ...toStation(s),
-      value: s.value,
-      rank: s.rank,
-      time: s.time,
-    }));
+    return processed.map((s) => {
+      if (!s) return null;
+      return {
+        ...toStation(s),
+        value: s.value,
+        rank: s.rank,
+        time: s.time,
+      };
+    }).filter((s): s is NonNullable<typeof s> => s !== null);
   }, [metric, stations, rankMeta, selectedRegion, selectedPref]);
 
   const isRainMetric = metric.includes("rain");

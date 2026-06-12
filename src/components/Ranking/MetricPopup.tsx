@@ -34,7 +34,9 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
   }
 
   const groupedMetrics = useMemo(() => {
+    if (!MetricKey) return {} as Record<MetricTab, MetricMeta[]>;
     return Object.values(MetricKey).reduce((acc, key) => {
+      if (!key || !key.tab) return acc;
       const tab = key.tab;
 
       // 除外

@@ -58,7 +58,7 @@ export function prepareChartData(
   month: number | null = null,
   rankType: RankValue = "top"
 ): ChartDataItem[] | null {
-  if (!ratioInfo?.metricTab) return null;
+  if (!ratioInfo || !ratioInfo.metricTab) return null;
   const schema = CHART_METRICS[ratioInfo.metricTab];
   if (!schema || !Array.isArray(schema) || schema.length === 0) return null;
 
@@ -67,8 +67,9 @@ export function prepareChartData(
 
   // Resolve raw data based on schema
   const raw = schema.map((s) => {
+    if (!s || !s.metric) return null;
     const meta = s.metric as MetricMeta;
-    if (!meta) return null;
+    if (!meta || !meta.key) return null;
 
     // 仮想メトリクス（その他、〜1mmなどデータファイルがないもの）の判定
     const isVirtual =
@@ -83,13 +84,13 @@ export function prepareChartData(
     if (entries && entries.length === 1) {
       targetIdx = 0;
     }
-    const entry = entries ? entries[targetIdx] : null;
+    const entry = entries && entries[targetIdx] ? entries[targetIdx] : null;
 
     return {
       label: s.chartLabel || meta.label || "不明",
       color: s.color || meta.color || "#cccccc",
       value: entry?.value ?? (isVirtual ? null : 0),
-      rank: entry
+      rank: entry && currentRankKey
         ? (entry[currentRankKey as keyof MonthlyEntry] as number)
         : null,
       key: meta.key,
@@ -111,6 +112,8 @@ export function prepareChartData(
 
   return layeredValues.slice(0, resultLen).map((v, i) => {
     const r = raw[i];
+    if (!r) return null;
+    
     return {
       name: r.label,
       value: (v / total) * 100,
@@ -120,5 +123,5 @@ export function prepareChartData(
       rank: r.rank,
       color: r.color,
     };
-  });
+  }).filter((r): r is NonNullable<typeof r> => r !== null);
 }

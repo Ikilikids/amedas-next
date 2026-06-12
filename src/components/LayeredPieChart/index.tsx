@@ -21,28 +21,39 @@ const LayeredPieChart: React.FC<
   layout = "horizontal",
 }) => {
   const groupedData = useMemo(() => {
-    const map = new Map<MetricTab, Map<MetricMeta, MonthlyEntry[]>>();
-    if (ratioData && ratioData instanceof Map) {
-      for (const [meta, entries] of ratioData.entries()) {
-        if (!meta.tab.endsWith("日数")) continue;
-        if (!map.has(meta.tab)) {
-          map.set(meta.tab, new Map());
+    try {
+      const map = new Map<MetricTab, Map<MetricMeta, MonthlyEntry[]>>();
+      if (ratioData && ratioData instanceof Map) {
+        for (const [meta, entries] of ratioData.entries()) {
+          if (!meta || !meta.tab) continue;
+          if (!meta.tab.endsWith("日数")) continue;
+          if (!map.has(meta.tab)) {
+            map.set(meta.tab, new Map());
+          }
+          map.get(meta.tab)!.set(meta, entries);
         }
-        map.get(meta.tab)!.set(meta, entries);
       }
+      return map;
+    } catch (e) {
+      console.error("[LayeredPieChart] Error in groupedData useMemo:", e);
+      return new Map<MetricTab, Map<MetricMeta, MonthlyEntry[]>>();
     }
-    return map;
   }, [ratioData]);
 
   const data = useMemo(
     () => {
-      if (!ratioInfo?.metricTab) return null;
-      return prepareChartData(
-        groupedData.get(ratioInfo.metricTab) || null,
-        ratioInfo,
-        selectedMonth,
-        rankType
-      );
+      try {
+        if (!ratioInfo || !ratioInfo.metricTab) return null;
+        return prepareChartData(
+          groupedData.get(ratioInfo.metricTab) || null,
+          ratioInfo,
+          selectedMonth,
+          rankType
+        );
+      } catch (e) {
+        console.error("[LayeredPieChart] Error in prepareChartData useMemo:", e);
+        return null;
+      }
     },
     [groupedData, ratioInfo, selectedMonth, rankType]
   );
