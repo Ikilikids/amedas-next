@@ -55,11 +55,9 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
   const [activeTab, setActiveTab] = useState<MetricGroup>("heat");
 
   // 日付順に並び替え（昇順）
-  const sortedData = [...(history || [])]
-    .filter((item) => item && item.date)
-    .sort((a, b) => a.date.localeCompare(b.date));
+  const sortedData = [...history].sort((a, b) => a.date.localeCompare(b.date));
   const labels = sortedData.map((item) =>
-    (item.date || "0-0-0").split("-").slice(1).join("/")
+    item.date.split("-").slice(1).join("/")
   );
 
   if (sortedData.length === 0) return null;
@@ -71,21 +69,18 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
   const rainValues = sortedData.map((d) => d.rain);
 
   if (hiValues.some((v) => v !== null)) {
-    const meta = MetricKey.av_hitemp;
-    if (meta) uonzuMap.set(meta, hiValues);
+    uonzuMap.set(MetricKey.av_hitemp, hiValues);
   }
   if (lwValues.some((v) => v !== null)) {
-    const meta = MetricKey.av_lwtemp;
-    if (meta) uonzuMap.set(meta, lwValues);
+    uonzuMap.set(MetricKey.av_lwtemp, lwValues);
   }
   if (rainValues.some((v) => v !== null)) {
-    const meta = MetricKey.sm_rain;
-    if (meta) uonzuMap.set(meta, rainValues);
+    uonzuMap.set(MetricKey.sm_rain, rainValues);
   }
 
   // アクティブなタブ（グループ）に属するメトリクスを抽出
   const displayMetrics = Object.values(MetricKey).filter(
-    (m) => m && m.detail?.group === activeTab
+    (m) => m.detail?.group === activeTab
   );
 
   return (
@@ -96,24 +91,23 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
           onChange={(v) => setActiveTab(v as any)}
           options={Object.entries(RANKING_GROUP_META).map(([key, meta]) => ({
             key: key as MetricGroup,
-            label: meta.label || "不明",
-            color: meta.color || "#ccc",
+            label: meta.label,
+            color: meta.color,
           }))}
         />
         <div className="flex flex-wrap gap-2 justify-end">
-          {stats && typeof stats === "object" && (
+          {stats && (
             <>
               {displayMetrics.map((m) => {
-                if (!m || !m.key) return null;
-                let val = stats[m.key as keyof typeof stats];
-                if (m.key === "sm_rain" && val !== undefined && val !== null)
-                  val = Math.round(Number(val));
+                let val = stats[m.key];
+                if (m.key === "sm_rain" && val !== undefined)
+                  val = Math.round(val);
                 return (
                   <StatBox
                     key={m.key}
-                    label={m.label || "不明"}
-                    value={val as any}
-                    unit={m.unit || ""}
+                    label={m.label}
+                    value={val}
+                    unit={m.unit}
                     accentColor={m.color}
                   />
                 );

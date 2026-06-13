@@ -88,10 +88,6 @@ export const useRankingData = (
           })
           .filter((s): s is RawRankingData => s !== null);
 
-        if (!stationList || !Array.isArray(stationList)) {
-          console.error("[useRankingData] stationList is malformed:", stationList);
-        }
-
         const processed = processRankingData(
           stationList,
           rankMeta,
@@ -169,10 +165,6 @@ export const useStationDetail = (stationId: StationId | null) => {
 
         // キャッシュからこの地点の統合済みデータをガサッと引く
         const integratedData = getStation(stationId);
-        if (!integratedData || Object.keys(integratedData).length === 0) {
-          console.warn("[useStationDetail] No integrated data for station:", stationId);
-        }
-
         const { overview, table, ratio, uonzu } = assembleDisplayData(
           integratedData as any
         );
@@ -181,10 +173,6 @@ export const useStationDetail = (stationId: StationId | null) => {
           uonzuData: toMetricMap(uonzu, (v) => v),
           overviewData: toMetricMap(overview, (v) => v),
         };
-
-        if (!(result.uonzuData instanceof Map)) {
-          console.error("[useStationDetail] uonzuData is not a Map after conversion");
-        }
 
         setUonzuData(result.uonzuData);
         setOverviewData(result.overviewData);

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { FaInfoCircle, FaSearch } from "react-icons/fa";
+import { FaInfoCircle, FaSearch, FaShieldAlt } from "react-icons/fa";
 import { NavLink, navSections } from "../utils/navLinks";
 
 // ==============================
@@ -46,6 +46,13 @@ const Header: React.FC<HeaderProps> = () => {
                 <FaInfoCircle className="text-slate-300" />
                 このサイトについて
               </Link>
+              <Link
+                href="/privacy"
+                className="flex items-center gap-1.5 text-xs font-black text-slate-400 hover:text-blue-600 transition-colors"
+              >
+                <FaShieldAlt className="text-slate-300" />
+                プライバシー
+              </Link>
             </div>
           </div>
 
@@ -78,7 +85,9 @@ const Header: React.FC<HeaderProps> = () => {
               className="lg:hidden flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-md hover:bg-blue-700 transition-all active:scale-95"
               onClick={() => setOpen(!open)}
             >
-              <span className="text-lg w-5 text-center">{open ? "✕" : "☰"}</span>
+              <span className="text-lg w-5 text-center">
+                {open ? "✕" : "☰"}
+              </span>
               <span>MENU</span>
             </button>
           </div>
@@ -139,7 +148,7 @@ const Header: React.FC<HeaderProps> = () => {
 
         {/* スマホ */}
         {open && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-white z-[110] overflow-y-auto max-h-[calc(100vh-100%)] shadow-2xl border-t border-slate-100">
+          <div className="lg:hidden fixed inset-0 top-[65px] bg-white z-[90] overflow-y-auto animate-in slide-in-from-top-4 duration-300 ease-out">
             <div className="p-6 flex flex-col gap-8">
               <div className="flex flex-col gap-2">
                 <a

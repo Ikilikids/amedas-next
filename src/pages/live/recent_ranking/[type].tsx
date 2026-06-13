@@ -64,26 +64,19 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
   );
   const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
 
-  // Reset metric when type changes (Render-time synchronization)
-  const [prevType, setPrevType] = useState(type);
-  if (type !== prevType) {
-    setPrevType(type);
+  // Reset metric when type changes
+  useEffect(() => {
     setMetric(groupMetrics[0]);
-  }
+  }, [type, groupMetrics]);
 
   const config = useMemo(() => MetricKey[metric], [metric]);
   const detail = useMemo(() => config.detail, [config]);
 
   const displayList: RankingData[] = useMemo(() => {
-    if (!stations) return [];
-    
     const rawList: RawRankingData[] = Object.entries(stations)
-      .filter(([, s]) => s && metric && s[metric] !== undefined)
+      .filter(([, s]) => s[metric] !== undefined)
       .map(([id, s]) => {
-        if (!s || !metric) return null;
-        const mData = s[metric];
-        if (!mData) return null;
-        
+        const mData = s[metric]!;
         return {
           id,
           station_name: s.station_name,
@@ -92,8 +85,7 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
           value: mData.value,
           time: mData.time,
         };
-      })
-      .filter((s): s is NonNullable<typeof s> => s !== null);
+      });
 
     const processed = processRankingData(
       rawList,
@@ -103,15 +95,12 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
       100
     );
 
-    return processed.map((s) => {
-      if (!s) return null;
-      return {
-        ...toStation(s),
-        value: s.value,
-        rank: s.rank,
-        time: s.time,
-      };
-    }).filter((s): s is NonNullable<typeof s> => s !== null);
+    return processed.map((s) => ({
+      ...toStation(s),
+      value: s.value,
+      rank: s.rank,
+      time: s.time,
+    }));
   }, [metric, stations, rankMeta, selectedRegion, selectedPref]);
 
   const isRainMetric = metric.includes("rain");

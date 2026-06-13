@@ -124,7 +124,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
   };
 
   const mapValueRank = (meta: MetricMeta): HyouRowData[] => {
-    if (!tableData || !(tableData instanceof Map) || !meta) return emptyMonthlyData();
+    if (!tableData) return emptyMonthlyData();
 
     const isSnow = meta.unit === "cm";
     const entries = tableData.get(meta) || [];
@@ -134,14 +134,13 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
       let val: string | number = entry?.value ?? "--";
       if (typeof val === "number" && !isSnow) val = val.toFixed(1);
 
-      let rank: string | number = (entry && rankValue) ? entry[rankValue] ?? "--" : "--";
+      let rank: string | number = entry ? entry[rankValue] ?? "--" : "--";
 
       return { val, rank };
     });
   };
 
   const renderRow = (meta: MetricMeta) => {
-    if (!meta) return null;
     const dataArray = mapValueRank(meta);
     const icon = meta.highIcon || meta.lowIcon;
 
@@ -154,7 +153,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
           <div className="flex flex-col items-center justify-center leading-tight px-1 gap-0.5">
             <div className="flex items-center gap-1">
               <span className="text-slate-800 whitespace-nowrap">
-                {(meta.label || "不明").replace("平均最", "最")}
+                {meta.label.replace("平均最", "最")}
               </span>
               {icon && (
                 <span
@@ -166,13 +165,13 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
               )}
             </div>
             <span className="text-[10px] sm:text-xs text-slate-400 font-normal">
-              ({meta.unit || ""})
+              ({meta.unit})
             </span>
           </div>
         </td>
         {dataArray.map((d, i) => {
           const isAnnual = months[i].slug === "all";
-          const bgColor = getColor(meta.label || "", d.val, isAnnual);
+          const bgColor = getColor(meta.label, d.val, isAnnual);
           return (
             <td
               key={i}

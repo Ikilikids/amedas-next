@@ -64,16 +64,12 @@ export const getFeatureStaticProps =
         const meta = MetricKey[m as MetricValue];
 
         if (meta && allowedTabs.includes(meta.tab)) {
-          const ranking = rankingMap[meta.tab];
+          const ranking = rankingMap[meta.tab]; // "meteo" など
 
-          if (ranking && Array.isArray(data)) {
-            filteredRatio[m] = data
-              .filter((d) => d !== null && d !== undefined)
-              .map((d) => ({
-                value: d.value,
-                [ranking]: d[ranking as keyof typeof d],
-              }));
-          }
+          filteredRatio[m] = data.map((d) => ({
+            value: d.value,
+            [ranking]: d[ranking],
+          }));
         }
       });
       console.log(station);

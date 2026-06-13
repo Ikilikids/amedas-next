@@ -55,15 +55,10 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 
   const displayList: RankingData[] = useMemo(() => {
     // 1. Recordから現在のメトリックを持つ地点を抽出し、RawRankingData[] を作成
-    if (!stations) return [];
-    
     const rawList: RawRankingData[] = Object.entries(stations)
-      .filter(([, s]) => s && metric && s[metric] !== undefined)
+      .filter(([, s]) => s[metric] !== undefined)
       .map(([id, s]) => {
-        if (!s || !metric) return null;
-        const mData = s[metric];
-        if (!mData) return null;
-        
+        const mData = s[metric]!;
         return {
           id,
           station_name: s.station_name,
@@ -72,8 +67,7 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
           value: mData.value,
           time: mData.time,
         };
-      })
-      .filter((s): s is NonNullable<typeof s> => s !== null);
+      });
 
     // 2. 共通ロジックでランキング処理 (ソート、フィルタリング、順位付け)
     const processed = processRankingData(
@@ -85,15 +79,12 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
     );
 
     // 3. 表示用にRich化
-    return processed.map((s) => {
-      if (!s) return null;
-      return {
-        ...toStation(s),
-        value: s.value,
-        rank: s.rank,
-        time: s.time,
-      };
-    }).filter((s): s is NonNullable<typeof s> => s !== null);
+    return processed.map((s) => ({
+      ...toStation(s),
+      value: s.value,
+      rank: s.rank,
+      time: s.time,
+    }));
   }, [metric, stations, rankMeta, selectedRegion, selectedPref]);
 
   return (

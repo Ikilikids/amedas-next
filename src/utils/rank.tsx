@@ -48,7 +48,7 @@ export const ISLAND_PREFIXES = [
   "9",
 ];
 
-import { StationId } from "../types/ids";
+import { StationId } from "../types/union";
 
 export const isIslandId = (id: StationId): boolean =>
   ISLAND_PREFIXES.some((p) => id.startsWith(p));

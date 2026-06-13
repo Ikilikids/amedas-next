@@ -19,16 +19,12 @@ const RankingList: React.FC<RankingListProps> = ({
   isSimple = false,
 }) => {
   const rankingData: RankingData[] = useMemo(() => {
-    if (!stations || !Array.isArray(stations)) return [];
-    return stations.map((s) => {
-      if (!s) return null;
-      return {
-        ...toStation(s),
-        value: s?.value,
-        rank: s?.rank,
-        time: s?.time,
-      };
-    }).filter((s): s is NonNullable<typeof s> => s !== null) as RankingData[];
+    return stations.map((s) => ({
+      ...toStation(s),
+      value: s.value,
+      rank: s.rank,
+      time: s.time,
+    }));
   }, [stations]);
 
   const filteredRankingData: RankingData[] = useMemo(() => {

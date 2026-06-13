@@ -69,11 +69,6 @@ const RankBadge = (props: BadgeData) => {
   const metricKey = props.metric;
   const uid = useId();
 
-  if (!metricKey) {
-    console.warn("[RankBadge] Missing metricKey for badge:", props);
-    return null;
-  }
-
   const colors = medalColors[rank] || medalColors.bronze;
 
   const Icon = isHigh ? metricKey.highIcon : metricKey.lowIcon;

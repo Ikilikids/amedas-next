@@ -42,16 +42,9 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
   const currentSideRanking = config.sideRankings[selectedRankingIndex];
 
   const targetStations = useMemo(() => {
-    try {
-      if (!data) return [];
-      return Object.values(data)
-        .map((d) => toStation(d?.station))
-        .filter((s): s is NonNullable<typeof s> => s !== null && s.id !== undefined)
-        .sort((a, b) => a.id.localeCompare(b.id));
-    } catch (e) {
-      console.error("Error in targetStations useMemo:", e);
-      return [];
-    }
+    return Object.values(data)
+      .map((d) => toStation(d.station))
+      .sort((a, b) => a.id.localeCompare(b.id));
   }, [data]);
 
   const handleStationClick = (station: RankingItem) => {
