@@ -310,13 +310,24 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  const overallStart = Date.now();
+  console.log("[ISR] DailyRankingPage: getStaticProps execution started");
+
   try {
+    // 1. マスターデータのロード (キャッシュチェックは内部で行う)
     const masterData = loadMaster();
+
+    // 2. 気象庁データのフェッチ計測
+    const jmaStart = Date.now();
+    console.log("[ISR] fetchJmaDailyMaxRanking: Starting network fetch...");
     const result = await fetchJmaDailyMaxRanking(null);
+    console.log(`[ISR] fetchJmaDailyMaxRanking: Completed in ${Date.now() - jmaStart}ms`);
+
     const lastUpdate = new Date().toLocaleString("ja-JP", {
       timeZone: "Asia/Tokyo",
     });
 
+    const mergeStart = Date.now();
     const stations: Record<string, StationData> = {};
 
     const mergeData = (m: MetricValue, items: RankingItem[]) => {
@@ -346,16 +357,19 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     mergeData("av_hitemp", result.av_hitemp);
     mergeData("av_lwtemp", result.av_lwtemp);
     mergeData("sm_rain", result.sm_rain);
+    console.log(`[ISR] Data Merging: Completed for ${Object.keys(stations).length} stations in ${Date.now() - mergeStart}ms`);
+
+    console.log(`[ISR] DailyRankingPage: Total getStaticProps execution took ${Date.now() - overallStart}ms`);
 
     return {
       props: {
         stations,
         lastUpdate,
       },
-      revalidate: 1800,
+      revalidate: 10,
     };
   } catch (error) {
-    console.error("[ISR Error] Failed to load daily-ranking data:", error);
+    console.error(`[ISR Error] DailyRankingPage (Failed after ${Date.now() - overallStart}ms):`, error);
     return { notFound: true };
   }
 };

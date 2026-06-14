@@ -21,8 +21,13 @@ export function readJson<T>(...paths: string[]): T | null {
  */
 export function loadMaster(): Record<StationId, RawStationData> {
   const cached = getMaster();
-  if (cached) return cached as Record<StationId, RawStationData>;
+  if (cached) {
+    console.log("[ISR] loadMaster: Cache Hit (In-memory)");
+    return cached as Record<StationId, RawStationData>;
+  }
 
+  const start = Date.now();
+  console.log("[ISR] loadMaster: Cache Miss - Reading stations.json from disk...");
   const p = path.join(process.cwd(), "public", "stations.json");
   const content = fs.readFileSync(p, "utf-8");
   if (!content || content.trim() === "") {
@@ -30,6 +35,7 @@ export function loadMaster(): Record<StationId, RawStationData> {
   }
   const master: Record<StationId, RawStationData> = JSON.parse(content);
   setMaster(master);
+  console.log(`[ISR] loadMaster: Disk Read & Parse took ${Date.now() - start}ms`);
   return master;
 }
 
