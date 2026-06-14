@@ -157,52 +157,43 @@ const Header: React.FC<HeaderProps> = () => {
             {/* メニュー本体 */}
             <div className="lg:hidden absolute top-full left-0 w-full bg-white z-[110] border-t border-slate-100 shadow-2xl overflow-y-auto max-h-[85vh] origin-top transition-all duration-300 ease-out">
               <div className="p-6 flex flex-col gap-8">
-              <div className="flex flex-col gap-2">
-                <a
-                  href="/adsense-info.html"
-                  className="flex items-center justify-center gap-2 bg-slate-50 text-slate-500 py-3 px-4 rounded-xl text-xs font-black hover:bg-slate-100 transition-colors"
-                >
-                  <FaInfoCircle />
-                  このサイトについて
-                </a>
-              </div>
-
-              {navSections.map((section) => (
-                <div key={section.id} className="flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
-                    <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
-                      {section.title}
+                {navSections.map((section) => (
+                  <div key={section.id} className="flex flex-col gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1 h-4 bg-blue-600 rounded-full"></div>
+                      <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                        {section.title}
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2">
+                      {section.links.map((item: NavLink) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="p-3 bg-slate-50 hover:bg-blue-50 rounded-xl flex items-center gap-4 transition-all group active:scale-[0.98]"
+                          onClick={() => setOpen(false)}
+                        >
+                          <div
+                            className={`p-2 rounded-lg bg-white shadow-sm border border-slate-100 text-lg ${item.iconClass}`}
+                          >
+                            {item.Icon}
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="font-black text-slate-700 group-hover:text-blue-600 text-sm">
+                              {item.title}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-bold">
+                              {item.description}
+                            </span>
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 gap-2">
-                    {section.links.map((item: NavLink) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="p-3 bg-slate-50 hover:bg-blue-50 rounded-xl flex items-center gap-4 transition-all group active:scale-[0.98]"
-                        onClick={() => setOpen(false)}
-                      >
-                        <div
-                          className={`p-2 rounded-lg bg-white shadow-sm border border-slate-100 text-lg ${item.iconClass}`}
-                        >
-                          {item.Icon}
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-black text-slate-700 group-hover:text-blue-600 text-sm">
-                            {item.title}
-                          </span>
-                          <span className="text-[10px] text-slate-400 font-bold">
-                            {item.description}
-                          </span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </header>
