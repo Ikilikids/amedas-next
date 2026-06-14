@@ -76,7 +76,7 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
   const detail = useMemo(() => config.detail, [config]);
 
   const displayList: RankingData[] = useMemo(() => {
-    if (!liveData) return [];
+    if (!liveData || !liveData.metrics) return [];
     
     const metricData = liveData.metrics[metric] || [];
 

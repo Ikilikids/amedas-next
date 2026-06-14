@@ -60,9 +60,11 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
 
   // 都道府県ごとの気温マップを作成
   const tempMap: Record<string, number | null> = {};
-  stations.forEach((s) => {
-    tempMap[s.id!] = s.value;
-  });
+  if (stations && stations.length > 0) {
+    stations.forEach((s) => {
+      tempMap[s.id!] = s.value;
+    });
+  }
 
   return (
     <>
