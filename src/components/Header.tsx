@@ -148,8 +148,15 @@ const Header: React.FC<HeaderProps> = () => {
 
         {/* スマホ */}
         {open && (
-          <div className="lg:hidden fixed inset-0 top-[65px] bg-white z-[90] overflow-y-auto animate-in slide-in-from-top-4 duration-300 ease-out">
-            <div className="p-6 flex flex-col gap-8">
+          <>
+            {/* 背景オーバーレイ */}
+            <div
+              className="lg:hidden fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[105]"
+              onClick={() => setOpen(false)}
+            />
+            {/* メニュー本体 */}
+            <div className="lg:hidden absolute top-full left-0 w-full bg-white z-[110] border-t border-slate-100 shadow-2xl overflow-y-auto max-h-[85vh] origin-top transition-all duration-300 ease-out">
+              <div className="p-6 flex flex-col gap-8">
               <div className="flex flex-col gap-2">
                 <a
                   href="/adsense-info.html"
