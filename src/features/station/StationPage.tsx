@@ -63,7 +63,11 @@ const StationPage = (props: RawData) => {
 
     fetch(`/api/live/station-detail?id=${stationData.id}`)
       .then((res) => res.json())
-      .then(setLiveData)
+      .then((data) => {
+        if (data && data.history) {
+          setLiveData(data);
+        }
+      })
       .catch(console.error);
   }, [stationData.id]);
 
