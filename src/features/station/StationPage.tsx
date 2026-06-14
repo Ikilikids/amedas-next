@@ -1,7 +1,7 @@
 // features/station/StationPage.tsx
 
 import Head from "next/head";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
@@ -50,6 +50,30 @@ const StationPage = (props: RawData) => {
     meteoStations,
     badge: badges,
   } = allData;
+
+  // 動的な履歴・統計データをクライアントサイドで管理
+  const [liveData, setLiveData] = useState<{
+    history: any[];
+    stats: any;
+    lastUpdate?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!stationData.id) return;
+
+    fetch(`/api/live/station-detail?id=${stationData.id}`)
+      .then((res) => res.json())
+      .then(setLiveData)
+      .catch(console.error);
+  }, [stationData.id]);
+
+  const history = liveData?.history || [];
+  const stats = liveData?.stats || null;
+  const lastUpdate = liveData?.lastUpdate
+    ? new Date(liveData.lastUpdate).toLocaleString("ja-JP", {
+        timeZone: "Asia/Tokyo",
+      })
+    : props.lastUpdate;
 
   const uonzuOptions = useMemo(() => {
     const targets = [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun];
@@ -186,7 +210,7 @@ const StationPage = (props: RawData) => {
             Icon={stationData.category.icon}
             gradient={regionGradient}
             lastUpdateLabel="最終更新"
-            lastUpdateValue={props.lastUpdate}
+            lastUpdateValue={lastUpdate}
           />
 
           <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row gap-4 p-4">
@@ -295,7 +319,7 @@ const StationPage = (props: RawData) => {
               <HyouTable tableData={tableData} rankValue={tableRankValue} />
 
               {/* 最近のデータセクション */}
-              {props.history && props.history.length > 0 && (
+              {history && history.length > 0 && (
                 <>
                   <SectionWithDescription
                     icon={<LuChartNoAxesCombined />}
@@ -307,8 +331,8 @@ const StationPage = (props: RawData) => {
                     ]}
                   />
                   <RecentTrendChart
-                    history={props.history}
-                    stats={props.stats}
+                    history={history}
+                    stats={stats}
                     color={regionColor}
                   />
                 </>

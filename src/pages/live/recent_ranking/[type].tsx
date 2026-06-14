@@ -9,9 +9,7 @@ import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
 import HeroSection from "../../../components/HeroSection";
 import { RankingData, RawRankingData } from "../../../components/Ranking/types";
-import { CategoryValue } from "../../../utils/category";
 import { getRainColor, getTempColor } from "../../../utils/colorUtils";
-import { db } from "../../../utils/firebaseAdmin";
 import { toStation } from "../../../utils/masterUtils";
 import { PrefKey, PrefMeta } from "../../../utils/pref";
 import { RankKey, RankMeta } from "../../../utils/rank";
@@ -26,23 +24,15 @@ import {
   MetricValue,
   RANKING_GROUP_META,
 } from "../../../utils/metric";
-
-interface StationData {
-  station_name: string;
-  pref: string;
-  category: CategoryValue;
-  [key: string]: any;
-}
+import { RawStationData } from "../../../types/raw";
 
 interface Props {
-  stations: Record<string, StationData>;
-  lastUpdate: string;
+  masterData: Record<string, RawStationData>;
   type: MetricGroup;
 }
 
 const RecentRankingDynamicPage: NextPage<Props> = ({
-  stations,
-  lastUpdate,
+  masterData,
   type,
 }) => {
   const router = useRouter();
@@ -64,6 +54,19 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
   );
   const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
 
+  const [liveData, setLiveData] = useState<{
+    metrics: Record<string, Array<{ id: string; val: number; d?: string }>>;
+    lastUpdate: string;
+  } | null>(null);
+
+  useEffect(() => {
+    // APIから最新の数字を取得
+    fetch(`/api/live/recent-ranking?type=${type}`)
+      .then((res) => res.json())
+      .then(setLiveData)
+      .catch(console.error);
+  }, [type]);
+
   // Reset metric when type changes
   useEffect(() => {
     setMetric(groupMetrics[0]);
@@ -73,19 +76,21 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
   const detail = useMemo(() => config.detail, [config]);
 
   const displayList: RankingData[] = useMemo(() => {
-    const rawList: RawRankingData[] = Object.entries(stations)
-      .filter(([, s]) => s[metric] !== undefined)
-      .map(([id, s]) => {
-        const mData = s[metric]!;
+    if (!liveData) return [];
+    
+    const metricData = liveData.metrics[metric] || [];
+
+    const rawList: RawRankingData[] = metricData
+      .map((item) => {
+        const master = masterData[item.id];
+        if (!master) return null;
         return {
-          id,
-          station_name: s.station_name,
-          pref: s.pref,
-          category: s.category,
-          value: mData.value,
-          time: mData.time,
-        };
-      });
+          ...master,
+          value: item.val,
+          time: item.d || null,
+        } as RawRankingData;
+      })
+      .filter((s): s is RawRankingData => s !== null);
 
     const processed = processRankingData(
       rawList,
@@ -101,7 +106,14 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
       rank: s.rank,
       time: s.time,
     }));
-  }, [metric, stations, rankMeta, selectedRegion, selectedPref]);
+  }, [metric, liveData, masterData, rankMeta, selectedRegion, selectedPref]);
+
+  const displayLastUpdate = useMemo(() => {
+    if (!liveData) return "読み込み中...";
+    return new Date(liveData.lastUpdate).toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+    });
+  }, [liveData]);
 
   const isRainMetric = metric.includes("rain");
   const isCountMetric =
@@ -130,7 +142,7 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
             Icon={config.highIcon}
             gradient={detail.gradient}
             lastUpdateLabel="データ更新"
-            lastUpdateValue={lastUpdate}
+            lastUpdateValue={displayLastUpdate}
           />
 
           <div className="max-w-[1200px] mx-auto px-4 mt-4">
@@ -353,53 +365,15 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
   try {
     const masterData = loadMaster();
-    const rankingsSnapshot = await db.collection("rankings").get();
-    const lastUpdate = new Date().toLocaleString("ja-JP", {
-      timeZone: "Asia/Tokyo",
-    });
-
-    const stations: Record<string, StationData> = {};
-    const targetMetrics = Object.values(MetricKey)
-      .filter((m) => m.detail.group === type)
-      .map((m) => m.key);
-
-    rankingsSnapshot.forEach((doc) => {
-      const metricId = doc.id as MetricValue;
-      if (!targetMetrics.includes(metricId)) return;
-
-      const data = doc.data() as {
-        list: Array<{ id: string; val: number; d?: string }>;
-      };
-
-      data.list.forEach((item) => {
-        const id = item.id;
-        if (!stations[id]) {
-          const master = masterData[id];
-          if (!master) return;
-          stations[id] = {
-            station_name: master.station_name,
-            pref: master.pref,
-            category: master.category,
-          };
-        }
-
-        stations[id][metricId] = {
-          value: item.val,
-          time: item.d || null,
-        };
-      });
-    });
 
     return {
       props: {
-        stations,
-        lastUpdate,
+        masterData,
         type,
       },
-      revalidate: 3600,
     };
   } catch (error) {
-    console.error(`Failed to load ${type} ranking data:`, error);
+    console.error(`[SSG Error] Recent Ranking Shell generation failed for ${type}:`, error);
     return { notFound: true };
   }
 };

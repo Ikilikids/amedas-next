@@ -1,14 +1,14 @@
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import CategoryLegend from "../../components/CategoryLegend";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
-import { RawRankingData } from "../../components/Ranking/types";
+import { RankingItem, RawRankingData } from "../../components/Ranking/types";
 import { getTempColor } from "../../utils/colorUtils";
-import { fetchJmaRealtime } from "../../utils/jma";
 import { toStation } from "../../utils/masterUtils";
 import { PrefKey } from "../../utils/pref";
 import { RegionKey } from "../../utils/region";
@@ -17,20 +17,51 @@ import { loadMaster } from "../../utils/ssgLoader";
 import { TbTemperatureSun } from "react-icons/tb";
 import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
 import { MetricKey } from "../../utils/metric";
+import { RawStationData } from "../../types/raw";
 
 interface Props {
-  stations: RawRankingData[];
-  lastUpdate: string;
+  masterData: Record<string, RawStationData>;
 }
 
-const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
+const RealtimePage: NextPage<Props> = ({ masterData }) => {
   const regions = Object.values(RegionKey);
   const config = MetricKey.av_avtemp;
+
+  const [liveData, setLiveData] = useState<{
+    stations: RankingItem[];
+    lastUpdate: string;
+  } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/live/realtime")
+      .then((res) => res.json())
+      .then(setLiveData)
+      .catch(console.error);
+  }, []);
+
+  // APIデータとマスターデータを合体
+  const stations: RawRankingData[] = useMemo(() => {
+    if (!liveData) return [];
+    return liveData.stations
+      .filter((s) => s.id && masterData[s.id])
+      .map((s) => {
+        const master = masterData[s.id!];
+        return {
+          ...master,
+          ...s,
+        };
+      });
+  }, [liveData, masterData]);
+
+  const displayLastUpdate = useMemo(() => {
+    if (!liveData) return "読み込み中...";
+    return liveData.lastUpdate;
+  }, [liveData]);
 
   // 都道府県ごとの気温マップを作成
   const tempMap: Record<string, number | null> = {};
   stations.forEach((s) => {
-    tempMap[s.id] = s.value;
+    tempMap[s.id!] = s.value;
   });
 
   return (
@@ -52,7 +83,7 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
               "bg-gradient-to-r from-orange-600 to-amber-600"
             }
             lastUpdateLabel="最新観測"
-            lastUpdateValue={lastUpdate}
+            lastUpdateValue={displayLastUpdate}
           />
 
           <div className="max-w-[1200px] mx-auto px-4 mt-4">
@@ -223,32 +254,14 @@ const RealtimePage: NextPage<Props> = ({ stations, lastUpdate }) => {
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     const masterData = loadMaster();
-    const result = await fetchJmaRealtime();
-    const rawStations = result.stations;
-    const lastUpdate = result.lastUpdate;
-
-    const stations: RawRankingData[] = rawStations
-      .filter((s) => masterData[s.id])
-      .map((s) => {
-        const master = masterData[s.id];
-        return {
-          station_name: master?.station_name,
-          pref: master?.pref,
-          category: master?.category,
-          id: s.id,
-          value: s.value,
-        };
-      });
 
     return {
       props: {
-        stations,
-        lastUpdate,
+        masterData,
       },
-      revalidate: 600,
     };
   } catch (error) {
-    console.error("[ISR Error] Failed to load realtime data:", error);
+    console.error("[SSG Error] RealtimePage Shell generation failed:", error);
     return { notFound: true };
   }
 };

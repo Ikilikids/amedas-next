@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  output: "standalone",
   trailingSlash: false,
   images: {
     unoptimized: true,
   },
   // マルチインスタンスでのキャッシュ整合性を保つためのビルドID固定
   generateBuildId: async () => {
-    return process.env.GIT_COMMIT_SHA || 'amedas-next-build';
+    return process.env.GIT_COMMIT_SHA || "amedas-next-build";
   },
   logging: {
     fetches: {
@@ -22,11 +22,11 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
           {
-            key: 'X-Debug-Deploy',
-            value: 'true',
+            key: "X-Debug-Deploy",
+            value: "true",
           },
         ],
       },

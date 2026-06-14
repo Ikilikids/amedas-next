@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import CategoryLegend from "../../components/CategoryLegend";
 import Footer from "../../components/Footer";
@@ -12,9 +12,6 @@ import {
   RankingItem,
   RawRankingData,
 } from "../../components/Ranking/types";
-import { CategoryValue } from "../../utils/category";
-import { getRainColor, getTempColor } from "../../utils/colorUtils";
-import { fetchJmaDailyMaxRanking } from "../../utils/jma";
 import { toStation } from "../../utils/masterUtils";
 import { PrefKey, PrefMeta } from "../../utils/pref";
 import { RankKey, RankMeta } from "../../utils/rank";
@@ -23,26 +20,15 @@ import { RegionKey, RegionMeta } from "../../utils/region";
 import { loadMaster } from "../../utils/ssgLoader";
 
 import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
+import { RawStationData } from "../../types/raw";
+import { getRainColor, getTempColor } from "../../utils/colorUtils";
 import { MetricKey, MetricValue } from "../../utils/metric";
 
-interface MetricEntry {
-  value: number;
-  time: string | null;
-}
-
-interface StationData {
-  station_name: string;
-  pref: string;
-  category: CategoryValue;
-  [key: string]: any;
-}
-
 interface Props {
-  stations: Record<string, StationData>;
-  lastUpdate: string;
+  masterData: Record<string, RawStationData>;
 }
 
-const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
+const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
   const [metric, setMetric] = useState<MetricValue>("av_hitemp");
   const [rankMeta, setRankMeta] = useState<RankMeta>(RankKey.top);
   const [selectedRegion, setSelectedRegion] = useState<RegionMeta>(
@@ -50,24 +36,42 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
   );
   const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
 
+  // クライアントサイドで取得する動的データ
+  const [jmaData, setJmaData] = useState<{
+    av_hitemp: RankingItem[];
+    av_lwtemp: RankingItem[];
+    sm_rain: RankingItem[];
+    lastUpdate?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    // APIから最新の数字を取得
+    fetch("/api/live/daily-ranking")
+      .then((res) => res.json())
+      .then(setJmaData)
+      .catch(console.error);
+  }, []);
+
   const config = useMemo(() => MetricKey[metric], [metric]);
   const detail = useMemo(() => config.detail!, [config]);
 
   const displayList: RankingData[] = useMemo(() => {
-    // 1. Recordから現在のメトリックを持つ地点を抽出し、RawRankingData[] を作成
-    const rawList: RawRankingData[] = Object.entries(stations)
-      .filter(([, s]) => s[metric] !== undefined)
-      .map(([id, s]) => {
-        const mData = s[metric]!;
+    if (!jmaData) return [];
+
+    const jmaList = jmaData[metric] || [];
+
+    // 1. RawRankingData に変換 (SSGのマスターデータと合体)
+    const rawList: RawRankingData[] = jmaList
+      .map((item) => {
+        const id = item.id!;
+        const master = masterData[id];
+        if (!master) return null;
         return {
-          id,
-          station_name: s.station_name,
-          pref: s.pref,
-          category: s.category,
-          value: mData.value,
-          time: mData.time,
-        };
-      });
+          ...master,
+          ...item,
+        } as RawRankingData;
+      })
+      .filter((s): s is RawRankingData => s !== null);
 
     // 2. 共通ロジックでランキング処理 (ソート、フィルタリング、順位付け)
     const processed = processRankingData(
@@ -85,7 +89,14 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
       rank: s.rank,
       time: s.time,
     }));
-  }, [metric, stations, rankMeta, selectedRegion, selectedPref]);
+  }, [metric, jmaData, masterData, rankMeta, selectedRegion, selectedPref]);
+
+  const displayLastUpdate = useMemo(() => {
+    if (!jmaData?.lastUpdate) return "読み込み中...";
+    return new Date(jmaData.lastUpdate).toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+    });
+  }, [jmaData]);
 
   return (
     <>
@@ -103,7 +114,7 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
             Icon={config.highIcon}
             gradient={detail.gradient}
             lastUpdateLabel="データ更新"
-            lastUpdateValue={lastUpdate}
+            lastUpdateValue={displayLastUpdate}
           />
 
           <div className="max-w-[1200px] mx-auto px-4 mt-4">
@@ -310,66 +321,20 @@ const DailyRankingPage: NextPage<Props> = ({ stations, lastUpdate }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const overallStart = Date.now();
-  console.log("[ISR] DailyRankingPage: getStaticProps execution started");
-
   try {
-    // 1. マスターデータのロード (キャッシュチェックは内部で行う)
+    // マスターデータのロードのみを行う (SSGの器として機能させる)
     const masterData = loadMaster();
-
-    // 2. 気象庁データのフェッチ計測
-    const jmaStart = Date.now();
-    console.log("[ISR] fetchJmaDailyMaxRanking: Starting network fetch...");
-    const result = await fetchJmaDailyMaxRanking(null);
-    console.log(`[ISR] fetchJmaDailyMaxRanking: Completed in ${Date.now() - jmaStart}ms`);
-
-    const lastUpdate = new Date().toLocaleString("ja-JP", {
-      timeZone: "Asia/Tokyo",
-    });
-
-    const mergeStart = Date.now();
-    const stations: Record<string, StationData> = {};
-
-    const mergeData = (m: MetricValue, items: RankingItem[]) => {
-      items.forEach((item) => {
-        const id = item.id;
-        if (!id) return;
-
-        if (!stations[id]) {
-          const master = masterData[id];
-          if (!master) return;
-          stations[id] = {
-            station_name: master.station_name,
-            pref: master.pref,
-            category: master.category,
-          };
-        }
-
-        const entry: MetricEntry = {
-          value: item.value,
-          time: item.time ?? null,
-        };
-
-        stations[id][m] = entry;
-      });
-    };
-
-    mergeData("av_hitemp", result.av_hitemp);
-    mergeData("av_lwtemp", result.av_lwtemp);
-    mergeData("sm_rain", result.sm_rain);
-    console.log(`[ISR] Data Merging: Completed for ${Object.keys(stations).length} stations in ${Date.now() - mergeStart}ms`);
-
-    console.log(`[ISR] DailyRankingPage: Total getStaticProps execution took ${Date.now() - overallStart}ms`);
 
     return {
       props: {
-        stations,
-        lastUpdate,
+        masterData,
       },
-      revalidate: 10,
     };
   } catch (error) {
-    console.error(`[ISR Error] DailyRankingPage (Failed after ${Date.now() - overallStart}ms):`, error);
+    console.error(
+      "[SSG Error] DailyRankingPage Shell generation failed:",
+      error
+    );
     return { notFound: true };
   }
 };

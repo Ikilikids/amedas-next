@@ -27,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   const id = params?.id as StationId;
 
-  // 全データをキャッシュに埋める
+  // 全データをキャッシュに埋める (静的な統計計算のため)
   ensureAllDataLoaded();
 
   const master = loadMaster();
@@ -35,27 +35,13 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
 
   if (!rawStationData) return { notFound: true };
 
-  // --- Firestoreから履歴と統計を取得 ---
-  let history = [];
-  let stats = null;
-  try {
-    const doc = await db.collection("stations").doc(id).get();
-    if (doc.exists) {
-      const data = doc.data();
-      history = data?.history || [];
-      stats = data?.stats || null;
-    }
-  } catch (e) {
-    // 静かにする
-  }
-
-  // --- キャッシュからこの地点のデータを取得 ---
+  // --- キャッシュからこの地点の統計データを取得 (SSG) ---
   const integratedData = getStation(id);
   const { overview, table, ratio, uonzu } = assembleDisplayData(
     integratedData as any
   );
 
-  // --- 既存のSimilar等はそのまま ---
+  // --- 類似地点等の静的データ生成 ---
   const similarFile = readJson<any>("data", "similar", `${id}.json`);
   const rawSimilarAllItem: OriginSimilarItem[] = similarFile?.similar_all || [];
   const rawSimilarMeteoItem: OriginSimilarItem[] =
@@ -83,10 +69,6 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
     ratio as any
   );
 
-  const lastUpdate = new Date().toLocaleString("ja-JP", {
-    timeZone: "Asia/Tokyo",
-  });
-
   return {
     props: {
       station: rawStationData,
@@ -99,16 +81,12 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
       sameStations: rawSameStations,
       meteoStations: rawMeteoStations,
       badge: badgeinfo,
-      history,
-      stats,
-      lastUpdate,
-      // デバッグ用: いつ、どのインスタンスで生成されたか
-      _isr: {
-        generatedAt: new Date().toISOString(),
-        instance: process.env.HOSTNAME || "local",
-        buildId: process.env.NEXT_PUBLIC_BUILD_ID || "static",
-      },
+      // history, stats, lastUpdate はクライアントサイドでフェッチされる
+      history: [],
+      stats: null,
+      lastUpdate: new Date().toLocaleString("ja-JP", {
+        timeZone: "Asia/Tokyo",
+      }),
     },
-    revalidate: 3600, // 1時間ごとに再生成
   };
 };
