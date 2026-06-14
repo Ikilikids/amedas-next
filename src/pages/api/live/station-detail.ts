@@ -16,16 +16,16 @@ export default async function handler(
 
   try {
     const doc = await db.collection("stations").doc(id).get();
-    
+
     if (!doc.exists) {
       return res.status(404).json({ error: "Station not found" });
     }
 
     const data = doc.data();
-    
+
     res.setHeader(
       "Cache-Control",
-      "public, s-maxage=600, stale-while-revalidate=30"
+      "public, s-maxage=3600, stale-while-revalidate=30"
     );
 
     res.status(200).json({

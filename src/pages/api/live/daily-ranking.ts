@@ -18,7 +18,7 @@ export default async function handler(
     // stale-while-revalidate=30: キャッシュが切れた後30秒間は古いデータを返しつつ裏で更新
     res.setHeader(
       "Cache-Control",
-      "public, s-maxage=600, stale-while-revalidate=30"
+      "public, s-maxage=1800, stale-while-revalidate=30"
     );
 
     // 3. データの返却
