@@ -124,6 +124,7 @@ export const useStationDetail = (stationId: StationId | null) => {
   const [stationData, setStationData] = useState<StationData | null>(null);
   const [uonzuData, setUonzuData] = useState<UonzuData | null>(null);
   const [overviewData, setOverviewData] = useState<OverviewData | null>(null);
+  const [tableData, setTableData] = useState<TableData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -131,6 +132,7 @@ export const useStationDetail = (stationId: StationId | null) => {
       setStationData(null);
       setUonzuData(null);
       setOverviewData(null);
+      setTableData(null);
       return;
     }
 
@@ -149,6 +151,14 @@ export const useStationDetail = (stationId: StationId | null) => {
           "av_lwtemp",
           "sm_sun",
           "sm_snowing",
+          "av_wind",
+          "hitemp_35",
+          "hitemp_30",
+          "hitemp_25",
+          "lwtemp_0",
+          "hitemp_0",
+          "lwtemp_25",
+          "rain_1",
         ];
 
         await Promise.all(
@@ -172,10 +182,12 @@ export const useStationDetail = (stationId: StationId | null) => {
         const result = {
           uonzuData: toMetricMap(uonzu, (v) => v),
           overviewData: toMetricMap(overview, (v) => v),
+          tableData: toMetricMap(table, (v) => v),
         };
 
         setUonzuData(result.uonzuData);
         setOverviewData(result.overviewData);
+        setTableData(result.tableData);
       } catch (e) {
         console.error("fetch error:", e);
       } finally {
@@ -190,6 +202,7 @@ export const useStationDetail = (stationId: StationId | null) => {
     stationData,
     uonzuData,
     overviewData,
+    tableData,
     loading,
   };
 };

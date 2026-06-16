@@ -32,14 +32,12 @@ const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
           title="基本情報"
           bgColor={bgColor === "white" ? "#777777" : bgColor}
         />
-        <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm p-2">
-          <InfoPanel
-            stationData={stationData}
-            overViewData={overviewData}
-            loading={loading}
-            isTitle={true}
-          />
-        </div>
+        <InfoPanel
+          stationData={stationData}
+          overViewData={overviewData}
+          loading={loading}
+          isTitle={true}
+        />
       </div>
 
       <div className="flex flex-col gap-2 flex-1 min-h-0">
@@ -48,7 +46,7 @@ const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
           title="雨温図"
           bgColor={bgColor === "white" ? "#777777" : bgColor}
         />
-        <div className="bg-white border border-slate-200 rounded-3xl flex-1 min-h-0 overflow-hidden shadow-sm p-4">
+        <div className="bg-white border border-slate-200 rounded-3xl flex-1 min-h-0 overflow-hidden shadow-sm p-2">
           {uonzuData ? (
             <UonzuChart
               uonzuData={uonzuData}

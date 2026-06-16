@@ -1,6 +1,12 @@
 // src/utils/navLinks.tsx
 import React from "react";
-import { FaBuilding, FaClock, FaSearch, FaStar } from "react-icons/fa";
+import {
+  FaBalanceScaleLeft,
+  FaBuilding,
+  FaClock,
+  FaSearch,
+  FaStar,
+} from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { IoIosTrophy } from "react-icons/io";
 import { PiRankingDuotone, PiThermometerHotFill } from "react-icons/pi";
@@ -71,6 +77,13 @@ export const searchLinks: NavLink[] = [
     title: "平年値ランキング",
     description: "全国の平年値データをランキング形式で比較できます",
     iconClass: "text-yellow-500",
+  },
+  {
+    href: "/compare",
+    Icon: <FaBalanceScaleLeft />,
+    title: "地点を比較する",
+    description: "2つの地点を並べて気候の違いを確認できます",
+    iconClass: "text-blue-500",
   },
   {
     href: "/map",

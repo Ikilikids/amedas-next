@@ -237,7 +237,7 @@ const StationPage = (props: RawData) => {
                 </div>
 
                 {/* Map */}
-                <div className="lg:flex-1 lg:min-w-0 h-[336px]">
+                <div className="lg:flex-1 lg:min-w-0 h-[335px]">
                   <StationMap
                     isMini
                     lat={stationData.lat}

@@ -1,16 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
-import {
-  FaArrowUp,
-  FaArrowsAltH,
-  FaCity,
-  FaMap,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import { FaCity } from "react-icons/fa";
+import { FaMapPin } from "react-icons/fa6";
+import { LiaMountainSolid } from "react-icons/lia";
 import { OverviewData, StationData } from "../types/all";
-import { sanitizeCityName, sanitizePrefLabel } from "../utils/masterUtils";
-import { MetricKey, MetricMeta } from "../utils/metric";
+import { MetricKey } from "../utils/metric";
 
 interface InfoPanelProps {
   stationData: StationData | null;
@@ -42,163 +37,152 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
 }) => {
   if (loading) {
     return (
-      <div className="p-4 w-full h-full flex items-center justify-center">
-        <div className="text-lg font-bold animate-pulse text-slate-400">
-          読み込み中…
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 h-[350px] flex flex-col items-center justify-center">
+        <div className="animate-spin inline-block w-8 h-8 border-4 border-slate-200 border-t-blue-500 rounded-full mb-4"></div>
+        <p className="text-slate-400 font-bold">読み込み中...</p>
+      </div>
+    );
+  }
+
+  if (!stationData) {
+    return (
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 h-[350px] flex items-center justify-center text-slate-400 font-bold">
+        <div className="flex flex-col items-center gap-2">
+          <BsFillQuestionCircleFill className="text-3xl" />
+          <p>地点を選択してください</p>
         </div>
       </div>
     );
   }
 
-  const exclude = new Set<MetricMeta>([
-    MetricKey.av_lwtemp,
-    MetricKey.av_hitemp,
-  ]);
+  const region = stationData.pref?.region;
+  const category = stationData.category;
 
-  const locationItems = [
-    {
-      label: "都道府県",
-      value:
-        isTitle && stationData
-          ? sanitizePrefLabel(stationData?.pref.label)
-          : stationData?.pref.label,
-      icon: FaMapMarkerAlt,
-    },
-    {
-      label: "市町村",
-      value:
-        isTitle && stationData
-          ? sanitizeCityName(stationData?.city)
-          : stationData?.city,
-      icon: FaCity,
-    },
-    { label: "観測所名", value: stationData?.station_name, icon: FaMap },
-    {
-      label: "緯度・経度",
-      value: stationData
-        ? `${showValue(stationData.lat)}, ${showValue(stationData.lon)}`
-        : null,
-      icon: FaArrowsAltH,
-    },
-    {
-      label: "標高",
-      value: stationData ? `${showValue(stationData.height)} m` : null,
-      icon: FaArrowUp,
-    },
+  const displayMetrics = [
+    MetricKey.av_avtemp,
+    MetricKey.av_hitemp,
+    MetricKey.av_lwtemp,
+    MetricKey.sm_rain,
+    MetricKey.sm_sun,
+    MetricKey.av_wind,
   ];
 
-  const rankingItems = Array.from(overViewData?.entries() ?? []).filter(
-    ([key]) => !exclude.has(key)
-  );
-
   return (
-    <div className="w-full flex flex-col gap-0">
-      {isTitle && (
-        <div className="mb-2">
-          <h3
-            className={`font-black text-slate-800 tracking-tighter ${
-              stationData && stationData.official_name.length >= 12
-                ? "text-xl"
-                : "text-2xl"
-            }`}
+    <div
+      className={`rounded-3xl px-5 py-4 shadow-sm border border-slate-100 flex flex-col relative overflow-hidden transition-all ${
+        isTitle ? "bg-white" : ""
+      }`}
+    >
+      {/* Background Accent */}
+      {
+        <div
+          className="absolute top-0 left-0 w-full h-1"
+          style={{ backgroundColor: region?.colorStrong || "#3b82f6" }}
+        />
+      }
+
+      <div className="mb-4">
+        <div className="flex items-center gap-2 mb-1">
+          <span
+            className="text-[10px] font-black px-2 py-0.5 rounded-full text-white"
+            style={{ backgroundColor: region?.colorStrong }}
           >
-            {stationData ? (
-              <Link
-                href={`/station/${stationData.id}`}
-                className="group flex items-center gap-0 transition-colors"
-              >
-                <span
-                  className="p-2 text-slate-400 group-hover:text-[var(--icon-hover)] transition-colors"
-                  style={
-                    {
-                      "--icon-hover": stationData.category.colorFull,
-                    } as React.CSSProperties
-                  }
-                >
-                  {stationData.category.icon}
-                </span>
-                <span
-                  className="relative group-hover:text-[var(--name-hover)] transition-colors"
-                  style={
-                    {
-                      "--name-hover": stationData.pref.region.colorStrong,
-                    } as React.CSSProperties
-                  }
-                >
-                  {stationData.official_name}
-                  <span
-                    className="absolute left-0 -bottom-1 w-0 h-1 transition-all duration-300 group-hover:w-full"
-                    style={{ backgroundColor: "var(--name-hover)" }}
-                  />
-                </span>
-              </Link>
-            ) : (
-              <div className="group flex items-center gap-1 text-slate-400">
-                <span className="p-2 text-2xl">
-                  <BsFillQuestionCircleFill />
-                </span>
-                <span className="relative">
-                  地点を選択してください!!
-                  <span className="absolute left-0 -bottom-1 w-0 h-1 bg-slate-200 transition-all duration-300 group-hover:w-full" />{" "}
-                </span>
-              </div>
-            )}
-          </h3>
+            {stationData.pref?.label}
+          </span>
+          <span className="text-[10px] text-slate-400 font-mono">
+            #{stationData.id}
+          </span>
         </div>
-      )}
 
-      {/* 統合された地点情報カード */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 bg-slate-50/50 p-6 rounded-3xl border border-slate-100">
-        {/* メタデータ項目 */}
-        {locationItems.map((item, idx) => (
-          <div key={`loc-${idx}`} className="flex items-center gap-4">
-            <div className="p-2.5 bg-white rounded-xl shadow-sm text-slate-400 border border-slate-50">
-              <item.icon className="w-4 h-4" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5">
-                {item.label}
-              </span>
-              <span className="text-sm font-black text-slate-700 leading-none">
-                {item.value || "--"}
-              </span>
-            </div>
+        <div className="flex items-center gap-2">
+          {category && (
+            <span className="text-xl" style={{ color: category.colorFull }}>
+              {category.icon}
+            </span>
+          )}
+          {isTitle ? (
+            <Link
+              href={`/station/${stationData.id}`}
+              className="group flex items-center gap-0 transition-colors"
+            >
+              <h2
+                className="text-2xl font-black text-slate-800 group-hover:text-[var(--name-hover)] transition-colors"
+                style={
+                  { "--name-hover": region?.colorStrong } as React.CSSProperties
+                }
+              >
+                {stationData.station_name}
+              </h2>
+            </Link>
+          ) : (
+            <h2 className="text-2xl font-black text-slate-800">
+              {stationData.station_name}
+            </h2>
+          )}
+        </div>
+
+        <p className="text-xs text-slate-400 font-bold ml-7 mb-3">
+          {stationData.official_name}
+        </p>
+
+        {/* Metadata Row */}
+        <div className="flex flex-wrap gap-x-4 gap-y-1 ml-7 text-[11px] font-bold text-slate-500">
+          <div className="flex items-center gap-1">
+            <FaCity className="text-slate-400" />
+            <span>{stationData.city}</span>
           </div>
-        ))}
+          <div className="flex items-center gap-1">
+            <FaMapPin className="text-slate-400" />
+            <span>
+              {showValue(stationData.lat)}N, {showValue(stationData.lon)}E
+            </span>
+          </div>
+          <div className="flex items-center gap-1">
+            <LiaMountainSolid className="text-slate-400" />
+            <span>{showValue(stationData.height)} m</span>
+          </div>
+        </div>
+      </div>
 
-        {/* 気候ランキング項目 */}
-        {!isTitle &&
-          rankingItems.map(([key, d], idx) => {
-            return (
-              <div key={`rank-${idx}`} className="flex items-center gap-4">
-                <div
-                  className="p-2.5 bg-white rounded-xl shadow-sm border border-slate-50 flex items-center justify-center"
-                  style={{
-                    color: key.color,
-                  }}
-                >
-                  {key.highIcon ? (
-                    <span className="text-base">{key.highIcon}</span>
-                  ) : (
-                    <div className="w-4 h-4 bg-slate-200 rounded-full animate-pulse" />
-                  )}
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5">
-                    {key.label}
+      <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {displayMetrics.map((m) => {
+          const data = overViewData?.get(m);
+          if (!data && !isTitle) return null; // 地点詳細ではあるものだけ出す
+
+          return (
+            <div
+              key={m.key}
+              className="bg-white/60 backdrop-blur-sm p-2.5 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between"
+            >
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                {m.highIcon && (
+                  <span
+                    className="scale-125 origin-left"
+                    style={{ color: m.color }}
+                  >
+                    {m.highIcon}
                   </span>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-sm font-black text-slate-900 leading-none">
-                      {showValue(d?.value)} {key.unit}
-                    </span>
-                    <span className="text-[10px] font-bold  text-slate-600 leading-none mt-0.5">
-                      ({showValue(d?.rank, true)}位)
-                    </span>
-                  </div>
+                )}
+                {m.label}
+              </p>
+              <div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-lg font-black text-slate-700">
+                    {data ? showValue(data.value) : "--"}
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-400">
+                    {m.unit}
+                  </span>
                 </div>
+                {
+                  <div className="mt-1 text-[9px] font-black text-slate-400 uppercase tracking-tighter">
+                    RANK {data ? data.rank : "--"}
+                  </div>
+                }
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
