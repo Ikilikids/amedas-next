@@ -2,7 +2,6 @@ import React, { useMemo, useState } from "react";
 import { MetricKey, MetricMeta, MetricTab } from "../../utils/metric";
 import { RankMeta } from "../../utils/rank";
 import SegmentedControl from "../UI/SegmentedControl";
-import { isCombinationValid } from "./utils";
 
 interface MetricPopupProps {
   isOpen: boolean;
@@ -86,7 +85,6 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
                     return {
                       key: m.key,
                       label: m.label,
-                      disabled: !isCombinationValid(rankType, m),
                       color: m.color,
                     };
                   })}

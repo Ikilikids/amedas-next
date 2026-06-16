@@ -70,14 +70,14 @@ const StationPage = (props: RawData) => {
       })
       .catch(console.error);
   }, [stationData.id]);
-
+  console.log(similarAll, similarMeteo);
   const history = liveData?.history || [];
   const stats = liveData?.stats || null;
   const lastUpdate = liveData?.lastUpdate
     ? new Date(liveData.lastUpdate).toLocaleString("ja-JP", {
         timeZone: "Asia/Tokyo",
       })
-    : props.lastUpdate;
+    : "更新を確認中...";
 
   const uonzuOptions = useMemo(() => {
     const targets = [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun];

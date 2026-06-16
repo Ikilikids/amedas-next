@@ -72,7 +72,6 @@ export const getFeatureStaticProps =
           }));
         }
       });
-      console.log(station);
       result[id] = {
         station,
         uonzu,

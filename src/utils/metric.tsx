@@ -20,7 +20,7 @@ import { TbTemperature, TbTemperaturePlus } from "react-icons/tb";
 // ==============================
 // 1. Types (Source of Truth)
 // ==============================
-export type MetricUnit = "℃" | "mm" | "cm" | "m/s" | "時間" | "日";
+export type MetricUnit = "℃" | "mm" | "cm" | "m/s" | "h" | "日";
 
 export type MetricTab =
   | "主要"
@@ -158,7 +158,7 @@ export const MetricKey: Record<MetricValue, MetricMeta> = {
   sm_sun: {
     key: "sm_sun",
     label: "日照時間",
-    unit: "時間",
+    unit: "h",
     tab: "主要",
     color: "#eab308",
     highIcon: <AiFillSun />,

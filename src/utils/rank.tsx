@@ -1,3 +1,4 @@
+import { StationId } from "../types/union";
 export type RankMeta = {
   key: RankValue;
   rankingLabel: string;
@@ -48,9 +49,22 @@ export const ISLAND_PREFIXES = [
   "9",
 ];
 
-import { StationId } from "../types/union";
-
 export const isIslandId = (id: StationId): boolean =>
   ISLAND_PREFIXES.some((p) => id.startsWith(p));
 
 export type RankValue = keyof typeof RankKey;
+
+export const NOT_METEO_PREFIXES = [
+  "94081",
+  "93041",
+  "92011",
+  "23232",
+  "21323",
+  "12442",
+  "11016",
+  "17341",
+  "19432",
+];
+
+export const isNotMeteoId = (id: StationId): boolean =>
+  NOT_METEO_PREFIXES.some((p) => id.startsWith(p));

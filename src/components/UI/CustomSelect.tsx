@@ -1,5 +1,3 @@
-import React from "react";
-
 interface Option<T> {
   value: T;
   label: string;
@@ -9,6 +7,7 @@ interface CustomSelectProps<T extends string | number> {
   value: T;
   onChange: (value: T) => void;
   options: Option<T>[];
+  disabled?: boolean;
   className?: string;
 }
 
@@ -16,12 +15,14 @@ const CustomSelect = <T extends string | number>({
   value,
   onChange,
   options,
+  disabled = false,
   className = "",
 }: CustomSelectProps<T>) => {
   return (
     <div className={`relative ${className}`}>
       <select
         value={value}
+        disabled={disabled}
         onChange={(e) => {
           const val = e.target.value;
           const option = options.find((opt) => String(opt.value) === val);

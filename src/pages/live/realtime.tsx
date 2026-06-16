@@ -8,7 +8,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
 import { RankingItem, RawRankingData } from "../../components/Ranking/types";
-import { getTempColor } from "../../utils/colorUtils";
+import { getMetricColor } from "../../utils/colorUtils";
 import { toStation } from "../../utils/masterUtils";
 import { PrefKey } from "../../utils/pref";
 import { RegionKey } from "../../utils/region";
@@ -16,11 +16,12 @@ import { loadMaster } from "../../utils/ssgLoader";
 
 import { TbTemperatureSun } from "react-icons/tb";
 import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
-import { MetricKey } from "../../utils/metric";
 import { RawStationData } from "../../types/raw";
+import { StationId } from "../../types/union";
+import { MetricKey } from "../../utils/metric";
 
 interface Props {
-  masterData: Record<string, RawStationData>;
+  masterData: Record<StationId, RawStationData>;
 }
 
 const RealtimePage: NextPage<Props> = ({ masterData }) => {
@@ -60,11 +61,22 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
 
   // 都道府県ごとの気温マップを作成
   const tempMap: Record<string, number | null> = {};
+  let minTemp = Infinity;
+  let maxTemp = -Infinity;
+
   if (stations && stations.length > 0) {
     stations.forEach((s) => {
       tempMap[s.id!] = s.value;
+      if (typeof s.value === "number") {
+        if (s.value < minTemp) minTemp = s.value;
+        if (s.value > maxTemp) maxTemp = s.value;
+      }
     });
   }
+
+  // 有効な値がない場合のフォールバック
+  if (minTemp === Infinity) minTemp = 0;
+  if (maxTemp === -Infinity) maxTemp = 0;
 
   return (
     <>
@@ -207,8 +219,11 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
                                         </span>
                                       </div>
                                       <div
-                                        className={`text-xl font-mono font-bold ${getTempColor(
-                                          temp
+                                        className={`text-xl font-mono font-bold ${getMetricColor(
+                                          temp,
+                                          minTemp,
+                                          maxTemp,
+                                          true
                                         )}`}
                                       >
                                         {typeof temp === "number" ? (
@@ -255,11 +270,19 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const masterData = loadMaster();
+    const masterData: Record<StationId, RawStationData> = loadMaster();
+    const data: Record<StationId, RawStationData> = Object.fromEntries(
+      Object.entries(masterData).map(
+        ([id, { lon, lat, similar, height, city, official_name, ...rest }]) => [
+          id,
+          rest,
+        ]
+      )
+    );
 
     return {
       props: {
-        masterData,
+        masterData: data,
       },
     };
   } catch (error) {

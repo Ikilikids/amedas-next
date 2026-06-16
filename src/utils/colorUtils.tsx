@@ -70,30 +70,42 @@ export const MonthMap: { [key: string]: string } = {
   "11": "11月",
   "12": "12月",
 };
+export const METRIC_COLORS = [
+  "text-indigo-500",
+  "text-sky-500",
+  "text-teal-500",
+  "text-green-500",
+  "text-lime-500",
+  "text-yellow-500",
+  "text-orange-500",
+  "text-red-500",
+  "text-pink-500",
+  "text-purple-500",
+];
 
-export function getTempColor(value: number | null | undefined) {
+/**
+ * Calculates a color based on the value's relative position between min and max.
+ * @param value The value to color
+ * @param min Minimum value in the dataset
+ * @param max Maximum value in the dataset
+ * @param useSlateForZero If true, a value of 0 will be colored slate (neutral).
+ *                        Typically true for counts (days, mm, h) and false for continuous scales (℃).
+ */
+export function getMetricColor(
+  value: number | null | undefined,
+  min: number,
+  max: number,
+  useSlateForZero: boolean = true
+) {
   if (value == null) return "text-slate-400";
-  if (value >= 35) return "text-red-700";
-  if (value >= 30) return "text-red-500";
-  if (value >= 25) return "text-orange-500";
-  if (value >= 20) return "text-yellow-500";
-  if (value >= 15) return "text-lime-500";
-  if (value >= 10) return "text-green-500";
-  if (value >= 5) return "text-cyan-500";
-  if (value >= 0) return "text-blue-500";
-  return "text-indigo-600";
-}
 
-export function getRainColor(value: number | null | undefined) {
-  if (value == null) return "text-slate-400";
-  if (value >= 500) return "text-red-700";
-  if (value >= 300) return "text-red-500";
-  if (value >= 250) return "text-orange-500";
-  if (value >= 200) return "text-yellow-500";
-  if (value >= 150) return "text-lime-500";
-  if (value >= 100) return "text-green-500";
-  if (value >= 50) return "text-cyan-500";
-  if (value >= 25) return "text-blue-500";
-  if (value > 0) return "text-sky-500";
-  return "text-slate-500";
+  // If 0 should be neutral (e.g., 0mm rain, 0 days of extreme heat)
+  if (useSlateForZero && value === 0) return "text-slate-500";
+
+  if (max <= min) return METRIC_COLORS[Math.floor(METRIC_COLORS.length / 2)];
+
+  // Clamp ratio between 0 and 0.999...
+  const ratio = Math.max(0, Math.min(0.999, (value - min) / (max - min)));
+  const index = Math.floor(ratio * METRIC_COLORS.length);
+  return METRIC_COLORS[index];
 }

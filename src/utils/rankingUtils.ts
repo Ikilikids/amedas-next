@@ -9,7 +9,7 @@ import {
 import { MonthlyEntry, StationId } from "../types/union";
 import { MetricKey, MetricValue } from "./metric";
 import { PrefKey, PrefMeta } from "./pref";
-import { RankKey, RankMeta, isIslandId } from "./rank";
+import { RankKey, RankMeta, isIslandId, isNotMeteoId } from "./rank";
 import { RegionMeta } from "./region";
 
 /**
@@ -51,7 +51,9 @@ export function processRankingData(
       return pref?.region.label === selectedRegion.label;
     });
   } else if (rankType === RankKey.meteo.key) {
-    filtered = filtered.filter((s) => s.category === "meteo");
+    filtered = filtered
+      .filter((s) => s.category === "meteo")
+      .filter((s) => !isNotMeteoId(s.id));
   } else if (rankType === RankKey.island.key) {
     filtered = filtered.filter((s) => !isIslandId(s.id));
   }

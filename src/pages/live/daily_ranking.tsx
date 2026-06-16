@@ -21,7 +21,8 @@ import { loadMaster } from "../../utils/ssgLoader";
 
 import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
 import { RawStationData } from "../../types/raw";
-import { getRainColor, getTempColor } from "../../utils/colorUtils";
+import { StationId } from "../../types/union";
+import { getMetricColor } from "../../utils/colorUtils";
 import { MetricKey, MetricValue } from "../../utils/metric";
 
 interface Props {
@@ -90,6 +91,19 @@ const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
       time: s.time,
     }));
   }, [metric, jmaData, masterData, rankMeta, selectedRegion, selectedPref]);
+
+  const dataBounds = useMemo(() => {
+    if (!jmaData || !metric) return { min: 0, max: 0 };
+    const list = jmaData[metric] || [];
+    const values = list
+      .map((s) => s.value)
+      .filter((v): v is number => typeof v === "number");
+    if (values.length === 0) return { min: 0, max: 0 };
+    return {
+      min: Math.min(...values),
+      max: Math.max(...values),
+    };
+  }, [jmaData, metric]);
 
   const displayLastUpdate = useMemo(() => {
     if (!jmaData?.lastUpdate) return "読み込み中...";
@@ -272,11 +286,12 @@ const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
                     </div>
                     <div className="flex-1 flex flex-col justify-end">
                       <div
-                        className={`text-2xl font-mono font-bold ${
-                          metric === "sm_rain"
-                            ? getRainColor(s.value)
-                            : getTempColor(s.value)
-                        }`}
+                        className={`text-2xl font-mono font-bold ${getMetricColor(
+                          s.value,
+                          dataBounds.min,
+                          dataBounds.max,
+                          config.unit !== "℃"
+                        )}`}
                       >
                         {s.value !== null
                           ? `${s.value.toFixed(metric === "sm_rain" ? 0 : 1)}${
@@ -324,10 +339,18 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     // マスターデータのロードのみを行う (SSGの器として機能させる)
     const masterData = loadMaster();
+    const data: Record<StationId, RawStationData> = Object.fromEntries(
+      Object.entries(masterData).map(
+        ([id, { lon, lat, similar, height, city, official_name, ...rest }]) => [
+          id,
+          rest,
+        ]
+      )
+    );
 
     return {
       props: {
-        masterData,
+        masterData: data,
       },
     };
   } catch (error) {

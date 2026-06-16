@@ -9,7 +9,7 @@ import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
 import HeroSection from "../../../components/HeroSection";
 import { RankingData, RawRankingData } from "../../../components/Ranking/types";
-import { getRainColor, getTempColor } from "../../../utils/colorUtils";
+import { getMetricColor } from "../../../utils/colorUtils";
 import { toStation } from "../../../utils/masterUtils";
 import { PrefKey, PrefMeta } from "../../../utils/pref";
 import { RankKey, RankMeta } from "../../../utils/rank";
@@ -18,23 +18,21 @@ import { RegionKey, RegionMeta } from "../../../utils/region";
 import { loadMaster } from "../../../utils/ssgLoader";
 
 import { colorWithAlpha } from "../../../components/LayeredPieChart/chartUtils";
+import { RawStationData } from "../../../types/raw";
+import { StationId } from "../../../types/union";
 import {
   MetricGroup,
   MetricKey,
   MetricValue,
   RANKING_GROUP_META,
 } from "../../../utils/metric";
-import { RawStationData } from "../../../types/raw";
 
 interface Props {
   masterData: Record<string, RawStationData>;
   type: MetricGroup;
 }
 
-const RecentRankingDynamicPage: NextPage<Props> = ({
-  masterData,
-  type,
-}) => {
+const RecentRankingDynamicPage: NextPage<Props> = ({ masterData, type }) => {
   const router = useRouter();
   const groupMeta = RANKING_GROUP_META[type];
 
@@ -77,7 +75,7 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
 
   const displayList: RankingData[] = useMemo(() => {
     if (!liveData || !liveData.metrics) return [];
-    
+
     const metricData = liveData.metrics[metric] || [];
 
     const rawList: RawRankingData[] = metricData
@@ -114,6 +112,17 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
       timeZone: "Asia/Tokyo",
     });
   }, [liveData]);
+
+  const dataBounds = useMemo(() => {
+    if (!liveData || !liveData.metrics || !metric) return { min: 0, max: 0 };
+    const list = liveData.metrics[metric] || [];
+    const values = list.map((item) => item.val);
+    if (values.length === 0) return { min: 0, max: 0 };
+    return {
+      min: Math.min(...values),
+      max: Math.max(...values),
+    };
+  }, [liveData, metric]);
 
   const isRainMetric = metric.includes("rain");
   const isCountMetric =
@@ -298,11 +307,12 @@ const RecentRankingDynamicPage: NextPage<Props> = ({
                     </div>
                     <div className="flex-1 flex flex-col justify-end">
                       <div
-                        className={`text-2xl font-mono font-bold ${
-                          isRainMetric
-                            ? getRainColor(s.value)
-                            : getTempColor(s.value)
-                        }`}
+                        className={`text-2xl font-mono font-bold ${getMetricColor(
+                          s.value,
+                          dataBounds.min,
+                          dataBounds.max,
+                          config.unit !== "℃"
+                        )}`}
                       >
                         {s.value !== null
                           ? `${s.value.toFixed(
@@ -365,15 +375,26 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
   try {
     const masterData = loadMaster();
+    const data: Record<StationId, RawStationData> = Object.fromEntries(
+      Object.entries(masterData).map(
+        ([id, { lon, lat, similar, height, city, official_name, ...rest }]) => [
+          id,
+          rest,
+        ]
+      )
+    );
 
     return {
       props: {
-        masterData,
+        masterData: data,
         type,
       },
     };
   } catch (error) {
-    console.error(`[SSG Error] Recent Ranking Shell generation failed for ${type}:`, error);
+    console.error(
+      `[SSG Error] Recent Ranking Shell generation failed for ${type}:`,
+      error
+    );
     return { notFound: true };
   }
 };

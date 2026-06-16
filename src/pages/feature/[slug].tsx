@@ -42,9 +42,7 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
   const currentSideRanking = config.sideRankings[selectedRankingIndex];
 
   const targetStations = useMemo(() => {
-    return Object.values(data)
-      .map((d) => toStation(d.station))
-      .sort((a, b) => a.id.localeCompare(b.id));
+    return Object.values(data).map((d) => toStation(d.station));
   }, [data]);
 
   const handleStationClick = (station: RankingItem) => {
