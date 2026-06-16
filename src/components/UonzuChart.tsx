@@ -73,7 +73,7 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
 
     return {
       label: `${selectedBar.label} (${
-        selectedBar.unit === "時間" ? "h" : selectedBar.unit
+        selectedBar.unit === "h" ? "h" : selectedBar.unit
       })`,
       data: bars,
       backgroundColor,

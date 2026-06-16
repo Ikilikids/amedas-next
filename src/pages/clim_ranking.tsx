@@ -45,17 +45,23 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
     setIsLoading(true);
     fetch(`/ranking_not_null/${metric.key}.json`)
       .then((res) => res.json())
       .then((data) => {
-        setRankingRaw(data);
-        setIsLoading(false);
+        if (isMounted) {
+          setRankingRaw(data);
+          setIsLoading(false);
+        }
       })
       .catch((err) => {
         console.error(err);
-        setIsLoading(false);
+        if (isMounted) setIsLoading(false);
       });
+    return () => {
+      isMounted = false;
+    };
   }, [metric]);
 
   const monthIdx = useMemo(

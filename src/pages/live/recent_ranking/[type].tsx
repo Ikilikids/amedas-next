@@ -67,7 +67,8 @@ const RecentRankingDynamicPage: NextPage<Props> = ({ masterData, type }) => {
 
   // Reset metric when type changes
   useEffect(() => {
-    setMetric(groupMetrics[0]);
+    const firstMetric = groupMetrics[0];
+    setMetric((prev) => (prev !== firstMetric ? firstMetric : prev));
   }, [type, groupMetrics]);
 
   const config = useMemo(() => MetricKey[metric], [metric]);
