@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { OverviewData, StationData, UonzuData } from "../../types/all";
+import { OverviewData, RatioData, StationData, TableData, UonzuData } from "../../types/all";
 import { RawStationData } from "../../types/raw";
 import { MonthlyEntry, StationId } from "../../types/union";
 import { toMetricMap, toStation } from "../../utils/masterUtils";

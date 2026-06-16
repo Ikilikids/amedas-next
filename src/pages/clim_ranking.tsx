@@ -42,11 +42,18 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
     StationId,
     number[]
   > | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [prevMetricKey, setPrevMetricKey] = useState(metric.key);
+
+  if (metric.key !== prevMetricKey) {
+    setPrevMetricKey(metric.key);
+    setIsLoading(true);
+    setRankingRaw(null);
+  }
 
   useEffect(() => {
     let isMounted = true;
-    setIsLoading(true);
+    
     fetch(`/ranking_not_null/${metric.key}.json`)
       .then((res) => res.json())
       .then((data) => {
@@ -62,7 +69,7 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
     return () => {
       isMounted = false;
     };
-  }, [metric]);
+  }, [metric.key]);
 
   const monthIdx = useMemo(
     () => (selectedMonth === "all" ? 12 : parseInt(selectedMonth) - 1),

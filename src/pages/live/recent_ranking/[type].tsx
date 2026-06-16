@@ -46,6 +46,13 @@ const RecentRankingDynamicPage: NextPage<Props> = ({ masterData, type }) => {
   );
 
   const [metric, setMetric] = useState<MetricValue>(groupMetrics[0]);
+  const [prevType, setPrevType] = useState<MetricGroup>(type);
+
+  if (type !== prevType) {
+    setPrevType(type);
+    setMetric(groupMetrics[0]);
+  }
+
   const [rankMeta, setRankMeta] = useState<RankMeta>(RankKey.top);
   const [selectedRegion, setSelectedRegion] = useState<RegionMeta>(
     RegionKey.kanto
@@ -64,12 +71,6 @@ const RecentRankingDynamicPage: NextPage<Props> = ({ masterData, type }) => {
       .then(setLiveData)
       .catch(console.error);
   }, [type]);
-
-  // Reset metric when type changes
-  useEffect(() => {
-    const firstMetric = groupMetrics[0];
-    setMetric((prev) => (prev !== firstMetric ? firstMetric : prev));
-  }, [type, groupMetrics]);
 
   const config = useMemo(() => MetricKey[metric], [metric]);
   const detail = useMemo(() => config.detail, [config]);

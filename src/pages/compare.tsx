@@ -66,13 +66,11 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
   const [selectedBar, setSelectedBar] = useState<MetricMeta>(MetricKey.sm_rain);
 
   // Sync selectedBar when options change
-  useEffect(() => {
-    if (uonzuOptions.length > 0) {
-      if (!uonzuOptions.some((opt) => opt.key === selectedBar.key)) {
-        setSelectedBar(uonzuOptions[0].meta);
-      }
+  if (uonzuOptions.length > 0) {
+    if (!uonzuOptions.some((opt) => opt.key === selectedBar.key)) {
+      setSelectedBar(uonzuOptions[0].meta);
     }
-  }, [uonzuOptions, selectedBar.key]);
+  }
 
   const prefOptions = useMemo(() => {
     return Object.values(PrefKey)
@@ -128,32 +126,30 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     }));
   }, [stationsByPref2]);
 
-  // Update station ID when prefecture changes
-  useEffect(() => {
-    if (
-      stationsByPref1.length > 0 &&
-      !stationsByPref1.some((s) => s.id === id1)
-    ) {
-      setId1(stationsByPref1[0].id);
-    }
-  }, [pref1, stationsByPref1]);
+  // Update station ID when prefecture changes (Render-time sync)
+  if (
+    stationsByPref1.length > 0 &&
+    !stationsByPref1.some((s) => s.id === id1)
+  ) {
+    setId1(stationsByPref1[0].id);
+  }
 
-  useEffect(() => {
-    if (
-      stationsByPref2.length > 0 &&
-      !stationsByPref2.some((s) => s.id === id2)
-    ) {
-      setId2(stationsByPref2[0].id);
-    }
-  }, [pref2, stationsByPref2]);
+  if (
+    stationsByPref2.length > 0 &&
+    !stationsByPref2.some((s) => s.id === id2)
+  ) {
+    setId2(stationsByPref2[0].id);
+  }
 
-  // Initial sync for defaults
-  useEffect(() => {
+  // Initial sync for defaults (Render-time sync)
+  const [isInitialized, setIsInitialized] = useState(false);
+  if (!isInitialized && masterData) {
     const s1Master = masterData[id1];
     if (s1Master) setPref1(s1Master.pref);
     const s2Master = masterData[id2];
     if (s2Master) setPref2(s2Master.pref);
-  }, [masterData]);
+    setIsInitialized(true);
+  }
 
   const swapStations = () => {
     const tempId = id1;
