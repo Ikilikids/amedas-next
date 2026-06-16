@@ -8,7 +8,7 @@
     "build": "next build && node -e \"const fs=require('fs');const opt={recursive:true,force:true};fs.cpSync('public','.next/standalone/public',opt);fs.mkdirSync('.next/standalone/.next',opt);fs.cpSync('.next/static','.next/standalone/.next/static',opt);fs.cpSync('.next/server','.next/standalone/.next/server',opt);\"",
     "start": "next start",
     "lint": "eslint",
-    "generate-sitemap": "node scripts/generate-sitemap.cjs"
+    "generate-sitemap": "node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.8",
