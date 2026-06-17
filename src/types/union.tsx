@@ -49,6 +49,7 @@ export interface FeatureConfig {
   gradient: string;
   Icon: React.ReactNode;
   ratioTabs: RatioInfo[];
+  uonzuTabs: MetricMeta[]; // 追加: 気温図で選択可能なタブ
   sideRankings: RankingSidebarConfig[];
 }
 
@@ -63,6 +64,7 @@ export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
       { metricTab: "気温日数", ranking: "meteo", isCut: false },
       { metricTab: "降水日数", ranking: "meteo", isCut: true },
     ],
+    uonzuTabs: [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun],
     sideRankings: (
       [
         MetricKey.av_avtemp,
@@ -94,6 +96,7 @@ export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
     gradient: "bg-gradient-to-r from-red-600 to-rose-500",
     Icon: <PiThermometerHotFill />,
     ratioTabs: [{ metricTab: "気温日数", ranking: "island", isCut: true }],
+    uonzuTabs: [],
     sideRankings: [
       ...(
         [

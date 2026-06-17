@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { FaBalanceScaleLeft, FaExchangeAlt } from "react-icons/fa";
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
@@ -325,8 +325,8 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                 <CompareMonthlyTable
                   tableData1={t1}
                   tableData2={t2}
-                  name1={s1?.station_name || "地点1"}
-                  name2={s2?.station_name || "地点2"}
+                  station1={s1 ?? null}
+                  station2={s2 ?? null}
                 />
               )}
             </div>

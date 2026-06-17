@@ -69,9 +69,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
 
   return (
     <div
-      className={`rounded-3xl px-5 py-4 shadow-sm border border-slate-100 flex flex-col relative overflow-hidden transition-all ${
-        isTitle ? "bg-white" : ""
-      }`}
+      className={`rounded-3xl px-5 py-4 shadow-sm border border-slate-100 flex flex-col relative overflow-hidden transition-all`}
     >
       {/* Background Accent */}
       {
@@ -147,7 +145,6 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
       <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3">
         {displayMetrics.map((m) => {
           const data = overViewData?.get(m);
-          if (!data && !isTitle) return null; // 地点詳細ではあるものだけ出す
 
           return (
             <div

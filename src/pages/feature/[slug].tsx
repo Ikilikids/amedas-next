@@ -11,12 +11,13 @@ import Ranking from "../../components/Ranking";
 import { RankingItem } from "../../components/Ranking/types";
 import StationFeatureCard from "../../components/StationFeatureCard";
 
+import { BsBookmarkStarFill } from "react-icons/bs";
 import {
   FeaturePageProps,
   getFeatureStaticProps,
 } from "../../features/feature/ssg";
 import { FEATURE_CONFIGS, FeatureName } from "../../types/union";
-import { MonthMap } from "../../utils/colorUtils";
+import { MonthMap, SectionWithDescription } from "../../utils/colorUtils";
 import { toAllData, toStation } from "../../utils/masterUtils";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -71,7 +72,12 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
           <div className="max-w-[1280px] mx-auto px-4 mt-4">
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="flex-1 min-w-0">
-                <div className="flex flex-col gap-4">
+                <SectionWithDescription
+                  icon={<BsBookmarkStarFill />}
+                  title="地点の一覧"
+                  bgColor={"#FF637E"}
+                ></SectionWithDescription>
+                <div className="flex flex-col gap-4 mt-2">
                   {targetStations.map((station) => {
                     const rawData = data[station.id];
                     if (!rawData) return null;
@@ -82,6 +88,7 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
                         key={station.id}
                         allData={allData}
                         ratioInfo={config.ratioTabs}
+                        uonzuInfo={config.uonzuTabs}
                       />
                     );
                   })}
@@ -89,14 +96,14 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
               </div>
 
               {/* Sidebar Ranking */}
-              <div className="w-full lg:w-[350px]">
-                <div className="sticky top-4 h-[calc(100vh-120px)] bg-white rounded-xl border shadow-sm overflow-hidden flex flex-col">
+              <div className="w-full lg:w-[300px]">
+                <SectionWithDescription
+                  icon={<IoIosTrophy />}
+                  title="ランキング"
+                  bgColor={"#fbbb3c"}
+                ></SectionWithDescription>
+                <div className="mt-2 sticky top-[140px] h-[calc(100vh-140px)] bg-white rounded-xl border shadow-sm overflow-hidden flex flex-col">
                   <div className="p-4 border-b bg-slate-50 font-bold flex flex-col gap-3">
-                    <div className="flex items-center gap-2">
-                      <IoIosTrophy className="text-yellow-500 w-5 h-5" />
-                      <span>平年値ランキング</span>
-                    </div>
-
                     <select
                       className="w-full p-2 text-sm border rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500"
                       value={selectedRankingIndex}

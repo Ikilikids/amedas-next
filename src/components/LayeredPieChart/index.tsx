@@ -59,7 +59,7 @@ const LayeredPieChart: React.FC<
           {data && data.length > 0 ? (
             <ChartPieSection
               data={data}
-              size={layout === "vertical" ? 200 : 240}
+              size={layout === "vertical" ? 240 : 240}
             />
           ) : (
             <div className="flex justify-center items-center w-full h-60 text-gray-500 text-lg">

@@ -251,8 +251,8 @@ const StationPage = (props: RawData) => {
                 title="雨温図"
                 bgColor={regionColor}
                 description={[
-                  `・棒グラフは${selectedBar.label}、折れ線グラフは平均気温・最低気温・最高気温を表しています。`,
-                  "・月降水量が500mmを超える地点は、棒グラフの最大値が1000mmになります。",
+                  `棒グラフは${selectedBar.label}、折れ線グラフは平均気温・最低気温・最高気温を表しています。`,
+                  "月降水量が500mmを超える地点は、棒グラフの最大値が1000mmになります。",
                 ]}
               >
                 <SegmentedControl
@@ -274,8 +274,8 @@ const StationPage = (props: RawData) => {
                 title="割合データ"
                 bgColor={regionColor}
                 description={[
-                  "・各要素の日数割合を表しています。",
-                  "・タブから、要素、月、順位別に切り替えることができます。",
+                  "各要素の日数割合を表しています。",
+                  "タブから、要素、月、順位別に切り替えることができます。",
                 ]}
               >
                 <ChartControls
@@ -305,8 +305,8 @@ const StationPage = (props: RawData) => {
                 title="月別気候表"
                 bgColor={regionColor}
                 description={[
-                  "・月ごとの気候データを表形式で表示しています。",
-                  "・下段は順位を示しています。タブで切り替えることができます。",
+                  "月ごとの気候データを表形式で表示しています。",
+                  "下段は順位を示しています。タブで切り替えることができます。",
                 ]}
               >
                 <div className="flex items-center gap-2 ml-2">
@@ -330,8 +330,8 @@ const StationPage = (props: RawData) => {
                     title="最近のデータ"
                     bgColor={regionColor}
                     description={[
-                      "・気象庁から取得した直近15日間の最高・最低気温と降水量の推移を表示しています。",
-                      "・上部の数値は今年の累計・極値データ（1月1日〜）です。",
+                      "気象庁から取得した直近15日間の最高・最低気温と降水量の推移を表示しています。",
+                      "上部の数値は今年の累計・極値データ（1月1日〜）です。",
                     ]}
                   />
                   <RecentTrendChart

@@ -1,23 +1,28 @@
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
+import { FaChartLine, FaCity, FaMapPin } from "react-icons/fa6";
+import { LiaMountainSolid } from "react-icons/lia";
 import { AllData } from "../types/all";
 import { RatioInfo } from "../types/union";
-import { MetricKey } from "../utils/metric";
+import { MetricKey, MetricMeta } from "../utils/metric";
 import LayeredPieChart from "./LayeredPieChart";
 import StationMap from "./StationMap";
 import UonzuChart from "./UonzuChart";
 import Description from "./description";
 
+import CustomSelect from "./UI/CustomSelect";
+import SegmentedControl from "./UI/SegmentedControl";
+
 interface StationFeatureCardProps {
   allData: AllData;
-  showFullDescription?: boolean;
   ratioInfo: RatioInfo[];
+  uonzuInfo: MetricMeta[];
 }
 
 const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
   allData,
-  showFullDescription = true,
   ratioInfo,
+  uonzuInfo,
 }) => {
   const {
     station,
@@ -26,130 +31,192 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
     description: descriptionData,
   } = allData;
 
-  // 解説文データからこの地点のものを抽出 (芋の元に戻す)
-
   // 表示オプションを動的に生成
   const visualOptions = useMemo(() => {
-    const options = [
-      { value: "rain", label: "降水量" },
-      { value: "snowing", label: "降雪量" },
-      { value: "sun", label: "日照時間" },
-      { value: "map", label: "マップ" },
-    ];
+    const options = [];
+    uonzuInfo.forEach((info) => {
+      options.push({
+        key: info.key,
+        label: info.label,
+      });
+    });
     ratioInfo.forEach((info) => {
       options.push({
-        value: `ratio_${info.metricTab}`,
+        key: `ratio_${info.metricTab}`,
         label: info.metricTab.replace("日数", "割合"),
       });
     });
+    options.push({ key: "map", label: "地図" });
     return options;
-  }, [ratioInfo]);
+  }, [ratioInfo, uonzuInfo]);
 
   const [selectedBar, setSelectedBar] = useState<string>(
-    visualOptions[0]?.value || "rain"
+    visualOptions[0]?.key || "sm_rain"
   );
 
-  const regionColor = station.pref.region.colorBase;
+  // CustomSelect用のオプション形式に変換
+  const selectOptions = useMemo(() => {
+    return visualOptions.map((opt) => ({
+      value: opt.key,
+      label: opt.label,
+    }));
+  }, [visualOptions]);
+
+  const regionColor = station.pref.region.colorStrong;
+  const category = station.category;
 
   return (
-    <div className="w-full flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-      {/* Header */}
+    <div className="w-full flex flex-col rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-8 bg-white transition-all hover:shadow-md relative">
+      {/* Top Accent Bar (InfoPanel style) */}
       <div
-        className="px-4 py-3 flex flex-wrap items-center justify-between gap-2"
+        className="absolute top-0 left-0 w-full h-1"
         style={{ backgroundColor: regionColor }}
-      >
-        <h2 className="flex items-center gap-2 font-black text-slate-800">
-          <span className="text-xl">{station.category.icon}</span>
-          <Link
-            href={`/station/${station.id}`}
-            className="text-lg md:text-xl hover:underline text-slate-900"
-          >
-            {station.official_name}
-          </Link>
-          <span className="text-xs font-bold px-2 py-0.5 bg-white/50 rounded-full text-slate-700">
-            {station.pref.label}
-          </span>
-        </h2>
+      />
 
-        <div className="flex items-center gap-2 bg-white/40 p-1 rounded-lg border border-white/20">
-          <span className="text-xs font-bold text-slate-700 ml-1">
-            表示切替:
-          </span>
-          <select
-            className="text-xs font-bold bg-white border-none rounded-md px-2 py-1 focus:ring-2 focus:ring-blue-400 text-slate-800"
-            value={selectedBar}
-            onChange={(e) => setSelectedBar(e.target.value)}
-          >
-            {visualOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+      {/* Header Section (Exactly following InfoPanel style) */}
+      <div className="px-6 pt-5 pb-5 border-b border-slate-50">
+        <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
+          <div className="flex flex-col">
+            {/* Badges */}
+            <div className="flex items-center gap-2 mb-1">
+              <span
+                className="text-[10px] font-black px-2 py-0.5 rounded-full text-white"
+                style={{ backgroundColor: regionColor }}
+              >
+                {station.pref.label}
+              </span>
+              <span className="text-[10px] text-slate-400 font-mono font-bold tracking-tight">
+                #{station.id}
+              </span>
+            </div>
+
+            {/* Icon + Title */}
+            <div className="flex items-center gap-2">
+              {category && (
+                <span className="text-xl" style={{ color: category.colorFull }}>
+                  {category.icon}
+                </span>
+              )}
+              <Link
+                href={`/station/${station.id}`}
+                className="group flex items-center gap-0 transition-colors"
+              >
+                <h2
+                  className="text-2xl font-black text-slate-800 group-hover:text-[var(--name-hover)] transition-colors"
+                  style={{ "--name-hover": regionColor } as React.CSSProperties}
+                >
+                  {station.station_name}
+                </h2>
+              </Link>
+            </div>
+
+            {/* Official Name (Sub-label) */}
+            <p className="text-xs text-slate-400 font-bold ml-7 mb-3">
+              {station.official_name}
+            </p>
+
+            {/* Metadata Row */}
+            <div className="flex flex-wrap gap-x-4 gap-y-1 ml-7 text-[11px] font-bold text-slate-500">
+              <div className="flex items-center gap-1">
+                <FaCity className="text-slate-300" />
+                <span>{station.city}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <FaMapPin className="text-slate-300" />
+                <span>
+                  {station.lat.toFixed(1)}N, {station.lon.toFixed(1)}E
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <LiaMountainSolid className="text-slate-300" />
+                <span>{station.height.toFixed(1)} m</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Visual Controls */}
+          <div className="flex-shrink-0">
+            {/* Desktop: SegmentedControl */}
+            <div className="hidden sm:block">
+              <SegmentedControl<string>
+                value={selectedBar}
+                onChange={(val) => setSelectedBar(val)}
+                options={visualOptions}
+                color={regionColor}
+                className="w-fit"
+              />
+            </div>
+            {/* Mobile: CustomSelect */}
+            <div className="block sm:hidden w-full">
+              <CustomSelect<string>
+                value={selectedBar}
+                onChange={(val) => setSelectedBar(val)}
+                options={selectOptions}
+                activeColor={regionColor}
+                leftIcon={<FaChartLine className="text-slate-400" />}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col lg:flex-row">
+      {/* Content Section */}
+      <div className="flex flex-col lg:flex-row min-h-[420px]">
         {/* Description Section */}
-        <div className="flex-[6] p-4 lg:p-6 border-b lg:border-b-0 lg:border-r border-gray-50 bg-white">
-          {showFullDescription ? (
+        <div className="flex-[5] p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-slate-50 bg-white flex flex-col">
+          <div className="flex-1">
             <Description description={descriptionData} />
-          ) : (
-            <Description description={descriptionData} />
-          )}
+          </div>
         </div>
 
         {/* Visual Section */}
-        <div className="flex-[5] h-[400px] lg:h-auto min-h-[400px] relative bg-slate-50 flex items-center justify-center overflow-hidden">
-          {(() => {
-            if (selectedBar === "map") {
-              return (
-                <div className="w-full lg:h-full items-center justify-center flex h-[380px]">
-                  <StationMap isMini lat={station.lat} lng={station.lon} />
-                </div>
-              );
-            }
-            if (selectedBar.startsWith("ratio_")) {
-              const tab = selectedBar.replace("ratio_", "");
-              const currentRatioInfo = ratioInfo.find(
-                (info) => info.metricTab === tab
-              );
-              if (!currentRatioInfo) return null;
+        <div className="flex-[6] bg-slate-50/20 relative flex items-center justify-center py-2 px-4">
+          <div className="w-full h-[420px] bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden flex items-center justify-center relative">
+            {(() => {
+              if (selectedBar === "map") {
+                return (
+                  <div className="w-full h-full p-2">
+                    <StationMap isMini lat={station.lat} lng={station.lon} />
+                  </div>
+                );
+              }
+              if (selectedBar.startsWith("ratio_")) {
+                const tab = selectedBar.replace("ratio_", "");
+                const currentRatioInfo = ratioInfo.find(
+                  (info) => info.metricTab === tab
+                );
+                if (!currentRatioInfo) return null;
+
+                return (
+                  <div className="w-full h-full flex items-center justify-center p-6">
+                    {ratioMap ? (
+                      <LayeredPieChart
+                        ratioInfo={currentRatioInfo}
+                        ratioData={ratioMap}
+                        selectedMonth={null} // 通年
+                        rankType={currentRatioInfo.ranking}
+                        layout="vertical"
+                      />
+                    ) : (
+                      <div className="text-slate-400 font-bold">
+                        データがありません
+                      </div>
+                    )}
+                  </div>
+                );
+              }
 
               return (
-                <div className="w-full h-full flex items-center justify-center p-4">
-                  {ratioMap ? (
-                    <LayeredPieChart
-                      ratioInfo={currentRatioInfo}
-                      ratioData={ratioMap}
-                      selectedMonth={null} // 通年
-                      rankType={currentRatioInfo.ranking}
-                      layout="vertical"
-                    />
-                  ) : (
-                    <div className="text-gray-400">データがありません</div>
-                  )}
+                <div className="w-full h-full p-4">
+                  <UonzuChart
+                    uonzuData={uonzuMap}
+                    selectedBar={MetricKey[selectedBar]}
+                    height="100%"
+                  />
                 </div>
               );
-            }
-            const barMeta =
-              selectedBar === "snowing"
-                ? MetricKey.sm_snowing
-                : selectedBar === "sun"
-                ? MetricKey.sm_sun
-                : MetricKey.sm_rain;
-
-            return (
-              <div className="w-full h-full p-2">
-                <UonzuChart
-                  uonzuData={uonzuMap}
-                  selectedBar={barMeta}
-                  height="380px"
-                />
-              </div>
-            );
-          })()}
+            })()}
+          </div>
         </div>
       </div>
     </div>
