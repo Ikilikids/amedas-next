@@ -1,4 +1,4 @@
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import React, { useEffect, useMemo, useState } from "react";
 
 import { StationId } from "../types/union";
@@ -30,6 +30,11 @@ const StationMap: React.FC<StationMapProps> = ({
   lng,
   onStationClick,
 }) => {
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || "",
+  });
+
   const [stationList, setStationList] = useState<Station[]>([]);
 
   useEffect(() => {
@@ -69,6 +74,17 @@ const StationMap: React.FC<StationMapProps> = ({
     streetViewControl: false,
     fullscreenControl: false,
   };
+
+  if (!isLoaded) {
+    return (
+      <div
+        style={mapContainerStyle}
+        className="bg-slate-100 animate-pulse flex items-center justify-center text-slate-400 text-xs"
+      >
+        Loading Map...
+      </div>
+    );
+  }
 
   return (
     <GoogleMap

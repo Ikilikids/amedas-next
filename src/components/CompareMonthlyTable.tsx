@@ -49,10 +49,10 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
     return (
       <React.Fragment key={meta.key}>
         {/* Station 1 Row */}
-        <tr className="border-t border-slate-100 hover:bg-slate-50/50 transition-colors">
+        <tr className="hover:bg-slate-50/50 transition-colors">
           <td
             rowSpan={2}
-            className="sticky left-0 z-10 bg-white border-r border-slate-200 px-2 py-3 text-center align-middle font-bold text-xs shadow-[2px_0_4px_-2px_#0000001a]"
+            className="sticky left-0 z-10 bg-white px-2 py-3 w-[104px] min-w-[104px] text-center align-middle font-bold text-xs border-t-2 border-slate-300"
           >
             <div className="flex flex-col items-center gap-0.5">
               <div className="flex items-center gap-1">
@@ -66,7 +66,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
               </span>
             </div>
           </td>
-          <td className="sticky left-[104px] z-10 bg-white border-r border-slate-100 px-2 py-1 text-[10px] font-black text-blue-600 text-center whitespace-nowrap shadow-[2px_0_4px_-2px_#0000001a]">
+          <td className="sticky left-[104px] z-10 bg-white border-r border-slate-200 px-2 py-1 w-[60px] min-w-[60px] text-[10px] font-black text-blue-600 text-center whitespace-nowrap shadow-[2px_0_4px_-2px_#0000001a] border-t-2">
             {name1}
           </td>
           {months.map((m) => {
@@ -79,7 +79,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
             return (
               <td
                 key={m.slug}
-                className={`px-2 py-1 text-center text-xs font-mono font-bold ${
+                className={`px-2 py-1 text-center text-xs font-mono font-bold border-t-2 border-slate-300 ${
                   m.slug === "all" ? "bg-blue-50/30" : ""
                 } ${isLarger ? "text-rose-600" : "text-slate-800"}`}
               >
@@ -90,7 +90,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
         </tr>
         {/* Station 2 Row */}
         <tr className="hover:bg-slate-50/50 transition-colors">
-          <td className="sticky left-[104px] z-10 bg-white border-r border-slate-100 px-2 py-1 text-[10px] font-black text-slate-400 text-center whitespace-nowrap shadow-[2px_0_4px_-2px_#0000001a]">
+          <td className="sticky left-[104px] z-10 bg-white border-r border-slate-200 px-2 py-1 w-[60px] min-w-[60px] text-[10px] font-black text-slate-400 text-center whitespace-nowrap shadow-[2px_0_4px_-2px_#0000001a] border-t">
             {name2}
           </td>
           {months.map((m) => {
@@ -103,7 +103,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
             return (
               <td
                 key={m.slug}
-                className={`px-2 py-1 text-center text-xs font-mono font-bold ${
+                className={`px-2 py-1 text-center text-xs font-mono font-bold border-t border-slate-200 ${
                   m.slug === "all" ? "bg-blue-50/30" : ""
                 } ${isLarger ? "text-rose-600" : "text-slate-800"}`}
               >
@@ -121,10 +121,10 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
       <table className="w-full border-collapse">
         <thead>
           <tr className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-            <th className="sticky left-0 top-0 z-20 bg-slate-100 border-r border-b border-slate-200 p-2 shadow-[2px_0_4px_-2px_#0000001a]">
+            <th className="sticky left-0 top-0 z-20 bg-slate-100 border-b border-slate-200 p-2 w-[104px] min-w-[104px]">
               項目
             </th>
-            <th className="sticky left-[104px] top-0 z-20 bg-slate-100 border-r border-b border-slate-200 p-2 shadow-[2px_0_4px_-2px_#0000001a]">
+            <th className="sticky left-[104px] top-0 z-20 bg-slate-100 border-r border-b border-slate-200 p-2 w-[60px] min-w-[60px] shadow-[2px_0_4px_-2px_#0000001a]">
               地点
             </th>
             {months.map((m) => (
@@ -139,7 +139,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-50">
+        <tbody className="">
           {displayMetrics.map((meta) => renderMetricRows(meta))}
         </tbody>
       </table>
