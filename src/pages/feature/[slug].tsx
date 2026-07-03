@@ -22,7 +22,12 @@ import { toAllData, toStation } from "../../utils/masterUtils";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [{ params: { slug: "meteo" } }, { params: { slug: "hot" } }],
+    paths: [
+      { params: { slug: "meteo" } },
+      { params: { slug: "special" } },
+      { params: { slug: "hot" } },
+      { params: { slug: "warm" } },
+    ],
     fallback: false,
   };
 };

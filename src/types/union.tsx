@@ -1,5 +1,7 @@
 import { FaBuilding } from "react-icons/fa";
+import { FaSatelliteDish } from "react-icons/fa6";
 import { PiThermometerHotFill } from "react-icons/pi";
+import { TbTemperaturePlus } from "react-icons/tb";
 import { MetricKey, MetricMeta, MetricTab } from "../utils/metric";
 import { RankKey, RankMeta, RankValue } from "../utils/rank";
 
@@ -18,6 +20,7 @@ export interface MonthlyEntry {
   region?: number;
   pre?: number;
   meteo?: number | null;
+  special?: number | null;
 }
 
 export interface OriginSimilarItem {
@@ -27,7 +30,7 @@ export interface OriginSimilarItem {
 
 export type DescriptionData = Record<string, string>;
 
-export type FeatureName = "meteo" | "hot";
+export type FeatureName = "meteo" | "special" | "hot" | "warm";
 
 export interface RatioInfo {
   metricTab: MetricTab;
@@ -55,9 +58,9 @@ export interface FeatureConfig {
 
 export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
   meteo: {
-    title: "気象台まとめ",
-    subTitle: "気象台",
-    description: "都道府県の代表気象台を比較できます。",
+    title: "47都道府県まとめ",
+    subTitle: "47都道府県",
+    description: "都道府県の代表気象台をまとめました。",
     gradient: "bg-gradient-to-r from-pink-600 to-rose-600",
     Icon: <FaBuilding />,
     ratioTabs: [
@@ -88,7 +91,61 @@ export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
       month: "all" as const,
     })),
   },
+  special: {
+    title: "特別観測所など",
+    subTitle: "特別観測所など",
+    description: "都道府県代表以外の気象台や特別観測所をまとめました",
+    gradient: "bg-gradient-to-r from-orange-600 to-yellow-600",
+    Icon: <FaSatelliteDish />,
+    ratioTabs: [
+      { metricTab: "気温日数", ranking: "special", isCut: false },
+      { metricTab: "降水日数", ranking: "special", isCut: true },
+    ],
+    uonzuTabs: [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun],
+    sideRankings: (
+      [
+        MetricKey.av_avtemp,
+        MetricKey.av_hitemp,
+        MetricKey.sm_rain,
+        MetricKey.sm_snowing,
+        MetricKey.sm_sun,
+        MetricKey.av_wind,
+        MetricKey.hitemp_35,
+        MetricKey.hitemp_30,
+        MetricKey.hitemp_25,
+        MetricKey.lwtemp_0,
+        MetricKey.hitemp_0,
+        MetricKey.lwtemp_25,
+        MetricKey.rain_1,
+        MetricKey.rain_30,
+      ] as const
+    ).map((metric) => ({
+      metric,
+      rank: RankKey.special,
+      month: "all" as const,
+    })),
+  },
 
+  warm: {
+    title: "暖かい地点まとめ",
+    subTitle: "暖かい地点",
+    description: "暖かい地点をまとめました。主に島嶼部です。",
+    gradient: "bg-gradient-to-r from-orange-600 to-amber-500",
+    Icon: <TbTemperaturePlus />,
+    ratioTabs: [{ metricTab: "気温日数", ranking: "top", isCut: true }],
+    uonzuTabs: [MetricKey.sm_rain],
+    sideRankings: [
+      ...(
+        [MetricKey.av_hitemp, MetricKey.hitemp_30, MetricKey.hitemp_25] as const
+      ).flatMap((metric) =>
+        ([RankKey.top, RankKey.island] as const).map((rank) => ({
+          metric,
+          rank,
+          month: "all" as const,
+        }))
+      ),
+    ],
+  },
   hot: {
     title: "暑い地点まとめ",
     subTitle: "暑い地点",

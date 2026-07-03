@@ -30,9 +30,18 @@ export const CATEGORY_KEYS = {
     icon: <FaBuilding />,
     description: "地域気象の中核を担う地点（赤色）",
   },
+  submeteo: {
+    label: "気象台",
+    value: 2,
+    colorBase: "#ef44441a",
+    colorBorder: "#ef444433",
+    colorFull: "#ef4444",
+    icon: <FaBuilding />,
+    description: "地域気象の中核を担う地点（赤色）",
+  },
   special: {
     label: "特別地域気象観測所",
-    value: 2,
+    value: 3,
     colorBase: "#f59e0b1a",
     colorBorder: "#f59e0b33",
     colorFull: "#f59e0b",
@@ -41,7 +50,7 @@ export const CATEGORY_KEYS = {
   },
   aviation: {
     label: "航空気象観測所",
-    value: 3,
+    value: 4,
     colorBase: "#38bdf81a",
     colorBorder: "#38bdf833",
     colorFull: "#38bdf8",
@@ -50,7 +59,7 @@ export const CATEGORY_KEYS = {
   },
   amedas: {
     label: "アメダス",
-    value: 4,
+    value: 5,
     colorBase: "#64748b0d",
     colorBorder: "#64748b33",
     colorFull: "#324250",

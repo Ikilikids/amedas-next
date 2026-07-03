@@ -9,7 +9,7 @@ import {
 import { MonthlyEntry, StationId } from "../types/union";
 import { MetricKey, MetricValue } from "./metric";
 import { PrefKey, PrefMeta } from "./pref";
-import { RankKey, RankMeta, isIslandId, isNotMeteoId } from "./rank";
+import { RankKey, RankMeta, isIslandId } from "./rank";
 import { RegionMeta } from "./region";
 
 /**
@@ -51,9 +51,11 @@ export function processRankingData(
       return pref?.region.label === selectedRegion.label;
     });
   } else if (rankType === RankKey.meteo.key) {
-    filtered = filtered
-      .filter((s) => s.category === "meteo")
-      .filter((s) => !isNotMeteoId(s.id));
+    filtered = filtered.filter((s) => s.category === "meteo");
+  } else if (rankType === RankKey.special.key) {
+    filtered = filtered.filter((s) =>
+      ["meteo", "submeteo", "special"].includes(s.category)
+    );
   } else if (rankType === RankKey.island.key) {
     filtered = filtered.filter((s) => !isIslandId(s.id));
   }
@@ -71,7 +73,12 @@ export function processRankingData(
     return { ...s, rank: currentRank };
   });
 
-  return limit ? ranked.slice(0, limit) : ranked;
+  return limit &&
+    (rankType === RankKey.bot.key ||
+      rankType === RankKey.top.key ||
+      rankType === RankKey.island.key)
+    ? ranked.slice(0, limit)
+    : ranked;
 }
 
 /**
@@ -97,12 +104,14 @@ export function integrateSingleMetric(
     const topRanks = processRankingData(rawList, RankKey.top);
     const botRanks = processRankingData(rawList, RankKey.bot);
     const meteoRanks = processRankingData(rawList, RankKey.meteo);
+    const specialRanks = processRankingData(rawList, RankKey.special);
     const islandRanks = processRankingData(rawList, RankKey.island);
 
     // マップ化
     const topMap = new Map(topRanks.map((s) => [s.id, s.rank]));
     const botMap = new Map(botRanks.map((s) => [s.id, s.rank]));
     const meteoMap = new Map(meteoRanks.map((s) => [s.id, s.rank]));
+    const specialMap = new Map(specialRanks.map((s) => [s.id, s.rank]));
     const islandMap = new Map(islandRanks.map((s) => [s.id, s.rank]));
 
     const prefRanksMap = new Map<string, Map<StationId, number>>();
@@ -143,6 +152,9 @@ export function integrateSingleMetric(
           ? regionRanksMap.get(regionLabel)?.get(s.id) || 0
           : 0,
         meteo: s.category === "meteo" ? meteoMap.get(s.id) || null : null,
+        special: ["meteo", "submeteo", "special"].includes(s.category)
+          ? specialMap.get(s.id) || null
+          : null,
         island: !isIslandId(s.id) ? islandMap.get(s.id) || null : null,
       };
 

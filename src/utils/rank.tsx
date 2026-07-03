@@ -33,8 +33,13 @@ export const RankKey = {
   },
   meteo: {
     key: "meteo",
-    rankingLabel: "気象台のみ",
-    ratioLabel: "気象台",
+    rankingLabel: "47都道府県",
+    ratioLabel: "47都道府県",
+  },
+  special: {
+    key: "special",
+    rankingLabel: "気象台など",
+    ratioLabel: "気象台など",
   },
 } as const satisfies Record<string, any>;
 
@@ -53,18 +58,3 @@ export const isIslandId = (id: StationId): boolean =>
   ISLAND_PREFIXES.some((p) => id.startsWith(p));
 
 export type RankValue = keyof typeof RankKey;
-
-export const NOT_METEO_PREFIXES = [
-  "94081",
-  "93041",
-  "92011",
-  "23232",
-  "21323",
-  "12442",
-  "11016",
-  "17341",
-  "19432",
-];
-
-export const isNotMeteoId = (id: StationId): boolean =>
-  NOT_METEO_PREFIXES.some((p) => id.startsWith(p));

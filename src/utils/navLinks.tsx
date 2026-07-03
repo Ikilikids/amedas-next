@@ -7,10 +7,10 @@ import {
   FaSearch,
   FaStar,
 } from "react-icons/fa";
-import { FaMapLocationDot } from "react-icons/fa6";
+import { FaMapLocationDot, FaSatelliteDish } from "react-icons/fa6";
 import { IoIosTrophy } from "react-icons/io";
 import { PiRankingDuotone, PiThermometerHotFill } from "react-icons/pi";
-import { TbTemperatureSun } from "react-icons/tb";
+import { TbTemperaturePlus, TbTemperatureSun } from "react-icons/tb";
 
 export interface NavLink {
   href: string;
@@ -98,16 +98,30 @@ export const featureLinks: NavLink[] = [
   {
     href: "/feature/meteo",
     Icon: <FaBuilding />,
-    title: "気象台まとめ",
+    title: "47都道府県まとめ",
     description: "都道府県の代表地点です",
-    iconClass: "text-blue-700",
+    iconClass: "text-red-500",
+  },
+  {
+    href: "/feature/special",
+    Icon: <FaSatelliteDish />,
+    title: "特別観測所まとめ",
+    description: "地域の代表地点です",
+    iconClass: "text-yellow-500",
   },
   {
     href: "/feature/hot",
     Icon: <PiThermometerHotFill />,
     title: "暑い地点まとめ",
     description: "夏季に良くニュースになる地点をまとめました",
-    iconClass: "text-red-500",
+    iconClass: "text-red-700",
+  },
+  {
+    href: "/feature/warm",
+    Icon: <TbTemperaturePlus />,
+    title: "暖かい地点まとめ",
+    description: "主に島などの暖かい地点をまとめました",
+    iconClass: "text-orange-500",
   },
 ];
 
