@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { UonzuData } from "../types/all";
-import { MetricKey, MetricValue, RANKING_GROUP_META, MetricGroup } from "../utils/metric";
+import { MetricGroup, MetricKey, RANKING_GROUP_META } from "../utils/metric";
 import SegmentedControl from "./UI/SegmentedControl";
 import UonzuChart from "./UonzuChart";
+import RecentTrendTable from "./RecentTrendTable";
 
 interface HistoryEntry {
   date: string;
@@ -85,7 +86,7 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mt-2">
-      <div className="flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4 mb-6">
         <SegmentedControl
           value={activeTab}
           onChange={(v) => setActiveTab(v as any)}
@@ -125,6 +126,9 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
           height="100%"
         />
       </div>
+
+      {/* 日別気候データテーブル */}
+      <RecentTrendTable history={history} />
     </div>
   );
 };
