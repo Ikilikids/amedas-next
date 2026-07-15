@@ -3,12 +3,78 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
 import { FaMapLocationDot } from "react-icons/fa6";
+import { IoBook } from "react-icons/io5";
+import { LuChartNoAxesCombined } from "react-icons/lu";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
-import StationDetailPanel from "../components/StationDetailPanel";
 import StationMap from "../components/StationMap";
+import InfoPanel from "../components/InfoPanel";
+import UonzuChart from "../components/UonzuChart";
+import { useStationDetail } from "../components/Ranking/useRankingData";
 import { SectionWithDescription } from "../utils/colorUtils";
+import { MetricKey } from "../setting/metric";
+import { StationId } from "../types/union";
+
+// ==============================
+//  ローカルサブコンポーネント
+// ==============================
+interface StationDetailPanelProps {
+  stationId: StationId | null | undefined;
+}
+
+const StationDetailPanel = ({ stationId }: StationDetailPanelProps) => {
+  const { stationData, uonzuData, overviewData, loading } = useStationDetail(
+    stationId || null
+  );
+
+  const bgColor =
+    stationData && stationData.pref
+      ? (stationData.pref as any).region.colorStrong
+      : "white";
+
+  return (
+    <div className="h-[900px] sm:h-[750px] flex flex-col gap-4">
+      <h2 className="sr-only">情報パネル</h2>
+
+      <div className="flex flex-col gap-2">
+        <SectionWithDescription
+          icon={<IoBook />}
+          title="基本情報"
+          bgColor={bgColor === "white" ? "#777777" : bgColor}
+        />
+        <InfoPanel
+          stationData={stationData}
+          overViewData={overviewData}
+          loading={loading}
+          isTitle={true}
+        />
+      </div>
+
+      <div className="flex flex-col gap-2 flex-1 min-h-0">
+        <SectionWithDescription
+          icon={<LuChartNoAxesCombined />}
+          title="雨温図"
+          bgColor={bgColor === "white" ? "#777777" : bgColor}
+        />
+        <div className="bg-white border border-slate-200 rounded-3xl flex-1 min-h-0 overflow-hidden shadow-sm p-2">
+          {uonzuData ? (
+            <UonzuChart
+              uonzuData={uonzuData}
+              selectedBar={MetricKey.sm_rain}
+              height="100%"
+              hideLegend={true}
+            />
+          ) : (
+            <div className="h-full flex items-center justify-center text-slate-400 text-sm italic">
+              地点を選択すると雨温図が表示されます
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // ==============================
 //  ページコンポーネント
@@ -24,6 +90,7 @@ const MapPage: NextPage = () => {
           name="description"
           content="アメダス観測所の雨温図や降水量、猛暑日日数などの気候データを月別で確認できます。地図上のピンをクリックして、各観測所の詳細データを簡単にチェック可能です。"
         />
+        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/map" />
       </Head>
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />

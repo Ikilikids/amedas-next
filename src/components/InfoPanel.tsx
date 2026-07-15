@@ -5,7 +5,7 @@ import { FaCity } from "react-icons/fa";
 import { FaMapPin } from "react-icons/fa6";
 import { LiaMountainSolid } from "react-icons/lia";
 import { OverviewData, StationData } from "../types/all";
-import { MetricKey } from "../utils/metric";
+import { MetricKey } from "../setting/metric";
 
 interface InfoPanelProps {
   stationData: StationData | null;

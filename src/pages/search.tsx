@@ -13,6 +13,11 @@ const SearchPage: NextPage<PageProps> = ({ query }) => {
     <>
       <Head>
         <title>サイト内検索 - アメダス図鑑</title>
+        <meta
+          name="description"
+          content="アメダス図鑑のサイト内検索ページです。探したいアメダス観測所の名前や地域からデータを検索できます。"
+        />
+        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/search" />
       </Head>
 
       <div className="min-h-screen flex flex-col">

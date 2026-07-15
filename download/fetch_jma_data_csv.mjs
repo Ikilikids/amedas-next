@@ -14,12 +14,22 @@ const lines = mappingData
   .split(/\r?\n/)
   .filter((line) => line.trim() !== "" && !line.startsWith("id,"));
 
-const stations = lines
-  .map((line) => {
-    const [id, prec_no, block_no, type] = line.split(",");
-    return { id, prec_no, block_no, type };
-  })
-  .filter((station) => station.id === "40336");
+const targetId = process.argv[2];
+let stations = lines.map((line) => {
+  const [id, prec_no, block_no, type] = line.split(",");
+  return { id, prec_no, block_no, type };
+});
+
+if (targetId) {
+  console.log(`Targeting single station ID: ${targetId}`);
+  stations = stations.filter((station) => station.id === targetId);
+  if (stations.length === 0) {
+    console.error(`Station ID ${targetId} not found in mapping.`);
+    process.exit(1);
+  }
+} else {
+  console.log(`Targeting ALL ${stations.length} stations. (Run with 'node download/fetch_jma_data_csv.mjs <station_id>' to target a single station)`);
+}
 
 const CONCURRENCY = 10; // Increased slightly for multiple months
 const year = 2026;

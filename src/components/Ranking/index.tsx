@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { MetricKey, MetricMeta } from "../../utils/metric";
-import { PrefKey, PrefMeta } from "../../utils/pref";
-import { RankKey, RankMeta } from "../../utils/rank";
-import { RegionKey, RegionMeta } from "../../utils/region";
+import { MetricKey, MetricMeta } from "../../setting/metric";
+import { PrefKey, PrefMeta } from "../../setting/pref";
+import { RankKey, RankMeta } from "../../setting/rank";
+import { RegionKey, RegionMeta } from "../../setting/region";
 import MetricPopup from "./MetricPopup";
 import RankingList from "./RankingList";
 import RankingTabs from "./RankingTabs";

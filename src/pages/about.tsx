@@ -13,6 +13,7 @@ const About: NextPage = () => {
           name="description"
           content="アメダス図鑑は、日本のアメダス観測データをもとに気象情報を整理・可視化する情報提供サイトです。"
         />
+        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/about" />
       </Head>
 
       <Header />

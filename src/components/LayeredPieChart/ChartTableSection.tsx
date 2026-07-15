@@ -1,6 +1,6 @@
 import React from "react";
 import { RatioInfo } from "../../types/union";
-import { MetricValue } from "../../utils/metric";
+import { MetricValue } from "../../setting/metric";
 import { ChartDataItem } from "./types";
 
 interface ChartTableSectionProps {

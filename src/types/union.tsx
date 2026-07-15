@@ -2,8 +2,8 @@ import { FaBuilding } from "react-icons/fa";
 import { FaSatelliteDish } from "react-icons/fa6";
 import { PiThermometerHotFill } from "react-icons/pi";
 import { TbTemperaturePlus } from "react-icons/tb";
-import { MetricKey, MetricMeta, MetricTab } from "../utils/metric";
-import { RankKey, RankMeta, RankValue } from "../utils/rank";
+import { MetricKey, MetricMeta, MetricTab } from "../setting/metric";
+import { RankKey, RankMeta, RankValue } from "../setting/rank";
 
 export type StationId = string;
 

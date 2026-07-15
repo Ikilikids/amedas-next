@@ -13,17 +13,17 @@ import {
   RawRankingData,
 } from "../../components/Ranking/types";
 import { toStation } from "../../utils/masterUtils";
-import { PrefKey, PrefMeta } from "../../utils/pref";
-import { RankKey, RankMeta } from "../../utils/rank";
+import { PrefKey, PrefMeta } from "../../setting/pref";
+import { RankKey, RankMeta } from "../../setting/rank";
 import { processRankingData } from "../../utils/rankingUtils";
-import { RegionKey, RegionMeta } from "../../utils/region";
+import { RegionKey, RegionMeta } from "../../setting/region";
 import { loadMaster } from "../../utils/ssgLoader";
 
 import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
 import { RawStationData } from "../../types/raw";
 import { StationId } from "../../types/union";
 import { getMetricColor } from "../../utils/colorUtils";
-import { MetricKey, MetricValue } from "../../utils/metric";
+import { MetricKey, MetricValue } from "../../setting/metric";
 
 interface Props {
   masterData: Record<string, RawStationData>;
@@ -116,6 +116,11 @@ const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
     <>
       <Head>
         <title>{`今日の${config.label}ランキング - アメダス図鑑`}</title>
+        <meta
+          name="description"
+          content={`全国アメダス観測所のデータから、今日これまでに観測された${config.label}の全国トップ10ランキングを表示。今日の最高気温・最低気温・最大降水量などの極値を素早く確認できます。`}
+        />
+        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/live/daily_ranking" />
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">

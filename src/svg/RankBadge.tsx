@@ -54,10 +54,10 @@ const medalColors: Record<
  * ラベル
  * ===================== */
 const rankLabel: Record<BadgeRank, string> = {
-  rainbow: "top10",
-  gold: "5%",
-  silver: "10%",
-  bronze: "20%",
+  rainbow: "3位",
+  gold: "10位",
+  silver: "50位",
+  bronze: "100位",
 };
 
 /* =====================

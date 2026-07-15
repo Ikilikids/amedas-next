@@ -3,7 +3,7 @@ import path from "path";
 import { RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
 import { getClimate, getMaster, hasMetric, setMaster } from "./climateCache";
-import { METRIC_KEYS } from "./metric";
+import { METRIC_LIST } from "../setting/metric";
 
 /**
  * JSONファイルを安全に読み込む (ビルド時専用)
@@ -49,7 +49,7 @@ export function ensureAllDataLoaded() {
   const rankingDir = path.join(process.cwd(), "public/ranking_not_null");
   let loadedCount = 0;
 
-  METRIC_KEYS.forEach((m) => {
+  METRIC_LIST.forEach((m) => {
     // すでにキャッシュにあれば読み込みをスキップ (ISR時の最重要最適化)
     if (hasMetric(m)) return;
 

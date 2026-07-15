@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { MonthlyEntry, RatioInfo } from "../../types/union";
-import { MetricMeta, MetricTab } from "../../utils/metric";
-import { RankValue } from "../../utils/rank";
+import { MetricMeta, MetricTab } from "../../setting/metric";
+import { RankValue } from "../../setting/rank";
 import ChartPieSection from "./ChartPieSection";
 import ChartTableSection from "./ChartTableSection";
 import { prepareChartData } from "./chartUtils";

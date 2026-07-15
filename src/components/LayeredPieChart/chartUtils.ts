@@ -1,6 +1,6 @@
 import { MonthlyEntry, RatioInfo } from "../../types/union";
-import { MetricMeta } from "../../utils/metric";
-import { RankValue } from "../../utils/rank";
+import { MetricMeta } from "../../setting/metric";
+import { RankValue } from "../../setting/rank";
 import { CHART_METRICS, MONTH_DAYS } from "./constants";
 import { ChartDataItem, ChartType } from "./types";
 

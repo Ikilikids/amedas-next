@@ -1,5 +1,5 @@
-import { MetricKey } from "../../utils/metric";
-import { RankKey, RankValue } from "../../utils/rank";
+import { MetricKey } from "../../setting/metric";
+import { RankKey, RankValue } from "../../setting/rank";
 
 export const MONTH_DAYS = [31, 28.2, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 

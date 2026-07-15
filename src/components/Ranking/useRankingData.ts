@@ -3,10 +3,10 @@ import { OverviewData, RatioData, StationData, TableData, UonzuData } from "../.
 import { RawStationData } from "../../types/raw";
 import { MonthlyEntry, StationId } from "../../types/union";
 import { toMetricMap, toStation } from "../../utils/masterUtils";
-import { MetricMeta, MetricValue } from "../../utils/metric";
-import { PrefMeta } from "../../utils/pref";
-import { RankMeta } from "../../utils/rank";
-import { RegionMeta } from "../../utils/region";
+import { MetricMeta, MetricValue } from "../../setting/metric";
+import { PrefMeta } from "../../setting/pref";
+import { RankMeta } from "../../setting/rank";
+import { RegionMeta } from "../../setting/region";
 import { RawRankingData } from "./types";
 
 import {
