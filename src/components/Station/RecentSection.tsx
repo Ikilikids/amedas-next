@@ -1,7 +1,7 @@
 import React from "react";
 import RecentTrendChart from "./RecentTrendChart";
 import RecentTrendTable from "./RecentTrendTable";
-import { SectionWithDescription } from "../../../utils/colorUtils";
+import { SectionWithDescription } from "../../utils/colorUtils";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 
 interface RecentSectionProps {

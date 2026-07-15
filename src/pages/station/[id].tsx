@@ -7,9 +7,9 @@ import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
 import InfoPanel from "../../components/InfoPanel";
 import StationMap from "../../components/StationMap";
-import Similar from "./components/Similar";
+import Similar from "../../components/Station/Similar";
 import RankBadge from "../../svg/RankBadge";
-import PrefecturePart from "./components/PrefecturePart";
+import PrefecturePart from "../../components/Station/PrefecturePart";
 
 import { SectionWithDescription } from "../../utils/colorUtils";
 import { IoBook } from "react-icons/io5";
@@ -21,10 +21,10 @@ import { CategoryKey } from "../../setting/category";
 import { toAllData } from "../../utils/masterUtils";
 import { isIslandId } from "../../setting/rank";
 
-import UonzuSection from "./components/UonzuSection";
-import RatioSection from "./components/RatioSection";
-import TableSection from "./components/TableSection";
-import RecentSection from "./components/RecentSection";
+import UonzuSection from "../../components/Station/UonzuSection";
+import RatioSection from "../../components/Station/RatioSection";
+import TableSection from "../../components/Station/TableSection";
+import RecentSection from "../../components/Station/RecentSection";
 
 // --- SSG logic ---
 import { BadgeLogic } from "../../utils/badgeLogic";

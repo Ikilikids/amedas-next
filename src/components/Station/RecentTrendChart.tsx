@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { UonzuData } from "../../../types/all";
-import { MetricGroup, MetricKey, RANKING_GROUP_META } from "../../../setting/metric";
-import SegmentedControl from "../../../components/UI/SegmentedControl";
-import UonzuChart from "../../../components/UonzuChart";
-
+import { UonzuData } from "../../types/all";
+import { MetricGroup, MetricKey, RANKING_GROUP_META } from "../../setting/metric";
+import SegmentedControl from "../UI/SegmentedControl";
+import UonzuChart from "../UonzuChart";
 
 interface HistoryEntry {
   date: string;
@@ -126,7 +125,6 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
           height="100%"
         />
       </div>
-
 
     </div>
   );

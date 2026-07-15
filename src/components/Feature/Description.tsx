@@ -1,7 +1,7 @@
 import React from "react";
 import { IoIosTrophy, IoMdInformationCircleOutline } from "react-icons/io";
 import { WiThermometer, WiRaindrops, WiStars } from "react-icons/wi";
-import { DescriptionData } from "../../../types/union";
+import { DescriptionData } from "../../types/union";
 
 // ==============================
 // Types
@@ -15,6 +15,7 @@ interface DescriptionProps {
 // Component
 // ==============================
 const Description: React.FC<DescriptionProps> = ({ description }) => {
+  if (!description) return null;
   const standardKeys = ["prime", "temp", "rain", "other", "record"];
   
   // Extract non-standard keys (e.g., d1, d2, d3 from hot.json)

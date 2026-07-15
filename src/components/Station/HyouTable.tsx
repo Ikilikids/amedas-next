@@ -1,9 +1,9 @@
 import React from "react";
-import { TableData } from "../../../types/all";
-import { MonthlyEntry } from "../../../types/union";
-import { MonthMap } from "../../../utils/colorUtils";
-import { MetricKey, MetricMeta } from "../../../setting/metric";
-import { RankValue } from "../../../setting/rank";
+import { TableData } from "../../types/all";
+import { MonthlyEntry } from "../../types/union";
+import { MonthMap } from "../../utils/colorUtils";
+import { MetricKey, MetricMeta } from "../../setting/metric";
+import { RankValue } from "../../setting/rank";
 
 // ==============================
 // Types

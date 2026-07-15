@@ -4,7 +4,7 @@ import {
   BsFillCloudRainFill,
   BsFillCloudRainHeavyFill,
 } from "react-icons/bs";
-import { MetricKey } from "../../../setting/metric";
+import { MetricKey } from "../../setting/metric";
 
 interface HistoryEntry {
   date: string;

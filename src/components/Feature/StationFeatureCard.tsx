@@ -2,16 +2,16 @@ import Link from "next/link";
 import React, { useMemo, useState } from "react";
 import { FaChartLine, FaCity, FaMapPin } from "react-icons/fa6";
 import { LiaMountainSolid } from "react-icons/lia";
-import { AllData } from "../../../types/all";
-import { RatioInfo } from "../../../types/union";
-import { MetricKey, MetricMeta } from "../../../setting/metric";
-import LayeredPieChart from "../../../components/LayeredPieChart";
-import StationMap from "../../../components/StationMap";
-import UonzuChart from "../../../components/UonzuChart";
+import { AllData } from "../../types/all";
+import { RatioInfo } from "../../types/union";
+import { MetricKey, MetricMeta } from "../../setting/metric";
+import LayeredPieChart from "../LayeredPieChart";
+import StationMap from "../StationMap";
+import UonzuChart from "../UonzuChart";
 import Description from "./Description";
 
-import CustomSelect from "../../../components/UI/CustomSelect";
-import SegmentedControl from "../../../components/UI/SegmentedControl";
+import CustomSelect from "../UI/CustomSelect";
+import SegmentedControl from "../UI/SegmentedControl";
 
 interface StationFeatureCardProps {
   allData: AllData;
@@ -24,6 +24,7 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
   ratioInfo,
   uonzuInfo,
 }) => {
+  if (!allData) return null;
   const {
     station,
     uonzu: uonzuMap,

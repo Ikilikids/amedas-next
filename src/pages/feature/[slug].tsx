@@ -9,7 +9,7 @@ import Header from "../../components/Header";
 import HeroSection from "../../components/HeroSection";
 import Ranking from "../../components/Ranking";
 import { RankingItem } from "../../components/Ranking/types";
-import StationFeatureCard from "./components/StationFeatureCard";
+import StationFeatureCard from "../../components/Feature/StationFeatureCard";
 
 import { BsBookmarkStarFill } from "react-icons/bs";
 import { FEATURE_CONFIGS, FeatureName, StationId, DescriptionData } from "../../types/union";
@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps<FeaturePageProps> = async (context) 
     const { overview, table, ratio, uonzu } =
       assembleDisplayData(integratedData);
 
-    // 特集ページ固有の ratio フィルタリング
+    // 特集ページ固有 of ratio フィルタリング
     const config = FEATURE_CONFIGS[slug];
 
     const allowedTabs = config.ratioTabs.map((info) => info.metricTab);

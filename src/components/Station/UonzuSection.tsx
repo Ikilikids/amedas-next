@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
-import SegmentedControl from "../../../components/UI/SegmentedControl";
-import UonzuChart from "../../../components/UonzuChart";
-import { MetricKey, MetricMeta } from "../../../setting/metric";
-import { SectionWithDescription } from "../../../utils/colorUtils";
+import SegmentedControl from "../UI/SegmentedControl";
+import UonzuChart from "../UonzuChart";
+import { MetricKey, MetricMeta } from "../../setting/metric";
+import { SectionWithDescription } from "../../utils/colorUtils";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 
 interface UonzuSectionProps {

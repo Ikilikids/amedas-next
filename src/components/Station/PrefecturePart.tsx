@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { StationData } from "../../../types/all";
+import { StationData } from "../../types/all";
 import { FaMapMarkerAlt, FaGlobeAsia } from "react-icons/fa";
-import { SectionWithDescription } from "../../../utils/colorUtils";
+import { SectionWithDescription } from "../../utils/colorUtils";
 
 // ==============================
 // Types

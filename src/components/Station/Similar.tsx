@@ -1,8 +1,8 @@
 import React from "react";
 import { FaBuilding, FaLayerGroup } from "react-icons/fa";
-import { StationData } from "../../../types/all";
-import { SectionWithDescription } from "../../../utils/colorUtils";
-import StationListItem from "../../../components/StationListItem";
+import { StationData } from "../../types/all";
+import { SectionWithDescription } from "../../utils/colorUtils";
+import StationListItem from "../StationListItem";
 
 // ==============================
 // Types

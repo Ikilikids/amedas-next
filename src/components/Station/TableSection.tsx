@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from "react";
-import CustomSelect from "../../../components/UI/CustomSelect";
+import CustomSelect from "../UI/CustomSelect";
 import HyouTable from "./HyouTable";
-import { MetricMeta } from "../../../setting/metric";
-import { RankKey, RankValue } from "../../../setting/rank";
-import { SectionWithDescription } from "../../../utils/colorUtils";
+import { MetricMeta } from "../../setting/metric";
+import { RankKey, RankValue } from "../../setting/rank";
+import { SectionWithDescription } from "../../utils/colorUtils";
 import { CiViewTable } from "react-icons/ci";
 
-import { TableData } from "../../../types/all";
+import { TableData } from "../../types/all";
 
 interface TableSectionProps {
   tableData: TableData;

@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from "react";
-import ChartControls from "../../../components/LayeredPieChart/ChartControls";
-import { CHART_METRICS } from "../../../components/LayeredPieChart/constants";
-import { ChartType } from "../../../components/LayeredPieChart/types";
-import LayeredPieChart from "../../../components/LayeredPieChart";
-import { MetricMeta, MetricTab } from "../../../setting/metric";
-import { RankKey, RankValue } from "../../../setting/rank";
-import { SectionWithDescription } from "../../../utils/colorUtils";
+import ChartControls from "../LayeredPieChart/ChartControls";
+import { CHART_METRICS } from "../LayeredPieChart/constants";
+import { ChartType } from "../LayeredPieChart/types";
+import LayeredPieChart from "../LayeredPieChart";
+import { MetricMeta, MetricTab } from "../../setting/metric";
+import { RankKey, RankValue } from "../../setting/rank";
+import { SectionWithDescription } from "../../utils/colorUtils";
 import { FaChartPie } from "react-icons/fa";
 
-import { RatioData } from "../../../types/all";
+import { RatioData } from "../../types/all";
 
 interface RatioSectionProps {
   ratioData: RatioData;
