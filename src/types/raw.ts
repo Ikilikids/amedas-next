@@ -1,4 +1,4 @@
-import { CategoryValue } from "../utils/category";
+import { CategoryValue } from "../setting/category";
 import { DescriptionData, MonthlyEntry, RankedValue, StationId } from "./union";
 
 export interface RawData {

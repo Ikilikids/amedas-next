@@ -1,6 +1,6 @@
 import { RawStationData } from "../types/raw";
 import { MonthlyEntry, StationId } from "../types/union";
-import { MetricValue } from "./metric";
+import { MetricValue } from "../setting/metric";
 import { integrateSingleMetric } from "./rankingUtils";
 
 /**

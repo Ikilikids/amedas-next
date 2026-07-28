@@ -1,9 +1,9 @@
 import React from "react";
 import { MonthMap } from "../../utils/colorUtils";
-import { MetricKey, MetricMeta } from "../../utils/metric";
-import { PrefKey, PrefMeta } from "../../utils/pref";
-import { RankKey, RankMeta } from "../../utils/rank";
-import { RegionKey, RegionMeta } from "../../utils/region";
+import { MetricKey, MetricMeta } from "../../setting/metric";
+import { PrefKey, PrefMeta } from "../../setting/pref";
+import { RankKey, RankMeta } from "../../setting/rank";
+import { RegionKey, RegionMeta } from "../../setting/region";
 import CustomSelect from "../UI/CustomSelect";
 import SegmentedControl from "../UI/SegmentedControl";
 import { isCombinationValid } from "./utils";

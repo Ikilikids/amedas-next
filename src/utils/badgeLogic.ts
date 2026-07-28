@@ -4,7 +4,7 @@ import {
   RawOverviewData,
   RawRatioData,
 } from "../types/raw";
-import { MetricValue } from "./metric";
+import { MetricValue } from "../setting/metric";
 
 const TOTAL_STATIONS: Record<string, number> = {
   av_avtemp: 904,
@@ -19,25 +19,27 @@ function calculateRank(
   rank: number,
   total: number
 ): { rank: BadgeRank; isHigh: boolean } | null {
-  const top1 = 10;
-  const top5 = total * 0.05;
-  const top10 = total * 0.1;
-  const top20 = total * 0.2;
+  const topRainbow = 3;
+  const topGold = 10;
+  const topSilver = 50;
+  const topBronze = 100;
 
-  const bottom1 = total - 10;
-  const bottom5 = total * 0.95;
-  const bottom10 = total * 0.9;
+  const bottomRainbow = total - 3 + 1;
+  const bottomGold = total - 10 + 1;
+  const bottomSilver = total - 50 + 1;
+  const bottomBronze = total - 100 + 1;
 
   // 上位
-  if (rank <= top1) return { rank: "rainbow", isHigh: true };
-  if (rank <= top5) return { rank: "gold", isHigh: true };
-  if (rank <= top10) return { rank: "silver", isHigh: true };
-  if (rank <= top20) return { rank: "bronze", isHigh: true };
+  if (rank <= topRainbow) return { rank: "rainbow", isHigh: true };
+  if (rank <= topGold) return { rank: "gold", isHigh: true };
+  if (rank <= topSilver) return { rank: "silver", isHigh: true };
+  if (rank <= topBronze) return { rank: "bronze", isHigh: true };
 
   // 下位
-  if (rank >= bottom1) return { rank: "rainbow", isHigh: false };
-  if (rank >= bottom5) return { rank: "gold", isHigh: false };
-  if (rank >= bottom10) return { rank: "silver", isHigh: false };
+  if (rank >= bottomRainbow) return { rank: "rainbow", isHigh: false };
+  if (rank >= bottomGold) return { rank: "gold", isHigh: false };
+  if (rank >= bottomSilver) return { rank: "silver", isHigh: false };
+  if (rank >= bottomBronze) return { rank: "bronze", isHigh: false };
 
   return null;
 }

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { MetricKey, MetricMeta, MetricTab } from "../../utils/metric";
-import { RankMeta } from "../../utils/rank";
+import { MetricKey, MetricMeta, MetricTab } from "../../setting/metric";
+import { RankMeta } from "../../setting/rank";
 import SegmentedControl from "../UI/SegmentedControl";
 
 interface MetricPopupProps {

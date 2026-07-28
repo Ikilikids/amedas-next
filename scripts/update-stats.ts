@@ -3,9 +3,8 @@ import path from "path";
 import { db } from "../src/utils/firebaseAdmin";
 
 async function main() {
-  console.log("Starting stats update from CSV...");
+  console.log("Starting enhanced stats update (adding 4 new keys)...");
 
-  // 1. CSVデータの読み込み
   const csvPath = path.join(process.cwd(), "download", "all_station_stats.csv");
   const csvContent = fs.readFileSync(csvPath, "utf8").trim().split("\n");
   const headers = csvContent[0].split(",").map((h) => h.trim());
@@ -22,8 +21,24 @@ async function main() {
     csvMap[id] = stats;
   }
 
-  const stationIds = Object.keys(csvMap).filter((id) => id === "40336");
-  console.log(`Found ${stationIds.length} stations in CSV.`);
+  const targetId = process.argv[2];
+  let stationIds = Object.keys(csvMap);
+  if (targetId) {
+    console.log(`Targeting single station ID: ${targetId}`);
+    stationIds = stationIds.filter((id) => id === targetId);
+    if (stationIds.length === 0) {
+      console.error(`Station ID ${targetId} not found in CSV.`);
+      process.exit(1);
+    }
+  } else {
+    console.log(`Targeting ALL ${stationIds.length} stations. (Run with 'npx tsx scripts/update-stats.ts <station_id>' to target a single station)`);
+  }
+  const newAllowedKeys = [
+    "max_hitemp_date",
+    "min_lwtemp_date",
+    "rain_7d",
+    "rain_15d",
+  ];
 
   const batchSize = 100;
   let updateCount = 0;
@@ -31,8 +46,6 @@ async function main() {
   for (let i = 0; i < stationIds.length; i += batchSize) {
     const chunkIds = stationIds.slice(i, i + batchSize);
     const batch = db.batch();
-
-    // Firestoreから現在のドキュメントを取得
     const refs = chunkIds.map((id) => db.collection("stations").doc(id));
     const snapshots = await db.getAll(...refs);
 
@@ -45,18 +58,25 @@ async function main() {
       const csvStats = csvMap[id];
       const updateData: Record<string, any> = {};
 
-      // CSVの各項目について
       Object.entries(csvStats).forEach(([key, value]) => {
-        // 1. -- は何もしない
         if (value === "--") return;
 
-        // 2. Firebaseに元々存在しないキーは追加しない
-        if (!(key in currentStats)) return;
+        // 条件:
+        // A. 既存のキーである
+        // B. 今回特別に許可された4つの新規キーのいずれかである
+        const isExistingKey = key in currentStats;
+        const isNewAllowedKey = newAllowedKeys.includes(key);
 
-        // 数値に変換してセット（気温などは小数、日数は整数だが一律数値化）
-        const numValue = parseFloat(value);
-        if (!isNaN(numValue)) {
-          updateData[`stats.${key}`] = numValue;
+        if (isExistingKey || isNewAllowedKey) {
+          // 日付系は文字列、それ以外は数値として処理
+          if (key.endsWith("_date")) {
+            updateData[`stats.${key}`] = value;
+          } else {
+            const numValue = parseFloat(value);
+            if (!isNaN(numValue)) {
+              updateData[`stats.${key}`] = numValue;
+            }
+          }
         }
       });
 
@@ -74,7 +94,9 @@ async function main() {
     );
   }
 
-  console.log(`\n\nSuccess! Updated ${updateCount} stations.`);
+  console.log(
+    `\n\nSuccess! Updated ${updateCount} stations with enhanced metrics.`
+  );
   process.exit(0);
 }
 

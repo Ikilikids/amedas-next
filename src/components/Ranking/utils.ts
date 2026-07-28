@@ -1,5 +1,5 @@
-import { MetricKey, MetricMeta } from "../../utils/metric";
-import { RankKey, RankMeta } from "../../utils/rank";
+import { MetricKey, MetricMeta } from "../../setting/metric";
+import { RankKey, RankMeta } from "../../setting/rank";
 
 export const isCombinationValid = (
   rank: RankMeta,

@@ -1,9 +1,9 @@
-import { CATEGORY_KEYS } from "../utils/category";
+import { CategoryKey } from "../setting/category";
 
 const CategoryLegend = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-8">
-      {Object.values(CATEGORY_KEYS)
+      {Object.values(CategoryKey)
         .filter((p) => p.value !== 2)
         .map((cat) => (
           <div

@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { Chart } from "react-chartjs-2";
 import { UonzuData } from "../types/all";
-import { MetricKey, MetricMeta } from "../utils/metric";
+import { MetricKey, MetricMeta } from "../setting/metric";
 
 ChartJS.register(
   BarController,

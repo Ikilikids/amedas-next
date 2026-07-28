@@ -16,11 +16,11 @@ import { RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
 import { MonthMap, getMetricColor } from "../utils/colorUtils";
 import { toStation } from "../utils/masterUtils";
-import { MetricKey, MetricMeta } from "../utils/metric";
-import { PrefKey, PrefMeta } from "../utils/pref";
-import { RankKey, RankMeta } from "../utils/rank";
+import { MetricKey, MetricMeta } from "../setting/metric";
+import { PrefKey, PrefMeta } from "../setting/pref";
+import { RankKey, RankMeta } from "../setting/rank";
 import { processRankingData } from "../utils/rankingUtils";
-import { RegionKey, RegionMeta } from "../utils/region";
+import { RegionKey, RegionMeta } from "../setting/region";
 import { loadMaster } from "../utils/ssgLoader";
 
 interface Props {
@@ -140,6 +140,11 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
         <title>{`${selectedMonth === "all" ? "通年" : selectedMonth + "月"}の${
           config.label
         }ランキング - アメダス図鑑`}</title>
+        <meta
+          name="description"
+          content={`全国約1,300地点のアメダス観測データに基づき、${selectedMonth === "all" ? "通年" : `${selectedMonth}月`}の${config.label}平年値ランキングを表示。地域・都道府県別での絞り込み比較も可能です。`}
+        />
+        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/clim_ranking" />
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">

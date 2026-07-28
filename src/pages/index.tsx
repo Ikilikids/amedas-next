@@ -16,10 +16,10 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
   return (
     <div className="min-h-screen bg-[#fcfcfd] flex flex-col font-sans">
       <Head>
-        <title>アメダス図鑑 - 日本全国のアメダス気象データ・平年値まとめ</title>
+        <title>アメダス図鑑 - 全国約1,300地点のアメダス観測データ・ランキング</title>
         <meta
           name="description"
-          content="日本全国のアメダス観測所の平年値データ（気温、降水量、風速、日照時間など）をマップやランキング、雨温図などでわかりやすく可視化・比較できるサイトです。"
+          content="日本全国約1,300地点のアメダス観測所の詳細データ（雨温図、気温・降水量・日照時間の平年値・月間ランキング・割合データなど）を網羅した図鑑サイトです。"
         />
         <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/" />
       </Head>
@@ -70,7 +70,7 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
         </div>
       </main>
       <Footer />
-    </div>
+    </div >
   );
 };
 

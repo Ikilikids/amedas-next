@@ -11,10 +11,10 @@ import HeroSection from "../../../components/HeroSection";
 import { RankingData, RawRankingData } from "../../../components/Ranking/types";
 import { getMetricColor } from "../../../utils/colorUtils";
 import { toStation } from "../../../utils/masterUtils";
-import { PrefKey, PrefMeta } from "../../../utils/pref";
-import { RankKey, RankMeta } from "../../../utils/rank";
+import { PrefKey, PrefMeta } from "../../../setting/pref";
+import { RankKey, RankMeta } from "../../../setting/rank";
 import { processRankingData } from "../../../utils/rankingUtils";
-import { RegionKey, RegionMeta } from "../../../utils/region";
+import { RegionKey, RegionMeta } from "../../../setting/region";
 import { loadMaster } from "../../../utils/ssgLoader";
 
 import { colorWithAlpha } from "../../../components/LayeredPieChart/chartUtils";
@@ -25,7 +25,7 @@ import {
   MetricKey,
   MetricValue,
   RANKING_GROUP_META,
-} from "../../../utils/metric";
+} from "../../../setting/metric";
 
 interface Props {
   masterData: Record<string, RawStationData>;
@@ -141,6 +141,11 @@ const RecentRankingDynamicPage: NextPage<Props> = ({ masterData, type }) => {
     <>
       <Head>
         <title>{`2026年${config.label}ランキング - アメダス図鑑`}</title>
+        <meta
+          name="description"
+          content={`2026年アメダス観測データに基づく最新の${config.label}に関する全国ランキング（月間・年間ランキングなど）を表示します。`}
+        />
+        <link rel="canonical" href={`https://amedas-next--amedas-ppp.asia-east1.hosted.app/live/recent_ranking/${type}`} />
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">

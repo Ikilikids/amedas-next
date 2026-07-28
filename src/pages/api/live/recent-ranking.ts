@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { db } from "../../../utils/firebaseAdmin";
-import { MetricGroup, MetricValue } from "../../../utils/metric";
-import { MetricKey } from "../../../utils/metric";
+import { MetricGroup, MetricValue } from "../../../setting/metric";
+import { MetricKey } from "../../../setting/metric";
 
 /**
  * 特定のカテゴリ（heat/cold/rain）の最近のランキングを返すAPI

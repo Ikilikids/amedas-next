@@ -1,6 +1,6 @@
-import { CategoryMeta } from "../utils/category";
-import { MetricMeta } from "../utils/metric";
-import { PrefMeta } from "../utils/pref";
+import { CategoryMeta } from "../setting/category";
+import { MetricMeta } from "../setting/metric";
+import { PrefMeta } from "../setting/pref";
 import { BadgeRank } from "./raw";
 import { DescriptionData, MonthlyEntry, RankedValue, StationId } from "./union";
 

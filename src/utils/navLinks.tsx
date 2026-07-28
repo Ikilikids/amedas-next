@@ -4,6 +4,7 @@ import {
   FaBalanceScaleLeft,
   FaBuilding,
   FaClock,
+  FaDice,
   FaSearch,
   FaStar,
 } from "react-icons/fa";
@@ -92,6 +93,15 @@ export const searchLinks: NavLink[] = [
     description: "地図を見ながらアメダスを選択できます",
     iconClass: "text-green-600",
   },
+  
+  {
+    href: "/gacha",
+    Icon: <FaDice />,
+    title: "アメダス・ガチャ",
+    description: "全国のアメダス地点を引いてコレクション！",
+    iconClass: "text-purple-600",
+  },
+  
 ];
 
 export const featureLinks: NavLink[] = [

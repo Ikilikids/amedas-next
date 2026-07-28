@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { toStation } from "../../utils/masterUtils";
-import { MetricMeta } from "../../utils/metric";
-import { isIslandId } from "../../utils/rank";
+import { MetricMeta } from "../../setting/metric";
+import { isIslandId } from "../../setting/rank";
 import StationListItem from "../StationListItem";
 import { RankingData, RawRankingData } from "./types";
 

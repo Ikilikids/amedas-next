@@ -1,5 +1,5 @@
 import React from "react";
-import { RankKey, RankValue } from "../../utils/rank";
+import { RankKey, RankValue } from "../../setting/rank";
 import CustomSelect from "../UI/CustomSelect";
 import SegmentedControl from "../UI/SegmentedControl";
 import { ChartType } from "./types";

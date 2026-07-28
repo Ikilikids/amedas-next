@@ -7,10 +7,10 @@ import {
   RawUonzuData,
 } from "../types/raw";
 import { MonthlyEntry, StationId } from "../types/union";
-import { MetricKey, MetricValue } from "./metric";
-import { PrefKey, PrefMeta } from "./pref";
-import { RankKey, RankMeta, isIslandId } from "./rank";
-import { RegionMeta } from "./region";
+import { MetricKey, MetricValue } from "../setting/metric";
+import { PrefKey, PrefMeta } from "../setting/pref";
+import { RankKey, RankMeta, isIslandId } from "../setting/rank";
+import { RegionMeta } from "../setting/region";
 
 /**
  * 1. 【共通】材料組み立て関数（Assembler）
@@ -186,6 +186,11 @@ export function assembleDisplayData(
           overview[m] = { value: annualEntry.value, rank: annualEntry.top };
         } else {
           ratio[m] = fullEntries;
+        }
+
+        // Special case: Also expose hitemp_35 (猛暑日) in overview for rarity calculation
+        if (m === "hitemp_35") {
+          overview[m] = { value: annualEntry.value, rank: annualEntry.top };
         }
       }
       if (

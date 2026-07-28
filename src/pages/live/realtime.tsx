@@ -10,15 +10,15 @@ import HeroSection from "../../components/HeroSection";
 import { RankingItem, RawRankingData } from "../../components/Ranking/types";
 import { getMetricColor } from "../../utils/colorUtils";
 import { toStation } from "../../utils/masterUtils";
-import { PrefKey } from "../../utils/pref";
-import { RegionKey } from "../../utils/region";
+import { PrefKey } from "../../setting/pref";
+import { RegionKey } from "../../setting/region";
 import { loadMaster } from "../../utils/ssgLoader";
 
 import { TbTemperatureSun } from "react-icons/tb";
 import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
 import { RawStationData } from "../../types/raw";
 import { StationId } from "../../types/union";
-import { MetricKey } from "../../utils/metric";
+import { MetricKey } from "../../setting/metric";
 
 interface Props {
   masterData: Record<StationId, RawStationData>;
@@ -82,6 +82,11 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
     <>
       <Head>
         <title>{`現在の気温 (リアルタイム) - アメダス図鑑`}</title>
+        <meta
+          name="description"
+          content="全国約1,300地点のアメダス観測データから、現在のリアルタイムな気温状況を10分ごとに自動取得して表示します。日本各地の今の天気を視覚的に把握できます。"
+        />
+        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/live/realtime" />
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">

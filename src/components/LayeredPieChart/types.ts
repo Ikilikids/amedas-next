@@ -1,6 +1,6 @@
 import { MonthlyEntry } from "../../types/union";
-import { MetricMeta, MetricTab, MetricValue } from "../../utils/metric";
-import { RankValue } from "../../utils/rank";
+import { MetricMeta, MetricTab, MetricValue } from "../../setting/metric";
+import { RankValue } from "../../setting/rank";
 
 export interface ChartDataItem {
   name: string;
