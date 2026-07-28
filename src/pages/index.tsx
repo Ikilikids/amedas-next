@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import { FaHome } from "react-icons/fa";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -14,6 +15,14 @@ interface Props {
 const Home: NextPage<Props> = ({ lastUpdated }) => {
   return (
     <div className="min-h-screen bg-[#fcfcfd] flex flex-col font-sans">
+      <Head>
+        <title>アメダス図鑑 - 日本全国のアメダス気象データ・平年値まとめ</title>
+        <meta
+          name="description"
+          content="日本全国のアメダス観測所の平年値データ（気温、降水量、風速、日照時間など）をマップやランキング、雨温図などでわかりやすく可視化・比較できるサイトです。"
+        />
+        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/" />
+      </Head>
       <Header />
       <main className="flex-1 relative overflow-hidden">
         {/* Background Decorative Elements */}

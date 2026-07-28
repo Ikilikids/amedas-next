@@ -22,6 +22,7 @@ import { CiViewTable } from "react-icons/ci";
 import { FaChartPie } from "react-icons/fa";
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
+import { AiClimateDigestCard } from "../../components/AiClimateDigestCard";
 import { CHART_METRICS } from "../../components/LayeredPieChart/constants";
 import CustomSelect from "../../components/UI/CustomSelect";
 import SegmentedControl from "../../components/UI/SegmentedControl";
@@ -70,13 +71,12 @@ const StationPage = (props: RawData) => {
       })
       .catch(console.error);
   }, [stationData.id]);
-  console.log(similarAll, similarMeteo);
   const history = liveData?.history || [];
   const stats = liveData?.stats || null;
   const lastUpdate = liveData?.lastUpdate
     ? new Date(liveData.lastUpdate).toLocaleString("ja-JP", {
-        timeZone: "Asia/Tokyo",
-      })
+      timeZone: "Asia/Tokyo",
+    })
     : "更新を確認中...";
 
   const uonzuOptions = useMemo(() => {
@@ -223,6 +223,13 @@ const StationPage = (props: RawData) => {
                 icon={<IoBook />}
                 title="基本データ"
                 bgColor={regionColor}
+              />
+
+              {/* AI 気候特徴ダイジェストカード */}
+              <AiClimateDigestCard
+                stationName={stationData.official_name}
+                table={props.table}
+                overview={props.overview}
               />
 
               <div className="flex flex-col lg:flex-row gap-2 items-stretch">

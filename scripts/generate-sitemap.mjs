@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 // 設定
-const BASE_URL = "https://amedas-next--amedas-ppp.asia-east1.hosted.app/"; // あなたのサイトのドメインに合わせて変更してください
+const BASE_URL = "https://amedas-next--amedas-ppp.asia-east1.hosted.app"; // あなたのサイトのドメインに合わせて変更してください
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const STATIONS_JSON = path.join(PUBLIC_DIR, "stations.json");
 
@@ -29,10 +29,10 @@ async function generateSitemap() {
   // 1. 静的ページを追加
   STATIC_PAGES.forEach((page) => {
     urls.push({
-      loc: `${BASE_URL}${page}`,
+      loc: `${BASE_URL}${page || "/"}`,
       lastmod: new Date().toISOString().split("T")[0],
       changefreq: "daily",
-      priority: page === "" ? "1.0" : "0.8",
+      priority: (page === "" || page === "/") ? "1.0" : "0.8",
     });
   });
 
