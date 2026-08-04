@@ -86,7 +86,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
           name="description"
           content="全国約1,300地点のアメダス観測データから、現在のリアルタイムな気温状況を10分ごとに自動取得して表示します。日本各地の今の天気を視覚的に把握できます。"
         />
-        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/live/realtime" />
+        <link rel="canonical" href="https://amedas-zukan.jp/live/realtime" />
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">

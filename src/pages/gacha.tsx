@@ -60,7 +60,7 @@ const GachaPage: NextPage<Props> = ({ stations: initialStations, stationsOvervie
           name="description"
           content="全国約1,300地点のアメダス観測所をガチャで引き当てて自分だけのカード図鑑を完成させよう！離島や標高の高いレア地点、歴史ある気象台などをコレクションできます。"
         />
-        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/gacha" />
+        <link rel="canonical" href="https://amedas-zukan.jp/gacha" />
         <style>{`
           @keyframes shake {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }

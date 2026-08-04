@@ -145,7 +145,7 @@ const RecentRankingDynamicPage: NextPage<Props> = ({ masterData, type }) => {
           name="description"
           content={`2026年アメダス観測データに基づく最新の${config.label}に関する全国ランキング（月間・年間ランキングなど）を表示します。`}
         />
-        <link rel="canonical" href={`https://amedas-next--amedas-ppp.asia-east1.hosted.app/live/recent_ranking/${type}`} />
+        <link rel="canonical" href={`https://amedas-zukan.jp/live/recent_ranking/${type}`} />
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">

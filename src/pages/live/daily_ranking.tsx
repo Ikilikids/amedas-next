@@ -120,7 +120,7 @@ const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
           name="description"
           content={`全国アメダス観測所のデータから、今日これまでに観測された${config.label}の全国トップ10ランキングを表示。今日の最高気温・最低気温・最大降水量などの極値を素早く確認できます。`}
         />
-        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/live/daily_ranking" />
+        <link rel="canonical" href="https://amedas-zukan.jp/live/daily_ranking" />
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">

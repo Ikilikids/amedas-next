@@ -13,7 +13,7 @@ const Privacy: NextPage = () => {
           name="description"
           content="アメダス図鑑のプライバシーポリシーです。広告配信、Cookie、アクセス解析、データ出典について説明しています。"
         />
-        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/privacy" />
+        <link rel="canonical" href="https://amedas-zukan.jp/privacy" />
       </Head>
 
       <Header />

@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Call AMeDAS Fetch API
         run: |
-          curl -f "https://amedas-next--amedas-ppp.asia-east1.hosted.app/api/cron/fetch-amedas?secret=${{ secrets.CRON_SECRET }}"
+          curl -f "https://amedas-zukan.jp/api/cron/fetch-amedas?secret=${{ secrets.CRON_SECRET }}"

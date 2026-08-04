@@ -180,7 +180,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
           name="description"
           content="全国約1,300地点のアメダス観測所から2地点を自由に選択し、平年気温や降水量の差、気候パターンの特徴を並べて詳細に比較できるツールです。"
         />
-        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/compare" />
+        <link rel="canonical" href="https://amedas-zukan.jp/compare" />
       </Head>
 
       <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">

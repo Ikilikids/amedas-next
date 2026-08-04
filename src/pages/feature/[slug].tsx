@@ -129,7 +129,7 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
           name="description"
           content={`【アメダス図鑑特集】${config.title}。${config.description}`}
         />
-        <link rel="canonical" href={`https://amedas-next--amedas-ppp.asia-east1.hosted.app/feature/${featureName}`} />
+        <link rel="canonical" href={`https://amedas-zukan.jp/feature/${featureName}`} />
       </Head>
 
       <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">

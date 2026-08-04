@@ -171,7 +171,7 @@ const StationPage = (props: RawData) => {
           name="description"
           content={`【アメダス図鑑】${stationData.pref.label}${stationData.city || ""}にあるアメダス観測所「${stationData.official_name}」の詳細データ。標高${stationData.height != null ? `${stationData.height}m` : "データなし"}、経緯度などの基本情報のほか、平年値データ（雨温図・各種ランキング・気象要素別の割合データ）を網羅。`}
         />
-        <link rel="canonical" href={`https://amedas-next--amedas-ppp.asia-east1.hosted.app/station/${stationData.id}`} />
+        <link rel="canonical" href={`https://amedas-zukan.jp/station/${stationData.id}`} />
       </Head>
 
       <div className="min-h-screen bg-gray-50 flex flex-col">

@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 // 設定
-const BASE_URL = "https://amedas-next--amedas-ppp.asia-east1.hosted.app"; // あなたのサイトのドメインに合わせて変更してください
+const BASE_URL = "https://amedas-zukan.jp"; // あなたのサイトのドメインに合わせて変更してください
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const STATIONS_JSON = path.join(PUBLIC_DIR, "stations.json");
 

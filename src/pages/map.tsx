@@ -90,7 +90,7 @@ const MapPage: NextPage = () => {
           name="description"
           content="アメダス観測所の雨温図や降水量、猛暑日日数などの気候データを月別で確認できます。地図上のピンをクリックして、各観測所の詳細データを簡単にチェック可能です。"
         />
-        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/map" />
+        <link rel="canonical" href="https://amedas-zukan.jp/map" />
       </Head>
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />

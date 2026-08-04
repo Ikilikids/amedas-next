@@ -21,7 +21,7 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
           name="description"
           content="日本全国約1,300地点のアメダス観測所の詳細データ（雨温図、気温・降水量・日照時間の平年値・月間ランキング・割合データなど）を網羅した図鑑サイトです。"
         />
-        <link rel="canonical" href="https://amedas-next--amedas-ppp.asia-east1.hosted.app/" />
+        <link rel="canonical" href="https://amedas-zukan.jp/" />
       </Head>
       <Header />
       <main className="flex-1 relative overflow-hidden">
