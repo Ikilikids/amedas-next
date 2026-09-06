@@ -1,8 +1,6 @@
-// pages/search.tsx
 import { NextPage } from "next";
 import Head from "next/head";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 interface PageProps {
   query?: string;
@@ -10,7 +8,7 @@ interface PageProps {
 
 const SearchPage: NextPage<PageProps> = ({ query }) => {
   return (
-    <>
+    <Layout>
       <Head>
         <title>サイト内検索 - アメダス図鑑</title>
         <meta
@@ -20,10 +18,7 @@ const SearchPage: NextPage<PageProps> = ({ query }) => {
         <link rel="canonical" href="https://amedas-zukan.jp/search" />
       </Head>
 
-      <div className="min-h-screen flex flex-col">
-        <Header />
-
-        <main className="flex-1 p-4">
+      <main className="flex-1 p-4">
           <h1 className="text-2xl font-bold mb-4">サイト内検索</h1>
 
           {/* Google CSE */}
@@ -35,10 +30,7 @@ const SearchPage: NextPage<PageProps> = ({ query }) => {
             <div className="gcse-search"></div>
           </div>
         </main>
-
-        <Footer />
-      </div>
-    </>
+    </Layout>
   );
 };
 

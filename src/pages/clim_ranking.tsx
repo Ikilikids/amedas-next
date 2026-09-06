@@ -5,9 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { IoIosTrophy } from "react-icons/io";
 import CategoryLegend from "../components/CategoryLegend";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import HeroSection from "../components/HeroSection";
+import Layout from "../components/Layout";
 import { colorWithAlpha } from "../components/LayeredPieChart/chartUtils";
 import MetricPopup from "../components/Ranking/MetricPopup";
 import { RankingData, RawRankingData } from "../components/Ranking/types";
@@ -146,18 +144,15 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
         />
         <link rel="canonical" href="https://amedas-zukan.jp/clim_ranking" />
       </Head>
-
-      <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
-        <Header />
-
-        <main className="flex-1 pb-16">
-          <HeroSection
-            title="平年値ランキング"
-            description={`全国の観測所の平年値（1991-2020年）をランキング形式で比較できます。月ごとの切り替えや、地域・都道府県での絞り込みも可能です。`}
-            Icon={<IoIosTrophy />}
-            gradient="bg-gradient-to-r from-amber-600 to-yellow-500"
-          />
-
+      <Layout
+        heroProps={{
+          title: "平年値ランキング",
+          description: "全国の観測所の平年値（1991-2020年）をランキング形式で比較できます。月ごとの切り替えや、地域・都道府県での絞り込みも可能です。",
+          Icon: <IoIosTrophy />,
+          gradient: "bg-gradient-to-r from-amber-600 to-yellow-500",
+        }}
+      >
+        <div className="pb-16 w-full">
           <div className="max-w-[1200px] mx-auto px-4 mt-4">
             {/* 項目・月選択 */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-6">
@@ -381,9 +376,7 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
               </div>
             )}
           </div>
-        </main>
-
-        <Footer />
+        </div>
 
         <div className="fixed bottom-6 right-6 z-50">
           <button
@@ -393,7 +386,7 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
             <FaChevronDown className="transform rotate-180" />
           </button>
         </div>
-      </div>
+      </Layout>
     </>
   );
 };

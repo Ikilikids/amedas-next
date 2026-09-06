@@ -4,9 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import CategoryLegend from "../../components/CategoryLegend";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import HeroSection from "../../components/HeroSection";
+import Layout from "../../components/Layout";
 import { RankingItem, RawRankingData } from "../../components/Ranking/types";
 import { getMetricColor } from "../../utils/colorUtils";
 import { toStation } from "../../utils/masterUtils";
@@ -88,23 +86,19 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
         />
         <link rel="canonical" href="https://amedas-zukan.jp/live/realtime" />
       </Head>
-
-      <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
-        <Header />
-
-        <main className="flex-1 pb-16">
-          <HeroSection
-            title="現在の気温 (リアルタイム)"
-            description="気象庁の最新データから取得した全国の気温状況です。10分ごとに自動更新されます。"
-            Icon={<TbTemperatureSun />}
-            gradient={
-              config.detail?.gradient ||
-              "bg-gradient-to-r from-orange-600 to-amber-600"
-            }
-            lastUpdateLabel="最新観測"
-            lastUpdateValue={displayLastUpdate}
-          />
-
+      <Layout
+        heroProps={{
+          title: "現在の気温 (リアルタイム)",
+          description: "気象庁の最新データから取得した全国の気温状況です。10分ごとに自動更新されます。",
+          Icon: <TbTemperatureSun />,
+          gradient:
+            config.detail?.gradient ||
+            "bg-gradient-to-r from-orange-600 to-amber-600",
+          lastUpdateLabel: "最新観測",
+          lastUpdateValue: displayLastUpdate,
+        }}
+      >
+        <div className="pb-16 w-full">
           <div className="max-w-[1200px] mx-auto px-4 mt-4">
             {/* クイックナビゲーション */}
             <div className="bg-white p-6 rounded-xl shadow-lg mb-10 flex flex-wrap gap-2 justify-center border border-slate-100">
@@ -256,9 +250,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
               })}
             </div>
           </div>
-        </main>
-
-        <Footer />
+        </div>
 
         <div className="fixed bottom-6 right-6 z-50">
           <button
@@ -268,7 +260,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
             <FaChevronDown className="transform rotate-180" />
           </button>
         </div>
-      </div>
+      </Layout>
     </>
   );
 };

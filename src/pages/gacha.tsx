@@ -6,9 +6,7 @@ import {
   FaVolumeMute,
   FaVolumeUp
 } from "react-icons/fa";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import HeroSection from "../components/HeroSection";
+import Layout from "../components/Layout";
 
 // Gacha Modular Hooks & Components
 import { CollectionDashboard } from "../components/Gacha/CollectionDashboard";
@@ -110,23 +108,20 @@ const GachaPage: NextPage<Props> = ({ stations: initialStations, stationsOvervie
           }
         `}</style>
       </Head>
-
-      <div className="min-h-screen bg-[#fcfcfd] text-slate-800 flex flex-col font-sans">
-        <Header />
-
-        <main className="flex-1 pb-16">
-          <HeroSection
-            title={
-              <span className="flex items-center gap-3">
-                アメダス・ガチャ
-              </span>
-            }
-            description="日本全国約1,300地点のアメダス観測所をガチャで回して、あなただけの観測所図鑑を完成させよう！"
-            Icon={<FaDice />}
-            gradient="bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950"
-          />
-
-          <div className="max-w-[1280px] mx-auto px-4 mt-8">
+      <Layout
+        heroProps={{
+          title: (
+            <span className="flex items-center gap-3">
+              アメダス・ガチャ
+            </span>
+          ),
+          description: "日本全国約1,300地点のアメダス観測所をガチャで回して、あなただけの観測所図鑑を完成させよう！",
+          Icon: <FaDice />,
+          gradient: "bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950",
+        }}
+      >
+        <div className="pb-16 w-full">
+          <div className="px-4 mt-8">
             {/* Top Toolbar: Sound toggle */}
             <div className="flex justify-end mb-4">
               <button
@@ -201,10 +196,8 @@ const GachaPage: NextPage<Props> = ({ stations: initialStations, stationsOvervie
             </div>
 
           </div>
-        </main>
-
-        <Footer />
-      </div>
+        </div>
+      </Layout>
     </>
   );
 };

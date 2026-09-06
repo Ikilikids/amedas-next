@@ -1,12 +1,10 @@
-// pages/privacy.tsx
 import { NextPage } from "next";
 import Head from "next/head";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 const Privacy: NextPage = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <Layout>
       <Head>
         <title>プライバシーポリシー - アメダス図鑑</title>
         <meta
@@ -15,8 +13,6 @@ const Privacy: NextPage = () => {
         />
         <link rel="canonical" href="https://amedas-zukan.jp/privacy" />
       </Head>
-
-      <Header />
 
       <main className="flex-1 max-w-[800px] mx-auto p-4 bg-white border rounded shadow mt-4 mb-8">
         <h1 className="text-2xl font-bold mb-4">プライバシーポリシー</h1>
@@ -61,9 +57,7 @@ const Privacy: NextPage = () => {
 
         <p className="mt-6">最終更新日: 2025年11月23日</p>
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

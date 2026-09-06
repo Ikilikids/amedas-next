@@ -2,9 +2,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import HeroSection from "../../components/HeroSection";
+import Layout from "../../components/Layout";
 import InfoPanel from "../../components/InfoPanel";
 import StationMap from "../../components/StationMap";
 import Similar from "../../components/Station/Similar";
@@ -174,30 +172,27 @@ const StationPage = (props: RawData) => {
         <link rel="canonical" href={`https://amedas-zukan.jp/station/${stationData.id}`} />
       </Head>
 
-      <div className="min-h-screen bg-gray-50 flex flex-col">
-        <Header />
-
-        <main className="flex-1">
-          <HeroSection
-            title={
+      <Layout
+        heroProps={{
+          title: (
+            <span className="flex gap-2 flex-wrap items-center">
+              {stationData.official_name}
               <span className="flex gap-2 flex-wrap items-center">
-                {stationData.official_name}
-                <span className="flex gap-2 flex-wrap items-center">
-                  {badges &&
-                    badges.map((b: BadgeData, i: number) => (
-                      <RankBadge key={i} {...b} />
-                    ))}
-                </span>
+                {badges &&
+                  badges.map((b: BadgeData, i: number) => (
+                    <RankBadge key={i} {...b} />
+                  ))}
               </span>
-            }
-            description={`${stationData.pref.label} ${stationData.city} / ${stationData.category.label}`}
-            Icon={stationData.category.icon}
-            gradient={regionGradient}
-            lastUpdateLabel="最終更新"
-            lastUpdateValue={lastUpdate}
-          />
-
-          <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row gap-4 p-4">
+            </span>
+          ),
+          description: `${stationData.pref.label} ${stationData.city} / ${stationData.category.label}`,
+          Icon: stationData.category.icon,
+          gradient: regionGradient,
+          lastUpdateLabel: "最終更新",
+          lastUpdateValue: lastUpdate,
+        }}
+      >
+        <div className="w-full flex flex-col lg:flex-row gap-4 p-4">
             <div className="min-w-0 flex flex-col gap-2 flex-[4]">
               <SectionWithDescription
                 icon={<IoBook />}
@@ -269,10 +264,7 @@ const StationPage = (props: RawData) => {
               </div>
             </div>
           </div>
-        </main>
-
-        <Footer />
-      </div>
+      </Layout>
     </>
   );
 };

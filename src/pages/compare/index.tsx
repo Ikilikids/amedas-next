@@ -7,9 +7,7 @@ import { LuChartNoAxesCombined } from "react-icons/lu";
 import { PiRankingDuotone } from "react-icons/pi";
 import CompareMonthlyTable from "../../components/Compare/CompareMonthlyTable";
 import CompareUonzuChart from "../../components/Compare/CompareUonzuChart";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import HeroSection from "../../components/HeroSection";
+import Layout from "../../components/Layout";
 import InfoPanel from "../../components/InfoPanel";
 import { useStationDetail } from "../../components/Ranking/useRankingData";
 import CustomSelect from "../../components/UI/CustomSelect";
@@ -183,17 +181,15 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
         <link rel="canonical" href="https://amedas-zukan.jp/compare" />
       </Head>
 
-      <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
-        <Header />
-
-        <main className="flex-1 pb-16">
-          <HeroSection
-            title="地点を比較する"
-            description="2つのアメダス地点を並べて、気温や降水量の違いを詳しく比較できます。"
-            Icon={<FaBalanceScaleLeft />}
-            gradient="bg-gradient-to-r from-blue-600 to-indigo-600"
-          />
-
+      <Layout
+        heroProps={{
+          title: "地点を比較する",
+          description: "2つのアメダス地点を並べて、気温や降水量の違いを詳しく比較できます。",
+          Icon: <FaBalanceScaleLeft />,
+          gradient: "bg-gradient-to-r from-blue-600 to-indigo-600",
+        }}
+      >
+        <div className="pb-16 w-full">
           <div className="max-w-[1200px] mx-auto px-4 mt-8">
             {/* Selector Area */}
             <div className="flex flex-col lg:flex-row items-center justify-center gap-6 mb-10 bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
@@ -336,10 +332,8 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
               )}
             </div>
           </div>
-        </main>
-
-        <Footer />
-      </div>
+        </div>
+      </Layout>
     </>
   );
 };

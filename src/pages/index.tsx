@@ -1,9 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { FaHome } from "react-icons/fa";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import HeroSection from "../components/HeroSection";
+import Layout from "../components/Layout";
 import LinkCard from "../components/LinkCard";
 import { SectionWithDescription } from "../utils/colorUtils";
 import { navSections } from "../utils/navLinks";
@@ -14,7 +12,20 @@ interface Props {
 
 const Home: NextPage<Props> = ({ lastUpdated }) => {
   return (
-    <div className="min-h-screen bg-[#fcfcfd] flex flex-col font-sans">
+    <Layout
+      heroProps={{
+        title: "アメダス図鑑",
+        description: (
+          <>
+            ・アメダスの平年値データをまとめているサイトです。
+            <br />
+            ・マップ、ランキングなどから雨温図、割合データなど詳細な情報を得ることができます。
+          </>
+        ),
+        Icon: <FaHome />,
+        gradient: "bg-gradient-to-br from-blue-700 via-indigo-800 to-blue-900",
+      }}
+    >
       <Head>
         <title>アメダス図鑑 - 全国約1,300地点のアメダス観測データ・ランキング</title>
         <meta
@@ -23,8 +34,8 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
         />
         <link rel="canonical" href="https://amedas-zukan.jp/" />
       </Head>
-      <Header />
-      <main className="flex-1 relative overflow-hidden">
+
+      <div className="relative overflow-hidden w-full">
         {/* Background Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] z-0">
           <div
@@ -36,20 +47,7 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
           ></div>
         </div>
 
-        <HeroSection
-          title="アメダス図鑑"
-          description={
-            <>
-              ・アメダスの平年値データをまとめているサイトです。
-              <br />
-              ・マップ、ランキングなどから雨温図、割合データなど詳細な情報を得ることができます。
-            </>
-          }
-          Icon={<FaHome />}
-          gradient="bg-gradient-to-br from-blue-700 via-indigo-800 to-blue-900"
-        />
-
-        <div className="max-w-[1280px] mx-auto flex flex-col gap-16 p-8 relative z-10">
+        <div className="flex flex-col gap-16 p-8 relative z-10">
           {navSections.map((section) => (
             <section key={section.id} className="relative">
               <div className="mb-8">
@@ -68,9 +66,8 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
             </section>
           ))}
         </div>
-      </main>
-      <Footer />
-    </div >
+      </div>
+    </Layout>
   );
 };
 

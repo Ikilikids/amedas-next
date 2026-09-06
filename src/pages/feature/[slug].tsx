@@ -4,9 +4,7 @@ import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { IoIosTrophy } from "react-icons/io";
 
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import HeroSection from "../../components/HeroSection";
+import Layout from "../../components/Layout";
 import Ranking from "../../components/Ranking";
 import { RankingItem } from "../../components/Ranking/types";
 import StationFeatureCard from "../../components/Feature/StationFeatureCard";
@@ -132,18 +130,16 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
         <link rel="canonical" href={`https://amedas-zukan.jp/feature/${featureName}`} />
       </Head>
 
-      <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
-        <Header />
-
-        <main className="flex-1 pb-16">
-          <HeroSection
-            title={config.title}
-            description={config.description}
-            Icon={Icon}
-            gradient={`bg-gradient-to-br ${config.gradient}`}
-          />
-
-          <div className="max-w-[1280px] mx-auto px-4 mt-4">
+      <Layout
+        heroProps={{
+          title: config.title,
+          description: config.description,
+          Icon: Icon,
+          gradient: `bg-gradient-to-br ${config.gradient}`,
+        }}
+      >
+        <div className="pb-16 w-full">
+          <div className="px-4 mt-4">
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="flex-1 min-w-0">
                 <SectionWithDescription
@@ -214,10 +210,8 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
               </div>
             </div>
           </div>
-        </main>
-
-        <Footer />
-      </div>
+        </div>
+      </Layout>
     </>
   );
 };
