@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from "react";
+import React from "react";
 
 interface AdMaxProps {
   id?: string;
@@ -9,34 +9,47 @@ export const AdMax: React.FC<AdMaxProps> = ({
   id = "8cba4bdc8615266b125daa75aeb3671b",
   className = "",
 }) => {
-  const adRef = useRef<HTMLDivElement>(null);
+  const adHtml = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <base target="_top">
+        <style>
+          html, body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: transparent;
+          }
+        </style>
+      </head>
+      <body>
+        <script type="text/javascript" src="https://adm.shinobi.jp/s/${id}"></script>
+      </body>
+    </html>
+  `;
 
-  useEffect(() => {
-    const container = adRef.current;
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    const script = document.createElement("script");
-    script.src = "https://adm.shinobi.jp/s/" + id;
-    script.async = true;
-
-    container.appendChild(script);
-
-    return () => {
-      if (container) {
-        container.innerHTML = "";
-      }
-    };
-  }, [id]);
-
-  const wrapperClass = "my-6 flex justify-center items-center overflow-hidden min-h-[90px] " + className;
+  const wrapperClass =
+    "my-6 flex justify-center items-center overflow-hidden min-h-[90px] " +
+    className;
 
   return (
     <div className={wrapperClass}>
-      <div ref={adRef} className="ninja-admax-container text-center" />
+      <iframe
+        title={`admax-${id}`}
+        srcDoc={adHtml}
+        scrolling="no"
+        frameBorder="0"
+        className="w-full h-full border-0 overflow-hidden"
+        style={{ minHeight: "inherit", minWidth: "100%" }}
+      />
     </div>
   );
 };
 
 export default AdMax;
+
+
