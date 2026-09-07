@@ -2,35 +2,23 @@ import React from "react";
 
 interface AdMaxProps {
   id?: string;
+  type?: "banner" | string;
+  width?: number | string;
+  height?: number | string;
   className?: string;
 }
 
 export const AdMax: React.FC<AdMaxProps> = ({
-  id = "8cba4bdc8615266b125daa75aeb3671b",
+  id = "8d30ed4e0e8f5f22736d28d5fe432383",
+  type = "banner",
+  width = 160,
+  height = 600,
   className = "",
 }) => {
-  const adHtml = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <base target="_top">
-        <style>
-          html, body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background: transparent;
-          }
-        </style>
-      </head>
-      <body>
-        <script type="text/javascript" src="https://adm.shinobi.jp/s/${id}"></script>
-      </body>
-    </html>
-  `;
+  const wStr = typeof width === "number" ? `${width}px` : width;
+  const hStr = typeof height === "number" ? `${height}px` : height;
+
+  const iframeSrc = `/admax.html?id=${encodeURIComponent(id)}&type=${encodeURIComponent(type)}&w=${encodeURIComponent(wStr)}&h=${encodeURIComponent(hStr)}`;
 
   const wrapperClass =
     "my-6 flex justify-center items-center overflow-hidden min-h-[90px] " +
@@ -40,16 +28,29 @@ export const AdMax: React.FC<AdMaxProps> = ({
     <div className={wrapperClass}>
       <iframe
         title={`admax-${id}`}
-        srcDoc={adHtml}
-        scrolling="no"
-        frameBorder="0"
-        className="w-full h-full border-0 overflow-hidden"
-        style={{ minHeight: "inherit", minWidth: "100%" }}
+        src={iframeSrc}
+        className="border-0 overflow-hidden"
+        style={{
+          width: wStr,
+          height: hStr,
+          border: "none",
+          display: "block",
+        }}
       />
     </div>
   );
 };
 
 export default AdMax;
+
+
+
+
+
+
+
+
+
+
 
 

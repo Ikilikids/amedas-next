@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_top">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <div id="ad-wrapper"></div>
+  <script type="text/javascript">
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get("id") || "8d30ed4e0e8f5f22736d28d5fe432383";
+      var type = params.get("type") || "banner";
+      var width = params.get("w") || "160px";
+      var height = params.get("h") || "600px";
+
+      var wrapper = document.getElementById("ad-wrapper");
+      
+      // overlay の場合は div.admax-ads は不要（忍者が自動生成・配置する）
+      if (type !== "overlay") {
+        var adDiv = document.createElement("div");
+        adDiv.className = "admax-ads";
+        adDiv.setAttribute("data-admax-id", id);
+        adDiv.style.display = "inline-block";
+        adDiv.style.width = width.indexOf("px") === -1 && width.indexOf("%") === -1 ? width + "px" : width;
+        adDiv.style.height = height.indexOf("px") === -1 && height.indexOf("%") === -1 ? height + "px" : height;
+        wrapper.appendChild(adDiv);
+      }
+
+      // 2. 忍者AdMaxの配列にpush
+      window.admaxads = window.admaxads || [];
+      window.admaxads.push({
+        admax_id: id,
+        type: type
+      });
+
+      // 3. スクリプトを読み込んで実行
+      var s = document.createElement("script");
+      s.type = "text/javascript";
+      s.charset = "utf-8";
+      s.src = "https://adm.shinobi.jp/st/t.js";
+      s.async = true;
+      document.body.appendChild(s);
+    })();
+  </script>
+</body>
+</html>

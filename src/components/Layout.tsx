@@ -43,7 +43,10 @@ export const Layout: React.FC<LayoutProps> = ({
               </span>
               <div className="w-[160px] min-h-[600px] bg-slate-50 border border-slate-200/80 rounded-lg p-1 flex justify-center items-start shadow-sm">
                 <AdMax
-                  id="8cba4bdc8615266b125daa75aeb3671b"
+                  id="8d30ed4e0e8f5f22736d28d5fe432383"
+                  type="banner"
+                  width={160}
+                  height={600}
                   className="!my-0 !min-h-[600px]"
                 />
               </div>
@@ -68,7 +71,10 @@ export const Layout: React.FC<LayoutProps> = ({
               </span>
               <div className="w-[160px] min-h-[600px] bg-slate-50 border border-slate-200/80 rounded-lg p-1 flex justify-center items-start shadow-sm">
                 <AdMax
-                  id="8cba4bdc8615266b125daa75aeb3671b"
+                  id="8d30ed4e0e8f5f22736d28d5fe432383"
+                  type="banner"
+                  width={160}
+                  height={600}
                   className="!my-0 !min-h-[600px]"
                 />
               </div>
@@ -77,19 +83,22 @@ export const Layout: React.FC<LayoutProps> = ({
         )}
       </div>
 
-      {/* Mobile Bottom Overlay Ad (320x50): visible on < 1280px */}
+      {/* Mobile Bottom Bar Ad (320x50): ONLY visible when sidebars are hidden (< 1280px) */}
       {!hideAd && (
         <aside
           aria-label="Sponsored Mobile Overlay"
-          className="xl:hidden fixed bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm border-t border-slate-200 shadow-2xl py-1"
+          className="xl:hidden fixed bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm border-t border-slate-200 shadow-2xl py-1 pointer-events-auto"
         >
           <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none mb-0.5">
             SPONSORED
           </span>
-          <div className="w-[320px] min-h-[50px] flex items-center justify-center">
+          <div className="w-[320px] h-[50px] flex items-center justify-center overflow-hidden">
             <AdMax
-              id="2a2aa3d5356d889af9044c1071c0a3a7"
-              className="!my-0 !min-h-[50px]"
+              id="e4c02042afcb98662fa7b5d77620565b"
+              type="banner"
+              width={320}
+              height={50}
+              className="!my-0 !min-h-[50px] w-[320px] h-[50px]"
             />
           </div>
         </aside>
