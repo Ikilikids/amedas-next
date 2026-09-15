@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Link from "next/link";
 import { RegionKey, RegionValue } from "../../setting/region";
 
@@ -13,6 +13,7 @@ export const StationLink: React.FC<StationLinkProps> = ({ id, name, region }) =>
   return (
     <Link
       href={`/station/${id}`}
+      prefetch={false}
       style={{
         backgroundColor: `${meta.colorStrong}18`,
         color: meta.colorStrong,

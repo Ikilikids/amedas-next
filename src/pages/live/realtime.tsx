@@ -222,6 +222,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
                                     <Link
                                       key={`station-${s.id}`}
                                       href={`/station/${s.id}`}
+                                      prefetch={false}
                                       className={`${baseClasses}`}
                                     >
                                       <div className="flex items-center gap-1">

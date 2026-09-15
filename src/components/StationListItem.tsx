@@ -99,7 +99,7 @@ const StationListItem: React.FC<StationListItemProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={className}>
+      <Link href={href} prefetch={false} className={className}>
         {content}
       </Link>
     );

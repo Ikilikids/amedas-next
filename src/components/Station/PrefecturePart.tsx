@@ -58,6 +58,7 @@ const StationGrid: React.FC<StationGridProps> = ({
           <Link
             key={s.id}
             href={`/station/${s.id}`}
+            prefetch={false}
             className="group relative bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 shadow-none hover:bg-white hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex items-center gap-2"
             style={
               {

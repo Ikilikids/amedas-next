@@ -267,6 +267,7 @@ const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
                   <Link
                     key={s.id}
                     href={`/station/${s.id}`}
+                    prefetch={false}
                     className="block transition-transform hover:-translate-y-0.5 group"
                   >
                     <div
