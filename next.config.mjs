@@ -6,9 +6,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // マルチインスタンスでのキャッシュ整合性を保つためのビルドID固定
+  // 再デプロイ時に古いブラウザキャッシュと新ビルドの不整合（404 ChunkLoadError）を防ぐためビルドIDを生成
   generateBuildId: async () => {
-    return process.env.GIT_COMMIT_SHA || "amedas-next-build";
+    return process.env.GIT_COMMIT_SHA || `build-${Date.now()}`;
   },
   logging: {
     fetches: {

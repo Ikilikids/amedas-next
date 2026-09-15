@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node -e \"const fs=require('fs');const opt={recursive:true,force:true};fs.cpSync('public','.next/standalone/public',opt);fs.mkdirSync('.next/standalone/.next',opt);fs.cpSync('.next/static','.next/standalone/.next/static',opt);fs.cpSync('.next/server','.next/standalone/.next/server',opt);\"",
-    "start": "next start",
+    "build": "node -e \"const fs=require('fs');fs.rmSync('.next',{recursive:true,force:true});\" && next build && node -e \"const fs=require('fs');const opt={recursive:true,force:true};fs.cpSync('public','.next/standalone/public',opt);fs.mkdirSync('.next/standalone/.next',opt);fs.cpSync('.next/static','.next/standalone/.next/static',opt);fs.cpSync('.next/server','.next/standalone/.next/server',opt);\"",
+    "start": "node .next/standalone/server.js",
     "lint": "eslint",
     "generate-sitemap": "node scripts/generate-sitemap.mjs"
   },
