@@ -22,7 +22,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({
   children,
   heroProps,
-  hideAd = false,
+  hideAd = true,
 }) => {
   return (
     <div className="min-h-screen bg-[#fcfcfd] flex flex-col font-sans relative">
@@ -55,7 +55,7 @@ export const Layout: React.FC<LayoutProps> = ({
         )}
 
         {/* Main Content Area: flex-1 up to 1280px */}
-        <main className="w-full max-w-[1280px] min-w-0 flex-1 pb-16 xl:pb-0">
+        <main className="w-full max-w-[1280px] min-w-0 flex-1">
           {children}
         </main>
 
@@ -63,7 +63,7 @@ export const Layout: React.FC<LayoutProps> = ({
         {!hideAd && (
           <aside
             aria-label="Sponsored Right"
-            className="hidden xl:block w-[160px] shrink-0 ml-4 self-start sticky top-[128px] z-30 pointer-events-auto pt-4"
+            className="hidden  w-[160px] shrink-0 ml-4 self-start sticky top-[128px] z-30 pointer-events-auto pt-4"
           >
             <div className="flex flex-col items-center">
               <span className="text-[10px] text-slate-400 font-bold tracking-wider uppercase mb-1">
@@ -87,7 +87,7 @@ export const Layout: React.FC<LayoutProps> = ({
       {!hideAd && (
         <aside
           aria-label="Sponsored Mobile Overlay"
-          className="xl:hidden fixed bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm border-t border-slate-200 shadow-2xl py-1 pointer-events-auto"
+          className=" fixed bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm border-t border-slate-200 shadow-2xl py-1 pointer-events-auto"
         >
           <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none mb-0.5">
             SPONSORED

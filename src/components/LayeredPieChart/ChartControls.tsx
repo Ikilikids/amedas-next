@@ -1,7 +1,6 @@
 import React from "react";
 import { RankKey, RankValue } from "../../setting/rank";
 import CustomSelect from "../UI/CustomSelect";
-import SegmentedControl from "../UI/SegmentedControl";
 import { ChartType } from "./types";
 
 interface ChartControlsProps {
@@ -28,16 +27,19 @@ const ChartControls: React.FC<ChartControlsProps> = ({
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
   return (
-    <div className="flex flex-wrap items-center gap-2 sm:gap-4 p-1">
-      {/* Type Selector */}
-      <SegmentedControl
-        value={type}
-        onChange={setType}
-        options={typeOptions}
-      />
+    <div className="grid grid-cols-3 gap-2 w-full p-1">
+      <div className="min-w-0">
+        <CustomSelect
+          value={type}
+          onChange={setType}
+          options={typeOptions.map((opt) => ({
+            value: opt.key,
+            label: opt.label,
+          }))}
+        />
+      </div>
 
-      {/* Select inputs */}
-      <div className="flex items-center gap-2">
+      <div className="min-w-0">
         <CustomSelect
           value={selectedMonth ?? "all"}
           onChange={(val) => setSelectedMonth(val === "all" ? null : (val as number))}
@@ -46,7 +48,9 @@ const ChartControls: React.FC<ChartControlsProps> = ({
             ...months.map((m) => ({ value: m, label: `${m}月` })),
           ]}
         />
+      </div>
 
+      <div className="min-w-0">
         <CustomSelect
           value={rankType}
           onChange={(v) => setRankType(v)}

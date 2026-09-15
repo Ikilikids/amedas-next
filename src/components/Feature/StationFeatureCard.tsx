@@ -11,18 +11,19 @@ import UonzuChart from "../UonzuChart";
 import Description from "./Description";
 
 import CustomSelect from "../UI/CustomSelect";
-import SegmentedControl from "../UI/SegmentedControl";
 
 interface StationFeatureCardProps {
   allData: AllData;
   ratioInfo: RatioInfo[];
   uonzuInfo: MetricMeta[];
+  index?: number;
 }
 
 const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
   allData,
   ratioInfo,
   uonzuInfo,
+  index,
 }) => {
   if (!allData) return null;
   const {
@@ -67,116 +68,76 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
   const category = station.category;
 
   return (
-    <div className="w-full flex flex-col rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-8 bg-white transition-all hover:shadow-md relative">
-      {/* Top Accent Bar (InfoPanel style) */}
-      <div
-        className="absolute top-0 left-0 w-full h-1"
-        style={{ backgroundColor: regionColor }}
-      />
+    <section
+      id={`station-${station.id}`}
+      className="scroll-mt-24 pb-12 mb-12 border-b border-slate-200 last:border-b-0 last:pb-0 last:mb-0"
+    >
+      {/* Column-style H2 Heading with accent bar, number, and visual tabs on right */}
+      <div className="pb-3 border-b border-slate-200 flex flex-col justify-between gap-3 mb-4">
+        <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
+          <span
+            className="w-1.5 h-6 rounded-full"
+            style={{ backgroundColor: regionColor }}
+          />
+          <span>
+            {index != null ? `${index}. ` : ""}{station.station_name}（{station.pref.label}）
+          </span>
+        </h2>
 
-      {/* Header Section (Exactly following InfoPanel style) */}
-      <div className="px-6 pt-5 pb-5 border-b border-slate-50">
-        <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
-          <div className="flex flex-col">
-            {/* Badges */}
-            <div className="flex items-center gap-2 mb-1">
-              <span
-                className="text-[10px] font-black px-2 py-0.5 rounded-full text-white"
-                style={{ backgroundColor: regionColor }}
-              >
-                {station.pref.label}
-              </span>
-              <span className="text-[10px] text-slate-400 font-mono font-bold tracking-tight">
-                #{station.id}
-              </span>
-            </div>
-
-            {/* Icon + Title */}
-            <div className="flex items-center gap-2">
-              {category && (
-                <span className="text-xl" style={{ color: category.colorFull }}>
-                  {category.icon}
-                </span>
-              )}
-              <Link
-                href={`/station/${station.id}`}
-                className="group flex items-center gap-0 transition-colors"
-              >
-                <h2
-                  className="text-2xl font-black text-slate-800 group-hover:text-[var(--name-hover)] transition-colors"
-                  style={{ "--name-hover": regionColor } as React.CSSProperties}
-                >
-                  {station.station_name}
-                </h2>
-              </Link>
-            </div>
-
-            {/* Official Name (Sub-label) */}
-            <p className="text-xs text-slate-400 font-bold ml-7 mb-3">
-              {station.official_name}
-            </p>
-
-            {/* Metadata Row */}
-            <div className="flex flex-wrap gap-x-4 gap-y-1 ml-7 text-[11px] font-bold text-slate-500">
-              <div className="flex items-center gap-1">
-                <FaCity className="text-slate-300" />
-                <span>{station.city}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <FaMapPin className="text-slate-300" />
-                <span>
-                  {station.lat.toFixed(1)}N, {station.lon.toFixed(1)}E
-                </span>
-              </div>
-              <div className="flex items-center gap-1">
-                <LiaMountainSolid className="text-slate-300" />
-                <span>{station.height.toFixed(1)} m</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Visual Controls */}
-          <div className="flex-shrink-0">
-            {/* Desktop: SegmentedControl */}
-            <div className="hidden sm:block">
-              <SegmentedControl<string>
-                value={selectedBar}
-                onChange={(val) => setSelectedBar(val)}
-                options={visualOptions}
-                color={regionColor}
-                className="w-fit"
-              />
-            </div>
-            {/* Mobile: CustomSelect */}
-            <div className="block sm:hidden w-full">
-              <CustomSelect<string>
-                value={selectedBar}
-                onChange={(val) => setSelectedBar(val)}
-                options={selectOptions}
-                activeColor={regionColor}
-                leftIcon={<FaChartLine className="text-slate-400" />}
-              />
-            </div>
+        {/* コントロール（タブ切り替え）を地点名ヘッダーの右側に配置 */}
+        <div className="shrink-0">
+          <div>
+            <CustomSelect<string>
+              value={selectedBar}
+              onChange={(val) => setSelectedBar(val)}
+              options={selectOptions}
+              activeColor={regionColor}
+              leftIcon={<FaChartLine className="text-slate-400" />}
+            />
           </div>
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="flex flex-col lg:flex-row min-h-[420px]">
-        {/* Description Section */}
-        <div className="flex-[5] p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-slate-50 bg-white flex flex-col">
-          <div className="flex-1">
-            <Description description={descriptionData} />
+      {/* 地点メタ情報（自治体・標高・緯度経度） */}
+      <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 font-bold mb-5">
+        <span
+          className="px-2.5 py-0.5 rounded-full text-white text-[11px] font-black"
+          style={{ backgroundColor: regionColor }}
+        >
+          {station.pref.label}
+        </span>
+        <span className="text-slate-600 font-bold flex items-center gap-1">
+          <FaCity className="text-slate-400" />
+          <span>{station.city}</span>
+        </span>
+        <span className="text-slate-500 font-mono">
+          標高 {station.height.toFixed(1)}m / 北緯{station.lat.toFixed(1)}° 東経{station.lon.toFixed(1)}°
+        </span>
+      </div>
+
+      {/* 本文エリア: 左側＝解説テキスト、右側＝グラフ/地図 */}
+      <div className="flex flex-col xl:flex-row gap-6 items-start xl:items-center">
+        {/* 解説テキスト（コラムと同じ地の文スタイル） */}
+        <div className="flex-1 min-w-0 space-y-4">
+          <Description description={descriptionData} />
+          <div className="pt-2">
+            <Link
+              href={`/station/${station.id}`}
+              className="inline-flex items-center gap-1 text-sm font-bold text-blue-600 hover:text-blue-800 hover:underline"
+            >
+              <span>{station.station_name}の気候・詳細データを見る</span>
+              <span>→</span>
+            </Link>
           </div>
         </div>
 
-        {/* Visual Section */}
-        <div className="flex-[6] bg-slate-50/20 relative flex items-center justify-center py-2 px-4">
-          <div className="w-full h-[420px] bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden flex items-center justify-center relative">
+        {/* グラフ／ビジュアル枠 */}
+        <div className="w-full xl:w-[380px] shrink-0">
+          <div className="w-full h-[340px] flex items-center justify-center">
             {(() => {
               if (selectedBar === "map") {
                 return (
-                  <div className="w-full h-full p-2">
+                  <div className="w-full h-full">
                     <StationMap isMini lat={station.lat} lng={station.lon} />
                   </div>
                 );
@@ -189,7 +150,7 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
                 if (!currentRatioInfo) return null;
 
                 return (
-                  <div className="w-full h-full flex items-center justify-center p-6">
+                  <div className="w-full h-full flex items-center justify-center p-2">
                     {ratioMap ? (
                       <LayeredPieChart
                         ratioInfo={currentRatioInfo}
@@ -199,7 +160,7 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
                         layout="vertical"
                       />
                     ) : (
-                      <div className="text-slate-400 font-bold">
+                      <div className="text-slate-400 font-bold text-xs">
                         データがありません
                       </div>
                     )}
@@ -208,7 +169,7 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
               }
 
               return (
-                <div className="w-full h-full p-4">
+                <div className="w-full h-full">
                   <UonzuChart
                     uonzuData={uonzuMap}
                     selectedBar={MetricKey[selectedBar]}
@@ -220,7 +181,7 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

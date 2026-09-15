@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import SegmentedControl from "../UI/SegmentedControl";
+import CustomSelect from "../UI/CustomSelect";
 import UonzuChart from "../UonzuChart";
 import { MetricKey, MetricMeta } from "../../setting/metric";
 import { SectionWithDescription } from "../../utils/colorUtils";
@@ -21,7 +21,7 @@ export const UonzuSection: React.FC<UonzuSectionProps> = ({
       .filter((meta) => uonzuData.has(meta))
       .map((meta) => {
         return {
-          key: meta.key,
+          value: meta.key,
           label: meta.label,
           color: meta.color,
           meta: meta,
@@ -36,7 +36,7 @@ export const UonzuSection: React.FC<UonzuSectionProps> = ({
   const [prevUonzuOptions, setPrevUonzuOptions] = useState(uonzuOptions);
   if (uonzuOptions !== prevUonzuOptions) {
     setPrevUonzuOptions(uonzuOptions);
-    if (!uonzuOptions.some((opt) => opt.key === selectedBar.key)) {
+    if (!uonzuOptions.some((opt) => opt.value === selectedBar.key)) {
       if (uonzuOptions.length > 0) {
         setSelectedBar(uonzuOptions[0].meta);
       }
@@ -45,22 +45,24 @@ export const UonzuSection: React.FC<UonzuSectionProps> = ({
 
   return (
     <>
-      <SectionWithDescription
-        icon={<LuChartNoAxesCombined />}
-        title="雨温図"
-        bgColor={regionColor}
-        description={[
-          `棒グラフは${selectedBar.label}、折れ線グラフは平均気温・最低気温・最高気温を表しています。`,
-          "月降水量が500mmを超える地点は、棒グラフの最大値が1000mmになります。",
-        ]}
-      >
-        <SegmentedControl
-          value={selectedBar.key}
-          onChange={(v) => setSelectedBar(MetricKey[v])}
-          options={uonzuOptions}
-          className="ml-2"
-        />
-      </SectionWithDescription>
+      <div className="pb-3 border-b border-slate-200 mb-4 space-y-3">
+        <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
+          <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: regionColor }}></span>
+          2. 雨温図（平年値グラフ）
+        </h2>
+        <div>
+          <CustomSelect
+            value={selectedBar.key}
+            onChange={(v) => setSelectedBar(MetricKey[v])}
+            options={uonzuOptions}
+            activeColor={regionColor}
+          />
+        </div>
+      </div>
+
+      <p className="text-xs text-slate-500 mb-4">
+        月ごとの平均気温・最高気温・最低気温の推移（折れ線）と、降水量・日照時間・降雪量（棒グラフ）です。
+      </p>
 
       <UonzuChart
         uonzuData={uonzuData}

@@ -76,7 +76,7 @@ export const ProgressPanel: React.FC<ProgressProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mt-2">
+          <div className="grid grid-cols-3  gap-2 mt-2">
             {(["UR", "SSR", "SR", "R", "UC", "C"] as Rarity[]).map((r) => {
               const coll = statsSummary.rarityCollected[r];
               const total = statsSummary.rarityCounts[r];

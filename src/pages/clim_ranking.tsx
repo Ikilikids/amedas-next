@@ -6,6 +6,9 @@ import { FaChevronDown } from "react-icons/fa";
 import { IoIosTrophy } from "react-icons/io";
 import CategoryLegend from "../components/CategoryLegend";
 import Layout from "../components/Layout";
+import PageLayout from "../components/PageLayout";
+import Sidebar from "../components/Sidebar";
+import Breadcrumb from "../components/Breadcrumb";
 import { colorWithAlpha } from "../components/LayeredPieChart/chartUtils";
 import MetricPopup from "../components/Ranking/MetricPopup";
 import { RankingData, RawRankingData } from "../components/Ranking/types";
@@ -144,239 +147,259 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
         />
         <link rel="canonical" href="https://amedas-zukan.jp/clim_ranking" />
       </Head>
-      <Layout
-        heroProps={{
-          title: "平年値ランキング",
-          description: "全国の観測所の平年値（1991-2020年）をランキング形式で比較できます。月ごとの切り替えや、地域・都道府県での絞り込みも可能です。",
-          Icon: <IoIosTrophy />,
-          gradient: "bg-gradient-to-r from-amber-600 to-yellow-500",
-        }}
-      >
-        <div className="pb-16 w-full">
-          <div className="max-w-[1200px] mx-auto px-4 mt-4">
-            {/* 項目・月選択 */}
-            <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-6">
-              <div className="bg-white p-1 rounded-xl shadow-sm border border-slate-200 flex flex-wrap justify-center gap-1">
-                {Object.values(MetricKey)
-                  .filter((m) => m.tab === "主要")
-                  .map((m) => (
-                    <button
-                      key={m.key}
-                      onClick={() => setMetric(m)}
-                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-                        metric.key === m.key
-                          ? `text-white shadow-md`
-                          : "text-slate-500 hover:bg-slate-50"
-                      }`}
-                      style={
-                        metric.key === m.key ? { backgroundColor: m.color } : {}
-                      }
-                    >
-                      {m.label}
-                    </button>
-                  ))}
+      <Layout>
+        <main className="max-w-[1280px] mx-auto p-4  my-4 w-full">
+          {/* パンくずリスト */}
+          <Breadcrumb
+            items={[
+              { label: "気候ランキング" },
+            ]}
+          />
 
-                {/* その他メトリック選択 */}
-                <button
-                  onClick={() => setShowPopup(true)}
-                  className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
-                    metric.tab !== "主要"
-                      ? "text-white shadow-md"
-                      : "text-slate-500 hover:bg-slate-50 border border-transparent"
-                  }`}
-                  style={
-                    metric.tab !== "主要"
-                      ? { backgroundColor: metric.color }
-                      : {}
-                  }
-                >
-                  {metric.tab !== "主要" ? metric.label : "その他 ▸"}
-                </button>
-              </div>
-
-              <div className="rounded-xl shadow-sm flex items-center">
-                <CustomSelect
-                  value={selectedMonth}
-                  onChange={(v) => setSelectedMonth(v)}
-                  options={Object.entries(MonthMap).map(([k, v]) => ({
-                    value: k,
-                    label: v,
-                  }))}
-                />
-              </div>
-            </div>
-
-            <MetricPopup
-              isOpen={showPopup}
-              onClose={() => setShowPopup(false)}
-              onApply={(m) => setMetric(m)}
-              rankType={rankMeta}
-              initialMetricKey={metric}
-            />
-
-            {/* しぼりこみナビゲーション */}
-            <div className="bg-white p-6 rounded-xl shadow-lg mb-10 flex flex-col gap-4 border border-slate-100">
-              <div className="flex flex-wrap gap-2 justify-center">
-                {Object.values(RankKey).map((rk) => (
-                  <button
-                    key={rk.key}
-                    onClick={() => setRankMeta(rk)}
-                    className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-                      rankMeta.key === rk.key
-                        ? `text-white shadow-md scale-105`
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
-                    style={
-                      rankMeta.key === rk.key
-                        ? { backgroundColor: config.color }
-                        : {}
-                    }
-                  >
-                    {rk.rankingLabel}
-                  </button>
-                ))}
-              </div>
-
-              {rankMeta.key === "region" && (
-                <div className="flex flex-wrap gap-2 justify-center border-t border-slate-100 pt-4">
-                  {Object.values(RegionKey).map((r) => (
-                    <button
-                      key={r.label}
-                      onClick={() => setSelectedRegion(r)}
-                      className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                        selectedRegion.label === r.label
-                          ? "text-white"
-                          : "bg-slate-50 text-slate-500 hover:bg-slate-100"
-                      }`}
-                      style={
-                        selectedRegion.label === r.label
-                          ? {
-                              backgroundColor: r.colorStrong,
-                            }
-                          : {
-                              backgroundColor: colorWithAlpha(
-                                r.colorBase,
-                                0.15
-                              ),
-                            }
-                      }
-                    >
-                      {r.label}
-                    </button>
-                  ))}
+          <PageLayout sidebar={<Sidebar />}>
+            {/* 左メインエリア */}
+            <div className="space-y-6">
+              {/* ページヘッダーカード */}
+              <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 rounded-3xl p-6  text-white shadow-lg relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
+                    <IoIosTrophy className="text-amber-200" />
+                    <span>Climatological Ranking</span>
+                  </div>
+                  <h1 className="text-2xl  font-black tracking-tight mb-2">
+                    {selectedMonth === "all" ? "通年" : `${selectedMonth}月`}の{config.label}ランキング
+                  </h1>
+                  <p className="text-white/90 text-xs  leading-relaxed max-w-2xl">
+                    全国約1,300地点のアメダス平年値（1991〜2020年統計）に基づき、各指標の全国・地域・都道府県別ランキングを掲載しています。
+                  </p>
                 </div>
-              )}
+              </div>
 
-              {rankMeta.key === "pre" && (
-                <div className="flex justify-center border-t border-slate-100 pt-4">
-                  <select
-                    value={selectedPref.code}
-                    onChange={(e) => {
-                      const found = Object.values(PrefKey).find(
-                        (p) => p.code === e.target.value
-                      );
-                      if (found) setSelectedPref(found);
-                    }}
-                    className="px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm font-bold focus:outline-none focus:ring-2"
-                    style={{ outlineColor: config.color } as any}
-                  >
-                    {Object.values(PrefKey).map((p) => (
-                      <option key={p.code} value={p.code}>
-                        {p.label}
-                      </option>
+              {/* 統合コントロールパネル（項目選択・月選択・絞り込み・凡例） */}
+              <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 space-y-5">
+                {/* 1. 指標選択 & 月選択 */}
+                <div className="flex flex-col  justify-between items-stretch  gap-4 pb-5 border-b border-slate-100">
+                  <div className="flex flex-wrap gap-1.5 items-center">
+                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-wider mr-1">
+                      指標:
+                    </span>
+                    {Object.values(MetricKey)
+                      .filter((m) => m.tab === "主要")
+                      .map((m) => (
+                        <button
+                          key={m.key}
+                          onClick={() => setMetric(m)}
+                          className={`px-3.5 py-1.5 rounded-xl text-xs  font-bold transition-all ${
+                            metric.key === m.key
+                              ? `text-white shadow-sm`
+                              : "text-slate-600 hover:bg-slate-100"
+                          }`}
+                          style={
+                            metric.key === m.key ? { backgroundColor: m.color } : {}
+                          }
+                        >
+                          {m.label}
+                        </button>
+                      ))}
+
+                    {/* その他メトリック選択 */}
+                    <button
+                      onClick={() => setShowPopup(true)}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs  font-bold transition-all ${
+                        metric.tab !== "主要"
+                          ? "text-white shadow-sm"
+                          : "text-slate-600 hover:bg-slate-100 border border-slate-200"
+                      }`}
+                      style={
+                        metric.tab !== "主要"
+                          ? { backgroundColor: metric.color }
+                          : {}
+                      }
+                    >
+                      {metric.tab !== "主要" ? metric.label : "その他 ▸"}
+                    </button>
+                  </div>
+
+                  <div className="shrink-0 flex items-center gap-2">
+                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                      期間:
+                    </span>
+                    <CustomSelect
+                      value={selectedMonth}
+                      onChange={(v) => setSelectedMonth(v)}
+                      options={Object.entries(MonthMap).map(([k, v]) => ({
+                        value: k,
+                        label: v,
+                      }))}
+                    />
+                  </div>
+                </div>
+
+                {/* 2. しぼりこみナビゲーション */}
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-wider mr-1">
+                      範囲:
+                    </span>
+                    {Object.values(RankKey).map((rk) => (
+                      <button
+                        key={rk.key}
+                        onClick={() => setRankMeta(rk)}
+                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                          rankMeta.key === rk.key
+                            ? `text-white shadow-sm`
+                            : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        }`}
+                        style={
+                          rankMeta.key === rk.key
+                            ? { backgroundColor: config.color }
+                            : {}
+                        }
+                      >
+                        {rk.rankingLabel}
+                      </button>
                     ))}
-                  </select>
+                  </div>
+
+                  {rankMeta.key === "region" && (
+                    <div className="flex flex-wrap gap-1.5 pt-2">
+                      {Object.values(RegionKey).map((r) => (
+                        <button
+                          key={r.label}
+                          onClick={() => setSelectedRegion(r)}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                            selectedRegion.label === r.label
+                              ? "text-white shadow-sm"
+                              : "bg-slate-50 text-slate-600 hover:bg-slate-100"
+                          }`}
+                          style={
+                            selectedRegion.label === r.label
+                              ? { backgroundColor: r.colorStrong }
+                              : { backgroundColor: colorWithAlpha(r.colorBase, 0.15) }
+                          }
+                        >
+                          {r.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {rankMeta.key === "pre" && (
+                    <div className="pt-2">
+                      <select
+                        value={selectedPref.code}
+                        onChange={(e) => {
+                          const found = Object.values(PrefKey).find(
+                            (p) => p.code === e.target.value
+                          );
+                          if (found) setSelectedPref(found);
+                        }}
+                        className="px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold focus:outline-none focus:ring-2"
+                        style={{ outlineColor: config.color } as any}
+                      >
+                        {Object.values(PrefKey).map((p) => (
+                          <option key={p.code} value={p.code}>
+                            {p.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-
-            <CategoryLegend />
-
-            {/* ランキングリスト */}
-            {isLoading ? (
-              <div className="text-center py-20">
-                <div className="animate-spin inline-block w-8 h-8 border-4 border-slate-200 border-t-slate-500 rounded-full mb-4"></div>
-                <p className="text-slate-500 font-bold">
-                  データを読み込み中...
-                </p>
               </div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {displayList.map((s) => (
-                  <Link
-                    key={s.id}
-                    href={`/station/${s.id}`}
-                    className="block transition-transform hover:scale-105 group"
-                  >
-                    <div
-                      className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 hover:border-slate-300 relative overflow-hidden h-full flex flex-col"
-                      style={{
-                        backgroundColor: colorWithAlpha(
-                          s.pref?.region?.colorBase,
-                          0.1
-                        ),
-                        borderColor: colorWithAlpha(
-                          s.pref?.region?.colorBase,
-                          0.3
-                        ),
-                      }}
+
+              <MetricPopup
+                isOpen={showPopup}
+                onClose={() => setShowPopup(false)}
+                onApply={(m) => setMetric(m)}
+                rankType={rankMeta}
+                initialMetricKey={metric}
+              />
+
+              {/* ランキングリスト */}
+              {isLoading ? (
+                <div className="text-center py-20">
+                  <div className="animate-spin inline-block w-8 h-8 border-4 border-slate-200 border-t-slate-500 rounded-full mb-4"></div>
+                  <p className="text-slate-500 font-bold">データを読み込み中...</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2   gap-3.5">
+                  {displayList.map((s) => (
+                    <Link
+                      key={s.id}
+                      href={`/station/${s.id}`}
+                      className="block transition-transform hover:-translate-y-0.5 group"
                     >
                       <div
-                        className="absolute top-0 right-0 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg"
+                        className="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-300 relative overflow-hidden h-full flex flex-col transition-shadow hover:shadow-md"
                         style={{
-                          backgroundColor: s.pref?.region?.colorStrong,
-                          color: "white",
+                          backgroundColor: colorWithAlpha(
+                            s.pref?.region?.colorBase,
+                            0.08
+                          ),
+                          borderColor: colorWithAlpha(
+                            s.pref?.region?.colorBase,
+                            0.25
+                          ),
                         }}
                       >
-                        {s.rank}位
-                      </div>
-                      <div className="flex items-center gap-1 mb-2 pr-6 overflow-hidden">
-                        {s.category?.value !== 4 && (
-                          <span
-                            className="transform group-hover:scale-110 transition-transform shrink-0"
-                            style={{
-                              color: s.category?.colorFull,
-                            }}
-                          >
-                            {s.category?.icon}
-                          </span>
-                        )}
-                        <span className="text-sm font-bold text-slate-800 truncate">
-                          {s.station_name}
-                        </span>
-                        <span className="text-[9px] text-slate-400 font-mono shrink-0">
-                          #{s.id}
-                        </span>
-                      </div>
-                      <div className="flex-1 flex flex-col justify-end">
                         <div
-                          className={`text-2xl font-mono font-bold ${getMetricColor(
-                            s.value,
-                            dataBounds.min,
-                            dataBounds.max,
-                            metric.unit !== "℃"
-                          )}`}
+                          className="absolute top-0 right-0 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg"
+                          style={{
+                            backgroundColor: s.pref?.region?.colorStrong,
+                            color: "white",
+                          }}
                         >
-                          {s.value !== null && s.value !== undefined
-                            ? `${s.value.toFixed(1)}${config.unit}`
-                            : "---"}
+                          {s.rank}位
+                        </div>
+                        <div className="flex items-center gap-1 mb-2 pr-6 overflow-hidden">
+                          {s.category?.value !== 4 && (
+                            <span
+                              className="transform group-hover:scale-110 transition-transform shrink-0"
+                              style={{
+                                color: s.category?.colorFull,
+                              }}
+                            >
+                              {s.category?.icon}
+                            </span>
+                          )}
+                          <span className="text-sm font-bold text-slate-800 truncate">
+                            {s.station_name}
+                          </span>
+                          <span className="text-[9px] text-slate-400 font-mono shrink-0">
+                            #{s.id}
+                          </span>
+                        </div>
+                        <div className="flex-1 flex flex-col justify-end">
+                          <div
+                            className={`text-2xl font-mono font-bold ${getMetricColor(
+                              s.value,
+                              dataBounds.min,
+                              dataBounds.max,
+                              metric.unit !== "℃"
+                            )}`}
+                          >
+                            {s.value !== null && s.value !== undefined
+                              ? `${s.value.toFixed(1)}${config.unit}`
+                              : "---"}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
+                    </Link>
+                  ))}
+                </div>
+              )}
 
-            {!isLoading && displayList.length === 0 && (
-              <div className="text-center py-20 bg-white rounded-xl border border-dashed border-slate-300">
-                <p className="text-slate-400 font-medium">
-                  該当するデータが見つかりませんでした。
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
+              {!isLoading && displayList.length === 0 && (
+                <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
+                  <p className="text-slate-400 font-medium">
+                    該当するデータが見つかりませんでした。
+                  </p>
+                </div>
+              )}
+            </div>
+          </PageLayout>
+        </main>
 
         <div className="fixed bottom-6 right-6 z-50">
           <button

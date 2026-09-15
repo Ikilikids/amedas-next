@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { FaInfoCircle, FaSearch, FaShieldAlt } from "react-icons/fa";
+import { FaEnvelope, FaInfoCircle, FaSearch, FaShieldAlt } from "react-icons/fa";
 import { NavLink, navSections } from "../utils/navLinks";
 
 // ==============================
@@ -21,14 +21,14 @@ const Header: React.FC<HeaderProps> = () => {
 
       <div className="max-w-[1280px] mx-auto flex flex-col">
         {/* 1段目: Logo, Search, Utils */}
-        <div className="flex justify-between items-center py-3 lg:py-4 px-4 lg:px-6">
+        <div className="flex justify-between items-center py-3  px-4 ">
           <div className="flex items-center gap-6">
             <Link href="/" className="group flex items-center gap-2">
               <div className="bg-blue-600 text-white p-1.5 rounded-lg group-hover:bg-blue-700 transition-all duration-300 shadow-blue-200 shadow-lg group-hover:shadow-blue-300 group-hover:-translate-y-0.5">
                 <span className="text-xl leading-none">🌡️</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-xl lg:text-2xl font-black tracking-tight text-slate-800">
+                <span className="text-xl  font-black tracking-tight text-slate-800">
                   アメダス<span className="text-blue-600">図鑑</span>
                 </span>
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none hidden lg:block">
@@ -38,25 +38,25 @@ const Header: React.FC<HeaderProps> = () => {
             </Link>
 
             {/* Desktop Utility Links */}
-            <div className="hidden xl:flex items-center gap-4 border-l pl-6 border-slate-200 ml-2">
+            <div className="hidden lg:flex items-center gap-4 border-l pl-6 border-slate-200 ml-2">
               <Link
-                href="/adsense-info.html"
+                href="/about"
                 className="flex items-center gap-1.5 text-xs font-black text-slate-400 hover:text-blue-600 transition-colors"
               >
                 <FaInfoCircle className="text-slate-300" />
                 このサイトについて
               </Link>
               <Link
-                href="/privacy"
+                href="/about#contact"
                 className="flex items-center gap-1.5 text-xs font-black text-slate-400 hover:text-blue-600 transition-colors"
               >
-                <FaShieldAlt className="text-slate-300" />
-                プライバシー
+                <FaEnvelope className="text-slate-300" />
+                お問い合わせ
               </Link>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 lg:gap-4">
+          <div className="flex items-center gap-3">
             {/* 検索 */}
             <form
               className="hidden lg:flex items-center bg-slate-100 rounded-full px-4 py-1.5 border border-transparent focus-within:border-blue-300 focus-within:bg-white transition-all shadow-inner"

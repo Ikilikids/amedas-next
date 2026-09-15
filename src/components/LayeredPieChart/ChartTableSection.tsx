@@ -24,7 +24,7 @@ const ChartTableSection: React.FC<ChartTableSectionProps> = ({
         {items.map((entry) => (
           <div
             key={`label-${entry.name}`}
-            className="px-1 py-0.5 text-gray-100 border-l border-gray-400 first:border-l-0 text-center text-[10px] sm:text-xs font-bold whitespace-nowrap overflow-hidden text-ellipsis"
+            className="px-1 py-0.5 text-gray-100 border-l border-gray-400 first:border-l-0 text-center text-[10px] font-bold whitespace-nowrap overflow-hidden text-ellipsis"
             style={{ backgroundColor: entry.color }}
           >
             {entry.name}
@@ -41,8 +41,8 @@ const ChartTableSection: React.FC<ChartTableSectionProps> = ({
               key={`value-${entry.name}`}
               className="px-1 py-1 border-l first:border-l-0 border-t border-gray-300 flex flex-col items-center justify-center bg-white"
             >
-              <div className="text-sm sm:text-lg font-semibold">{days}日</div>
-              <div className="text-[10px] sm:text-xs text-gray-500">
+              <div className="text-sm font-semibold">{days}日</div>
+              <div className="text-[10px] text-gray-500">
                 {entry.rank ?? "--"}位
               </div>
             </div>
@@ -58,7 +58,7 @@ const ChartTableSection: React.FC<ChartTableSectionProps> = ({
     data = data.filter((d) => rainList.includes(d.key));
   }
   return (
-    <div className="flex-1 min-w-0 px-2 sm:px-4">
+    <div className="w-full min-w-0 px-2">
       {data.length === 7 ? (
         <>
           {renderGrid(data.slice(0, 3), 3)}

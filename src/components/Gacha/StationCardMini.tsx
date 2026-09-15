@@ -37,7 +37,7 @@ export const StationCardMini: React.FC<MiniCardProps> = ({ station, rarity, isNe
           </span>
         </div>
 
-        <h4 className="text-xs sm:text-sm font-black line-clamp-2 text-white">
+        <h4 className="text-xs  font-black line-clamp-2 text-white">
           {station.station_name}
         </h4>
         

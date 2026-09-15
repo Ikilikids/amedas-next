@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../components/Layout";
+import Breadcrumb from "../components/Breadcrumb";
 
 interface PageProps {
   query?: string;
@@ -18,8 +19,16 @@ const SearchPage: NextPage<PageProps> = ({ query }) => {
         <link rel="canonical" href="https://amedas-zukan.jp/search" />
       </Head>
 
-      <main className="flex-1 p-4">
-          <h1 className="text-2xl font-bold mb-4">サイト内検索</h1>
+      <main className="max-w-[1280px] mx-auto p-4  my-4 w-full">
+        {/* パンくずリスト */}
+        <Breadcrumb
+          items={[
+            { label: "サイト内検索" },
+          ]}
+        />
+
+        <div className="bg-white border border-slate-200/80 rounded-3xl p-6  shadow-sm">
+          <h1 className="text-2xl font-black text-slate-800 mb-6">サイト内検索</h1>
 
           {/* Google CSE */}
           <div>
@@ -29,7 +38,8 @@ const SearchPage: NextPage<PageProps> = ({ query }) => {
             ></script>
             <div className="gcse-search"></div>
           </div>
-        </main>
+        </div>
+      </main>
     </Layout>
   );
 };

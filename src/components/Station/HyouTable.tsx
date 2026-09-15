@@ -149,7 +149,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
         key={meta.key}
         className="group hover:bg-slate-50/30 transition-colors"
       >
-        <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] h-10 sm:h-12 text-center align-middle font-bold text-xs sm:text-sm shadow-[2px_0_4px_-2px_#0000001a] group-hover:bg-slate-50 transition-colors">
+        <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] h-10 text-center align-middle font-bold text-xs shadow-[2px_0_4px_-2px_#0000001a] group-hover:bg-slate-50 transition-colors">
           <div className="flex flex-col items-center justify-center leading-tight px-1 gap-0.5">
             <div className="flex items-center gap-1">
               <span className="text-slate-800 whitespace-nowrap">
@@ -157,14 +157,14 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
               </span>
               {icon && (
                 <span
-                  className="text-sm sm:text-base opacity-80"
+                  className="text-sm opacity-80"
                   style={{ color: meta.color }}
                 >
                   {icon}
                 </span>
               )}
             </div>
-            <span className="text-[10px] sm:text-xs text-slate-400 font-normal">
+            <span className="text-[10px] text-slate-400 font-normal">
               ({meta.unit})
             </span>
           </div>
@@ -175,16 +175,16 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
           return (
             <td
               key={i}
-              className={`border-r border-slate-100 min-w-[56px] sm:min-w-[64px] h-10 sm:h-12 text-center align-middle transition-colors ${
+              className={`border-r border-slate-100 min-w-[56px] h-10 text-center align-middle transition-colors ${
                 isAnnual ? "ring-1 ring-inset ring-slate-200/50" : ""
               }`}
               style={{ backgroundColor: bgColor }}
             >
-              <div className="flex flex-col justify-center items-center -space-y-0.5 sm:space-y-0">
-                <span className="font-bold text-xs sm:text-sm text-slate-900 tracking-tighter">
+              <div className="flex flex-col justify-center items-center -space-y-0.5">
+                <span className="font-bold text-xs text-slate-900 tracking-tighter">
                   {d.val}
                 </span>
-                <span className="text-[9px] sm:text-[10px] text-slate-600/80 font-medium">
+                <span className="text-[9px] text-slate-600/80 font-medium">
                   {d.rank !== "--" ? `${d.rank}位` : "-"}
                 </span>
               </div>
@@ -210,14 +210,14 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
       <div className="w-full overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
         <table className="w-full border-collapse text-center table-auto">
           <thead>
-            <tr className="bg-slate-50 text-xs sm:text-sm">
-              <th className="sticky left-0 top-0 z-20 bg-slate-100 border-r border-b border-slate-200 w-24 min-w-[104px] h-10 sm:h-12 font-bold text-slate-600 shadow-[2px_0_4px_-2px_#0000001a]">
+            <tr className="bg-slate-50 text-xs">
+              <th className="sticky left-0 top-0 z-20 bg-slate-100 border-r border-b border-slate-200 w-24 min-w-[104px] h-10 font-bold text-slate-600 shadow-[2px_0_4px_-2px_#0000001a]">
                 項目
               </th>
               {months.map((m) => (
                 <th
                   key={m.slug}
-                  className={`border-b border-r border-slate-200 min-w-[56px] sm:min-w-[64px] h-10 sm:h-12 font-bold ${
+                  className={`border-b border-r border-slate-200 min-w-[56px] h-10 font-bold ${
                     m.slug === "all"
                       ? "text-blue-700 bg-blue-50/50"
                       : "text-slate-600"

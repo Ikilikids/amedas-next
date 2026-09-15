@@ -5,6 +5,9 @@ import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import CategoryLegend from "../../components/CategoryLegend";
 import Layout from "../../components/Layout";
+import PageLayout from "../../components/PageLayout";
+import Sidebar from "../../components/Sidebar";
+import Breadcrumb from "../../components/Breadcrumb";
 import { RankingItem, RawRankingData } from "../../components/Ranking/types";
 import { getMetricColor } from "../../utils/colorUtils";
 import { toStation } from "../../utils/masterUtils";
@@ -86,38 +89,62 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
         />
         <link rel="canonical" href="https://amedas-zukan.jp/live/realtime" />
       </Head>
-      <Layout
-        heroProps={{
-          title: "現在の気温 (リアルタイム)",
-          description: "気象庁の最新データから取得した全国の気温状況です。10分ごとに自動更新されます。",
-          Icon: <TbTemperatureSun />,
-          gradient:
-            config.detail?.gradient ||
-            "bg-gradient-to-r from-orange-600 to-amber-600",
-          lastUpdateLabel: "最新観測",
-          lastUpdateValue: displayLastUpdate,
-        }}
-      >
-        <div className="pb-16 w-full">
-          <div className="max-w-[1200px] mx-auto px-4 mt-4">
-            {/* クイックナビゲーション */}
-            <div className="bg-white p-6 rounded-xl shadow-lg mb-10 flex flex-wrap gap-2 justify-center border border-slate-100">
-              {regions.map((region) => (
-                <a
-                  key={`nav-${region.label}`}
-                  href={`#region-${region.label}`}
-                  className="px-4 py-2 rounded-full text-sm font-bold transition-all hover:scale-105 active:scale-95 shadow-sm border border-slate-200"
-                  style={{
-                    backgroundColor: region.colorBase,
-                    color: "#1e293b",
-                  }}
-                >
-                  {region.label}
-                </a>
-              ))}
-            </div>
+      <Layout>
+        <main className="max-w-[1280px] mx-auto p-4  my-4 w-full">
+          {/* パンくずリスト */}
+          <Breadcrumb
+            items={[
+              { label: "リアルタイム気温" },
+            ]}
+          />
 
-            <CategoryLegend />
+          <PageLayout sidebar={<Sidebar />}>
+            {/* 左メインエリア */}
+            <div className="space-y-6">
+              {/* ページヘッダーカード */}
+              <div
+                className="rounded-3xl p-6  text-white shadow-lg relative overflow-hidden"
+                style={{
+                  background:
+                    config.detail?.gradient ||
+                    "linear-gradient(to right, #ea580c, #d97706)",
+                }}
+              >
+                <div className="relative z-10 flex flex-col    gap-4">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
+                      <span>Realtime Weather</span>
+                    </div>
+                    <h1 className="text-2xl  font-black tracking-tight mb-2 flex items-center gap-3">
+                      <TbTemperatureSun />
+                      <span>現在の気温 (リアルタイム)</span>
+                    </h1>
+                    <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
+                      気象庁の最新アメダス速報値から取得した全国の気温状況です。10分ごとに自動更新されます。
+                    </p>
+                  </div>
+                  <div className="text-xs font-bold bg-black/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 self-start  shrink-0">
+                    最新観測: {displayLastUpdate}
+                  </div>
+                </div>
+              </div>
+
+              {/* クイックナビゲーション */}
+              <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80 flex flex-wrap gap-2 justify-center ">
+                {regions.map((region) => (
+                  <a
+                    key={`nav-${region.label}`}
+                    href={`#region-${region.label}`}
+                    className="px-4 py-1.5 rounded-full text-xs font-bold transition-all hover:scale-105 active:scale-95 shadow-sm border border-slate-200"
+                    style={{
+                      backgroundColor: region.colorBase,
+                      color: "#1e293b",
+                    }}
+                  >
+                    {region.label}
+                  </a>
+                ))}
+              </div>
 
             {/* 地域別セクション */}
             <div className="flex flex-col gap-16">
@@ -185,7 +212,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
                             </div>
 
                             <div className="p-5">
-                              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3">
+                              <div className="grid grid-cols-2     gap-3">
                                 {stationsInPref.map((s) => {
                                   const temp = tempMap[s.id];
                                   const baseClasses =
@@ -250,7 +277,8 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
               })}
             </div>
           </div>
-        </div>
+        </PageLayout>
+        </main>
 
         <div className="fixed bottom-6 right-6 z-50">
           <button

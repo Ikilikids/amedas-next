@@ -46,7 +46,7 @@ export const RevealPanel: React.FC<RevealPanelProps> = ({
   if (!showReveal || drawnCards.length === 0) return null;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 mb-12 shadow-xl relative overflow-hidden flex flex-col items-center">
+    <div className="bg-white border border-slate-200 rounded-3xl p-6  mb-12 shadow-xl relative overflow-hidden flex flex-col items-center">
       {/* Header info */}
       <div className="w-full flex justify-between items-center mb-6 border-b border-slate-100 pb-3">
         <h3 className="text-lg font-black text-purple-600">
@@ -106,7 +106,7 @@ export const RevealPanel: React.FC<RevealPanelProps> = ({
             <span>ガチャ結果一覧</span>
           </h4>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full">
+          <div className="grid grid-cols-2    gap-6 w-full">
             {drawnCards.map((card, idx) => {
               const count = collection[card.station.id]?.count || 1;
               return (

@@ -14,7 +14,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   title,
   description,
   Icon,
-  gradient = "bg-gradient-to-r from-red-600 to-orange-700",
+  gradient = "bg-gradient-to-r from-blue-700 via-indigo-700 to-sky-600",
   lastUpdateLabel,
   lastUpdateValue,
 }) => {
@@ -24,30 +24,30 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     <div
       className={`${
         isTailwind ? gradient : ""
-      } text-white py-8 px-4 shadow-inner`}
+      } text-white py-6  px-4  shadow-sm border-b border-white/10`}
       style={!isTailwind ? { background: gradient } : {}}
     >
       <div
-        className={`max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6`}
+        className="max-w-[1280px] mx-auto flex flex-col  justify-between items-start  gap-4"
       >
-        <div>
-          <h1 className="text-4xl font-black flex items-center gap-4 mb-4 drop-shadow-md">
+        <div className="flex-1 min-w-0">
+          <h1 className="text-2xl  font-black flex items-center gap-3 tracking-tight">
             {Icon && (
-              <span className="text-5xl shrink-0 flex items-center justify-center">
+              <span className="text-3xl  shrink-0 flex items-center justify-center">
                 {Icon}
               </span>
             )}
-            <span>{title}</span>
+            <span className="truncate">{title}</span>
           </h1>
           {description && (
-            <div className="text-white/90 text-lg font-medium leading-relaxed whitespace-pre-wrap">
+            <div className="mt-2 text-white/90 text-xs  font-medium leading-relaxed max-w-3xl">
               {description}
             </div>
           )}
         </div>
         {lastUpdateValue && (
-          <div className="flex items-center gap-3 text-sm font-bold bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/20 shadow-lg shrink-0">
-            <FaSyncAlt className="animate-spin-slow text-orange-200" />
+          <div className="flex items-center gap-2.5 text-xs font-bold bg-black/15 backdrop-blur-md px-4 py-2 rounded-xl border border-white/15 shadow-sm shrink-0">
+            <FaSyncAlt className="animate-spin-slow text-white/80 text-xs" />
             <span>
               {lastUpdateLabel}: {lastUpdateValue}
             </span>

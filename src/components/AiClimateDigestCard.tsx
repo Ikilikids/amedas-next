@@ -64,7 +64,7 @@ export const AiClimateDigestCard: React.FC<AiClimateDigestCardProps> = ({
       </div>
 
       {/* 詳細分析グリッド */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1  gap-4">
         {/* 気温アナリティクス */}
         <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/5">
           <div className="flex items-center gap-2 text-rose-400 font-bold text-sm mb-2">

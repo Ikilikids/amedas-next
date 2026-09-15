@@ -126,9 +126,9 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
   return (
     <div className="mt-8 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
       <div className="p-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-        <h4 className="font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-1.5">
+        <h4 className="font-bold text-xs text-slate-800 flex items-center gap-1.5">
           <span>日別データ一覧</span>
-          <span className="text-[10px] sm:text-xs font-normal text-slate-500">
+          <span className="text-[10px] font-normal text-slate-500">
             (直近 {sortedData.length} 日間)
           </span>
         </h4>
@@ -137,7 +137,7 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-slate-200">
-              <th className="sticky left-0 z-10 bg-slate-50 border-r border-slate-200 w-24 min-w-[104px] text-center font-bold text-xs sm:text-sm shadow-[2px_0_4px_-2px_#0000001a] py-3 text-slate-800">
+              <th className="sticky left-0 z-10 bg-slate-50 border-r border-slate-200 w-24 min-w-[104px] text-center font-bold text-xs shadow-[2px_0_4px_-2px_#0000001a] py-3 text-slate-800">
                 日付
               </th>
               {sortedData.map((item, i) => {
@@ -153,17 +153,17 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
                       <span className="text-slate-600 whitespace-nowrap">{dateStr}</span>
                       <div className="flex items-center gap-0.5 min-h-[16px] justify-center mt-0.5">
                         {hiIcon && (
-                          <span style={{ color: hiColor }} className="text-xs sm:text-sm" title={hiLabel}>
+                          <span style={{ color: hiColor }} className="text-xs" title={hiLabel}>
                             {hiIcon}
                           </span>
                         )}
                         {lwIcon && (
-                          <span style={{ color: lwColor }} className="text-xs sm:text-sm" title={lwLabel}>
+                          <span style={{ color: lwColor }} className="text-xs" title={lwLabel}>
                             {lwIcon}
                           </span>
                         )}
                         {rainIcon && (
-                          <span style={{ color: rainColor }} className="text-xs sm:text-sm" title={rainLabel}>
+                          <span style={{ color: rainColor }} className="text-xs" title={rainLabel}>
                             {rainIcon}
                           </span>
                         )}
@@ -177,7 +177,7 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
           <tbody>
             {/* 最高気温行 */}
             <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-              <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] py-2.5 text-center font-bold text-xs sm:text-sm shadow-[2px_0_4px_-2px_#0000001a] text-slate-800">
+              <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] py-2.5 text-center font-bold text-xs shadow-[2px_0_4px_-2px_#0000001a] text-slate-800">
                 最高気温 (℃)
               </td>
               {sortedData.map((item, i) => {
@@ -185,7 +185,7 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
                 return (
                   <td
                     key={i}
-                    className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs sm:text-sm text-slate-900"
+                    className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs text-slate-900"
                     style={{ backgroundColor: tempColor }}
                   >
                     {item.hi !== null ? item.hi.toFixed(1) : "--"}
@@ -196,7 +196,7 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
 
             {/* 最低気温行 */}
             <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-              <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] py-2.5 text-center font-bold text-xs sm:text-sm shadow-[2px_0_4px_-2px_#0000001a] text-slate-800">
+              <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] py-2.5 text-center font-bold text-xs shadow-[2px_0_4px_-2px_#0000001a] text-slate-800">
                 最低気温 (℃)
               </td>
               {sortedData.map((item, i) => {
@@ -204,7 +204,7 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
                 return (
                   <td
                     key={i}
-                    className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs sm:text-sm text-slate-900"
+                    className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs text-slate-900"
                     style={{ backgroundColor: tempColor }}
                   >
                     {item.lw !== null ? item.lw.toFixed(1) : "--"}
@@ -215,7 +215,7 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
 
             {/* 降水量行 */}
             <tr className="hover:bg-slate-50/30 transition-colors">
-              <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] py-2.5 text-center font-bold text-xs sm:text-sm shadow-[2px_0_4px_-2px_#0000001a] text-slate-800">
+              <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] py-2.5 text-center font-bold text-xs shadow-[2px_0_4px_-2px_#0000001a] text-slate-800">
                 降水量 (mm)
               </td>
               {sortedData.map((item, i) => {
@@ -223,7 +223,7 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
                 return (
                   <td
                     key={i}
-                    className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs sm:text-sm text-slate-900"
+                    className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs  text-slate-900"
                     style={{ backgroundColor: rainBgColor }}
                   >
                     {item.rain !== null ? item.rain.toFixed(1) : "--"}

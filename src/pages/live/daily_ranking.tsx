@@ -5,6 +5,9 @@ import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import CategoryLegend from "../../components/CategoryLegend";
 import Layout from "../../components/Layout";
+import PageLayout from "../../components/PageLayout";
+import Sidebar from "../../components/Sidebar";
+import Breadcrumb from "../../components/Breadcrumb";
 import {
   RankingData,
   RankingItem,
@@ -120,205 +123,228 @@ const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
         />
         <link rel="canonical" href="https://amedas-zukan.jp/live/daily_ranking" />
       </Head>
-      <Layout
-        heroProps={{
-          title: `今日の${config.label}ランキング`,
-          description: `今日これまでに観測された${config.label}の全国ランキングです。気象庁から取得した最新の観測データに基づいています。`,
-          Icon: config.highIcon,
-          gradient: detail.gradient,
-          lastUpdateLabel: "データ更新",
-          lastUpdateValue: displayLastUpdate,
-        }}
-      >
-        <div className="pb-16 w-full">
-          <div className="max-w-[1200px] mx-auto px-4 mt-4">
-            {/* メトリック選択タブ */}
-            <div className="flex justify-center mb-6">
-              <div className="bg-white p-1 rounded-xl shadow-sm border border-slate-200 flex gap-1">
-                {(["av_hitemp", "av_lwtemp", "sm_rain"] as MetricValue[]).map(
-                  (m) => (
-                    <button
-                      key={m}
-                      onClick={() => setMetric(m)}
-                      className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
-                        metric === m
-                          ? `text-white shadow-md`
-                          : "text-slate-500 hover:bg-slate-50"
-                      }`}
-                      style={
-                        metric === m
-                          ? { backgroundColor: MetricKey[m].color }
-                          : {}
-                      }
-                    >
-                      {MetricKey[m].label}
-                    </button>
-                  )
-                )}
-              </div>
-            </div>
+      <Layout>
+        <main className="max-w-[1280px] mx-auto p-4  my-4 w-full">
+          {/* パンくずリスト */}
+          <Breadcrumb
+            items={[
+              { label: "本日の気象ランキング" },
+            ]}
+          />
 
-            {/* しぼりこみナビゲーション */}
-            <div className="bg-white p-6 rounded-xl shadow-lg mb-10 flex flex-col gap-4 border border-slate-100">
-              <div className="flex flex-wrap gap-2 justify-center">
-                {Object.values(RankKey).map((rk) => (
-                  <button
-                    key={rk.key}
-                    onClick={() => setRankMeta(rk)}
-                    className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-                      rankMeta.key === rk.key
-                        ? `text-white shadow-md scale-105`
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                    }`}
-                    style={
-                      rankMeta.key === rk.key
-                        ? { backgroundColor: config.color }
-                        : {}
-                    }
+          <PageLayout sidebar={<Sidebar />}>
+            {/* 左メインエリア */}
+            <div className="space-y-6">
+              {/* ページヘッダーカード */}
+              <div
+                className="rounded-3xl p-6  text-white shadow-lg relative overflow-hidden"
+                style={{ background: detail.gradient }}
+              >
+                <div className="relative z-10 flex flex-col    gap-4">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
+                      <span>Today's Ranking</span>
+                    </div>
+                    <h1 className="text-2xl  font-black tracking-tight mb-2 flex items-center gap-3">
+                      {config.highIcon}
+                      <span>今日の{config.label}ランキング</span>
+                    </h1>
+                    <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
+                      今日これまでに全国のアメダス観測所で観測された{config.label}の速報値ランキングです。
+                    </p>
+                  </div>
+                  <div className="text-xs font-bold bg-black/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 self-start  shrink-0">
+                    更新: {displayLastUpdate}
+                  </div>
+                </div>
+              </div>
+
+              {/* 統合コントロールパネル（メトリック選択・絞り込み） */}
+              <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 space-y-5">
+                {/* 1. メトリック選択 */}
+                <div className="flex flex-wrap gap-1.5 items-center pb-5 border-b border-slate-100">
+                  <span className="text-[11px] font-black text-slate-400 uppercase tracking-wider mr-1">
+                    指標:
+                  </span>
+                  {(["av_hitemp", "av_lwtemp", "sm_rain"] as MetricValue[]).map(
+                    (m) => (
+                      <button
+                        key={m}
+                        onClick={() => setMetric(m)}
+                        className={`px-4 py-1.5 rounded-xl text-xs  font-bold transition-all ${
+                          metric === m
+                            ? `text-white shadow-sm`
+                            : "text-slate-600 hover:bg-slate-100"
+                        }`}
+                        style={
+                          metric === m
+                            ? { backgroundColor: MetricKey[m].color }
+                            : {}
+                        }
+                      >
+                        {MetricKey[m].label}
+                      </button>
+                    )
+                  )}
+                </div>
+
+                {/* 2. しぼりこみナビゲーション */}
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-wider mr-1">
+                      範囲:
+                    </span>
+                    {Object.values(RankKey).map((rk) => (
+                      <button
+                        key={rk.key}
+                        onClick={() => setRankMeta(rk)}
+                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                          rankMeta.key === rk.key
+                            ? `text-white shadow-sm`
+                            : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        }`}
+                        style={
+                          rankMeta.key === rk.key
+                            ? { backgroundColor: config.color }
+                            : {}
+                        }
+                      >
+                        {rk.rankingLabel}
+                      </button>
+                    ))}
+                  </div>
+
+                  {rankMeta.key === "region" && (
+                    <div className="flex flex-wrap gap-1.5 pt-2">
+                      {Object.values(RegionKey).map((r) => (
+                        <button
+                          key={r.label}
+                          onClick={() => setSelectedRegion(r)}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                            selectedRegion.label === r.label
+                              ? "text-white shadow-sm"
+                              : "bg-slate-50 text-slate-600 hover:bg-slate-100"
+                          }`}
+                          style={
+                            selectedRegion.label === r.label
+                              ? { backgroundColor: r.colorStrong }
+                              : { backgroundColor: colorWithAlpha(r.colorBase, 0.15) }
+                          }
+                        >
+                          {r.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {rankMeta.key === "pre" && (
+                    <div className="pt-2">
+                      <select
+                        value={selectedPref.code}
+                        onChange={(e) => {
+                          const found = Object.values(PrefKey).find(
+                            (p) => p.code === e.target.value
+                          );
+                          if (found) setSelectedPref(found);
+                        }}
+                        className="px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold focus:outline-none focus:ring-2"
+                        style={{ outlineColor: config.color } as any}
+                      >
+                        {Object.values(PrefKey).map((p) => (
+                          <option key={p.code} value={p.code}>
+                            {p.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* ランキングリスト */}
+              <div className="grid grid-cols-2   gap-3.5">
+                {displayList.map((s) => (
+                  <Link
+                    key={s.id}
+                    href={`/station/${s.id}`}
+                    className="block transition-transform hover:-translate-y-0.5 group"
                   >
-                    {rk.rankingLabel}
-                  </button>
+                    <div
+                      className="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-300 relative overflow-hidden h-full flex flex-col transition-shadow hover:shadow-md"
+                      style={{
+                        backgroundColor: colorWithAlpha(
+                          s.pref?.region?.colorBase,
+                          0.08
+                        ),
+                        borderColor: colorWithAlpha(
+                          s.pref?.region?.colorBase,
+                          0.25
+                        ),
+                      }}
+                    >
+                      <div
+                        className="absolute top-0 right-0 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg"
+                        style={{
+                          backgroundColor: s.pref?.region?.colorStrong,
+                          color: "white",
+                        }}
+                      >
+                        {s.rank}位
+                      </div>
+                      <div className="flex items-center gap-1 mb-2 pr-6 overflow-hidden">
+                        {s.category?.value !== 4 && (
+                          <span
+                            className="transform group-hover:scale-110 transition-transform shrink-0"
+                            style={{
+                              color: s.category?.colorFull,
+                            }}
+                          >
+                            {s.category?.icon}
+                          </span>
+                        )}
+                        <span className="text-sm font-bold text-slate-800 truncate">
+                          {s.station_name}
+                        </span>
+                        <span className="text-[9px] text-slate-400 font-mono shrink-0">
+                          #{s.id}
+                        </span>
+                      </div>
+                      <div className="flex-1 flex flex-col justify-end">
+                        <div
+                          className={`text-2xl font-mono font-bold ${getMetricColor(
+                            s.value,
+                            dataBounds.min,
+                            dataBounds.max,
+                            config.unit !== "℃"
+                          )}`}
+                        >
+                          {s.value !== null
+                            ? `${s.value.toFixed(metric === "sm_rain" ? 0 : 1)}${
+                                config.unit
+                              }`
+                            : "---"}
+                        </div>
+                        {s.time !== null && (
+                          <div className="text-[10px] text-slate-500 font-medium mt-1">
+                            記録: {s.time}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
                 ))}
               </div>
 
-              {rankMeta.key === "region" && (
-                <div className="flex flex-wrap gap-2 justify-center border-t border-slate-100 pt-4">
-                  {Object.values(RegionKey).map((r) => (
-                    <button
-                      key={r.label}
-                      onClick={() => setSelectedRegion(r)}
-                      className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                        selectedRegion.label === r.label
-                          ? "text-white"
-                          : "bg-slate-50 text-slate-500 hover:bg-slate-100"
-                      }`}
-                      style={
-                        selectedRegion.label === r.label
-                          ? {
-                              backgroundColor: r.colorStrong,
-                            }
-                          : {
-                              backgroundColor: colorWithAlpha(
-                                r.colorBase,
-                                0.15
-                              ),
-                            }
-                      }
-                    >
-                      {r.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {rankMeta.key === "pre" && (
-                <div className="flex justify-center border-t border-slate-100 pt-4">
-                  <select
-                    value={selectedPref.code}
-                    onChange={(e) => {
-                      const found = Object.values(PrefKey).find(
-                        (p) => p.code === e.target.value
-                      );
-                      if (found) setSelectedPref(found);
-                    }}
-                    className="px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-sm font-bold focus:outline-none focus:ring-2"
-                    style={{ outlineColor: config.color } as any}
-                  >
-                    {Object.values(PrefKey).map((p) => (
-                      <option key={p.code} value={p.code}>
-                        {p.label}
-                      </option>
-                    ))}
-                  </select>
+              {displayList.length === 0 && (
+                <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
+                  <p className="text-slate-400 font-medium">
+                    該当するデータが見つかりませんでした。
+                  </p>
                 </div>
               )}
             </div>
-
-            <CategoryLegend />
-
-            {/* ランキングリスト */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {displayList.map((s) => (
-                <Link
-                  key={s.id}
-                  href={`/station/${s.id}`}
-                  className="block transition-transform hover:scale-105 group"
-                >
-                  <div
-                    className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 hover:border-slate-300 relative overflow-hidden h-full flex flex-col"
-                    style={{
-                      backgroundColor: colorWithAlpha(
-                        s.pref?.region?.colorBase,
-                        0.1
-                      ),
-                      borderColor: colorWithAlpha(
-                        s.pref?.region?.colorBase,
-                        0.3
-                      ),
-                    }}
-                  >
-                    <div
-                      className="absolute top-0 right-0 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg"
-                      style={{
-                        backgroundColor: s.pref?.region?.colorStrong,
-                        color: "white",
-                      }}
-                    >
-                      {s.rank}位
-                    </div>
-                    <div className="flex items-center gap-1 mb-2 pr-6 overflow-hidden">
-                      {s.category?.value !== 4 && (
-                        <span
-                          className="transform group-hover:scale-110 transition-transform shrink-0"
-                          style={{
-                            color: s.category?.colorFull,
-                          }}
-                        >
-                          {s.category?.icon}
-                        </span>
-                      )}
-                      <span className="text-sm font-bold text-slate-800 truncate">
-                        {s.station_name}
-                      </span>
-                      <span className="text-[9px] text-slate-400 font-mono shrink-0">
-                        #{s.id}
-                      </span>
-                    </div>
-                    <div className="flex-1 flex flex-col justify-end">
-                      <div
-                        className={`text-2xl font-mono font-bold ${getMetricColor(
-                          s.value,
-                          dataBounds.min,
-                          dataBounds.max,
-                          config.unit !== "℃"
-                        )}`}
-                      >
-                        {s.value !== null
-                          ? `${s.value.toFixed(metric === "sm_rain" ? 0 : 1)}${
-                              config.unit
-                            }`
-                          : "---"}
-                      </div>
-                      {s.time !== null && (
-                        <div className="text-[10px] text-slate-500 font-medium mt-1">
-                          記録: {s.time}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {displayList.length === 0 && (
-              <div className="text-center py-20 bg-white rounded-xl border border-dashed border-slate-300">
-                <p className="text-slate-400 font-medium">
-                  該当するデータが見つかりませんでした。
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
+          </PageLayout>
+        </main>
 
         <div className="fixed bottom-6 right-6 z-50">
           <button

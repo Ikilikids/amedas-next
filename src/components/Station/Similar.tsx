@@ -26,15 +26,16 @@ const StationList: React.FC<StationListProps> = ({
   items,
   icon: Icon,
 }) => (
-  <div className="mb-10">
-    <SectionWithDescription
-      icon={Icon}
-      title={title}
-      bgColor="rgb(30, 41, 59)"
-    />
+  <div className="mb-6 last:mb-0">
+    <div className="flex items-center gap-2 pb-2 mb-3 border-b border-slate-100">
+      <span className="text-slate-500 text-sm">{Icon}</span>
+      <h3 className="font-black text-xs text-slate-800 tracking-tight">
+        {title}
+      </h3>
+    </div>
 
-    <ul className="flex flex-col gap-2.5 mt-4">
-      {items.map((item, index) => (
+    <ul className="flex flex-col gap-2">
+      {items.slice(0, 5).map((item, index) => (
         <li key={item.id}>
           <StationListItem
             id={item.id}
@@ -49,6 +50,7 @@ const StationList: React.FC<StationListProps> = ({
             unit="%"
             valueLabel="類似度"
             href={`/station/${item.id}`}
+            isSimple
           />
         </li>
       ))}

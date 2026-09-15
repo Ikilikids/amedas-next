@@ -1,10 +1,13 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { FaHome } from "react-icons/fa";
+import Link from "next/link";
 import Layout from "../components/Layout";
+import PageLayout from "../components/PageLayout";
 import LinkCard from "../components/LinkCard";
+import Sidebar from "../components/Sidebar";
 import { SectionWithDescription } from "../utils/colorUtils";
 import { navSections } from "../utils/navLinks";
+import { FaBookOpen, FaCompass, FaThermometerHalf } from "react-icons/fa";
 
 interface Props {
   lastUpdated: string;
@@ -12,20 +15,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ lastUpdated }) => {
   return (
-    <Layout
-      heroProps={{
-        title: "アメダス図鑑",
-        description: (
-          <>
-            ・アメダスの平年値データをまとめているサイトです。
-            <br />
-            ・マップ、ランキングなどから雨温図、割合データなど詳細な情報を得ることができます。
-          </>
-        ),
-        Icon: <FaHome />,
-        gradient: "bg-gradient-to-br from-blue-700 via-indigo-800 to-blue-900",
-      }}
-    >
+    <Layout>
       <Head>
         <title>アメダス図鑑 - 全国約1,300地点のアメダス観測データ・ランキング</title>
         <meta
@@ -35,38 +25,65 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
         <link rel="canonical" href="https://amedas-zukan.jp/" />
       </Head>
 
-      <div className="relative overflow-hidden w-full">
-        {/* Background Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-[0.03] z-0">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(#4f46e5 1px, transparent 1px)`,
-              backgroundSize: "40px 40px",
-            }}
-          ></div>
-        </div>
+      <main className="max-w-[1280px] mx-auto p-4 my-4 w-full">
+        <PageLayout sidebar={<Sidebar />}>
+          {/* 左メインエリア */}
+          <div className="space-y-10">
+            {/* ポータルヘッダーカード */}
+            <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-sky-600 rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
+              <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 text-white/10 text-9xl font-black select-none pointer-events-none">
+                AMeDAS
+              </div>
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-4">
+                  <FaThermometerHalf className="text-sky-300" />
+                  <span>Japan AMeDAS Database</span>
+                </div>
+                <h1 className="text-2xl font-black tracking-tight mb-3">
+                  アメダス図鑑へようこそ
+                </h1>
+                <p className="text-white/90 text-sm max-w-2xl leading-relaxed">
+                  日本全国約1,300地点の気象庁アメダス観測データを網羅。各地の「雨温図」や「平年値ランキング」「類似地点の算出」など、地域の豊かな気候特性を直感的に探求できるデータポータルです。
+                </p>
+              </div>
+            </div>
 
-        <div className="flex flex-col gap-16 p-8 relative z-10">
-          {navSections.map((section) => (
-            <section key={section.id} className="relative">
-              <div className="mb-8">
-                <SectionWithDescription
-                  icon={section.Icon}
-                  title={section.title}
-                  bgColor={section.bgColor}
-                  description={[section.description]}
-                />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {section.links.map((link) => (
-                  <LinkCard key={link.title} {...link} />
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      </div>
+            {/* ナビゲーションセクション一覧 */}
+            <div className="space-y-10">
+              {navSections.map((section) => (
+                <section key={section.id} className="relative">
+                  <div className="mb-4">
+                    <h2 className="text-xl font-black text-slate-800 pb-3 border-b border-slate-200 flex items-center gap-2.5">
+                      <span
+                        className="w-1.5 h-6 rounded-full"
+                        style={{ backgroundColor: section.bgColor }}
+                      />
+                      <span className="flex items-center gap-2">
+                        <span style={{ color: section.bgColor }}>{section.Icon}</span>
+                        <span>{section.title}</span>
+                      </span>
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-2">
+                      {section.description}
+                    </p>
+                  </div>
+                  <div className="space-y-4">
+                    {section.links.map((link) => (
+                      <LinkCard
+                        key={link.title}
+                        {...link}
+                        title={link.topPageTitle || link.title}
+                        description={link.topPageDescription || link.description}
+                        category={section.title}
+                      />
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </PageLayout>
+      </main>
     </Layout>
   );
 };

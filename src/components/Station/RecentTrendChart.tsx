@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { UonzuData } from "../../types/all";
 import { MetricGroup, MetricKey, RANKING_GROUP_META } from "../../setting/metric";
-import SegmentedControl from "../UI/SegmentedControl";
+import CustomSelect from "../UI/CustomSelect";
 import UonzuChart from "../UonzuChart";
 
 interface HistoryEntry {
@@ -19,6 +19,10 @@ interface RecentTrendChartProps {
   history: HistoryEntry[];
   stats?: StatsData;
   color: string;
+  activeTab?: MetricGroup;
+  setActiveTab?: (tab: MetricGroup) => void;
+  renderSelectOnly?: boolean;
+  renderChartOnly?: boolean;
 }
 
 const StatBox = ({
@@ -51,8 +55,14 @@ const StatBox = ({
 const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
   history,
   stats,
+  activeTab: externalActiveTab,
+  setActiveTab: externalSetActiveTab,
+  renderSelectOnly = false,
+  renderChartOnly = false,
 }) => {
-  const [activeTab, setActiveTab] = useState<MetricGroup>("heat");
+  const [internalActiveTab, setInternalActiveTab] = useState<MetricGroup>("heat");
+  const activeTab = externalActiveTab ?? internalActiveTab;
+  const setActiveTab = externalSetActiveTab ?? setInternalActiveTab;
 
   // 日付順に並び替え（昇順）
   const sortedData = [...history].sort((a, b) => a.date.localeCompare(b.date));
@@ -83,39 +93,74 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
     (m) => m.detail?.group === activeTab
   );
 
-  return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col sm:flex-row items-end sm:items-center justify-between gap-4 mb-6">
-        <SegmentedControl
+  if (renderSelectOnly) {
+    return (
+      <div>
+        <CustomSelect
           value={activeTab}
           onChange={(v) => setActiveTab(v as any)}
           options={Object.entries(RANKING_GROUP_META).map(([key, meta]) => ({
-            key: key as MetricGroup,
+            value: key as MetricGroup,
             label: meta.label,
-            color: meta.color,
           }))}
         />
-        <div className="flex flex-wrap gap-2 justify-end">
-          {stats && (
-            <>
-              {displayMetrics.map((m) => {
-                let val = stats[m.key];
-                if (m.key === "sm_rain" && val !== undefined)
-                  val = Math.round(val);
-                return (
-                  <StatBox
-                    key={m.key}
-                    label={m.label}
-                    value={val}
-                    unit={m.unit}
-                    accentColor={m.color}
-                  />
-                );
-              })}
-            </>
-          )}
-        </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      {renderChartOnly ? null : (
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <CustomSelect
+            value={activeTab}
+            onChange={(v) => setActiveTab(v as any)}
+            options={Object.entries(RANKING_GROUP_META).map(([key, meta]) => ({
+              value: key as MetricGroup,
+              label: meta.label,
+            }))}
+          />
+          <div className="flex flex-wrap gap-2 justify-end">
+            {stats && (
+              <>
+                {displayMetrics.map((m) => {
+                  let val = stats[m.key];
+                  if (m.key === "sm_rain" && val !== undefined)
+                    val = Math.round(val);
+                  return (
+                    <StatBox
+                      key={m.key}
+                      label={m.label}
+                      value={val}
+                      unit={m.unit}
+                      accentColor={m.color}
+                    />
+                  );
+                })}
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {renderChartOnly && stats && (
+        <div className="flex flex-wrap gap-2 justify-start mb-2">
+          {displayMetrics.map((m) => {
+            let val = stats[m.key];
+            if (m.key === "sm_rain" && val !== undefined)
+              val = Math.round(val);
+            return (
+              <StatBox
+                key={m.key}
+                label={m.label}
+                value={val}
+                unit={m.unit}
+                accentColor={m.color}
+              />
+            );
+          })}
+        </div>
+      )}
 
       <div className="h-[350px] w-full">
         <UonzuChart

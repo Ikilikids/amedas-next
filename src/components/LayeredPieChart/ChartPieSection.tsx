@@ -13,7 +13,7 @@ const ChartPieSection: React.FC<ChartPieSectionProps> = ({
   size = 240,
 }) => {
   return (
-    <div className="flex-1 min-w-0 flex justify-center items-start sm:mt-[-16px]">
+    <div className="flex-1 min-w-0 flex justify-center items-start">
       <PieChart width={size} height={size}>
         <Pie
           data={data}

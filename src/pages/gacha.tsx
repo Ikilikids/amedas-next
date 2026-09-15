@@ -7,6 +7,9 @@ import {
   FaVolumeUp
 } from "react-icons/fa";
 import Layout from "../components/Layout";
+import PageLayout from "../components/PageLayout";
+import Sidebar from "../components/Sidebar";
+import Breadcrumb from "../components/Breadcrumb";
 
 // Gacha Modular Hooks & Components
 import { CollectionDashboard } from "../components/Gacha/CollectionDashboard";
@@ -108,45 +111,57 @@ const GachaPage: NextPage<Props> = ({ stations: initialStations, stationsOvervie
           }
         `}</style>
       </Head>
-      <Layout
-        heroProps={{
-          title: (
-            <span className="flex items-center gap-3">
-              アメダス・ガチャ
-            </span>
-          ),
-          description: "日本全国約1,300地点のアメダス観測所をガチャで回して、あなただけの観測所図鑑を完成させよう！",
-          Icon: <FaDice />,
-          gradient: "bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950",
-        }}
-      >
-        <div className="pb-16 w-full">
-          <div className="px-4 mt-8">
-            {/* Top Toolbar: Sound toggle */}
-            <div className="flex justify-end mb-4">
-              <button
-                onClick={() => setMuted(!muted)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:bg-slate-50 text-xs font-bold text-slate-700 transition-all shadow-md cursor-pointer"
-              >
-                {muted ? (
-                  <>
-                    <FaVolumeMute className="text-red-400" />
-                    <span>ミュート中</span>
-                  </>
-                ) : (
-                  <>
-                    <FaVolumeUp className="text-green-400" />
-                    <span>効果音あり</span>
-                  </>
-                )}
-              </button>
-            </div>
+      <Layout>
+        <main className="max-w-[1280px] mx-auto p-4  my-4 w-full">
+          {/* パンくずリスト */}
+          <Breadcrumb
+            items={[
+              { label: "アメダス・ガチャ" },
+            ]}
+          />
 
-            {/* Top Row: Left Gacha machine, Right stats */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
-              
-              {/* Left Column: Gacha Machine */}
-              <div className="lg:col-span-7 flex flex-col items-center justify-center">
+          <PageLayout sidebar={<Sidebar />}>
+            {/* 左メインエリア */}
+            <div className="space-y-6">
+              {/* ページヘッダーカード */}
+              <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 rounded-3xl p-6  text-white shadow-lg relative overflow-hidden">
+                <div className="relative z-10 flex flex-col    gap-4">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
+                      <FaDice />
+                      <span>AMeDAS Gacha & Cards</span>
+                    </div>
+                    <h1 className="text-2xl  font-black tracking-tight mb-2">
+                      アメダス・ガチャ
+                    </h1>
+                    <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
+                      日本全国約1,300地点のアメダス観測所をガチャで回して、あなただけの観測所図鑑を完成させよう！
+                    </p>
+                  </div>
+                  {/* Sound toggle */}
+                  <div className="shrink-0 self-start ">
+                    <button
+                      onClick={() => setMuted(!muted)}
+                      className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-bold text-white transition-all shadow-sm cursor-pointer"
+                    >
+                      {muted ? (
+                        <>
+                          <FaVolumeMute className="text-red-400" />
+                          <span>ミュート中</span>
+                        </>
+                      ) : (
+                        <>
+                          <FaVolumeUp className="text-green-400" />
+                          <span>効果音あり</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Top Row: Left Gacha machine, Right stats */}
+              <div className="grid grid-cols-1  gap-6">
                 <GachaMachine
                   isSpinning={isSpinning}
                   loading={loading}
@@ -154,22 +169,20 @@ const GachaPage: NextPage<Props> = ({ stations: initialStations, stationsOvervie
                   hasDrawnThisPeriod={hasDrawnThisPeriod}
                   nextGachaMessage={nextGachaMessage}
                 />
+
+                {/* Right Column: Progress stats panel & Drop rates */}
+                <div className="flex flex-col justify-between gap-4">
+                  <ProgressPanel
+                    collection={collection}
+                    stations={stations}
+                    loading={loading}
+                    stationsOverview={stationsOverview}
+                  />
+
+                  {/* Drop Rates & Criteria */}
+                  <DropRatesPanel stations={stations} stationsOverview={stationsOverview} />
+                </div>
               </div>
-
-              {/* Right Column: Progress stats panel & Drop rates */}
-              <div className="lg:col-span-5 flex flex-col justify-between gap-4">
-                <ProgressPanel
-                  collection={collection}
-                  stations={stations}
-                  loading={loading}
-                  stationsOverview={stationsOverview}
-                />
-
-                {/* Drop Rates & Criteria */}
-                <DropRatesPanel stations={stations} stationsOverview={stationsOverview} />
-              </div>
-
-            </div>
 
             {/* Reveal Area: Only visible when cards are drawn */}
             <RevealPanel
@@ -194,12 +207,12 @@ const GachaPage: NextPage<Props> = ({ stations: initialStations, stationsOvervie
                 stationsOverview={stationsOverview}
               />
             </div>
-
           </div>
-        </div>
-      </Layout>
-    </>
-  );
+        </PageLayout>
+      </main>
+    </Layout>
+  </>
+);
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {

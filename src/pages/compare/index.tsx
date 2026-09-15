@@ -8,10 +8,12 @@ import { PiRankingDuotone } from "react-icons/pi";
 import CompareMonthlyTable from "../../components/Compare/CompareMonthlyTable";
 import CompareUonzuChart from "../../components/Compare/CompareUonzuChart";
 import Layout from "../../components/Layout";
+import PageLayout from "../../components/PageLayout";
+import Sidebar from "../../components/Sidebar";
 import InfoPanel from "../../components/InfoPanel";
+import Breadcrumb from "../../components/Breadcrumb";
 import { useStationDetail } from "../../components/Ranking/useRankingData";
 import CustomSelect from "../../components/UI/CustomSelect";
-import SegmentedControl from "../../components/UI/SegmentedControl";
 import { RawStationData } from "../../types/raw";
 import { StationId } from "../../types/union";
 import { CategoryKey } from "../../setting/category";
@@ -54,7 +56,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     return targets
       .filter((meta) => u1.has(meta) || u2.has(meta))
       .map((meta) => ({
-        key: meta.key,
+        value: meta.key,
         label: meta.label,
         color: meta.color,
         meta: meta,
@@ -65,7 +67,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
 
   // Sync selectedBar when options change
   if (uonzuOptions.length > 0) {
-    if (!uonzuOptions.some((opt) => opt.key === selectedBar.key)) {
+    if (!uonzuOptions.some((opt) => opt.value === selectedBar.key)) {
       setSelectedBar(uonzuOptions[0].meta);
     }
   }
@@ -181,87 +183,105 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
         <link rel="canonical" href="https://amedas-zukan.jp/compare" />
       </Head>
 
-      <Layout
-        heroProps={{
-          title: "地点を比較する",
-          description: "2つのアメダス地点を並べて、気温や降水量の違いを詳しく比較できます。",
-          Icon: <FaBalanceScaleLeft />,
-          gradient: "bg-gradient-to-r from-blue-600 to-indigo-600",
-        }}
-      >
-        <div className="pb-16 w-full">
-          <div className="max-w-[1200px] mx-auto px-4 mt-8">
-            {/* Selector Area */}
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-6 mb-10 bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-              <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto flex-1">
-                <div className="flex-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                    地点 1: 都道府県
-                  </label>
-                  <CustomSelect
-                    value={pref1}
-                    onChange={(v) => setPref1(v as string)}
-                    options={prefOptions}
-                    activeColor={getRegionColor(pref1)}
-                  />
-                </div>
-                <div className="flex-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                    地点 1: 観測所
-                  </label>
-                  <CustomSelect
-                    value={id1}
-                    onChange={(v) => setId1(v as StationId)}
-                    options={stationOptions1}
-                    leftIcon={getCategoryIcon(id1)}
-                    activeColor={getRegionColor(pref1)}
-                  />
+      <Layout>
+        <main className="max-w-[1280px] mx-auto p-4  my-4 w-full">
+          {/* パンくずリスト */}
+          <Breadcrumb
+            items={[
+              { label: "地点を比較する" },
+            ]}
+          />
+
+          <PageLayout sidebar={<Sidebar />}>
+            {/* メインエリア */}
+            <div className="space-y-8">
+              {/* ページヘッダーカード */}
+              <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700 rounded-3xl p-6  text-white shadow-lg relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
+                    <FaBalanceScaleLeft />
+                    <span>Station Comparison</span>
+                  </div>
+                  <h1 className="text-2xl  font-black tracking-tight mb-2">
+                    地点を比較する
+                  </h1>
+                  <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
+                    2つのアメダス観測所を選択し、気温や降水量の違い・雨温図パターンを並べて詳しく比較できます。
+                  </p>
                 </div>
               </div>
 
-              <button
-                onClick={swapStations}
-                className="p-4 rounded-full bg-slate-100 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-all active:scale-95 shadow-inner shrink-0"
-                title="入れ替え"
-              >
-                <FaExchangeAlt className="rotate-90 lg:rotate-0" />
-              </button>
-
-              <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto flex-1">
-                <div className="flex-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                    地点 2: 都道府県
-                  </label>
-                  <CustomSelect
-                    value={pref2}
-                    onChange={(v) => setPref2(v as string)}
-                    options={prefOptions}
-                    activeColor={getRegionColor(pref2)}
-                  />
+              {/* Selector Area */}
+              <div className="flex flex-col xl:flex-row items-center justify-center gap-6 bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
+                <div className="flex flex-col gap-4 w-full flex-1">
+                  <div className="flex-1">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                      地点 1: 都道府県
+                    </label>
+                    <CustomSelect
+                      value={pref1}
+                      onChange={(v) => setPref1(v as string)}
+                      options={prefOptions}
+                      activeColor={getRegionColor(pref1)}
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                      地点 1: 観測所
+                    </label>
+                    <CustomSelect
+                      value={id1}
+                      onChange={(v) => setId1(v as StationId)}
+                      options={stationOptions1}
+                      leftIcon={getCategoryIcon(id1)}
+                      activeColor={getRegionColor(pref1)}
+                    />
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                    地点 2: 観測所
-                  </label>
-                  <CustomSelect
-                    value={id2}
-                    onChange={(v) => setId2(v as StationId)}
-                    options={stationOptions2}
-                    leftIcon={getCategoryIcon(id2)}
-                    activeColor={getRegionColor(pref2)}
-                  />
+
+                <button
+                  onClick={swapStations}
+                  className="p-4 rounded-full bg-slate-100 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-all active:scale-95 shadow-inner shrink-0"
+                  title="入れ替え"
+                >
+                  <FaExchangeAlt className="rotate-90 xl:rotate-0" />
+                </button>
+
+                <div className="flex flex-col gap-4 w-full flex-1">
+                  <div className="flex-1">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                      地点 2: 都道府県
+                    </label>
+                    <CustomSelect
+                      value={pref2}
+                      onChange={(v) => setPref2(v as string)}
+                      options={prefOptions}
+                      activeColor={getRegionColor(pref2)}
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                      地点 2: 観測所
+                    </label>
+                    <CustomSelect
+                      value={id2}
+                      onChange={(v) => setId2(v as StationId)}
+                      options={stationOptions2}
+                      leftIcon={getCategoryIcon(id2)}
+                      activeColor={getRegionColor(pref2)}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Comparison Grid */}
-            <div className="flex flex-col gap-4 mb-12">
-              <SectionWithDescription
-                icon={<IoBook />}
-                title="地点概要"
-                bgColor="#10b981"
-              />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+              {/* Comparison Grid */}
+              <div className="flex flex-col gap-4 mb-12">
+                <SectionWithDescription
+                  icon={<IoBook />}
+                  title="地点概要"
+                  bgColor="#10b981"
+                />
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
                 <InfoPanel
                   stationData={s1}
                   overViewData={o1}
@@ -284,11 +304,11 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                 title="雨温図比較"
                 bgColor="#3b82f6"
               >
-                <SegmentedControl
+                <CustomSelect
                   value={selectedBar.key}
                   onChange={(v) => setSelectedBar(MetricKey[v])}
                   options={uonzuOptions}
-                  className="ml-2"
+                  className="ml-2 w-44"
                 />
               </SectionWithDescription>
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 overflow-hidden">
@@ -332,7 +352,8 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
               )}
             </div>
           </div>
-        </div>
+        </PageLayout>
+        </main>
       </Layout>
     </>
   );

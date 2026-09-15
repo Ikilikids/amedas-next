@@ -5,7 +5,6 @@ import { PrefKey, PrefMeta } from "../../setting/pref";
 import { RankKey, RankMeta } from "../../setting/rank";
 import { RegionKey, RegionMeta } from "../../setting/region";
 import CustomSelect from "../UI/CustomSelect";
-import SegmentedControl from "../UI/SegmentedControl";
 import { isCombinationValid } from "./utils";
 
 interface RankingTabsProps {
@@ -46,57 +45,91 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
   const tab = selectedMetricKey?.tab ?? "";
   const label = selectedMetricKey?.label ?? "その他 ▸";
 
+  const metricSelectOptions = [
+    ...mainMetrics.map((m) => ({
+      value: m.key,
+      label: m.label,
+      disabled: !isCombinationValid(rankType, m),
+    })),
+    ...(selectedMetricKey
+      ? [
+          {
+            value: selectedMetricKey.key,
+            label: ["気温日数", "平均"].includes(tab)
+              ? label
+              : `${tab.replace("日数", "")}${label}`,
+          },
+        ]
+      : []),
+    { value: "__popup__", label: "その他..." },
+  ];
+
+  const currentMetricValue = selectedMetricKey ? selectedMetricKey.key : sortKey.key;
+
   return (
     <div className="flex flex-col gap-3">
       {/* ================= MAIN METRICS ================= */}
       <div className="flex gap-2 flex-wrap items-center">
-        <SegmentedControl
-          value={selectedMetricKey ? "" : sortKey.key}
-          onChange={(val) => {
-            const found = mainMetrics.find((m) => m.key === val);
-            if (found) {
-              setSortKey(found);
-              setSelectedMetricKey(null);
-            }
-          }}
-          options={mainMetrics.map((m) => {
-            return {
-              key: m.key,
-              label: m.label,
-              disabled: !isCombinationValid(rankType, m),
-              color: m.color,
-            };
-          })}
-          className="flex-wrap"
+        {mainMetrics.map((m) => {
+          const isSelected = !selectedMetricKey && sortKey.key === m.key;
+          const disabled = !isCombinationValid(rankType, m);
+          return (
+            <button
+              key={m.key}
+              disabled={disabled}
+              onClick={() => {
+                setSortKey(m);
+                setSelectedMetricKey(null);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-tighter transition-all duration-200 ${
+                disabled
+                  ? "opacity-30 cursor-not-allowed"
+                  : isSelected
+                  ? "bg-white shadow-sm border border-slate-400"
+                  : "text-slate-500 hover:text-slate-800 border border-transparent"
+              }`}
+              style={
+                isSelected
+                  ? {
+                      color: m.color,
+                      borderColor: m.color,
+                      boxShadow: `0 1px 3px 0 ${m.color.slice(0, 7) + "33"}`,
+                    }
+                  : {}
+              }
+            >
+              {m.label}
+            </button>
+          );
+        })}
+
+        <button
+          className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-tighter transition-all duration-200 ${
+            selectedMetricKey
+              ? "bg-white shadow-sm border"
+              : "text-slate-500 hover:text-slate-800 border border-transparent"
+          }`}
+          style={
+            selectedMetricKey
+              ? {
+                  color: selectedMetricKey.color,
+                  borderColor: selectedMetricKey.color,
+                  boxShadow: `0 1px 3px 0 ${selectedMetricKey.color.slice(0, 7) + "33"}`,
+                }
+              : {}
+          }
+          onClick={() => setShowPopup(true)}
         >
-          <button
-            className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-tighter transition-all duration-200 ${
-              selectedMetricKey
-                ? "bg-white shadow-sm border"
-                : "text-slate-500 hover:text-slate-800 border border-transparent"
-            }`}
-            style={
-              selectedMetricKey
-                ? {
-                    color: selectedMetricKey.color,
-                    borderColor: selectedMetricKey.color,
-                    boxShadow: `0 1px 3px 0 ${selectedMetricKey.color.slice(0, 7) + "33"}`,
-                  }
-                : {}
-            }
-            onClick={() => setShowPopup(true)}
-          >
-            {["気温日数", "平均"].includes(tab)
-              ? label
-              : `${tab.replace("日数", "")}${label}`}
-          </button>
-        </SegmentedControl>
+          {["気温日数", "平均"].includes(tab)
+            ? label
+            : `${tab.replace("日数", "")}${label}`}
+        </button>
       </div>
 
       {/* ================= RANK TYPE & MONTH & FILTERS ================= */}
       <div className="flex flex-wrap items-center gap-2">
         {/* RANK TYPE */}
-        <SegmentedControl
+        <CustomSelect
           value={rankType.key}
           onChange={(val) => {
             const found = Object.values(RankKey).find((rk) => rk.key === val);
@@ -108,7 +141,7 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
             }
           }}
           options={Object.values(RankKey).map((rk) => ({
-            key: rk.key,
+            value: rk.key,
             label: rk.ratioLabel,
             disabled: !isCombinationValid(rk, sortKey),
           }))}

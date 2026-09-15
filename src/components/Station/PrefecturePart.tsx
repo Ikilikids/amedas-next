@@ -31,14 +31,15 @@ const StationGrid: React.FC<StationGridProps> = ({
   showIcon = true,
   hoverColorMode = "category",
 }) => (
-  <div className="mb-10 last:mb-0">
-    <SectionWithDescription
-      icon={icon}
-      title={title}
-      bgColor="rgb(30, 41, 59)"
-    />
+  <div className="mb-6 last:mb-0">
+    <div className="flex items-center gap-2 pb-2 mb-3 border-b border-slate-100">
+      <span className="text-slate-500 text-sm">{icon}</span>
+      <h3 className="font-black text-xs text-slate-800 tracking-tight">
+        {title}
+      </h3>
+    </div>
 
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
+    <div className="grid grid-cols-2 gap-2 mt-2">
       {list.map((s) => {
         const hColor =
           hoverColorMode === "category"
@@ -57,7 +58,7 @@ const StationGrid: React.FC<StationGridProps> = ({
           <Link
             key={s.id}
             href={`/station/${s.id}`}
-            className="group relative bg-white border border-slate-100 rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col items-center justify-center gap-2 text-center"
+            className="group relative bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 shadow-none hover:bg-white hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex items-center gap-2"
             style={
               {
                 "--h-color": hColor,
@@ -66,18 +67,16 @@ const StationGrid: React.FC<StationGridProps> = ({
               } as React.CSSProperties
             }
           >
-            <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-[var(--h-border)] transition-colors pointer-events-none" />
-
             {showIcon && (
-              <div
-                className="p-2 rounded-xl bg-slate-50 group-hover:bg-[var(--h-bg)] transition-colors flex items-center justify-center"
+              <span
+                className="text-base shrink-0"
                 style={{ color: s.category.colorFull }}
               >
-                <span className="text-xl">{s.category.icon}</span>
-              </div>
+                {s.category.icon}
+              </span>
             )}
 
-            <span className="text-xs font-black text-slate-800 group-hover:text-[var(--h-color)] transition-colors truncate w-full">
+            <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600 transition-colors truncate">
               {s.station_name}
             </span>
           </Link>

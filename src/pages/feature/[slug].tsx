@@ -1,15 +1,20 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { IoIosTrophy } from "react-icons/io";
 
 import Layout from "../../components/Layout";
+import PageLayout from "../../components/PageLayout";
+import Sidebar from "../../components/Sidebar";
+import Breadcrumb from "../../components/Breadcrumb";
 import Ranking from "../../components/Ranking";
 import { RankingItem } from "../../components/Ranking/types";
 import StationFeatureCard from "../../components/Feature/StationFeatureCard";
 
 import { BsBookmarkStarFill } from "react-icons/bs";
+import { FaBookOpen } from "react-icons/fa";
 import { FEATURE_CONFIGS, FeatureName, StationId, DescriptionData } from "../../types/union";
 import { MonthMap, SectionWithDescription } from "../../utils/colorUtils";
 import { toAllData, toStation } from "../../utils/masterUtils";
@@ -130,87 +135,101 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
         <link rel="canonical" href={`https://amedas-zukan.jp/feature/${featureName}`} />
       </Head>
 
-      <Layout
-        heroProps={{
-          title: config.title,
-          description: config.description,
-          Icon: Icon,
-          gradient: `bg-gradient-to-br ${config.gradient}`,
-        }}
-      >
-        <div className="pb-16 w-full">
-          <div className="px-4 mt-4">
-            <div className="flex flex-col lg:flex-row gap-8">
-              <div className="flex-1 min-w-0">
-                <SectionWithDescription
-                  icon={<BsBookmarkStarFill />}
-                  title="地点の一覧"
-                  bgColor={"#FF637E"}
-                ></SectionWithDescription>
-                <div className="flex flex-col gap-4 mt-2">
-                  {targetStations.map((station) => {
-                    const rawData = data[station.id];
-                    if (!rawData) return null;
-                    const allData = toAllData(rawData);
+      <Layout>
+        <main className="flex-1 max-w-[1280px] mx-auto p-4  my-4 w-full">
+          {/* パンくずリスト */}
+          <Breadcrumb
+            items={[
+              { label: "気候特集" },
+              { label: config.title },
+            ]}
+          />
 
-                    return (
-                      <StationFeatureCard
-                        key={station.id}
-                        allData={allData}
-                        ratioInfo={config.ratioTabs}
-                        uonzuInfo={config.uonzuTabs}
-                      />
-                    );
-                  })}
-                </div>
+          <PageLayout
+            sidebar={
+              <Sidebar
+                tocItems={targetStations.map((s, idx) => ({
+                  id: `station-${s.id}`,
+                  label: `${idx + 1}. ${s.station_name}（${s.pref.label}）`,
+                }))}
+              />
+            }
+          >
+            {/* 左カラム: 記事本文コンテナ */}
+            <article className="bg-white border border-slate-200/80 rounded-3xl p-6  shadow-sm">
+              {/* カテゴリバッジ */}
+              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 font-bold mb-4">
+                <span className="px-3 py-1 bg-pink-50 text-pink-600 rounded-full font-black flex items-center gap-1">
+                  {Icon}
+                  <span>気候特集</span>
+                </span>
+                <span className="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                  対象地点: {targetStations.length}地点
+                </span>
               </div>
 
-              <div className="w-full lg:w-[360px] shrink-0">
-                <div className="sticky top-4 h-[calc(100vh-32px)] bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm flex flex-col">
-                  <div className="shrink-0">
-                    <SectionWithDescription
-                      icon={<IoIosTrophy />}
-                      title={`${currentSideRanking.metric.label}のランキング`}
-                      bgColor={currentSideRanking.metric.color}
-                      description={[
-                        "この特集グループ内の地点だけで比較したローカルランキングです。",
-                      ]}
-                    />
-                  </div>
+              {/* タイトル */}
+              <h1 className="text-2xl   font-black text-slate-800 tracking-tight leading-tight mb-6">
+                {config.title}
+              </h1>
 
-                  {/* セレクトボックスによる切り替え */}
-                  {config.sideRankings.length > 1 && (
-                    <div className="mt-4 shrink-0">
-                      <select
-                        className="w-full p-2.5 text-sm border border-slate-200 rounded-xl bg-white outline-none focus:ring-2 focus:ring-blue-500 font-bold text-slate-700"
-                        value={selectedRankingIndex}
-                        onChange={(e) =>
-                          setSelectedRankingIndex(Number(e.target.value))
-                        }
-                      >
-                        {config.sideRankings.map((ranking, index) => (
-                          <option key={index} value={index}>
-                            {ranking.metric.label} ({MonthMap[ranking.month] || "通年"})
-                          </option>
-                        ))}
-                      </select>
+              {/* 概要ポイント枠 */}
+              <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl text-slate-600 text-sm  leading-relaxed mb-8">
+                <p className="font-bold text-slate-700 mb-1">【特集の概要】</p>
+                <p>{config.description}</p>
+              </div>
+
+              {/* モバイル用目次 (lg以上は右サイドバーに表示、開閉式・デフォルト閉) */}
+              <div className="lg:hidden bg-blue-50/40 border border-blue-100 rounded-2xl p-5 mb-10">
+                <details className="group">
+                  <summary className="flex items-center justify-between font-black text-blue-900 text-sm  cursor-pointer list-none">
+                    <div className="flex items-center gap-2">
+                      <FaBookOpen className="text-blue-600" />
+                      <span>目次</span>
+                      <span className="text-xs text-blue-600/70 font-normal">
+                        （全{targetStations.length}地点）
+                      </span>
                     </div>
-                  )}
-
-                  <div className="mt-4 flex-1 min-h-0 overflow-hidden">
-                    <Ranking
-                      isSimple={true}
-                      initialSortKey={currentSideRanking.metric}
-                      initialRankType={currentSideRanking.rank}
-                      initialMonth={currentSideRanking.month}
-                      onStationClick={handleStationClick}
-                    />
-                  </div>
-                </div>
+                    <span className="text-blue-600/70 group-open:rotate-180 transition-transform duration-200">
+                      ▼
+                    </span>
+                  </summary>
+                  <ul className="mt-4 pt-3 border-t border-blue-100 space-y-2 text-xs  font-bold text-slate-700 max-h-60 overflow-y-auto pr-2">
+                    {targetStations.map((station, idx) => (
+                      <li key={station.id}>
+                        <a
+                          href={`#station-${station.id}`}
+                          className="hover:text-blue-600 transition-colors block py-0.5"
+                        >
+                          {idx + 1}. {station.station_name}（{station.pref.label}）
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               </div>
-            </div>
-          </div>
-        </div>
+
+              {/* 地点一覧セクション */}
+              <div className="space-y-4">
+                {targetStations.map((station, idx) => {
+                  const rawData = data[station.id];
+                  if (!rawData) return null;
+                  const allData = toAllData(rawData);
+
+                  return (
+                    <StationFeatureCard
+                      key={station.id}
+                      allData={allData}
+                      ratioInfo={config.ratioTabs}
+                      uonzuInfo={config.uonzuTabs}
+                      index={idx + 1}
+                    />
+                  );
+                })}
+              </div>
+            </article>
+          </PageLayout>
+        </main>
       </Layout>
     </>
   );

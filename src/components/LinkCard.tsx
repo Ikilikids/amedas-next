@@ -11,6 +11,8 @@ interface LinkCardProps {
   title: string;
   description: string;
   iconClass?: string;
+  category?: string;
+  actionText?: string;
 }
 
 // ==============================
@@ -22,30 +24,44 @@ const LinkCard: React.FC<LinkCardProps> = ({
   title,
   description,
   iconClass,
+  category,
+  actionText = "詳細を見る",
 }) => {
   return (
     <Link
       href={href}
-      className="group relative flex flex-col p-6 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md hover:border-blue-100 transition-all duration-300 overflow-hidden"
+      className="group block bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300"
     >
-      <div className="flex items-start justify-between mb-4">
+      <div className="flex flex-col gap-5 items-start">
         <div
-          className={`text-3xl p-3 rounded-lg bg-gray-50 group-hover:bg-white group-hover:scale-110 transition-transform duration-300 ${
+          className={`text-4xl p-4 bg-slate-50 border border-slate-100 rounded-2xl shrink-0 group-hover:scale-105 transition-transform duration-300 ${
             iconClass || "text-blue-600"
           }`}
         >
           {Icon}
         </div>
-      </div>
-      <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-blue-700 transition-colors">
-        {title}
-      </h3>
-      <p className="text-sm text-gray-600 leading-relaxed mb-4">
-        {description}
-      </p>
-      <div className="mt-auto flex items-center text-xs font-semibold text-blue-600 opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300">
-        <span>詳細を見る</span>
-        <FaChevronRight className="ml-1" />
+        <div className="flex-1 min-w-0">
+          {category && (
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full font-black text-xs">
+                {category}
+              </span>
+            </div>
+          )}
+
+          <h3 className="text-lg font-black text-slate-800 group-hover:text-blue-600 transition-colors leading-snug mb-2">
+            {title}
+          </h3>
+
+          <p className="text-slate-600 text-sm leading-relaxed mb-4">
+            {description}
+          </p>
+
+          <div className="inline-flex items-center gap-1.5 text-xs font-black text-blue-600 group-hover:gap-2 transition-all">
+            <span>{actionText}</span>
+            <FaChevronRight className="text-[10px]" />
+          </div>
+        </div>
       </div>
     </Link>
   );

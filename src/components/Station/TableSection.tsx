@@ -43,16 +43,12 @@ export const TableSection: React.FC<TableSectionProps> = ({
 
   return (
     <>
-      <SectionWithDescription
-        icon={<CiViewTable />}
-        title="月別気候表"
-        bgColor={regionColor}
-        description={[
-          "月ごとの気候データを表形式で表示しています。",
-          "下段は順位を示しています。タブで切り替えることができます。",
-        ]}
-      >
-        <div className="flex items-center gap-2 ml-2">
+      <div className="pb-3 border-b border-slate-200 mb-4 space-y-3">
+        <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
+          <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: regionColor }}></span>
+          3. 月別気候データ一覧表
+        </h2>
+        <div>
           <CustomSelect
             value={tableRankValue}
             onChange={(v) => setTableRankValue(v)}
@@ -62,7 +58,10 @@ export const TableSection: React.FC<TableSectionProps> = ({
             }))}
           />
         </div>
-      </SectionWithDescription>
+      </div>
+      <p className="text-xs text-slate-500 mb-4">
+        各月の平年値数値と、全国・地方・都道府県内における順位です。
+      </p>
       <HyouTable tableData={tableData} rankValue={tableRankValue} />
     </>
   );

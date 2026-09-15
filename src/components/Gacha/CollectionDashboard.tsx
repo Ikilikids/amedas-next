@@ -116,10 +116,10 @@ export const CollectionDashboard: React.FC<DashboardProps> = ({
   }, [collectedStationsList, searchQuery, filterRarity, filterCategory, sortBy, sortOrder]);
 
   return (
-    <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-md w-full text-slate-700">
+    <div className="bg-white border border-slate-200 rounded-3xl p-6  shadow-md w-full text-slate-700">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+      <div className="flex flex-col  justify-between items-start  gap-4 mb-6 border-b border-slate-100 pb-4">
         <div>
           <h3 className="text-xl font-black text-slate-800 flex items-center gap-2">
             <FaAward className="text-purple-600" />
@@ -141,7 +141,7 @@ export const CollectionDashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col lg:flex-row gap-4 items-stretch mb-6">
+      <div className="flex flex-col gap-4 items-stretch mb-6">
         
         {/* Search */}
         <div className="flex-1 min-w-0 bg-slate-50 rounded-xl px-4 py-2 border border-slate-200 focus-within:border-purple-400 transition-all flex items-center gap-2">
@@ -156,7 +156,7 @@ export const CollectionDashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Selector filters */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2  gap-3">
           
           {/* Rarity */}
           <div className="relative">
@@ -238,7 +238,7 @@ export const CollectionDashboard: React.FC<DashboardProps> = ({
           条件にマッチするカードが見つかりません。
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2    gap-6">
           {processedCollection.map((item) => (
             <button
               key={item.id}
