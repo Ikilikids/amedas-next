@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { OverviewData, RatioData, StationData, TableData, UonzuData } from "../../types/all";
+import { BadgeData, OverviewData, RatioData, StationData, TableData, UonzuData } from "../../types/all";
 import { RawStationData } from "../../types/raw";
 import { MonthlyEntry, StationId } from "../../types/union";
-import { toMetricMap, toStation } from "../../utils/masterUtils";
+import { toBadge, toMetricMap, toStation } from "../../utils/masterUtils";
+import { BadgeLogic } from "../../utils/badgeLogic";
 import { MetricMeta, MetricValue } from "../../setting/metric";
 import { PrefMeta } from "../../setting/pref";
 import { RankMeta } from "../../setting/rank";
@@ -125,6 +126,7 @@ export const useStationDetail = (stationId: StationId | null) => {
   const [uonzuData, setUonzuData] = useState<UonzuData | null>(null);
   const [overviewData, setOverviewData] = useState<OverviewData | null>(null);
   const [tableData, setTableData] = useState<TableData | null>(null);
+  const [badges, setBadges] = useState<BadgeData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -133,6 +135,7 @@ export const useStationDetail = (stationId: StationId | null) => {
       setUonzuData(null);
       setOverviewData(null);
       setTableData(null);
+      setBadges([]);
       return;
     }
 
@@ -185,9 +188,13 @@ export const useStationDetail = (stationId: StationId | null) => {
           tableData: toMetricMap(table, (v) => v),
         };
 
+        const rawBadges = BadgeLogic.getBadges(overview as any, ratio as any);
+        const resolvedBadges = rawBadges.map(toBadge);
+
         setUonzuData(result.uonzuData);
         setOverviewData(result.overviewData);
         setTableData(result.tableData);
+        setBadges(resolvedBadges);
       } catch (e) {
         console.error("fetch error:", e);
       } finally {
@@ -203,6 +210,7 @@ export const useStationDetail = (stationId: StationId | null) => {
     uonzuData,
     overviewData,
     tableData,
+    badges,
     loading,
   };
 };

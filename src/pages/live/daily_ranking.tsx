@@ -6,6 +6,7 @@ import { FaChevronDown } from "react-icons/fa";
 import CategoryLegend from "../../components/CategoryLegend";
 import Layout from "../../components/Layout";
 import PageLayout from "../../components/PageLayout";
+import HeroSection from "../../components/HeroSection";
 import Sidebar from "../../components/Sidebar";
 import Breadcrumb from "../../components/Breadcrumb";
 import {
@@ -13,6 +14,8 @@ import {
   RankingItem,
   RawRankingData,
 } from "../../components/Ranking/types";
+import RankingGrid from "../../components/Ranking/RankingGrid";
+import RankingScopeFilter from "../../components/Ranking/RankingScopeFilter";
 import { toStation } from "../../utils/masterUtils";
 import { PrefKey, PrefMeta } from "../../setting/pref";
 import { RankKey, RankMeta } from "../../setting/rank";
@@ -136,28 +139,16 @@ const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
             {/* 左メインエリア */}
             <div className="space-y-6">
               {/* ページヘッダーカード */}
-              <div
-                className="rounded-3xl p-6  text-white shadow-lg relative overflow-hidden"
-                style={{ background: detail.gradient }}
-              >
-                <div className="relative z-10 flex flex-col    gap-4">
-                  <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                      <span>Today's Ranking</span>
-                    </div>
-                    <h1 className="text-2xl  font-black tracking-tight mb-2 flex items-center gap-3">
-                      {config.highIcon}
-                      <span>今日の{config.label}ランキング</span>
-                    </h1>
-                    <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
-                      今日これまでに全国のアメダス観測所で観測された{config.label}の速報値ランキングです。
-                    </p>
-                  </div>
-                  <div className="text-xs font-bold bg-black/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 self-start  shrink-0">
-                    更新: {displayLastUpdate}
-                  </div>
-                </div>
-              </div>
+              <HeroSection
+                badgeText="Today's Ranking"
+                Icon={config.highIcon}
+                title={`今日の${config.label}ランキング`}
+                description={`今日これまでに全国のアメダス観測所で観測された${config.label}の速報値ランキングです。`}
+                watermark="TODAY"
+                gradient={detail.gradient}
+                lastUpdateLabel="更新"
+                lastUpdateValue={displayLastUpdate}
+              />
 
               {/* 統合コントロールパネル（メトリック選択・絞り込み） */}
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 space-y-5">
@@ -189,160 +180,26 @@ const DailyRankingPage: NextPage<Props> = ({ masterData }) => {
                 </div>
 
                 {/* 2. しぼりこみナビゲーション */}
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-wider mr-1">
-                      範囲:
-                    </span>
-                    {Object.values(RankKey).map((rk) => (
-                      <button
-                        key={rk.key}
-                        onClick={() => setRankMeta(rk)}
-                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
-                          rankMeta.key === rk.key
-                            ? `text-white shadow-sm`
-                            : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                        }`}
-                        style={
-                          rankMeta.key === rk.key
-                            ? { backgroundColor: config.color }
-                            : {}
-                        }
-                      >
-                        {rk.rankingLabel}
-                      </button>
-                    ))}
-                  </div>
-
-                  {rankMeta.key === "region" && (
-                    <div className="flex flex-wrap gap-1.5 pt-2">
-                      {Object.values(RegionKey).map((r) => (
-                        <button
-                          key={r.label}
-                          onClick={() => setSelectedRegion(r)}
-                          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-                            selectedRegion.label === r.label
-                              ? "text-white shadow-sm"
-                              : "bg-slate-50 text-slate-600 hover:bg-slate-100"
-                          }`}
-                          style={
-                            selectedRegion.label === r.label
-                              ? { backgroundColor: r.colorStrong }
-                              : { backgroundColor: colorWithAlpha(r.colorBase, 0.15) }
-                          }
-                        >
-                          {r.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  {rankMeta.key === "pre" && (
-                    <div className="pt-2">
-                      <select
-                        value={selectedPref.code}
-                        onChange={(e) => {
-                          const found = Object.values(PrefKey).find(
-                            (p) => p.code === e.target.value
-                          );
-                          if (found) setSelectedPref(found);
-                        }}
-                        className="px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs font-bold focus:outline-none focus:ring-2"
-                        style={{ outlineColor: config.color } as any}
-                      >
-                        {Object.values(PrefKey).map((p) => (
-                          <option key={p.code} value={p.code}>
-                            {p.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                </div>
+                <RankingScopeFilter
+                  rankMeta={rankMeta}
+                  setRankMeta={setRankMeta}
+                  selectedRegion={selectedRegion}
+                  setSelectedRegion={setSelectedRegion}
+                  selectedPref={selectedPref}
+                  setSelectedPref={setSelectedPref}
+                  accentColor={config.color}
+                />
               </div>
 
               {/* ランキングリスト */}
-              <div className="grid grid-cols-2   gap-3.5">
-                {displayList.map((s) => (
-                  <Link
-                    key={s.id}
-                    href={`/station/${s.id}`}
-                    prefetch={false}
-                    className="block transition-transform hover:-translate-y-0.5 group"
-                  >
-                    <div
-                      className="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 hover:border-slate-300 relative overflow-hidden h-full flex flex-col transition-shadow hover:shadow-md"
-                      style={{
-                        backgroundColor: colorWithAlpha(
-                          s.pref?.region?.colorBase,
-                          0.08
-                        ),
-                        borderColor: colorWithAlpha(
-                          s.pref?.region?.colorBase,
-                          0.25
-                        ),
-                      }}
-                    >
-                      <div
-                        className="absolute top-0 right-0 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg"
-                        style={{
-                          backgroundColor: s.pref?.region?.colorStrong,
-                          color: "white",
-                        }}
-                      >
-                        {s.rank}位
-                      </div>
-                      <div className="flex items-center gap-1 mb-2 pr-6 overflow-hidden">
-                        {s.category?.value !== 4 && (
-                          <span
-                            className="transform group-hover:scale-110 transition-transform shrink-0"
-                            style={{
-                              color: s.category?.colorFull,
-                            }}
-                          >
-                            {s.category?.icon}
-                          </span>
-                        )}
-                        <span className="text-sm font-bold text-slate-800 truncate">
-                          {s.station_name}
-                        </span>
-                        <span className="text-[9px] text-slate-400 font-mono shrink-0">
-                          #{s.id}
-                        </span>
-                      </div>
-                      <div className="flex-1 flex flex-col justify-end">
-                        <div
-                          className={`text-2xl font-mono font-bold ${getMetricColor(
-                            s.value,
-                            dataBounds.min,
-                            dataBounds.max,
-                            config.unit !== "℃"
-                          )}`}
-                        >
-                          {s.value !== null
-                            ? `${s.value.toFixed(metric === "sm_rain" ? 0 : 1)}${
-                                config.unit
-                              }`
-                            : "---"}
-                        </div>
-                        {s.time !== null && (
-                          <div className="text-[10px] text-slate-500 font-medium mt-1">
-                            記録: {s.time}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-
-              {displayList.length === 0 && (
-                <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
-                  <p className="text-slate-400 font-medium">
-                    該当するデータが見つかりませんでした。
-                  </p>
-                </div>
-              )}
+              <RankingGrid
+                items={displayList}
+                unit={config.unit}
+                minBound={dataBounds.min}
+                maxBound={dataBounds.max}
+                subTextPrefix="記録: "
+                fractionDigits={metric === "sm_rain" ? 0 : 1}
+              />
             </div>
           </PageLayout>
         </main>

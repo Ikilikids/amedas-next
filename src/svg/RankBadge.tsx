@@ -63,7 +63,11 @@ const rankLabel: Record<BadgeRank, string> = {
 /* =====================
  * コンポーネント
  * ===================== */
-const RankBadge = (props: BadgeData) => {
+interface RankBadgeProps extends BadgeData {
+  size?: number;
+}
+
+const RankBadge = ({ size = 40, ...props }: RankBadgeProps) => {
   const rank = props.rank;
   const isHigh = props.isHigh;
   const metricKey = props.metric;
@@ -73,8 +77,6 @@ const RankBadge = (props: BadgeData) => {
 
   const Icon = isHigh ? metricKey.highIcon : metricKey.lowIcon;
   if (!Icon) return null;
-
-  const size = 40;
   const medalGradId = `medal-${uid}`;
   const shineGradId = `shine-${uid}`;
   const rainbowGradId = `rainbow-${uid}`;

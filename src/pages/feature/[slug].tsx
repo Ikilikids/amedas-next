@@ -7,6 +7,7 @@ import { IoIosTrophy } from "react-icons/io";
 
 import Layout from "../../components/Layout";
 import PageLayout from "../../components/PageLayout";
+import HeroSection from "../../components/HeroSection";
 import Sidebar from "../../components/Sidebar";
 import Breadcrumb from "../../components/Breadcrumb";
 import Ranking from "../../components/Ranking";
@@ -156,31 +157,24 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
             }
           >
             {/* 左カラム: 記事本文コンテナ */}
-            <article className="bg-white border border-slate-200/80 rounded-3xl p-6  shadow-sm">
-              {/* カテゴリバッジ */}
-              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 font-bold mb-4">
-                <span className="px-3 py-1 bg-pink-50 text-pink-600 rounded-full font-black flex items-center gap-1">
-                  {Icon}
-                  <span>気候特集</span>
-                </span>
-                <span className="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full">
-                  対象地点: {targetStations.length}地点
-                </span>
-              </div>
+            <div className="space-y-6">
+              <HeroSection
+                badgeIcon={Icon}
+                badgeText="Climate Feature"
+                title={config.title}
+                description={config.description}
+                watermark="FEATURE"
+                gradient={config.gradient || "bg-gradient-to-r from-pink-600 to-rose-600"}
+                rightContent={
+                  <div className="text-xs font-bold bg-black/20 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/20 text-white shrink-0">
+                    対象地点: {targetStations.length}地点
+                  </div>
+                }
+              />
 
-              {/* タイトル */}
-              <h1 className="text-2xl   font-black text-slate-800 tracking-tight leading-tight mb-6">
-                {config.title}
-              </h1>
-
-              {/* 概要ポイント枠 */}
-              <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl text-slate-600 text-sm  leading-relaxed mb-8">
-                <p className="font-bold text-slate-700 mb-1">【特集の概要】</p>
-                <p>{config.description}</p>
-              </div>
-
-              {/* モバイル用目次 (lg以上は右サイドバーに表示、開閉式・デフォルト閉) */}
-              <div className="lg:hidden bg-blue-50/40 border border-blue-100 rounded-2xl p-5 mb-10">
+              <article className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm">
+                {/* モバイル用目次 (lg以上は右サイドバーに表示、開閉式・デフォルト閉) */}
+                <div className="lg:hidden bg-blue-50/40 border border-blue-100 rounded-2xl p-5 mb-10">
                 <details className="group">
                   <summary className="flex items-center justify-between font-black text-blue-900 text-sm  cursor-pointer list-none">
                     <div className="flex items-center gap-2">
@@ -228,7 +222,8 @@ const FeaturePage: NextPage<FeaturePageProps> = ({ data, featureName }) => {
                 })}
               </div>
             </article>
-          </PageLayout>
+          </div>
+        </PageLayout>
         </main>
       </Layout>
     </>

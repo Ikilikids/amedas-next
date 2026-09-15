@@ -44,10 +44,10 @@ export function processRankingData(
   const rankType = rankMeta.key;
 
   if (rankType === RankKey.pre.key && selectedPref) {
-    filtered = filtered.filter((s) => s.pref === selectedPref.code);
+    filtered = filtered.filter((s) => selectedPref.code.includes(s.pref));
   } else if (rankType === RankKey.region.key && selectedRegion) {
     filtered = filtered.filter((s) => {
-      const pref = Object.values(PrefKey).find((p) => p.code === s.pref);
+      const pref = Object.values(PrefKey).find((p) => p.code.includes(s.pref));
       return pref?.region.label === selectedRegion.label;
     });
   } else if (rankType === RankKey.meteo.key) {
@@ -121,7 +121,7 @@ export function integrateSingleMetric(
     rawList.forEach((s) => {
       // 県内順位
       if (!prefRanksMap.has(s.pref)) {
-        const pMeta = Object.values(PrefKey).find((p) => p.code === s.pref);
+        const pMeta = Object.values(PrefKey).find((p) => p.code.includes(s.pref));
         const pRanks = processRankingData(
           rawList,
           RankKey.pre,
@@ -132,7 +132,7 @@ export function integrateSingleMetric(
       }
 
       // 地方順位
-      const regionLabel = Object.values(PrefKey).find((p) => p.code === s.pref)
+      const regionLabel = Object.values(PrefKey).find((p) => p.code.includes(s.pref))
         ?.region.label;
       if (regionLabel && !regionRanksMap.has(regionLabel)) {
         const rMeta = { label: regionLabel } as RegionMeta;

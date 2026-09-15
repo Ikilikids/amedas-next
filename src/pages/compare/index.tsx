@@ -9,6 +9,7 @@ import CompareMonthlyTable from "../../components/Compare/CompareMonthlyTable";
 import CompareUonzuChart from "../../components/Compare/CompareUonzuChart";
 import Layout from "../../components/Layout";
 import PageLayout from "../../components/PageLayout";
+import HeroSection from "../../components/HeroSection";
 import Sidebar from "../../components/Sidebar";
 import InfoPanel from "../../components/InfoPanel";
 import Breadcrumb from "../../components/Breadcrumb";
@@ -39,6 +40,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     uonzuData: u1,
     overviewData: o1,
     tableData: t1,
+    badges: b1,
     loading: l1,
   } = useStationDetail(id1);
   const {
@@ -46,6 +48,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     uonzuData: u2,
     overviewData: o2,
     tableData: t2,
+    badges: b2,
     loading: l2,
   } = useStationDetail(id2);
 
@@ -75,33 +78,42 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
   const prefOptions = useMemo(() => {
     return Object.values(PrefKey)
       .map((p) => ({
-        value: p.code,
+        value: p.label,
         label: p.label,
+        code: p.code,
       }))
-      .sort((a, b) => a.value.localeCompare(b.value));
+      .sort((a, b) => a.label.localeCompare(b.label, "ja"));
   }, []);
+
+  const selectedPrefObj1 = useMemo(() => {
+    return Object.values(PrefKey).find((p) => p.label === pref1 || p.code.includes(pref1)) || PrefKey.tokyo;
+  }, [pref1]);
+
+  const selectedPrefObj2 = useMemo(() => {
+    return Object.values(PrefKey).find((p) => p.label === pref2 || p.code.includes(pref2)) || PrefKey.osaka;
+  }, [pref2]);
 
   const stationsByPref1 = useMemo(() => {
     return Object.values(masterData)
-      .filter((s) => s.pref === pref1)
+      .filter((s) => selectedPrefObj1.code.includes(s.pref))
       .sort((a, b) => {
         const catA = a.category ? CategoryKey[a.category].value : 99;
         const catB = b.category ? CategoryKey[b.category].value : 99;
         if (catA !== catB) return catA - catB;
         return (a.station_name || "").localeCompare(b.station_name || "");
       });
-  }, [masterData, pref1]);
+  }, [masterData, selectedPrefObj1]);
 
   const stationsByPref2 = useMemo(() => {
     return Object.values(masterData)
-      .filter((s) => s.pref === pref2)
+      .filter((s) => selectedPrefObj2.code.includes(s.pref))
       .sort((a, b) => {
         const catA = a.category ? CategoryKey[a.category].value : 99;
         const catB = b.category ? CategoryKey[b.category].value : 99;
         if (catA !== catB) return catA - catB;
         return (a.station_name || "").localeCompare(b.station_name || "");
       });
-  }, [masterData, pref2]);
+  }, [masterData, selectedPrefObj2]);
 
   const getCategoryIconByValue = (catValue?: string) => {
     if (!catValue) return null;
@@ -168,7 +180,9 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
   };
 
   const getRegionColor = (prefCode: string) => {
-    const pref = Object.values(PrefKey).find((p) => p.code === prefCode);
+    const pref = Object.values(PrefKey).find((p) =>
+      (p.code as readonly string[]).includes(prefCode)
+    );
     return pref?.region?.colorStrong || "#3b82f6";
   };
 
@@ -196,20 +210,14 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
             {/* メインエリア */}
             <div className="space-y-8">
               {/* ページヘッダーカード */}
-              <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700 rounded-3xl p-6  text-white shadow-lg relative overflow-hidden">
-                <div className="relative z-10">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                    <FaBalanceScaleLeft />
-                    <span>Station Comparison</span>
-                  </div>
-                  <h1 className="text-2xl  font-black tracking-tight mb-2">
-                    地点を比較する
-                  </h1>
-                  <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
-                    2つのアメダス観測所を選択し、気温や降水量の違い・雨温図パターンを並べて詳しく比較できます。
-                  </p>
-                </div>
-              </div>
+              <HeroSection
+                badgeIcon={<FaBalanceScaleLeft />}
+                badgeText="Station Comparison"
+                title="地点を比較する"
+                description="2つのアメダス観測所を選択し、気温や降水量の違い・雨温図パターンを並べて詳しく比較できます。"
+                watermark="COMPARE"
+                gradient="bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700"
+              />
 
               {/* Selector Area */}
               <div className="flex flex-col xl:flex-row items-center justify-center gap-6 bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
@@ -287,12 +295,14 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                   overViewData={o1}
                   loading={l1}
                   isTitle={true}
+                  badges={b1}
                 />
                 <InfoPanel
                   stationData={s2}
                   overViewData={o2}
                   loading={l2}
                   isTitle={true}
+                  badges={b2}
                 />
               </div>
             </div>

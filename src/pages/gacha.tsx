@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import Layout from "../components/Layout";
 import PageLayout from "../components/PageLayout";
+import HeroSection from "../components/HeroSection";
 import Sidebar from "../components/Sidebar";
 import Breadcrumb from "../components/Breadcrumb";
 
@@ -124,41 +125,32 @@ const GachaPage: NextPage<Props> = ({ stations: initialStations, stationsOvervie
             {/* 左メインエリア */}
             <div className="space-y-6">
               {/* ページヘッダーカード */}
-              <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 rounded-3xl p-6  text-white shadow-lg relative overflow-hidden">
-                <div className="relative z-10 flex flex-col    gap-4">
-                  <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                      <FaDice />
-                      <span>AMeDAS Gacha & Cards</span>
-                    </div>
-                    <h1 className="text-2xl  font-black tracking-tight mb-2">
-                      アメダス・ガチャ
-                    </h1>
-                    <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
-                      日本全国約1,300地点のアメダス観測所をガチャで回して、あなただけの観測所図鑑を完成させよう！
-                    </p>
-                  </div>
-                  {/* Sound toggle */}
-                  <div className="shrink-0 self-start ">
-                    <button
-                      onClick={() => setMuted(!muted)}
-                      className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-bold text-white transition-all shadow-sm cursor-pointer"
-                    >
-                      {muted ? (
-                        <>
-                          <FaVolumeMute className="text-red-400" />
-                          <span>ミュート中</span>
-                        </>
-                      ) : (
-                        <>
-                          <FaVolumeUp className="text-green-400" />
-                          <span>効果音あり</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <HeroSection
+                badgeIcon={<FaDice />}
+                badgeText="AMeDAS Gacha & Cards"
+                title="アメダス・ガチャ"
+                description="日本全国約1,300地点のアメダス観測所をガチャで回して、あなただけの観測所図鑑を完成させよう！"
+                watermark="GACHA"
+                gradient="bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900"
+                rightContent={
+                  <button
+                    onClick={() => setMuted(!muted)}
+                    className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-bold text-white transition-all shadow-sm cursor-pointer"
+                  >
+                    {muted ? (
+                      <>
+                        <FaVolumeMute className="text-red-400" />
+                        <span>ミュート中</span>
+                      </>
+                    ) : (
+                      <>
+                        <FaVolumeUp className="text-green-400" />
+                        <span>効果音あり</span>
+                      </>
+                    )}
+                  </button>
+                }
+              />
 
               {/* Top Row: Left Gacha machine, Right stats */}
               <div className="grid grid-cols-1  gap-6">

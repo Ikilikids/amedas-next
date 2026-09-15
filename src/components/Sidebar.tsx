@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { FaBookOpen, FaInfoCircle, FaChevronRight, FaChevronDown, FaTags } from "react-icons/fa";
+import {
+  FaBookOpen,
+  FaInfoCircle,
+  FaChevronRight,
+  FaChevronDown,
+  FaTags,
+  FaBalanceScaleLeft,
+  FaDice,
+  FaCompass,
+} from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
+import { IoIosTrophy } from "react-icons/io";
 import { PiRankingDuotone } from "react-icons/pi";
 import { COLUMNS } from "../data/columns";
 
@@ -119,7 +129,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {showTools && (
         <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center gap-2 font-black text-slate-800 mb-3 pb-3 border-b border-slate-100 text-sm">
-            <FaMapLocationDot className="text-emerald-600" />
+            <FaCompass className="text-blue-600" />
             <span>人気ツールから探す</span>
           </div>
           <div className="space-y-2">
@@ -127,8 +137,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               href="/map"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
             >
-              <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600">
-                🗺️ マップから探す
+              <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
+                <FaMapLocationDot className="text-emerald-600 text-sm shrink-0" />
+                <span>マップから探す</span>
               </span>
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>
@@ -136,8 +147,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               href="/live/daily_ranking"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
             >
-              <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600">
-                🏆 今日の気象ランキング
+              <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
+                <PiRankingDuotone className="text-amber-500 text-base shrink-0" />
+                <span>今日の気象ランキング</span>
               </span>
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>
@@ -145,8 +157,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               href="/clim_ranking"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
             >
-              <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600">
-                📊 平年値ランキング
+              <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
+                <IoIosTrophy className="text-yellow-500 text-base shrink-0" />
+                <span>平年値ランキング</span>
               </span>
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>
@@ -154,8 +167,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               href="/compare"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
             >
-              <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600">
-                ⚖️ 2地点の気候を比較
+              <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
+                <FaBalanceScaleLeft className="text-blue-500 text-sm shrink-0" />
+                <span>2地点の気候を比較</span>
               </span>
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>
@@ -163,8 +177,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               href="/gacha"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
             >
-              <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600">
-                🎲 アメダス・ガチャ
+              <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
+                <FaDice className="text-purple-500 text-sm shrink-0" />
+                <span>アメダス・ガチャ</span>
               </span>
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>

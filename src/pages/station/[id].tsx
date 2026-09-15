@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Layout from "../../components/Layout";
 import PageLayout from "../../components/PageLayout";
+import HeroSection from "../../components/HeroSection";
 import Sidebar from "../../components/Sidebar";
 import InfoPanel from "../../components/InfoPanel";
 import StationMap from "../../components/StationMap";
 import Similar from "../../components/Station/Similar";
-import RankBadge from "../../svg/RankBadge";
 import PrefecturePart from "../../components/Station/PrefecturePart";
 import Breadcrumb from "../../components/Breadcrumb";
 import { FaBookOpen, FaArrowLeft } from "react-icons/fa";
@@ -221,65 +221,40 @@ const StationPage = (props: RawData) => {
               </Sidebar>
             }
           >
-            {/* 左カラム: 記事本文コンテナ (columnと完全統一) */}
-            <article className="bg-white border border-slate-200/80 rounded-3xl p-4 shadow-sm break-words">
-              {/* メタ情報バッジ */}
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 font-bold mb-4">
-                <span
-                  className="px-3 py-1 rounded-full font-black text-white shadow-sm"
-                  style={{ backgroundColor: regionStrong }}
-                >
-                  {stationData.pref.label} {stationData.city}
-                </span>
-                <span
-                  className="px-3 py-1 rounded-full font-black border flex items-center gap-1"
-                  style={{
-                    borderColor: stationData.category.colorBorder,
-                    backgroundColor: `${stationData.category.colorFull}15`,
-                    color: stationData.category.colorFull,
-                  }}
-                >
-                  <span>{stationData.category.icon}</span>
-                  <span>{stationData.category.label}</span>
-                </span>
-                <span className="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2.5 py-0.5 rounded-full">
-                  観測所番号: #{stationData.id}
-                </span>
-                {lastUpdate && (
-                  <span className="text-slate-400 text-xs font-mono">
-                    最終更新: {lastUpdate}
-                  </span>
-                )}
-              </div>
+            {/* 左カラム */}
+            <div className="space-y-6">
+              <HeroSection
+                badgeIcon={<span>{stationData.category.icon}</span>}
+                badgeText={`${stationData.pref.label} ${stationData.city || ""} ・ ${stationData.category.label}`}
+                title={
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <span>{stationData.official_name}</span>
+                    {stationData.official_name !== stationData.station_name && (
+                      <span className="text-base font-medium text-white/80">
+                        （通称: {stationData.station_name}）
+                      </span>
+                    )}
+                  </div>
+                }
+                description={`気象庁アメダス「${stationData.official_name}」観測所の1991〜2020年平年値統計データです。標高${stationData.height != null ? `${stationData.height}m` : "未公表"}（北緯${stationData.lat ? Number(stationData.lat).toFixed(2) : "--"}度、東経${stationData.lon ? Number(stationData.lon).toFixed(2) : "--"}度）に位置し、雨温図グラフ・月別平年値一覧・各種比率・直近推移を掲載しています。`}
+                watermark="STATION"
+                gradient={`linear-gradient(135deg, ${regionStrong} 0%, color-mix(in srgb, ${regionStrong} 75%, black) 100%)`}
+                rightContent={
+                  <div className="flex flex-col items-start xl:items-end gap-1.5 shrink-0">
+                    <div className="text-xs font-mono font-bold text-white bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20">
+                      観測所番号: #{stationData.id}
+                    </div>
+                    {lastUpdate && (
+                      <span className="text-white/80 text-[11px] font-mono">
+                        最終更新: {lastUpdate}
+                      </span>
+                    )}
+                  </div>
+                }
+              />
 
-              {/* タイトル */}
-              <h1 className="text-2xl font-black text-slate-800 tracking-tight leading-tight mb-4 flex items-baseline gap-3 flex-wrap">
-                <span>{stationData.official_name}</span>
-                {stationData.official_name !== stationData.station_name && (
-                  <span className="text-lg font-bold text-slate-400">
-                    （通称: {stationData.station_name}）
-                  </span>
-                )}
-              </h1>
-
-              {/* 全国ランキングバッジ */}
-              {badges && badges.length > 0 && (
-                <div className="flex items-center gap-2 flex-wrap mb-6">
-                  {badges.map((b: BadgeData, i: number) => (
-                    <RankBadge key={i} {...b} />
-                  ))}
-                </div>
-              )}
-
-              {/* 地点サマリーボックス */}
-              <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl text-slate-600 text-sm leading-relaxed mb-8">
-                <p className="font-bold text-slate-700 mb-1">【地点の概要】</p>
-                <p>
-                  気象庁アメダス「{stationData.official_name}」観測所の1991〜2020年平年値統計データです。
-                  標高{stationData.height != null ? `${stationData.height}m` : "未公表"}（北緯{stationData.lat ? Number(stationData.lat).toFixed(2) : "--"}度、東経{stationData.lon ? Number(stationData.lon).toFixed(2) : "--"}度）に位置し、雨温図グラフ・月別平年値一覧・各種比率・直近推移を掲載しています。
-                </p>
-              </div>
-
+              {/* 記事本文コンテナ */}
+              <article className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm break-words">
               {/* モバイル用目次 (lg以上は右サイドバーに表示) */}
               <div className="lg:hidden bg-blue-50/50 border border-blue-100 rounded-2xl p-5 mb-10">
                 <div className="flex items-center gap-2 font-black text-blue-900 mb-3 text-sm">
@@ -336,6 +311,7 @@ const StationPage = (props: RawData) => {
                         overViewData={overviewData}
                         loading={false}
                         isTitle={false}
+                        badges={badges}
                       />
                     </div>
                     <div className="xl:w-1/2 h-[340px] xl:h-auto shrink-0 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative bg-slate-50">
@@ -400,7 +376,8 @@ const StationPage = (props: RawData) => {
                 </div>
               </div>
             </article>
-          </PageLayout>
+          </div>
+        </PageLayout>
         </main>
       </Layout>
     </>

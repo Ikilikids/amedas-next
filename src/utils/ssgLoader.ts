@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { RawStationData } from "../types/raw";
+import { RawStationData, RawUonzuData } from "../types/raw";
 import { StationId } from "../types/union";
 import { getClimate, getMaster, hasMetric, setMaster } from "./climateCache";
 import { METRIC_LIST } from "../setting/metric";
@@ -63,4 +63,70 @@ export function ensureAllDataLoaded() {
       }
     }
   });
+}
+
+/**
+ * 地点名または地点IDのリストから、雨温図に必要な生データを抽出する (SSG用)
+ */
+export interface ArticleUonzuItem {
+  id: string;
+  name: string;
+  rawUonzu: RawUonzuData;
+}
+
+export function loadUonzuItemsForList(
+  identifiers?: string[]
+): ArticleUonzuItem[] {
+  if (!identifiers || identifiers.length === 0) return [];
+
+  const master = loadMaster();
+  const rankingDir = path.join(process.cwd(), "public/ranking_not_null");
+
+  // 雨温図に必要な4項目 (降水量、平均気温、最高気温、最低気温)
+  const metrics = ["sm_rain", "av_avtemp", "av_hitemp", "av_lwtemp"];
+  const rawMetricData: Record<string, Record<string, number[]>> = {};
+
+  metrics.forEach((m) => {
+    const p = path.join(rankingDir, `${m}.json`);
+    if (fs.existsSync(p)) {
+      rawMetricData[m] = JSON.parse(fs.readFileSync(p, "utf-8"));
+    } else {
+      rawMetricData[m] = {};
+    }
+  });
+
+  const results: ArticleUonzuItem[] = [];
+
+  identifiers.forEach((idOrName) => {
+    let targetId = idOrName;
+    let targetStation = master[targetId as StationId];
+
+    if (!targetStation) {
+      const entry = Object.entries(master).find(
+        ([_, s]) => s.station_name === idOrName
+      );
+      if (entry) {
+        targetId = entry[0];
+        targetStation = entry[1];
+      }
+    }
+
+    if (targetStation) {
+      const rawUonzu: RawUonzuData = {};
+      metrics.forEach((m) => {
+        const stationValues = rawMetricData[m]?.[targetId];
+        if (stationValues) {
+          rawUonzu[m] = stationValues.slice(0, 12);
+        }
+      });
+
+      results.push({
+        id: targetId,
+        name: targetStation.station_name,
+        rawUonzu,
+      });
+    }
+  });
+
+  return results;
 }

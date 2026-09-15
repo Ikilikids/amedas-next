@@ -7,6 +7,7 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import { FaInfoCircle } from "react-icons/fa";
 import Layout from "../components/Layout";
 import PageLayout from "../components/PageLayout";
+import HeroSection from "../components/HeroSection";
 import Sidebar from "../components/Sidebar";
 import StationMap from "../components/StationMap";
 import InfoPanel from "../components/InfoPanel";
@@ -21,7 +22,7 @@ import { StationId } from "../types/union";
 // ==============================
 const MapPage: NextPage = () => {
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
-  const { stationData, uonzuData, overviewData, loading } = useStationDetail(
+  const { stationData, uonzuData, overviewData, badges, loading } = useStationDetail(
     (selectedStation as StationId) || null
   );
 
@@ -53,20 +54,14 @@ const MapPage: NextPage = () => {
             {/* 左メインエリア */}
             <div className="space-y-6">
               {/* ページヘッダーカード */}
-              <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 rounded-3xl p-6  text-white shadow-lg relative overflow-hidden">
-                <div className="relative z-10">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                    <FaMapLocationDot />
-                    <span>Interactive Map</span>
-                  </div>
-                  <h1 className="text-2xl  font-black tracking-tight mb-2">
-                    マップから探す
-                  </h1>
-                  <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
-                    地図上のピンをクリックすると、下部に選択した観測所の基本データと雨温図が表示されます。
-                  </p>
-                </div>
-              </div>
+              <HeroSection
+                badgeIcon={<FaMapLocationDot />}
+                badgeText="Interactive Map"
+                title="マップから探す"
+                description="地図上のピンをクリックすると、下部に選択した観測所の基本データと雨温図が表示されます。"
+                watermark="MAP"
+                gradient="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600"
+              />
 
               {/* 地図セクション */}
               <section className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80">
@@ -130,6 +125,7 @@ const MapPage: NextPage = () => {
                         overViewData={overviewData}
                         loading={loading}
                         isTitle={true}
+                        badges={badges}
                       />
                     </div>
 

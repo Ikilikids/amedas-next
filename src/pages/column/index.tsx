@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Layout from "../../components/Layout";
 import PageLayout from "../../components/PageLayout";
+import HeroSection from "../../components/HeroSection";
 import Sidebar from "../../components/Sidebar";
 import Breadcrumb from "../../components/Breadcrumb";
 import { COLUMNS, ColumnArticle } from "../../data/columns";
@@ -34,23 +35,14 @@ const ColumnIndexPage: NextPage = () => {
           {/* 左カラム: ヘッダーと記事一覧 */}
           <div className="space-y-8">
             {/* ヘッダーカード */}
-            <div className="bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-600 rounded-3xl p-6  text-white shadow-xl mb-8 relative overflow-hidden">
-              <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 text-white/10 text-9xl font-black select-none pointer-events-none">
-                COLUMN
-              </div>
-              <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                  <FaBookOpen className="text-sky-300" />
-                  <span>Weather Column & Insights</span>
-                </div>
-                <h1 className="text-2xl font-black tracking-tight mb-2">
-                  気象コラム・解説
-                </h1>
-                <p className="text-white/90 text-sm max-w-2xl leading-relaxed">
-                  雨温図の見方から日本の気候区分の秘密、気象データの面白い読み解き方まで。アメダス観測データをより深く楽しむための解説記事一覧です。
-                </p>
-              </div>
-            </div>
+            <HeroSection
+              badgeIcon={<FaBookOpen className="text-sky-300" />}
+              badgeText="Weather Column & Insights"
+              title="気象コラム・解説"
+              description="雨温図の見方から日本の気候区分の秘密、気象データの面白い読み解き方まで。アメダス観測データをより深く楽しむための解説記事一覧です。"
+              watermark="COLUMN"
+              gradient="bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-600"
+            />
 
             {/* 記事カード一覧 */}
             <div className="space-y-6">

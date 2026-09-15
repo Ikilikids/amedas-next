@@ -175,13 +175,13 @@ const RankingTabs: React.FC<RankingTabsProps> = ({
         {/* PREF FILTER */}
         {rankType.key === RankKey.pre.key && (
           <CustomSelect
-            value={selectedPref.code}
+            value={selectedPref.label}
             onChange={(val) => {
-              const found = prefs.find((p) => p.code === val);
+              const found = prefs.find((p) => p.label === val);
               if (found) setSelectedPref(found);
             }}
             options={prefs.map((p) => ({
-              value: p.code,
+              value: p.label,
               label: p.label,
             }))}
           />

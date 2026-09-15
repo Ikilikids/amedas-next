@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Layout from "../components/Layout";
 import PageLayout from "../components/PageLayout";
+import HeroSection from "../components/HeroSection";
 import Sidebar from "../components/Sidebar";
 import Breadcrumb from "../components/Breadcrumb";
 import { FaDatabase, FaChartLine, FaShieldAlt, FaEnvelope, FaUser, FaInfoCircle, FaExternalLinkAlt, FaListUl } from "react-icons/fa";
@@ -75,18 +76,14 @@ const About: NextPage = () => {
           {/* 左メインエリア */}
           <div className="space-y-8">
             {/* タイトルカード */}
-            <div className="bg-white border border-slate-200/80 rounded-3xl p-6  shadow-sm">
-              <div className="flex items-center gap-3 text-blue-600 mb-3">
-                <FaInfoCircle className="text-2xl" />
-                <span className="text-xs font-black uppercase tracking-wider text-slate-400">About & Contact</span>
-              </div>
-              <h1 className="text-2xl  font-black text-slate-800 tracking-tight">
-                このサイトについて・お問い合わせ
-              </h1>
-              <p className="mt-4 text-slate-600 leading-relaxed text-sm ">
-                「アメダス図鑑（Japan AMeDAS Database）」は、気象庁が全国に展開する約1,300箇所の地域気象観測システム（アメダス）の膨大な観測データをもとに、日本各地の豊かな気候特性を独自のアルゴリズムと直感的な可視化技術で探求できる気象データ研究・分析メディアです。
-              </p>
-            </div>
+            <HeroSection
+              badgeIcon={<FaInfoCircle className="text-sky-300" />}
+              badgeText="About & Contact"
+              title="このサイトについて・お問い合わせ"
+              description="「アメダス図鑑（Japan AMeDAS Database）」は、気象庁が全国に展開する約1,300箇所の地域気象観測システム（アメダス）の膨大な観測データをもとに、日本各地の豊かな気候特性を独自のアルゴリズムと直感的な可視化技術で探求できる気象データ研究・分析メディアです。"
+              watermark="ABOUT"
+              gradient="bg-gradient-to-r from-blue-700 via-indigo-700 to-sky-600"
+            />
 
             {/* 1. サイトの目的と設立背景 */}
             <section id="purpose" className="bg-white border border-slate-200/80 rounded-3xl p-6  shadow-sm scroll-mt-20">

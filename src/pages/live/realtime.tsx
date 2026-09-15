@@ -6,6 +6,7 @@ import { FaChevronDown } from "react-icons/fa";
 import CategoryLegend from "../../components/CategoryLegend";
 import Layout from "../../components/Layout";
 import PageLayout from "../../components/PageLayout";
+import HeroSection from "../../components/HeroSection";
 import Sidebar from "../../components/Sidebar";
 import Breadcrumb from "../../components/Breadcrumb";
 import { RankingItem, RawRankingData } from "../../components/Ranking/types";
@@ -102,32 +103,19 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
             {/* 左メインエリア */}
             <div className="space-y-6">
               {/* ページヘッダーカード */}
-              <div
-                className="rounded-3xl p-6  text-white shadow-lg relative overflow-hidden"
-                style={{
-                  background:
-                    config.detail?.gradient ||
-                    "linear-gradient(to right, #ea580c, #d97706)",
-                }}
-              >
-                <div className="relative z-10 flex flex-col    gap-4">
-                  <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold tracking-wider uppercase mb-3">
-                      <span>Realtime Weather</span>
-                    </div>
-                    <h1 className="text-2xl  font-black tracking-tight mb-2 flex items-center gap-3">
-                      <TbTemperatureSun />
-                      <span>現在の気温 (リアルタイム)</span>
-                    </h1>
-                    <p className="text-white/90 text-xs  leading-relaxed max-w-xl">
-                      気象庁の最新アメダス速報値から取得した全国の気温状況です。10分ごとに自動更新されます。
-                    </p>
-                  </div>
-                  <div className="text-xs font-bold bg-black/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 self-start  shrink-0">
-                    最新観測: {displayLastUpdate}
-                  </div>
-                </div>
-              </div>
+              <HeroSection
+                badgeText="Realtime Weather"
+                Icon={<TbTemperatureSun />}
+                title="現在の気温 (リアルタイム)"
+                description="気象庁の最新アメダス速報値から取得した全国の気温状況です。10分ごとに自動更新されます。"
+                watermark="REALTIME"
+                gradient={
+                  config.detail?.gradient ||
+                  "bg-gradient-to-r from-orange-600 to-amber-600"
+                }
+                lastUpdateLabel="最新観測"
+                lastUpdateValue={displayLastUpdate}
+              />
 
               {/* クイックナビゲーション */}
               <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80 flex flex-wrap gap-2 justify-center ">
@@ -175,7 +163,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
                     <div className="flex flex-col gap-10">
                       {prefsInRegion.map((pref) => {
                         const stationsInPref = stations
-                          .filter((s) => s.pref === pref.code)
+                          .filter((s) => pref.code.includes(s.pref))
                           .map((s) => toStation(s))
                           .sort(
                             (a, b) =>
@@ -187,7 +175,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
 
                         return (
                           <div
-                            key={`pref-${pref.code}`}
+                            key={`pref-${pref.label}`}
                             className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
                           >
                             <div

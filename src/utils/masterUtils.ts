@@ -12,8 +12,8 @@ function resolveMetric(key: string): MetricMeta {
 }
 
 function resolvePref(key: string): PrefMeta {
-  const pref: PrefMeta = Object.values(PrefKey).find((p) => p.code === key);
-  return pref;
+  const pref = Object.values(PrefKey).find((p) => p.code.includes(key));
+  return pref as PrefMeta;
 }
 
 /* =========================================================
@@ -78,7 +78,7 @@ export function toMetricMap<V, R>(
   return map;
 }
 
-function toBadge(raw: RawBadgeData): BadgeData {
+export function toBadge(raw: RawBadgeData): BadgeData {
   return {
     metric: resolveMetric(raw.metric),
     rank: raw.rank,

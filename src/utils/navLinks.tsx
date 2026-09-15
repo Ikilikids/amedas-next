@@ -3,6 +3,7 @@ import {
   FaBookOpen,
   FaBuilding,
   FaClock,
+  FaCompass,
   FaDice,
   FaSearch,
   FaStar,
@@ -131,6 +132,16 @@ export const searchLinks: NavLink[] = [
 ];
 
 export const featureLinks: NavLink[] = [
+  {
+    href: "/feature/region",
+    Icon: <FaCompass />,
+    title: "地域・都道府県の気候",
+    description: "全国10地域と各都道府県の気候特性・風土を徹底解説",
+    topPageTitle: "地域・都道府県別の気候ガイド",
+    topPageDescription:
+      "北海道から沖縄まで全国10地方の気候特性と、各都道府県ごとの気象・風土・アメダス観測所の特徴を3段階の階層構造でわかりやすく解説します。",
+    iconClass: "text-teal-600",
+  },
   {
     href: "/column",
     Icon: <FaBookOpen />,

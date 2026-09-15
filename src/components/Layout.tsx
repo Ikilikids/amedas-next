@@ -1,17 +1,10 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import HeroSection from "./HeroSection";
+import HeroSection, { HeroSectionProps } from "./HeroSection";
 import AdMax from "./AdMax";
 
-export interface HeroSectionProps {
-  title: React.ReactNode;
-  description?: React.ReactNode;
-  Icon: React.ReactNode;
-  gradient?: string;
-  lastUpdateLabel?: string;
-  lastUpdateValue?: string;
-}
+export type { HeroSectionProps };
 
 interface LayoutProps {
   children: React.ReactNode;

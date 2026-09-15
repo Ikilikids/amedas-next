@@ -83,12 +83,12 @@ export const RARITY_META = {
 };
 
 export const getPrefLabel = (code: string): string => {
-  const pref = Object.values(PrefKey).find((p) => p.code === code);
+  const pref = Object.values(PrefKey).find((p) => p.code.includes(code));
   return pref ? pref.label.replace(/\(.*\)/g, "") : "不明";
 };
 
 export const getPrefRegionColor = (code: string): string => {
-  const pref = Object.values(PrefKey).find((p) => p.code === code);
+  const pref = Object.values(PrefKey).find((p) => p.code.includes(code));
   return pref ? pref.region.colorStrong : "#475569";
 };
 

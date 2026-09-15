@@ -4,14 +4,16 @@ import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { FaCity } from "react-icons/fa";
 import { FaMapPin } from "react-icons/fa6";
 import { LiaMountainSolid } from "react-icons/lia";
-import { OverviewData, StationData } from "../types/all";
+import { OverviewData, StationData, BadgeData } from "../types/all";
 import { MetricKey } from "../setting/metric";
+import RankBadge from "../svg/RankBadge";
 
 interface InfoPanelProps {
   stationData: StationData | null;
   overViewData: OverviewData | null;
   loading: boolean;
   isTitle: boolean;
+  badges?: BadgeData[];
 }
 
 // ==============================
@@ -34,6 +36,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
   overViewData,
   loading,
   isTitle,
+  badges,
 }) => {
   if (loading) {
     return (
@@ -92,9 +95,9 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {category && (
-            <span className="text-xl" style={{ color: category.colorFull }}>
+            <span className="text-xl shrink-0" style={{ color: category.colorFull }}>
               {category.icon}
             </span>
           )}
@@ -116,6 +119,13 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
             <h2 className="text-2xl font-black text-slate-800">
               {stationData.station_name}
             </h2>
+          )}
+          {badges && badges.length > 0 && (
+            <div className="flex items-center gap-1 flex-wrap ml-1">
+              {badges.map((b: BadgeData, i: number) => (
+                <RankBadge key={i} {...b} size={26} />
+              ))}
+            </div>
           )}
         </div>
 
