@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import { UonzuData } from "../../types/all";
-import { MetricGroup, MetricKey, RANKING_GROUP_META } from "../../setting/metric";
-import CustomSelect from "../UI/CustomSelect";
+import { MetricKey, MetricMeta } from "../../setting/metric";
 import UonzuChart from "../UonzuChart";
 
 interface HistoryEntry {
@@ -18,51 +17,68 @@ interface StatsData {
 interface RecentTrendChartProps {
   history: HistoryEntry[];
   stats?: StatsData;
-  color: string;
-  activeTab?: MetricGroup;
-  setActiveTab?: (tab: MetricGroup) => void;
+  color?: string;
   renderSelectOnly?: boolean;
   renderChartOnly?: boolean;
 }
 
-const StatBox = ({
-  label,
-  value,
-  unit,
-  accentColor,
-}: {
-  label: string;
-  value: number | string | undefined;
-  unit: string;
-  accentColor?: string;
-}) => (
-  <div
-    className={`px-3 py-1.5 rounded-lg border min-w-[80px] text-center border-slate-100 bg-slate-50`}
-  >
-    <span className={`text-[10px] font-bold block text-slate-500`}>
-      {label}
-    </span>
-    <span
-      className={`text-lg font-black block leading-tight`}
-      style={{ color: accentColor || "#334155" }}
+// 共通のグループカードコンポーネント
+const GroupCard: React.FC<{
+  title: string;
+  dotColor: string;
+  metrics: MetricMeta[];
+  stats: StatsData;
+}> = ({ title, dotColor, metrics, stats }) => (
+  <div className="w-full min-w-0">
+    <div className="text-[11px] font-black text-slate-400 mb-1 flex items-center gap-1.5">
+      <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: dotColor }} />
+      <span>{title}</span>
+    </div>
+    <div
+      className="grid border border-gray-400 overflow-hidden rounded-lg shadow-sm"
+      style={{ gridTemplateColumns: `repeat(${metrics.length}, minmax(0, 1fr))` }}
     >
-      {value === -99 || value === 99 || value === undefined ? "---" : value}
-      <small className="text-[10px] ml-0.5">{unit}</small>
-    </span>
+      <div className="contents">
+        {metrics.map((m) => (
+          <div
+            key={`label-${m.key}`}
+            className="px-1 py-1 text-white border-l border-white/20 first:border-l-0 text-center text-xs font-bold whitespace-nowrap overflow-hidden text-ellipsis flex items-center justify-center gap-1"
+            style={{ backgroundColor: m.color }}
+          >
+            {m.icon && <span className="text-sm shrink-0">{m.icon}</span>}
+            <span className="truncate">{m.label}</span>
+          </div>
+        ))}
+      </div>
+      <div className="contents">
+        {metrics.map((m) => {
+          const val = stats[m.key];
+          return (
+            <div
+              key={`val-${m.key}`}
+              className="px-1 py-2 border-l first:border-l-0 border-t border-gray-200 flex flex-col items-center justify-center bg-white"
+            >
+              <div className="text-sm font-bold text-slate-800">
+                {val !== undefined ? `${val}${m.unit}` : "---"}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   </div>
 );
 
 const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
   history,
   stats,
-  activeTab: externalActiveTab,
-  setActiveTab: externalSetActiveTab,
   renderSelectOnly = false,
   renderChartOnly = false,
 }) => {
-  const [internalActiveTab, setInternalActiveTab] = useState<MetricGroup>("heat");
-  const activeTab = externalActiveTab ?? internalActiveTab;
-  const setActiveTab = externalSetActiveTab ?? setInternalActiveTab;
+  const allMetrics = useMemo(() => Object.values(MetricKey), []);
+  const heatMetrics = useMemo(() => allMetrics.filter((m) => m.detail.group === "heat"), [allMetrics]);
+  const coldMetrics = useMemo(() => allMetrics.filter((m) => m.detail.group === "cold"), [allMetrics]);
+  const rainMetrics = useMemo(() => allMetrics.filter((m) => m.detail.group === "rain"), [allMetrics]);
 
   // 日付順に並び替え（昇順）
   const sortedData = [...history].sort((a, b) => a.date.localeCompare(b.date));
@@ -88,77 +104,26 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
     uonzuMap.set(MetricKey.sm_rain, rainValues);
   }
 
-  // アクティブなタブ（グループ）に属するメトリクスを抽出
-  const displayMetrics = Object.values(MetricKey).filter(
-    (m) => m.detail?.group === activeTab
-  );
-
   if (renderSelectOnly) {
-    return (
-      <div>
-        <CustomSelect
-          value={activeTab}
-          onChange={(v) => setActiveTab(v as any)}
-          options={Object.entries(RANKING_GROUP_META).map(([key, meta]) => ({
-            value: key as MetricGroup,
-            label: meta.label,
-          }))}
-        />
-      </div>
-    );
+    return null;
   }
 
   return (
     <div className="flex flex-col gap-6">
-      {renderChartOnly ? null : (
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <CustomSelect
-            value={activeTab}
-            onChange={(v) => setActiveTab(v as any)}
-            options={Object.entries(RANKING_GROUP_META).map(([key, meta]) => ({
-              value: key as MetricGroup,
-              label: meta.label,
-            }))}
-          />
-          <div className="flex flex-wrap gap-2 justify-end">
-            {stats && (
-              <>
-                {displayMetrics.map((m) => {
-                  let val = stats[m.key];
-                  if (m.key === "sm_rain" && val !== undefined)
-                    val = Math.round(val);
-                  return (
-                    <StatBox
-                      key={m.key}
-                      label={m.label}
-                      value={val}
-                      unit={m.unit}
-                      accentColor={m.color}
-                    />
-                  );
-                })}
-              </>
-            )}
-          </div>
-        </div>
-      )}
+      {stats && (
+        <div className="flex flex-col gap-3 w-full min-w-0">
+          {/* 上段: 暑さグループ (5項目 全幅) */}
+          <GroupCard title="暑さ" dotColor="#ef4444" metrics={heatMetrics} stats={stats} />
 
-      {renderChartOnly && stats && (
-        <div className="flex flex-wrap gap-2 justify-start mb-2">
-          {displayMetrics.map((m) => {
-            let val = stats[m.key];
-            if (m.key === "sm_rain" && val !== undefined)
-              val = Math.round(val);
-            return (
-              <StatBox
-                key={m.key}
-                label={m.label}
-                value={val}
-                unit={m.unit}
-                accentColor={m.color}
-              />
-            );
-          })}
+          {/* 下段: 寒さ・降水グループ (xlで2分割、それ以外で縦積み) */}
+          <div className="flex flex-col xl:flex-row gap-3 items-stretch w-full min-w-0">
+            <div className="xl:flex-1 min-w-0">
+              <GroupCard title="寒さ" dotColor="#3b82f6" metrics={coldMetrics} stats={stats} />
+            </div>
+            <div className="xl:flex-1 min-w-0">
+              <GroupCard title="降水" dotColor="#0891b2" metrics={rainMetrics} stats={stats} />
+            </div>
+          </div>
         </div>
       )}
 
@@ -170,7 +135,6 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
           height="100%"
         />
       </div>
-
     </div>
   );
 };

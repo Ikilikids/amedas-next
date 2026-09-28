@@ -1,6 +1,6 @@
 import React from "react";
 import { RatioInfo } from "../../types/union";
-import { MetricValue } from "../../setting/metric";
+import { MetricKey, MetricValue } from "../../setting/metric";
 import { ChartDataItem } from "./types";
 
 interface ChartTableSectionProps {
@@ -21,15 +21,19 @@ const ChartTableSection: React.FC<ChartTableSectionProps> = ({
     >
       {/* Header Row: Labels */}
       <div className="contents">
-        {items.map((entry) => (
-          <div
-            key={`label-${entry.name}`}
-            className="px-1 py-0.5 text-gray-100 border-l border-gray-400 first:border-l-0 text-center text-[10px] font-bold whitespace-nowrap overflow-hidden text-ellipsis"
-            style={{ backgroundColor: entry.color }}
-          >
-            {entry.name}
-          </div>
-        ))}
+        {items.map((entry) => {
+          const icon = MetricKey[entry.key]?.icon;
+          return (
+            <div
+              key={`label-${entry.name}`}
+              className="px-1 py-0.5 text-gray-100 border-l border-gray-400 first:border-l-0 text-center text-[10px] font-bold whitespace-nowrap overflow-hidden text-ellipsis flex items-center justify-center gap-1"
+              style={{ backgroundColor: entry.color }}
+            >
+              {icon && <span className="text-xs shrink-0">{icon}</span>}
+              <span className="truncate">{entry.name}</span>
+            </div>
+          );
+        })}
       </div>
 
       {/* Value Row: Days and Ranks */}

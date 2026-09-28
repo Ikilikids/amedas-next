@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BsFillCloudLightningRainFill,
-  BsFillCloudRainFill,
-  BsFillCloudRainHeavyFill,
-} from "react-icons/bs";
-import { MetricKey } from "../../setting/metric";
+import { MetricKey, MetricMeta } from "../../setting/metric";
 
 interface HistoryEntry {
   date: string;
@@ -17,104 +12,42 @@ interface RecentTrendTableProps {
   history: HistoryEntry[];
 }
 
-// ==============================
-// Daily Temperature Color Helper (Categorized Solid Colors, no smooth gradient)
-// ==============================
-const getDailyTempColor = (val: number | null, isHi: boolean): string => {
-  if (val === null) return "white";
-  if (isHi) {
-    if (val >= 35) return `${MetricKey.hitemp_35.color}33`; // 猛暑日 (20% opacity)
-    if (val >= 30) return `${MetricKey.hitemp_30.color}33`; // 真夏日
-    if (val >= 25) return `${MetricKey.hitemp_25.color}33`; // 夏日
-    if (val < 0) return `${MetricKey.hitemp_0.color}33`; // 真冬日
-  } else {
-    if (val >= 25) return `${MetricKey.lwtemp_25.color}33`; // 熱帯夜
-    if (val < 0) return `${MetricKey.lwtemp_0.color}33`; // 冬日
-  }
-  return "white";
-};
 
 // ==============================
-// Daily Precipitation Color Helper (Categorized Solid Colors)
+// Day Condition Metrics Helper (Temperature & Rain)
 // ==============================
-const getDailyRainColor = (val: number | null): string => {
-  if (val === null || val === 0) return "white";
-  if (val >= 100) return "#1e3a8a33"; // 紺 (20% opacity)
-  if (val >= 50) return "#2563eb33";  // 青 (20% opacity)
-  return "#38bdf833";                 // 水色 (20% opacity)
-};
-
-// ==============================
-// Temperature Icon Condition Helper
-// ==============================
-const getDayConditionIcons = (hi: number | null, lw: number | null) => {
-  let hiIcon = null;
-  let hiColor = "";
-  let hiLabel = "";
-  let lwIcon = null;
-  let lwColor = "";
-  let lwLabel = "";
+const getDayConditionMetrics = (
+  hi: number | null,
+  lw: number | null,
+  rain: number | null
+): {
+  hiMetric: MetricMeta | null;
+  lwMetric: MetricMeta | null;
+  rainMetric: MetricMeta | null;
+} => {
+  let hiMetric: MetricMeta | null = null;
+  let lwMetric: MetricMeta | null = null;
+  let rainMetric: MetricMeta | null = null;
 
   if (hi !== null) {
-    if (hi >= 35) {
-      hiIcon = MetricKey.hitemp_35.highIcon;
-      hiColor = MetricKey.hitemp_35.color;
-      hiLabel = MetricKey.hitemp_35.label;
-    } else if (hi >= 30) {
-      hiIcon = MetricKey.hitemp_30.highIcon;
-      hiColor = MetricKey.hitemp_30.color;
-      hiLabel = MetricKey.hitemp_30.label;
-    } else if (hi >= 25) {
-      hiIcon = MetricKey.hitemp_25.highIcon;
-      hiColor = MetricKey.hitemp_25.color;
-      hiLabel = MetricKey.hitemp_25.label;
-    } else if (hi < 0) {
-      hiIcon = MetricKey.hitemp_0.highIcon;
-      hiColor = MetricKey.hitemp_0.color;
-      hiLabel = MetricKey.hitemp_0.label;
-    }
+    if (hi >= 35) hiMetric = MetricKey.hitemp_35;
+    else if (hi >= 30) hiMetric = MetricKey.hitemp_30;
+    else if (hi >= 25) hiMetric = MetricKey.hitemp_25;
+    else if (hi < 0) hiMetric = MetricKey.hitemp_0;
   }
 
   if (lw !== null) {
-    if (lw >= 25) {
-      lwIcon = MetricKey.lwtemp_25.highIcon;
-      lwColor = MetricKey.lwtemp_25.color;
-      lwLabel = MetricKey.lwtemp_25.label;
-    } else if (lw < 0) {
-      lwIcon = MetricKey.lwtemp_0.highIcon;
-      lwColor = MetricKey.lwtemp_0.color;
-      lwLabel = MetricKey.lwtemp_0.label;
-    }
+    if (lw >= 25) lwMetric = MetricKey.lwtemp_25;
+    else if (lw < 0) lwMetric = MetricKey.lwtemp_0;
   }
 
-  return { hiIcon, hiColor, hiLabel, lwIcon, lwColor, lwLabel };
-};
-
-// ==============================
-// Precipitation Icon Condition Helper
-// ==============================
-const getRainCondition = (val: number | null) => {
-  let rainIcon = null;
-  let rainColor = "";
-  let rainLabel = "";
-
-  if (val !== null && val > 0) {
-    if (val >= 100) {
-      rainIcon = <BsFillCloudLightningRainFill />;
-      rainColor = "#1e3a8a"; // 紺色
-      rainLabel = "豪雨 (≥100mm)";
-    } else if (val >= 50) {
-      rainIcon = <BsFillCloudRainHeavyFill />;
-      rainColor = "#2563eb"; // 青色
-      rainLabel = "非常に激しい雨 (≥50mm)";
-    } else {
-      rainIcon = <BsFillCloudRainFill />;
-      rainColor = "#38bdf8"; // 水色
-      rainLabel = "雨";
-    }
+  if (rain !== null && rain > 0) {
+    if (rain >= 100) rainMetric = MetricKey.rain_100;
+    else if (rain >= 50) rainMetric = MetricKey.rain_50;
+    else rainMetric = MetricKey.rain_1;
   }
 
-  return { rainIcon, rainColor, rainLabel };
+  return { hiMetric, lwMetric, rainMetric };
 };
 
 const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
@@ -142,8 +75,11 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
               </th>
               {sortedData.map((item, i) => {
                 const dateStr = item.date.split("-").slice(1).join("/");
-                const { hiIcon, hiColor, hiLabel, lwIcon, lwColor, lwLabel } = getDayConditionIcons(item.hi, item.lw);
-                const { rainIcon, rainColor, rainLabel } = getRainCondition(item.rain);
+                const { hiMetric, lwMetric, rainMetric } = getDayConditionMetrics(
+                  item.hi,
+                  item.lw,
+                  item.rain
+                );
                 return (
                   <th
                     key={i}
@@ -152,19 +88,19 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
                     <div className="flex flex-col items-center justify-center gap-0.5">
                       <span className="text-slate-600 whitespace-nowrap">{dateStr}</span>
                       <div className="flex items-center gap-0.5 min-h-[16px] justify-center mt-0.5">
-                        {hiIcon && (
-                          <span style={{ color: hiColor }} className="text-xs" title={hiLabel}>
-                            {hiIcon}
+                        {hiMetric && (
+                          <span style={{ color: hiMetric.color }} className="text-xs" title={hiMetric.label}>
+                            {hiMetric.icon}
                           </span>
                         )}
-                        {lwIcon && (
-                          <span style={{ color: lwColor }} className="text-xs" title={lwLabel}>
-                            {lwIcon}
+                        {lwMetric && (
+                          <span style={{ color: lwMetric.color }} className="text-xs" title={lwMetric.label}>
+                            {lwMetric.icon}
                           </span>
                         )}
-                        {rainIcon && (
-                          <span style={{ color: rainColor }} className="text-xs" title={rainLabel}>
-                            {rainIcon}
+                        {rainMetric && (
+                          <span style={{ color: rainMetric.color }} className="text-xs" title={rainMetric.label}>
+                            {rainMetric.icon}
                           </span>
                         )}
                       </div>
@@ -181,12 +117,12 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
                 最高気温 (℃)
               </td>
               {sortedData.map((item, i) => {
-                const tempColor = getDailyTempColor(item.hi, true);
+                const { hiMetric } = getDayConditionMetrics(item.hi, null, null);
                 return (
                   <td
                     key={i}
                     className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs text-slate-900"
-                    style={{ backgroundColor: tempColor }}
+                    style={{ backgroundColor: hiMetric ? `${hiMetric.color}33` : "white" }}
                   >
                     {item.hi !== null ? item.hi.toFixed(1) : "--"}
                   </td>
@@ -200,12 +136,12 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
                 最低気温 (℃)
               </td>
               {sortedData.map((item, i) => {
-                const tempColor = getDailyTempColor(item.lw, false);
+                const { lwMetric } = getDayConditionMetrics(null, item.lw, null);
                 return (
                   <td
                     key={i}
                     className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs text-slate-900"
-                    style={{ backgroundColor: tempColor }}
+                    style={{ backgroundColor: lwMetric ? `${lwMetric.color}33` : "white" }}
                   >
                     {item.lw !== null ? item.lw.toFixed(1) : "--"}
                   </td>
@@ -219,12 +155,12 @@ const RecentTrendTable: React.FC<RecentTrendTableProps> = ({ history }) => {
                 降水量 (mm)
               </td>
               {sortedData.map((item, i) => {
-                const rainBgColor = getDailyRainColor(item.rain);
+                const { rainMetric } = getDayConditionMetrics(null, null, item.rain);
                 return (
                   <td
                     key={i}
                     className="border-r border-slate-100 min-w-[64px] py-2.5 text-center align-middle font-bold text-xs  text-slate-900"
-                    style={{ backgroundColor: rainBgColor }}
+                    style={{ backgroundColor: rainMetric ? `${rainMetric.color}33` : "white" }}
                   >
                     {item.rain !== null ? item.rain.toFixed(1) : "--"}
                   </td>

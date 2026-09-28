@@ -6,7 +6,7 @@ import { toBadge, toMetricMap, toStation } from "../../utils/masterUtils";
 import { BadgeLogic } from "../../utils/badgeLogic";
 import { MetricMeta, MetricValue } from "../../setting/metric";
 import { PrefMeta } from "../../setting/pref";
-import { RankMeta } from "../../setting/rank";
+import { RankMeta, isIslandId } from "../../setting/rank";
 import { RegionMeta } from "../../setting/region";
 import { RawRankingData } from "./types";
 
@@ -188,7 +188,12 @@ export const useStationDetail = (stationId: StationId | null) => {
           tableData: toMetricMap(table, (v) => v),
         };
 
-        const rawBadges = BadgeLogic.getBadges(overview as any, ratio as any);
+        const rawBadges = BadgeLogic.getBadges(
+          overview as any,
+          ratio as any,
+          table as any,
+          isIslandId(stationId)
+        );
         const resolvedBadges = rawBadges.map(toBadge);
 
         setUonzuData(result.uonzuData);

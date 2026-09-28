@@ -12,17 +12,18 @@ export default async function handler(
 ) {
   const { type } = req.query;
 
-  if (!type || typeof type !== "string") {
-    return res.status(400).json({ error: "Missing type parameter" });
-  }
-
   try {
     const rankingsSnapshot = await db.collection("rankings").get();
     const result: Record<string, any> = {};
 
-    const targetMetrics = Object.values(MetricKey)
-      .filter((m) => m.detail.group === type)
-      .map((m) => m.key);
+    const targetMetrics =
+      type && typeof type === "string" && type !== "all"
+        ? Object.values(MetricKey)
+            .filter((m) => m.detail.group === type)
+            .map((m) => m.key)
+        : Object.values(MetricKey)
+            .filter((m) => m.detail.group !== undefined)
+            .map((m) => m.key);
 
     rankingsSnapshot.forEach((doc) => {
       const metricId = doc.id as MetricValue;

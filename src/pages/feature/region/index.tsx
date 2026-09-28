@@ -22,8 +22,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
   REGION_LIST.forEach((regKey) => {
     const detail = RegionKey[regKey]?.detail;
+    const prefs = getPrefsInRegion(regKey);
+    const prefCodes = prefs.flatMap((p) => p.code);
     if (detail?.uonzuList) {
-      regionUonzuMap[regKey] = loadUonzuItemsForList(detail.uonzuList);
+      regionUonzuMap[regKey] = loadUonzuItemsForList(detail.uonzuList, prefCodes);
     } else {
       regionUonzuMap[regKey] = [];
     }
@@ -106,7 +108,7 @@ const RegionIndexPage: NextPage<Props> = ({ regionUonzuMap }) => {
         {REGION_LIST.map((regKey, index) => {
           const regMeta = RegionKey[regKey];
           const info = regMeta.detail;
-          const prefKeys = getPrefsInRegion(regKey);
+          const prefs = getPrefsInRegion(regKey);
           const sectionNumber = index + 2;
 
           return (
@@ -165,15 +167,14 @@ const RegionIndexPage: NextPage<Props> = ({ regionUonzuMap }) => {
                 <span className="text-xs font-bold text-slate-400 mr-1">
                   所属都道府県・地域:
                 </span>
-                {prefKeys.map((pk) => {
-                  const pMeta = PrefKey[pk];
+                {prefs.map((p) => {
                   return (
                     <Link
-                      key={pk}
-                      href={`/feature/region/${regKey}/${pk}`}
+                      key={p.key}
+                      href={`/feature/region/${regKey}/${p.key}`}
                       className="text-xs font-bold px-2.5 py-1 bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 rounded-lg border border-slate-200/60 transition-colors"
                     >
-                      {pMeta?.label}
+                      {p.label}
                     </Link>
                   );
                 })}

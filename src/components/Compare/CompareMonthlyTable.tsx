@@ -58,7 +58,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
               <div className="flex items-center gap-1">
                 <span className="text-slate-700">{meta.label}</span>
                 <span className="text-xs" style={{ color: meta.color }}>
-                  {meta.highIcon || meta.lowIcon}
+                  {meta.icon || meta.high?.icon || meta.low?.icon}
                 </span>
               </div>
               <span className="text-[9px] text-slate-400 font-normal">

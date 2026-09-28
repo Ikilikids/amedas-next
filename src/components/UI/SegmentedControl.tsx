@@ -6,6 +6,7 @@ interface Option<T> {
   disabled?: boolean;
   activeClassName?: string;
   color?: string;
+  icon?: React.ReactNode;
 }
 
 interface SegmentedControlProps<T extends string | number> {
@@ -58,7 +59,10 @@ const SegmentedControl = <T extends string | number>({
               : {}
           }
         >
-          {opt.label}
+          <span className="flex items-center gap-1.5">
+            {opt.icon && <span className="text-sm shrink-0">{opt.icon}</span>}
+            <span>{opt.label}</span>
+          </span>
         </button>
       ))}
       {children}

@@ -86,6 +86,7 @@ const MetricPopup: React.FC<MetricPopupProps> = ({
                       key: m.key,
                       label: m.label,
                       color: m.color,
+                      icon: m.icon,
                     };
                   })}
                 className="flex-wrap"

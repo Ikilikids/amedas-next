@@ -26,6 +26,7 @@ export type RawStationData = {
 } & {
   official_name?: string;
   city?: string;
+  area?: string;
   height?: number;
   lon?: number;
   lat?: number;
@@ -59,6 +60,7 @@ export interface RawBadgeData {
   metric: string;
   rank: BadgeRank;
   isHigh: boolean;
+  isIsland?: boolean;
 }
 
 export type BadgeRank = "rainbow" | "gold" | "silver" | "bronze";

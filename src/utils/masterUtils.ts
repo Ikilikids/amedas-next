@@ -3,6 +3,12 @@ import { RawBadgeData, RawData, RawStationData } from "../types/raw";
 import { CategoryKey, CategoryMeta } from "../setting/category";
 import { MetricKey, MetricMeta, MetricValue } from "../setting/metric";
 import { PrefKey, PrefMeta } from "../setting/pref";
+import { AreaKey, AreaMeta, AreaValue } from "../setting/area";
+
+export function resolveArea(key?: string): AreaMeta | undefined {
+  if (!key) return undefined;
+  return AreaKey[key as AreaValue];
+}
 export function resolveCategory(key: string): CategoryMeta {
   return CategoryKey[key as keyof typeof CategoryKey];
 }
@@ -11,7 +17,7 @@ function resolveMetric(key: string): MetricMeta {
   return MetricKey[key as MetricValue];
 }
 
-function resolvePref(key: string): PrefMeta {
+export function resolvePref(key: string): PrefMeta {
   const pref = Object.values(PrefKey).find((p) => p.code.includes(key));
   return pref as PrefMeta;
 }
@@ -49,6 +55,7 @@ export function toStation(raw: RawStationData): StationData {
 
     official_name: raw.official_name ?? undefined,
     city: raw.city ?? undefined,
+    area: resolveArea(raw.area),
     height: raw.height ?? undefined,
     lon: raw.lon ?? undefined,
     lat: raw.lat ?? undefined,
@@ -83,6 +90,7 @@ export function toBadge(raw: RawBadgeData): BadgeData {
     metric: resolveMetric(raw.metric),
     rank: raw.rank,
     isHigh: raw.isHigh,
+    isIsland: raw.isIsland,
   };
 }
 

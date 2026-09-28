@@ -142,11 +142,13 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
     <>
       <Head>
         <title>{`${selectedMonth === "all" ? "通年" : selectedMonth + "月"}の${
-          config.label
+          config.tab?.includes("日数") ? `${config.label}（${config.tab}）` : config.label
         }ランキング - アメダス図鑑`}</title>
         <meta
           name="description"
-          content={`全国約1,300地点のアメダス観測データに基づき、${selectedMonth === "all" ? "通年" : `${selectedMonth}月`}の${config.label}平年値ランキングを表示。地域・都道府県別での絞り込み比較も可能です。`}
+          content={`全国約1,300地点のアメダス観測データに基づき、${selectedMonth === "all" ? "通年" : `${selectedMonth}月`}の${
+            config.tab?.includes("日数") ? `${config.tab}（${config.label}）` : config.label
+          }平年値ランキングを表示。地域・都道府県別での絞り込み比較も可能です。`}
         />
         <link rel="canonical" href="https://amedas-zukan.jp/clim_ranking" />
       </Head>
@@ -166,10 +168,15 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
               <HeroSection
                 badgeIcon={<IoIosTrophy className="text-amber-200" />}
                 badgeText="Climatological Ranking"
-                title={`${selectedMonth === "all" ? "通年" : `${selectedMonth}月`}の${config.label}ランキング`}
-                description="全国約1,300地点のアメダス平年値（1991〜2020年統計）に基づき、各指標の全国・地域・都道府県別ランキングを掲載しています。"
+                Icon={config.icon}
+                title={`${selectedMonth === "all" ? "通年" : `${selectedMonth}月`}の${
+                  config.tab?.includes("日数") ? `${config.label}（${config.tab}）` : config.label
+                }ランキング`}
+                description={`全国約1,300地点のアメダス平年値（1991〜2020年統計）に基づき、${
+                  config.tab?.includes("日数") ? `${config.tab}（${config.label}）` : config.label
+                }の全国・地域・都道府県別ランキングを掲載しています。`}
                 watermark="RANKING"
-                gradient="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500"
+                gradient={detail.gradient}
               />
 
               {/* 統合コントロールパネル（項目選択・月選択・絞り込み・凡例） */}
@@ -182,30 +189,34 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
                     </span>
                     {Object.values(MetricKey)
                       .filter((m) => m.tab === "主要")
-                      .map((m) => (
-                        <button
-                          key={m.key}
-                          onClick={() => setMetric(m)}
-                          className={`px-3.5 py-1.5 rounded-xl text-xs  font-bold transition-all ${
-                            metric.key === m.key
-                              ? `text-white shadow-sm`
-                              : "text-slate-600 hover:bg-slate-100"
-                          }`}
-                          style={
-                            metric.key === m.key ? { backgroundColor: m.color } : {}
-                          }
-                        >
-                          {m.label}
-                        </button>
-                      ))}
+                      .map((m) => {
+                        const isSelected = metric.key === m.key;
+                        return (
+                          <button
+                            key={m.key}
+                            onClick={() => setMetric(m)}
+                            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                              isSelected
+                                ? "text-white shadow-sm"
+                                : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200/70"
+                            }`}
+                            style={
+                              isSelected ? { backgroundColor: m.color } : {}
+                            }
+                          >
+                            <span>{m.icon}</span>
+                            <span>{m.label}</span>
+                          </button>
+                        );
+                      })}
 
                     {/* その他メトリック選択 */}
                     <button
                       onClick={() => setShowPopup(true)}
-                      className={`px-3.5 py-1.5 rounded-xl text-xs  font-bold transition-all ${
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                         metric.tab !== "主要"
                           ? "text-white shadow-sm"
-                          : "text-slate-600 hover:bg-slate-100 border border-slate-200"
+                          : "text-slate-600 bg-slate-50 hover:bg-slate-100 border border-slate-200/70"
                       }`}
                       style={
                         metric.tab !== "主要"
@@ -213,7 +224,8 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
                           : {}
                       }
                     >
-                      {metric.tab !== "主要" ? metric.label : "その他 ▸"}
+                      {metric.tab !== "主要" && <span>{metric.icon}</span>}
+                      <span>{metric.tab !== "主要" ? metric.label : "その他 ▸"}</span>
                     </button>
                   </div>
 

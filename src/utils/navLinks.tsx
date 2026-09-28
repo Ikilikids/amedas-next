@@ -4,7 +4,6 @@ import {
   FaBuilding,
   FaClock,
   FaCompass,
-  FaDice,
   FaSearch,
   FaStar,
 } from "react-icons/fa";
@@ -44,7 +43,7 @@ export const realtimeLinks: NavLink[] = [
     iconClass: "text-orange-500",
   },
   {
-    href: "/live/daily_ranking",
+    href: "/live/daily_ranking/av_hitemp",
     Icon: <PiRankingDuotone />,
     title: "今日のランキング",
     description: "本日の気温・降水ランキング",
@@ -53,38 +52,15 @@ export const realtimeLinks: NavLink[] = [
       "本日これまでの全国最高気温・最低気温・日降水量・最大瞬間風速のトップ地点をリアルタイムでランキング表示。今どこが最も暑く、あるいは寒いのかを速報します。",
     iconClass: "text-yellow-500",
   },
-];
-
-export const yearlyRankingLinks: NavLink[] = [
   {
-    href: "/live/recent_ranking/heat",
+    href: "/live/recent_ranking/max_hitemp",
     Icon: <IoIosTrophy />,
-    title: "暑さのランキング",
-    description: "今年の最高気温や猛暑日など",
-    topPageTitle: "暑さのランキング（今年・最近）",
+    title: "今年これまでのランキング",
+    description: "最高・最低気温や猛暑日・降水量など",
+    topPageTitle: "今年これまでのランキング（年間速報）",
     topPageDescription:
-      "今年記録された全国の最高気温ベスト記録や、猛暑日・真夏日の年間日数ランキング。各地の記録的猛暑の推移を一覧で振り返ることができます。",
-    iconClass: "text-red-600",
-  },
-  {
-    href: "/live/recent_ranking/cold",
-    Icon: <IoIosTrophy />,
-    title: "寒さのランキング",
-    description: "今年の最低気温や冬日など",
-    topPageTitle: "寒さのランキング（今年・最近）",
-    topPageDescription:
-      "冬期に観測された全国の最低気温ワースト記録や、冬日・真冬日の継続日数などを集計。北日本や高地を中心とする極寒の気候データを追跡できます。",
-    iconClass: "text-sky-400",
-  },
-  {
-    href: "/live/recent_ranking/rain",
-    Icon: <IoIosTrophy />,
-    title: "降水量のランキング",
-    description: "最近の降水量や今年の累計など",
-    topPageTitle: "降水量のランキング（今年・最近）",
-    topPageDescription:
-      "24時間・48時間などの大雨集中記録から、年間の積算降水量ランキングまで網羅。多雨地域や台風・豪雨による記録的な雨量を詳しく検証できます。",
-    iconClass: "text-indigo-800",
+      "今年これまでに記録された全国の最高・最低気温や猛暑日・熱帯夜の日数、積算降水量などを集計。最新の年間記録を一覧で確認できます。",
+    iconClass: "text-amber-500",
   },
 ];
 
@@ -118,16 +94,6 @@ export const searchLinks: NavLink[] = [
     topPageDescription:
       "日本地図の地理的配置を見ながら直感的にアメダス地点を探索。都道府県や標高、地形に応じた観測所を選択し、瞬時に雨温図や平年値データを呼び出せます。",
     iconClass: "text-green-600",
-  },
-  {
-    href: "/gacha",
-    Icon: <FaDice />,
-    title: "アメダス・ガチャ",
-    description: "全国のアメダス地点を引いてコレクション！",
-    topPageTitle: "アメダス・ガチャ（ランダム発見）",
-    topPageDescription:
-      "全国約1,300地点の中からランダムにアメダス観測所を引いてコレクション！未知の離島や山岳観測所など、知られざる日本の地域気候との出会いを楽しめます。",
-    iconClass: "text-purple-600",
   },
 ];
 
@@ -202,15 +168,6 @@ export const navSections: NavSection[] = [
     Icon: <FaClock />,
     bgColor: "#ef4444",
     links: realtimeLinks,
-  },
-  {
-    id: "yearly",
-    title: "今年のランキング",
-    description:
-      "今年これまでの最高気温、最低気温、降水量などのランキングです。",
-    Icon: <IoIosTrophy />,
-    bgColor: "#f59e0b",
-    links: yearlyRankingLinks,
   },
   {
     id: "search",

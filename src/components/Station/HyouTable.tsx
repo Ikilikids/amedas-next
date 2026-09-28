@@ -142,7 +142,7 @@ const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) => {
 
   const renderRow = (meta: MetricMeta) => {
     const dataArray = mapValueRank(meta);
-    const icon = meta.highIcon || meta.lowIcon;
+    const icon = meta.icon || meta.high?.icon || meta.low?.icon;
 
     return (
       <tr

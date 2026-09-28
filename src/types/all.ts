@@ -1,6 +1,7 @@
 import { CategoryMeta } from "../setting/category";
 import { MetricMeta } from "../setting/metric";
 import { PrefMeta } from "../setting/pref";
+import { AreaMeta } from "../setting/area";
 import { BadgeRank } from "./raw";
 import { DescriptionData, MonthlyEntry, RankedValue, StationId } from "./union";
 
@@ -26,6 +27,7 @@ export type StationData = {
 } & {
   official_name?: string;
   city?: string;
+  area?: AreaMeta;
   height?: number;
   lon?: number;
   lat?: number;
@@ -40,4 +42,5 @@ export interface BadgeData {
   metric: MetricMeta;
   rank: BadgeRank;
   isHigh: boolean;
+  isIsland?: boolean;
 }

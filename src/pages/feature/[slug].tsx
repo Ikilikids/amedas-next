@@ -38,7 +38,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       { params: { slug: "hot" } },
       { params: { slug: "warm" } },
     ],
-    fallback: false,
+    fallback: "blocking",
   };
 };
 

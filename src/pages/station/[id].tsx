@@ -9,10 +9,11 @@ import HeroSection from "../../components/HeroSection";
 import Sidebar from "../../components/Sidebar";
 import InfoPanel from "../../components/InfoPanel";
 import StationMap from "../../components/StationMap";
+import { MetricKey } from "../../setting/metric";
 import Similar from "../../components/Station/Similar";
 import PrefecturePart from "../../components/Station/PrefecturePart";
 import Breadcrumb from "../../components/Breadcrumb";
-import { FaBookOpen, FaArrowLeft } from "react-icons/fa";
+import { FaBookOpen, FaArrowLeft, FaMapLocationDot } from "react-icons/fa6";
 
 import { SectionWithDescription } from "../../utils/colorUtils";
 import { IoBook } from "react-icons/io5";
@@ -46,7 +47,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     params: { id },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: "blocking" };
 };
 
 export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
@@ -91,7 +92,9 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
 
   const badgeinfo: RawBadgeData[] = BadgeLogic.getBadges(
     overview as any,
-    ratio as any
+    ratio as any,
+    table as any,
+    isIslandId(id)
   );
 
   return {
@@ -314,12 +317,16 @@ const StationPage = (props: RawData) => {
                         badges={badges}
                       />
                     </div>
-                    <div className="xl:w-1/2 h-[340px] xl:h-auto shrink-0 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative bg-slate-50">
-                      <StationMap
-                        isMini
-                        lat={stationData.lat}
-                        lng={stationData.lon}
-                      />
+                    <div className="xl:w-1/2 flex flex-col min-w-0">
+                      <div className="flex-1 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative bg-slate-50 min-h-[350px] xl:min-h-0">
+                        <div className="w-full h-[350px] xl:h-full xl:absolute xl:inset-0">
+                          <StationMap
+                            isMini
+                            lat={stationData.lat}
+                            lng={stationData.lon}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </section>

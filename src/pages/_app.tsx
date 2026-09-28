@@ -1,5 +1,6 @@
 import React, { Component as ReactComponent, useEffect, useState } from "react";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
 
@@ -144,6 +145,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ErrorBoundary>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
       {isNavigating && (
         <div className="fixed top-0 left-0 right-0 z-[9999] h-1 overflow-hidden bg-slate-200">
           <div className="h-full bg-gradient-to-r from-blue-600 via-sky-400 to-indigo-600 animate-pulse w-full"></div>

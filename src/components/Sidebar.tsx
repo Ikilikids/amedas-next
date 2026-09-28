@@ -7,7 +7,6 @@ import {
   FaChevronDown,
   FaTags,
   FaBalanceScaleLeft,
-  FaDice,
   FaCompass,
 } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
@@ -144,7 +143,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>
             <Link
-              href="/live/daily_ranking"
+              href="/live/daily_ranking/av_hitemp"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
             >
               <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
@@ -170,16 +169,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
                 <FaBalanceScaleLeft className="text-blue-500 text-sm shrink-0" />
                 <span>2地点の気候を比較</span>
-              </span>
-              <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
-            </Link>
-            <Link
-              href="/gacha"
-              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
-            >
-              <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
-                <FaDice className="text-purple-500 text-sm shrink-0" />
-                <span>アメダス・ガチャ</span>
               </span>
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>
