@@ -52,8 +52,15 @@ const ColumnIndexPage: NextPage = () => {
                   className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all group relative"
                 >
                   <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 font-bold mb-3">
-                    <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full font-black">
-                      {article.category}
+                    <span
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-black"
+                      style={{
+                        color: article.color,
+                        backgroundColor: `color-mix(in srgb, ${article.color} 10%, white)`,
+                      }}
+                    >
+                      <span className="text-sm">{article.Icon}</span>
+                      <span>{article.category}</span>
                     </span>
                     <span className="flex items-center gap-1">
                       <FaCalendarAlt />
@@ -78,7 +85,8 @@ const ColumnIndexPage: NextPage = () => {
                   <div className="flex items-center justify-end pt-3 border-t border-slate-100">
                     <Link
                       href={`/column/${article.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-black text-blue-600 group-hover:translate-x-1 transition-transform"
+                      className="inline-flex items-center gap-1 text-xs font-black group-hover:translate-x-1 transition-transform"
+                      style={{ color: article.color }}
                     >
                       <span>続きを読む</span>
                       <FaChevronRight className="text-[10px]" />

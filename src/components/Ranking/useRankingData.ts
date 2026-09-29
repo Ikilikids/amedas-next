@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BadgeData, OverviewData, RatioData, StationData, TableData, UonzuData } from "../../types/all";
 import { RawStationData } from "../../types/raw";
-import { MonthlyEntry, StationId } from "../../types/union";
+import { MonthlyEntry, RankedValue, StationId } from "../../types/union";
 import { toBadge, toMetricMap, toStation } from "../../utils/masterUtils";
 import { BadgeLogic } from "../../utils/badgeLogic";
 import { MetricMeta, MetricValue } from "../../setting/metric";
@@ -11,81 +11,44 @@ import { RegionMeta } from "../../setting/region";
 import { RawRankingData } from "./types";
 
 import {
-  getClimate,
-  getMaster,
-  getStation,
-  hasMetric,
-  setMaster,
-} from "../../utils/climateCache";
-
-const fetchStationsMaster = async (): Promise<
-  Record<StationId, RawStationData>
-> => {
-  const cached = getMaster();
-  if (cached) return cached;
-
-  const res = await fetch("/stations.json");
-  if (!res.ok) throw new Error("Failed to load stations master");
-  const rawData: Record<StationId, RawStationData> = await res.json();
-  setMaster(rawData);
-  return rawData;
-};
+  loadSingleMetric,
+  getStationMetrics,
+} from "../../utils/climateDataManager";
+import { processRankingData } from "../../utils/rankingUtils";
 
 // =============================================================================
 // Hook: useRankingData
 // =============================================================================
-
-import {
-  assembleDisplayData,
-  processRankingData,
-} from "../../utils/rankingUtils";
 
 export const useRankingData = (
   sortKey: MetricMeta,
   rankMeta: RankMeta,
   selectedRegion: RegionMeta,
   selectedPref: PrefMeta,
-  selectedMonth: string
+  selectedMonth: string,
+  masterData?: Record<StationId, RawStationData>
 ) => {
   const [stations, setStations] = useState<RawRankingData[]>([]);
-  const [stationsMaster, setStationsMaster] = useState<Record<
-    StationId,
-    RawStationData
-  > | null>(getMaster());
 
   useEffect(() => {
-    fetchStationsMaster().then(setStationsMaster).catch(console.error);
-  }, []);
-
-  useEffect(() => {
-    if (!stationsMaster) return;
-
+    let isMounted = true;
     const metric = sortKey.key.toLowerCase() as MetricValue;
     const monthIdx = selectedMonth === "all" ? 12 : parseInt(selectedMonth) - 1;
 
     const getRankingData = async () => {
       try {
-        let integrated: Record<StationId, MonthlyEntry[]>;
+        const integrated = await loadSingleMetric(metric, masterData);
+        if (!integrated || !isMounted) return;
 
-        if (hasMetric(metric)) {
-          // すでにキャッシュがあればそれを使う
-          integrated = getClimate(metric, stationsMaster, {});
-        } else {
-          // なければフェッチしてキャッシュする
-          const res = await fetch(`/ranking_not_null/${metric}.json`);
-          if (!res.ok) throw new Error(`Ranking data not found for ${metric}`);
-          const rawData = await res.json();
-          integrated = getClimate(metric, stationsMaster, rawData);
-        }
-
-        // 3. 表示用に変換してフィルタリング
+        const master = masterData;
+        if (!master) return;
         const stationList = Object.entries(integrated)
           .map(([id, entries]) => {
-            const master = stationsMaster[id as StationId];
-            if (!master) return null;
+            const st = master[id as StationId];
+            if (!st) return null;
             const entry = entries[monthIdx];
-            if (!entry) return null; // データがない月は除外
-            return { ...master, value: entry.value, rank: 0 } as RawRankingData;
+            if (!entry) return null;
+            return { ...st, value: entry.value, rank: 0 } as RawRankingData;
           })
           .filter((s): s is RawRankingData => s !== null);
 
@@ -97,38 +60,37 @@ export const useRankingData = (
           100
         );
 
-        setStations(processed);
+        if (isMounted) setStations(processed);
       } catch (e) {
         console.error("fetch error:", e);
-        setStations([]);
+        if (isMounted) setStations([]);
       }
     };
 
     getRankingData();
-  }, [
-    sortKey,
-    rankMeta,
-    selectedRegion,
-    selectedPref,
-    selectedMonth,
-    stationsMaster,
-  ]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [sortKey, rankMeta, selectedRegion, selectedPref, selectedMonth]);
 
   return { stations };
 };
 
-// =============================================================================
+// ==========================================
 // Hook: useStationDetail
-// =============================================================================
+// ==========================================
 
-export const useStationDetail = (stationId: StationId | null) => {
+export const useStationDetail = (
+  stationId: StationId | null,
+  initialMaster?: Record<StationId, RawStationData>
+) => {
   const [stationData, setStationData] = useState<StationData | null>(null);
   const [uonzuData, setUonzuData] = useState<UonzuData | null>(null);
   const [overviewData, setOverviewData] = useState<OverviewData | null>(null);
   const [tableData, setTableData] = useState<TableData | null>(null);
   const [badges, setBadges] = useState<BadgeData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
   useEffect(() => {
     if (!stationId) {
       setStationData(null);
@@ -142,59 +104,40 @@ export const useStationDetail = (stationId: StationId | null) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const masterRaw = await fetchStationsMaster();
-        const raw = masterRaw[stationId];
+        const master = initialMaster;
+        if (!master) {
+          throw new Error("useStationDetail: initialMaster (from SSG) is required.");
+        }
+
+        const raw = master[stationId];
         if (raw) setStationData(toStation(raw));
 
-        // 主要な項目をロード
-        const metricsToFetch: MetricValue[] = [
-          "av_avtemp",
-          "sm_rain",
-          "av_hitemp",
-          "av_lwtemp",
-          "sm_sun",
-          "sm_snowing",
-          "av_wind",
-          "hitemp_35",
-          "hitemp_30",
-          "hitemp_25",
-          "lwtemp_0",
-          "hitemp_0",
-          "lwtemp_25",
-          "rain_1",
-        ];
-
-        await Promise.all(
-          metricsToFetch.map(async (m) => {
-            if (hasMetric(m)) return; // すでにキャッシュがあればスキップ
-
-            const res = await fetch(`/ranking_not_null/${m}.json`);
-            if (res.ok) {
-              const rawData = await res.json();
-              getClimate(m, masterRaw, rawData);
-            }
-          })
+        const metricsMap = await getStationMetrics(
+          [stationId],
+          ["overview", "uonzu", "badge"],
+          master
         );
+        const item = metricsMap[stationId];
+        if (!item) return;
 
-        // キャッシュからこの地点の統合済みデータをガサッと引く
-        const integratedData = getStation(stationId);
-        const { overview, table, ratio, uonzu } = assembleDisplayData(
-          integratedData as any
-        );
+        const { overview, table, ratio, uonzu, badge } = item;
 
         const result = {
-          uonzuData: toMetricMap(uonzu, (v) => v),
-          overviewData: toMetricMap(overview, (v) => v),
-          tableData: toMetricMap(table, (v) => v),
+          uonzuData: toMetricMap<(number | null)[], (number | null)[]>(
+            uonzu,
+            (v) => v
+          ),
+          overviewData: toMetricMap<RankedValue, RankedValue>(
+            overview,
+            (v) => v
+          ),
+          tableData: toMetricMap<(MonthlyEntry | null)[], (MonthlyEntry | null)[]>(
+            table,
+            (v) => v
+          ),
         };
 
-        const rawBadges = BadgeLogic.getBadges(
-          overview as any,
-          ratio as any,
-          table as any,
-          isIslandId(stationId)
-        );
-        const resolvedBadges = rawBadges.map(toBadge);
+        const resolvedBadges = (badge || []).map(toBadge);
 
         setUonzuData(result.uonzuData);
         setOverviewData(result.overviewData);
@@ -206,7 +149,6 @@ export const useStationDetail = (stationId: StationId | null) => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [stationId]);
 

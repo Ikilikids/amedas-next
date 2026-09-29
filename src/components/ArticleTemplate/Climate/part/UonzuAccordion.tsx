@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaChevronDown, FaChevronUp, FaChartBar, FaExternalLinkAlt } from "react-icons/fa";
-import { ArticleUonzuItem } from "../../utils/ssgLoader";
-import { toMetricMap } from "../../utils/masterUtils";
-import { MetricKey } from "../../setting/metric";
-import { UonzuData } from "../../types/all";
-import UonzuChart from "../UonzuChart";
+import { ArticleUonzuItem } from "../../../../utils/ssgLoader";
+import { toMetricMap } from "../../../../utils/masterUtils";
+import { MetricKey } from "../../../../setting/metric";
+import { UonzuData } from "../../../../types/all";
+import UonzuChart from "../../../UonzuChart";
 
 interface Props {
   title?: string;

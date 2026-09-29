@@ -1,7 +1,9 @@
 import { RawRankingData } from "../components/Ranking/types";
 import {
+  RawBadgeData,
   RawOverviewData,
   RawRatioData,
+  RawStarsData,
   RawStationData,
   RawTableData,
   RawUonzuData,
@@ -11,6 +13,8 @@ import { MetricKey, MetricValue } from "../setting/metric";
 import { PrefKey, PrefMeta } from "../setting/pref";
 import { RankKey, RankMeta, isIslandId } from "../setting/rank";
 import { RegionMeta } from "../setting/region";
+import { BadgeLogic } from "./badgeLogic";
+import { calculateStar, TARGET_STAR_METRICS } from "./climateStarCalculator";
 
 /**
  * 1. 【共通】材料組み立て関数（Assembler）
@@ -165,35 +169,64 @@ export function integrateSingleMetric(
   return result;
 }
 
+export interface AssembleOptions {
+  overview?: boolean;
+  table?: boolean;
+  ratio?: boolean;
+  uonzu?: boolean;
+  stars?: boolean;
+  badge?: boolean;
+  stationId?: StationId;
+}
+
 /**
  * 【Assembler】特定地点の統合データを表示用に変換する
  */
 export function assembleDisplayData(
-  integratedData: Record<MetricValue, MonthlyEntry[]>
+  integratedData: Partial<Record<MetricValue, MonthlyEntry[]>>,
+  options?: AssembleOptions
 ) {
+  const needOverview = options?.overview ?? true;
+  const needTable = options?.table ?? true;
+  const needRatio = options?.ratio ?? true;
+  const needUonzu = options?.uonzu ?? true;
+  const needStars = options?.stars ?? true;
+  const needBadge = options?.badge ?? true;
+
   const overview: RawOverviewData = {};
   const table: RawTableData = {};
   const ratio: RawRatioData = {};
   const uonzu: RawUonzuData = {};
+  const stars: RawStarsData = {};
 
   (Object.entries(integratedData) as [MetricValue, MonthlyEntry[]][]).forEach(
     ([m, fullEntries]) => {
-      table[m] = fullEntries;
-      const annualEntry = fullEntries[12];
-      if (annualEntry) {
-        const metricMeta = MetricKey[m];
-        if (metricMeta?.tab === "主要" || metricMeta?.tab === "平均") {
-          overview[m] = { value: annualEntry.value, rank: annualEntry.top };
-        } else {
-          ratio[m] = fullEntries;
-        }
+      if (needTable) {
+        table[m] = fullEntries;
+      }
+      if (needOverview || needRatio || needStars) {
+        const annualEntry = fullEntries[12];
+        if (annualEntry) {
+          const metricMeta = MetricKey[m];
+          if (metricMeta?.tab === "主要" || metricMeta?.tab === "平均") {
+            if (needOverview) overview[m] = { value: annualEntry.value, rank: annualEntry.top };
+          } else {
+            if (needRatio) ratio[m] = fullEntries;
+          }
 
-        // Special case: Also expose hitemp_35 (猛暑日) in overview for rarity calculation
-        if (m === "hitemp_35") {
-          overview[m] = { value: annualEntry.value, rank: annualEntry.top };
+          // Special case: Also expose hitemp_35 (猛暑日) in overview for rarity calculation
+          if (m === "hitemp_35" && needOverview) {
+            overview[m] = { value: annualEntry.value, rank: annualEntry.top };
+          }
+
+          // 星評価の算出 (TARGET_STAR_METRICS に含まれる場合)
+          if (needStars && (TARGET_STAR_METRICS as string[]).includes(m) && annualEntry.value != null) {
+            stars[m] = calculateStar(annualEntry.value, metricMeta?.star);
+          }
         }
       }
       if (
+        needUonzu &&
         [
           "av_avtemp",
           "sm_rain",
@@ -208,5 +241,16 @@ export function assembleDisplayData(
     }
   );
 
-  return { overview, table, ratio, uonzu };
+  let badge: RawBadgeData[] | undefined;
+  if (needBadge) {
+    const isIsland = options?.stationId ? isIslandId(options.stationId) : false;
+    badge = BadgeLogic.getBadges(
+      overview as any,
+      ratio as any,
+      table as any,
+      isIsland
+    );
+  }
+
+  return { overview, table, ratio, uonzu, stars, ...(badge ? { badge } : {}) };
 }

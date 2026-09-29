@@ -1,14 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
-import { ArticleSection } from "./ArticleTemplate";
-import ClimateUonzuAccordion from "./ClimateUonzuAccordion";
-import { ClimateArticleData } from "../../data/types";
-import { ArticleUonzuItem } from "../../utils/ssgLoader";
+import { ArticleSection } from "../..";
+import { ClimateUonzuAccordion } from "./UonzuAccordion";
+import { ClimateArticleData } from "../../../../data/types";
+import { ArticleUonzuItem } from "../../../../utils/ssgLoader";
 
-import { ArticleClimateStarPanel, ClimateStarEntry } from "./ArticleClimateStarPanel";
-import { ClimateStarsResult } from "../../utils/climateStarCalculator";
-import { CategoryKey, CategoryValue } from "../../setting/category";
+import { ArticleClimateStarPanel, ClimateStarEntry } from "./StarPanel";
+import { ClimateStarsResult } from "../../../../utils/climateStarCalculator";
+import { CategoryKey, CategoryValue } from "../../../../setting/category";
 
 export interface ClimateIntroSectionProps {
   id: string;

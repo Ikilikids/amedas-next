@@ -17,6 +17,14 @@ export interface ArticleHeroProps {
   rightContent?: React.ReactNode;
 }
 
+export interface ArticleSectionItem {
+  id: string;
+  title: string;
+  accentColor?: string;
+  content: React.ReactNode;
+  className?: string;
+}
+
 export interface ArticleSectionProps {
   id: string;
   title: string;
@@ -25,13 +33,10 @@ export interface ArticleSectionProps {
   className?: string;
 }
 
-/**
- * 記事内のセクション見出し（カラーバー付き）と本文の共通ラッパー
- */
 export const ArticleSection: React.FC<ArticleSectionProps> = ({
   id,
   title,
-  accentColor = "#2563eb", // デフォルトはblue-600
+  accentColor = "#2563eb",
   children,
   className = "",
 }) => {
@@ -57,8 +62,7 @@ export interface ArticleTemplateProps {
   readTime?: string;
   title: string;
   points?: string | string[];
-  tocItems?: TocItem[];
-  children: React.ReactNode;
+  sections: ArticleSectionItem[];
   backHref?: string;
   backLabel?: string;
   sourceText?: string;
@@ -72,12 +76,17 @@ export const ArticleTemplate: React.FC<ArticleTemplateProps> = ({
   readTime,
   title,
   points,
-  tocItems = [],
-  children,
+  sections,
   backHref,
   backLabel = "一覧に戻る",
   sourceText = "気象庁「過去の気象データ・平年値（1991〜2020年）」をもとに作成",
 }) => {
+  // sections から目次（tocItems）を自動生成
+  const tocItems: TocItem[] = sections.map((sec) => ({
+    id: sec.id,
+    label: sec.title,
+  }));
+
   return (
     <Layout>
       <main className="flex-1 max-w-[1280px] mx-auto p-4 my-4 w-full overflow-x-hidden">
@@ -143,7 +152,7 @@ export const ArticleTemplate: React.FC<ArticleTemplateProps> = ({
                 </div>
               )}
 
-              {/* モバイル用目次 */}
+              {/* モバイル用目次（自動生成） */}
               {tocItems.length > 0 && (
                 <div className="lg:hidden bg-blue-50/50 border border-blue-100 rounded-2xl p-6 mb-10">
                   <div className="flex items-center gap-2 font-black text-blue-900 mb-3 text-sm">
@@ -162,9 +171,24 @@ export const ArticleTemplate: React.FC<ArticleTemplateProps> = ({
                 </div>
               )}
 
-              {/* 記事本文 */}
-              <div className="space-y-10 text-slate-700 leading-relaxed text-sm">
-                {children}
+              {/* 記事本文セクション群（id, 見出し, 本文をループ描画） */}
+              <div className="space-y-12 text-slate-700 leading-relaxed text-sm">
+                {sections.map((sec) => (
+                  <section
+                    key={sec.id}
+                    id={sec.id}
+                    className={`scroll-mt-6 ${sec.className || ""}`}
+                  >
+                    <h2 className="text-xl font-black text-slate-800 pb-3 border-b border-slate-200 flex items-center gap-2 mb-4">
+                      <span
+                        className="w-1.5 h-6 rounded-full shrink-0"
+                        style={{ backgroundColor: sec.accentColor || "#2563eb" }}
+                      />
+                      <span>{sec.title}</span>
+                    </h2>
+                    {sec.content}
+                  </section>
+                ))}
               </div>
 
               {/* 記事フッター */}
@@ -179,12 +203,10 @@ export const ArticleTemplate: React.FC<ArticleTemplateProps> = ({
                       <span>{backLabel}</span>
                     </Link>
                   ) : (
-                    <div />
+                    <span />
                   )}
                   {sourceText && (
-                    <div className="text-xs text-slate-400 font-bold">
-                      出典: {sourceText}
-                    </div>
+                    <p className="text-xs text-slate-400 text-center">{sourceText}</p>
                   )}
                 </div>
               )}

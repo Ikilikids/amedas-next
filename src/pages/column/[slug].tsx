@@ -1,12 +1,22 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { COLUMNS, ColumnArticle } from "../../data/columns";
-import { COLUMN_COMPONENTS } from "../../components/Column/articles";
-import ArticleTemplate from "../../components/Article/ArticleTemplate";
+import {
+  COLUMNS,
+  ColumnArticle,
+  COLUMN_SECTIONS,
+} from "../../data/columns";
+import ArticleTemplate from "../../components/ArticleTemplate";
 import { FaBookOpen } from "react-icons/fa";
 
+import {
+  getStationMetrics,
+} from "../../utils/climateDataManager";
+import { ArticleUonzuItem } from "../../utils/ssgLoader";
+import { CLIMATE_DIVISIONS } from "../../data/classification";
+
 interface Props {
-  article: ColumnArticle;
+  slug: string;
+  uonzuItems?: ArticleUonzuItem[];
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -18,15 +28,28 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const slug = params?.slug as string;
-  const article = COLUMNS.find((col) => col.slug === slug);
-  if (!article) return { notFound: true };
-  return { props: { article } };
+  const exists = COLUMNS.some((col) => col.slug === slug);
+  if (!exists) return { notFound: true };
+
+  let uonzuItems: ArticleUonzuItem[] | undefined;
+  if (slug === "japan-climate-classification") {
+    const allStationIds = CLIMATE_DIVISIONS.flatMap((div) => div.stationIds);
+    const stationMetricsMap = await getStationMetrics(allStationIds, { uonzu: true });
+
+    uonzuItems = Object.values(stationMetricsMap).map((st) => ({
+      id: st.id,
+      name: st.station.station_name || "",
+      rawUonzu: st.uonzu || {},
+    }));
+  }
+
+  return { props: { slug, ...(uonzuItems ? { uonzuItems } : {}) } };
 };
 
-const ColumnDetailPage: NextPage<Props> = ({ article }) => {
-  const articleContent = COLUMN_COMPONENTS[article.slug];
-  const ArticleComponent = articleContent?.component;
-  const tocItems = articleContent?.tocItems || [];
+const ColumnDetailPage: NextPage<Props> = ({ slug, uonzuItems }) => {
+  const article = COLUMNS.find((col) => col.slug === slug);
+  const sections = COLUMN_SECTIONS[slug] ? COLUMN_SECTIONS[slug](uonzuItems) : [];
+  if (!article) return null;
 
   return (
     <>
@@ -54,19 +77,11 @@ const ColumnDetailPage: NextPage<Props> = ({ article }) => {
         publishedAt={article.publishedAt}
         readTime={article.readTime}
         title={article.title}
-        points={article.description}
-        tocItems={tocItems}
+        points={article.summary || article.description}
+        sections={sections}
         backHref="/column"
         backLabel="コラム一覧に戻る"
-      >
-        {ArticleComponent ? (
-          <ArticleComponent />
-        ) : (
-          <div className="py-12 text-center text-slate-400 font-bold">
-            記事コンテンツの読み込み準備中です。
-          </div>
-        )}
-      </ArticleTemplate>
+      />
     </>
   );
 };

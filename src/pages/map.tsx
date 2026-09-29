@@ -1,5 +1,4 @@
-// pages/map.tsx
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,14 +15,21 @@ import Breadcrumb from "../components/Breadcrumb";
 import { useStationDetail } from "../components/Ranking/useRankingData";
 import { MetricKey } from "../setting/metric";
 import { StationId } from "../types/union";
+import { RawStationData } from "../types/raw";
+import { loadMaster } from "../utils/climateDataManager";
+
+interface Props {
+  masterData: Record<StationId, RawStationData>;
+}
 
 // ==============================
 //  ページコンポーネント
 // ==============================
-const MapPage: NextPage = () => {
+const MapPage: NextPage<Props> = ({ masterData }) => {
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const { stationData, uonzuData, overviewData, badges, loading } = useStationDetail(
-    (selectedStation as StationId) || null
+    (selectedStation as StationId) || null,
+    masterData
   );
 
   const regionStrong =
@@ -159,6 +165,15 @@ const MapPage: NextPage = () => {
       </Layout>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const masterData = loadMaster();
+  return {
+    props: {
+      masterData,
+    },
+  };
 };
 
 export default MapPage;

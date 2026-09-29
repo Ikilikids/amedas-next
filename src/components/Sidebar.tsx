@@ -106,8 +106,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className="group block"
               >
                 <div className="flex items-start gap-3">
-                  <span className="text-2xl p-2 bg-slate-50 border border-slate-100 rounded-xl shrink-0 group-hover:scale-105 transition-transform">
-                    {col.coverEmoji}
+                  <span
+                    className="text-lg p-2.5 rounded-xl border border-slate-100 shrink-0 group-hover:scale-105 transition-transform flex items-center justify-center"
+                    style={{
+                      color: col.color,
+                      backgroundColor: `color-mix(in srgb, ${col.color} 10%, white)`,
+                    }}
+                  >
+                    {col.Icon}
                   </span>
                   <div className="flex-1 min-w-0">
                     <span className="text-[10px] font-black text-blue-600 block mb-0.5">

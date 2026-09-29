@@ -1,9 +1,9 @@
 import React from "react";
-import { ClimateArticleData } from "../../data/types";
-import { ArticleUonzuItem } from "../../utils/ssgLoader";
-import { ClimateStarEntry } from "./ArticleClimateStarPanel";
-import { ClimateStarsResult } from "../../utils/climateStarCalculator";
-import { ClimateIntroSection } from "./ClimateIntroSection";
+import { ClimateArticleData } from "../../../../data/types";
+import { ArticleUonzuItem } from "../../../../utils/ssgLoader";
+import { ClimateStarEntry } from "./StarPanel";
+import { ClimateStarsResult } from "../../../../utils/climateStarCalculator";
+import { ClimateIntroSection } from "./Intro";
 
 export interface ClimateChildSectionItem extends ClimateArticleData {
   key: string;

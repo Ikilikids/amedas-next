@@ -4,15 +4,17 @@ import { getAreasInPref } from "../setting/area";
 import { CategoryKey, CategoryValue } from "../setting/category";
 import { ClimateArticleData } from "../data/types";
 import {
-  ArticleUonzuItem,
-  loadMaster,
-  loadUonzuItemsForList,
-  loadRainbowStationsForRegion,
+  resolveStationNames,
+  extractRainbowStations,
   RegionRainbowStationItem,
-  loadTop1StationsForRegion,
+  extractTop1Stations,
   RegionTop1Item,
+  ArticleUonzuItem,
 } from "./ssgLoader";
-import { ClimateChildSectionItem } from "../components/Article/ClimateChildSections";
+import { getStationMetrics, loadMaster } from "./climateDataManager";
+import { RawStationData } from "../types/raw";
+import { StationId } from "../types/union";
+import { ClimateChildSectionItem } from "../components/ArticleTemplate/Climate/part/ChildSections";
 import {
   calculateClimateStarsForStations,
   ClimateStarsResult,
@@ -39,10 +41,10 @@ export interface ClimateDetailPageProps {
 /**
  * 地方ページ（prefKeyなし）および 都道府県ページ（prefKeyあり）のデータを一元生成する統合ローダー
  */
-export function loadClimateDetailPageData(
+export async function loadClimateDetailPageData(
   regionKey: RegionValue,
   prefKey?: PrefValue
-): ClimateDetailPageProps | null {
+): Promise<ClimateDetailPageProps | null> {
   const regionMeta = RegionKey[regionKey];
   if (!regionMeta) return null;
 
@@ -57,6 +59,7 @@ export function loadClimateDetailPageData(
     ? prefMeta.code
     : prefsInRegion.flatMap((p) => p.code);
   const targetCodeSet = new Set(targetPrefCodes);
+  const master = loadMaster();
 
   // 2. 静的解説データ（article）
   const article: ClimateArticleData = (prefMeta?.detail ?? regionMeta.detail)!;
@@ -67,15 +70,31 @@ export function loadClimateDetailPageData(
     prefMeta?.representativeStationId ?? regionMeta.representativeStationId
   );
 
-  // 4. アメダス観測データ・ランキング
-  const uonzuItems = loadUonzuItemsForList(article.uonzuList, targetPrefCodes);
-  const rainbowStations = loadRainbowStationsForRegion(targetPrefCodes);
-  const top1Stations = loadTop1StationsForRegion(targetPrefCodes);
+  // 4. アメダス観測データ・ランキング（雨温図・バッジ・概況をオンデマンド取得）
+  const regionStationIds = Object.values(master)
+    .filter((s) => s.pref && targetCodeSet.has(s.pref))
+    .map((s) => s.id)
+    .filter((id): id is StationId => !!id);
+
+  const regionMetricsMap = await getStationMetrics(regionStationIds, ["uonzu", "badge", "overview"]);
+
+  const uonzuStationIds = new Set(resolveStationNames(article.uonzuList || []));
+  const uonzuItems: ArticleUonzuItem[] = Object.values(regionMetricsMap)
+    .filter((st) => uonzuStationIds.has(st.id))
+    .map((st) => ({
+      id: st.id,
+      name: st.station.station_name || "",
+      rawUonzu: st.uonzu || {},
+    }));
+
+  const rainbowStations = extractRainbowStations(regionMetricsMap, targetPrefCodes);
+  const top1Stations = extractTop1Stations(regionMetricsMap, targetPrefCodes);
 
   // 5. 下位セクション（都道府県ならArea一覧、地方ならPref一覧）
-  const master = loadMaster();
-  const childSections: ClimateChildSectionItem[] = prefKey
-    ? getAreasInPref(prefKey).map((area) => {
+
+  const childSections: ClimateChildSectionItem[] = await Promise.all(
+    prefKey
+      ? getAreasInPref(prefKey).map(async (area) => {
         const areaStations = Object.values(master)
           .filter((s) => s.area === area.key)
           .sort((a, b) => {
@@ -93,19 +112,28 @@ export function loadClimateDetailPageData(
           category: st.category,
         }));
 
+        const areaMetricsMap = area.detail.uonzuList?.length
+          ? await getStationMetrics(resolveStationNames(area.detail.uonzuList), ["uonzu"])
+          : {};
+        const areaUonzu: ArticleUonzuItem[] = Object.values(areaMetricsMap).map((st) => ({
+          id: st.id,
+          name: st.station.station_name || "",
+          rawUonzu: st.uonzu || {},
+        }));
+
         return {
           key: area.key,
           name: area.label,
           ...area.detail,
           climateStars: areaStars,
           repStationName: areaStars.repStationName,
-          uonzuItems: loadUonzuItemsForList(area.detail.uonzuList, targetPrefCodes),
+          uonzuItems: areaUonzu,
           stationLinks,
         };
       })
-    : prefsInRegion
+      : prefsInRegion
         .filter((pMeta) => !!pMeta.detail)
-        .map((pMeta) => {
+        .map(async (pMeta) => {
           const pCodeSet = new Set(pMeta.code);
           const pStars = calculateClimateStarsForStations(
             (s) => !!s.pref && pCodeSet.has(s.pref),
@@ -113,24 +141,34 @@ export function loadClimateDetailPageData(
           );
           const pDetail = pMeta.detail!;
 
+          const prefMetricsMap = pDetail.uonzuList?.length
+            ? await getStationMetrics(resolveStationNames(pDetail.uonzuList), ["uonzu"])
+            : {};
+          const prefUonzu: ArticleUonzuItem[] = Object.values(prefMetricsMap).map((st) => ({
+            id: st.id,
+            name: st.station.station_name || "",
+            rawUonzu: st.uonzu || {},
+          }));
+
           return {
             key: pMeta.key,
             name: pMeta.label,
             ...pDetail,
             climateStars: pStars,
             repStationName: pStars.repStationName,
-            uonzuItems: loadUonzuItemsForList(pDetail.uonzuList, pMeta.code),
-            linkHref: `/feature/region/${regionKey}/${pMeta.key}`,
+            uonzuItems: prefUonzu,
+            linkHref: `/japan/${regionKey}/${pMeta.key}`,
             linkLabel: `${pMeta.label}の詳しい気候解説・アメダス観測データへ`,
           };
-        });
+        })
+  );
 
   // 6. ナビゲーション（同地方内の都道府県リンク）
   const siblings = prefKey
     ? prefsInRegion.map((p) => ({
-        key: p.key,
-        label: p.label,
-      }))
+      key: p.key,
+      label: p.label,
+    }))
     : null;
 
   return {

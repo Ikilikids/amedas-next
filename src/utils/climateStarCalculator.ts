@@ -4,7 +4,7 @@ import { MetricKey, MetricMeta, MetricValue } from "../setting/metric";
 import { RawStationData } from "../types/raw";
 import { loadMaster } from "./ssgLoader";
 
-const TARGET_STAR_METRICS: MetricValue[] = [
+export const TARGET_STAR_METRICS: MetricValue[] = [
   "av_avtemp",
   "sm_sun",
   "sm_rain",
@@ -51,7 +51,7 @@ function loadAllAnnualValues(): Record<string, Record<string, number>> {
 /**
  * 指標の閾値から単一の星数(1〜maxStars)を計算
  */
-function calculateStar(
+export function calculateStar(
   val: number,
   starMeta?: MetricMeta["star"]
 ): number {
@@ -127,8 +127,8 @@ export function calculateClimateStarsForStations(
 
   const repStationName =
     targetRepId && master[targetRepId]
-      ? master[targetRepId]?.station_name || master[targetRepId]?.official_name
-      : undefined;
+      ? master[targetRepId]?.station_name || master[targetRepId]?.official_name || null
+      : null;
 
   return {
     repStationName,
@@ -137,7 +137,7 @@ export function calculateClimateStarsForStations(
 }
 
 export type ClimateStarsResult = {
-  repStationName?: string;
+  repStationName?: string | null;
   stars: Record<string, [number, number, number]>;
 };
 

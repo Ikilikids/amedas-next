@@ -5,23 +5,23 @@ import { FaBalanceScaleLeft, FaExchangeAlt } from "react-icons/fa";
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 import { PiRankingDuotone } from "react-icons/pi";
-import CompareMonthlyTable from "../../components/Compare/CompareMonthlyTable";
-import CompareUonzuChart from "../../components/Compare/CompareUonzuChart";
-import Layout from "../../components/Layout";
-import PageLayout from "../../components/PageLayout";
-import HeroSection from "../../components/HeroSection";
-import Sidebar from "../../components/Sidebar";
-import InfoPanel from "../../components/InfoPanel";
-import Breadcrumb from "../../components/Breadcrumb";
-import { useStationDetail } from "../../components/Ranking/useRankingData";
-import CustomSelect from "../../components/UI/CustomSelect";
-import { RawStationData } from "../../types/raw";
-import { StationId } from "../../types/union";
-import { CategoryKey } from "../../setting/category";
-import { SectionWithDescription } from "../../utils/colorUtils";
-import { MetricKey, MetricMeta } from "../../setting/metric";
-import { PrefKey } from "../../setting/pref";
-import { loadMaster } from "../../utils/ssgLoader";
+import CompareMonthlyTable from "../components/Compare/CompareMonthlyTable";
+import CompareUonzuChart from "../components/Compare/CompareUonzuChart";
+import Layout from "../components/Layout";
+import PageLayout from "../components/PageLayout";
+import HeroSection from "../components/HeroSection";
+import Sidebar from "../components/Sidebar";
+import InfoPanel from "../components/InfoPanel";
+import Breadcrumb from "../components/Breadcrumb";
+import { useStationDetail } from "../components/Ranking/useRankingData";
+import CustomSelect from "../components/UI/CustomSelect";
+import { RawStationData } from "../types/raw";
+import { StationId } from "../types/union";
+import { CategoryKey } from "../setting/category";
+import { SectionWithDescription } from "../utils/colorUtils";
+import { MetricKey, MetricMeta } from "../setting/metric";
+import { PrefKey } from "../setting/pref";
+import { loadMaster } from "../utils/ssgLoader";
 
 interface Props {
   masterData: Record<StationId, RawStationData>;
@@ -35,6 +35,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
   const [pref1, setPref1] = useState<string>("44");
   const [pref2, setPref2] = useState<string>("62");
 
+
   const {
     stationData: s1,
     uonzuData: u1,
@@ -42,7 +43,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     tableData: t1,
     badges: b1,
     loading: l1,
-  } = useStationDetail(id1);
+  } = useStationDetail(id1, masterData);
   const {
     stationData: s2,
     uonzuData: u2,
@@ -50,7 +51,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     tableData: t2,
     badges: b2,
     loading: l2,
-  } = useStationDetail(id2);
+  } = useStationDetail(id2, masterData);
 
   const uonzuOptions = useMemo(() => {
     const targets = [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun];
@@ -290,79 +291,79 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                   bgColor="#10b981"
                 />
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
-                <InfoPanel
-                  stationData={s1}
-                  overViewData={o1}
-                  loading={l1}
-                  isTitle={true}
-                  badges={b1}
-                />
-                <InfoPanel
-                  stationData={s2}
-                  overViewData={o2}
-                  loading={l2}
-                  isTitle={true}
-                  badges={b2}
-                />
-              </div>
-            </div>
-
-            {/* Combined Uonzu Chart */}
-            <div className="flex flex-col gap-4 mb-12">
-              <SectionWithDescription
-                icon={<LuChartNoAxesCombined />}
-                title="雨温図比較"
-                bgColor="#3b82f6"
-              >
-                <CustomSelect
-                  value={selectedBar.key}
-                  onChange={(v) => setSelectedBar(MetricKey[v])}
-                  options={uonzuOptions}
-                  className="ml-2 w-44"
-                />
-              </SectionWithDescription>
-              <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 overflow-hidden">
-                {u1 && u2 && s1 && s2 ? (
-                  <CompareUonzuChart
-                    uonzuData1={u1}
-                    uonzuData2={u2}
-                    name1={s1.station_name}
-                    name2={s2.station_name}
-                    selectedBar={selectedBar}
-                    height="400px"
+                  <InfoPanel
+                    stationData={s1}
+                    overViewData={o1}
+                    loading={l1}
+                    isTitle={true}
+                    badges={b1}
                   />
-                ) : (
-                  <div className="h-[400px] flex items-center justify-center text-slate-300 font-bold">
-                    データ読み込み中...
+                  <InfoPanel
+                    stationData={s2}
+                    overViewData={o2}
+                    loading={l2}
+                    isTitle={true}
+                    badges={b2}
+                  />
+                </div>
+              </div>
+
+              {/* Combined Uonzu Chart */}
+              <div className="flex flex-col gap-4 mb-12">
+                <SectionWithDescription
+                  icon={<LuChartNoAxesCombined />}
+                  title="雨温図比較"
+                  bgColor="#3b82f6"
+                >
+                  <CustomSelect
+                    value={selectedBar.key}
+                    onChange={(v) => setSelectedBar(MetricKey[v])}
+                    options={uonzuOptions}
+                    className="ml-2 w-44"
+                  />
+                </SectionWithDescription>
+                <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 overflow-hidden">
+                  {u1 && u2 && s1 && s2 ? (
+                    <CompareUonzuChart
+                      uonzuData1={u1}
+                      uonzuData2={u2}
+                      name1={s1.station_name}
+                      name2={s2.station_name}
+                      selectedBar={selectedBar}
+                      height="400px"
+                    />
+                  ) : (
+                    <div className="h-[400px] flex items-center justify-center text-slate-300 font-bold">
+                      データ読み込み中...
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Monthly Comparison Table */}
+              <div className="flex flex-col gap-4">
+                <SectionWithDescription
+                  icon={<PiRankingDuotone />}
+                  title="月別データ比較"
+                  bgColor="#ef4444"
+                />
+
+                {l1 || l2 ? (
+                  <div className="bg-white rounded-3xl p-12 border border-slate-100 shadow-sm flex flex-col items-center justify-center gap-4">
+                    <div className="animate-spin w-8 h-8 border-4 border-slate-100 border-t-indigo-600 rounded-full"></div>
+                    <p className="text-slate-400 font-bold">データを準備中...</p>
                   </div>
+                ) : (
+                  <CompareMonthlyTable
+                    tableData1={t1}
+                    tableData2={t2}
+                    station1={s1 ?? null}
+                    station2={s2 ?? null}
+                  />
                 )}
               </div>
             </div>
-
-            {/* Monthly Comparison Table */}
-            <div className="flex flex-col gap-4">
-              <SectionWithDescription
-                icon={<PiRankingDuotone />}
-                title="月別データ比較"
-                bgColor="#ef4444"
-              />
-
-              {l1 || l2 ? (
-                <div className="bg-white rounded-3xl p-12 border border-slate-100 shadow-sm flex flex-col items-center justify-center gap-4">
-                  <div className="animate-spin w-8 h-8 border-4 border-slate-100 border-t-indigo-600 rounded-full"></div>
-                  <p className="text-slate-400 font-bold">データを準備中...</p>
-                </div>
-              ) : (
-                <CompareMonthlyTable
-                  tableData1={t1}
-                  tableData2={t2}
-                  station1={s1 ?? null}
-                  station2={s2 ?? null}
-                />
-              )}
-            </div>
-          </div>
-        </PageLayout>
+          </PageLayout>
         </main>
       </Layout>
     </>

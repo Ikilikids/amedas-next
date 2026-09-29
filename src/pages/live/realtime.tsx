@@ -134,139 +134,139 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
                 ))}
               </div>
 
-            {/* 地域別セクション */}
-            <div className="flex flex-col gap-16">
-              {regions.map((region) => {
-                const prefsInRegion = Object.values(PrefKey).filter(
-                  (p) => p.region === region
-                );
+              {/* 地域別セクション */}
+              <div className="flex flex-col gap-16">
+                {regions.map((region) => {
+                  const prefsInRegion = Object.values(PrefKey).filter(
+                    (p) => p.region === region
+                  );
 
-                return (
-                  <section
-                    key={`region-${region.label}`}
-                    id={`region-${region.label}`}
-                    className="scroll-mt-24"
-                  >
-                    <div className="flex items-center gap-4 mb-8">
-                      <h2
-                        className="text-2xl font-black px-6 py-2 rounded-r-full shadow-sm text-slate-800"
-                        style={{ backgroundColor: region.colorBase }}
-                      >
-                        {region.label}
-                      </h2>
-                      <div
-                        className="flex-1 h-px"
-                        style={{ backgroundColor: region.colorStrong }}
-                      ></div>
-                    </div>
+                  return (
+                    <section
+                      key={`region-${region.label}`}
+                      id={`region-${region.label}`}
+                      className="scroll-mt-24"
+                    >
+                      <div className="flex items-center gap-4 mb-8">
+                        <h2
+                          className="text-2xl font-black px-6 py-2 rounded-r-full shadow-sm text-slate-800"
+                          style={{ backgroundColor: region.colorBase }}
+                        >
+                          {region.label}
+                        </h2>
+                        <div
+                          className="flex-1 h-px"
+                          style={{ backgroundColor: region.colorStrong }}
+                        ></div>
+                      </div>
 
-                    <div className="flex flex-col gap-10">
-                      {prefsInRegion.map((pref) => {
-                        const stationsInPref = stations
-                          .filter((s) => pref.code.includes(s.pref))
-                          .map((s) => toStation(s))
-                          .sort(
-                            (a, b) =>
-                              a.category.value - b.category.value ||
-                              a.id.localeCompare(b.id)
-                          );
+                      <div className="flex flex-col gap-10">
+                        {prefsInRegion.map((pref) => {
+                          const stationsInPref = stations
+                            .filter((s) => pref.code.includes(s.pref))
+                            .map((s) => toStation(s))
+                            .sort(
+                              (a, b) =>
+                                a.category.value - b.category.value ||
+                                a.id.localeCompare(b.id)
+                            );
 
-                        if (stationsInPref.length === 0) return null;
+                          if (stationsInPref.length === 0) return null;
 
-                        return (
-                          <div
-                            key={`pref-${pref.label}`}
-                            className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
-                          >
+                          return (
                             <div
-                              className="px-5 py-3 flex items-center justify-between border-b border-slate-100"
-                              style={{
-                                backgroundColor: colorWithAlpha(
-                                  region.colorBase,
-                                  0.1
-                                ),
-                                borderColor: colorWithAlpha(
-                                  region.colorBase,
-                                  0.3
-                                ),
-                              }}
+                              key={`pref-${pref.label}`}
+                              className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
                             >
-                              <h3 className="text-lg font-bold text-slate-700 flex items-center gap-2">
-                                {pref.label}
-                                <span className="text-sm font-normal text-slate-400">
-                                  ({stationsInPref.length}地点)
-                                </span>
-                              </h3>
-                            </div>
+                              <div
+                                className="px-5 py-3 flex items-center justify-between border-b border-slate-100"
+                                style={{
+                                  backgroundColor: colorWithAlpha(
+                                    region.colorBase,
+                                    0.1
+                                  ),
+                                  borderColor: colorWithAlpha(
+                                    region.colorBase,
+                                    0.3
+                                  ),
+                                }}
+                              >
+                                <h3 className="text-lg font-bold text-slate-700 flex items-center gap-2">
+                                  {pref.label}
+                                  <span className="text-sm font-normal text-slate-400">
+                                    ({stationsInPref.length}地点)
+                                  </span>
+                                </h3>
+                              </div>
 
-                            <div className="p-5">
-                              <div className="grid grid-cols-2     gap-3">
-                                {stationsInPref.map((s) => {
-                                  const temp = tempMap[s.id];
-                                  const baseClasses =
-                                    "group border rounded-lg p-3 transition-all duration-200 flex flex-col items-center justify-center gap-1 min-h-[85px] text-center shadow-sm hover:shadow-md hover:-translate-y-0.5";
+                              <div className="p-5">
+                                <div className="grid grid-cols-2     gap-3">
+                                  {stationsInPref.map((s) => {
+                                    const temp = tempMap[s.id];
+                                    const baseClasses =
+                                      "group border rounded-lg p-3 transition-all duration-200 flex flex-col items-center justify-center gap-1 min-h-[85px] text-center shadow-sm hover:shadow-md hover:-translate-y-0.5";
 
-                                  return (
-                                    <Link
-                                      key={`station-${s.id}`}
-                                      href={`/station/${s.id}`}
-                                      prefetch={false}
-                                      className={`${baseClasses}`}
-                                    >
-                                      <div className="flex items-center gap-1">
-                                        {s.category.value !== 4 && (
-                                          <span
-                                            className="transform group-hover:scale-110 transition-transform"
-                                            style={{
-                                              color: s.category.colorFull,
-                                            }}
-                                          >
-                                            {s.category?.icon}
-                                          </span>
-                                        )}
-                                        <span
-                                          className={`text-sm font-bold truncate`}
-                                        >
-                                          {s.station_name}
-                                        </span>
-                                        <span className="text-[10px] text-slate-400 font-mono tracking-tighter">
-                                          #{s.id}
-                                        </span>
-                                      </div>
-                                      <div
-                                        className={`text-xl font-mono font-bold ${getMetricColor(
-                                          temp,
-                                          minTemp,
-                                          maxTemp,
-                                          true
-                                        )}`}
+                                    return (
+                                      <Link
+                                        key={`station-${s.id}`}
+                                        href={`/station/${s.id}`}
+                                        prefetch={false}
+                                        className={`${baseClasses}`}
                                       >
-                                        {typeof temp === "number" ? (
-                                          <>
-                                            {temp.toFixed(1)}
-                                            <span className="text-sm ml-0.5">
-                                              ℃
+                                        <div className="flex items-center gap-1">
+                                          {s.category.value !== 4 && (
+                                            <span
+                                              className="transform group-hover:scale-110 transition-transform"
+                                              style={{
+                                                color: s.category.colorFull,
+                                              }}
+                                            >
+                                              {s.category?.icon}
                                             </span>
-                                          </>
-                                        ) : (
-                                          "---"
-                                        )}
-                                      </div>
-                                    </Link>
-                                  );
-                                })}
+                                          )}
+                                          <span
+                                            className={`text-sm font-bold truncate`}
+                                          >
+                                            {s.station_name}
+                                          </span>
+                                          <span className="text-[10px] text-slate-400 font-mono tracking-tighter">
+                                            #{s.id}
+                                          </span>
+                                        </div>
+                                        <div
+                                          className={`text-xl font-mono font-bold ${getMetricColor(
+                                            temp,
+                                            minTemp,
+                                            maxTemp,
+                                            true
+                                          )}`}
+                                        >
+                                          {typeof temp === "number" ? (
+                                            <>
+                                              {temp.toFixed(1)}
+                                              <span className="text-sm ml-0.5">
+                                                ℃
+                                              </span>
+                                            </>
+                                          ) : (
+                                            "---"
+                                          )}
+                                        </div>
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </section>
-                );
-              })}
+                          );
+                        })}
+                      </div>
+                    </section>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </PageLayout>
+          </PageLayout>
         </main>
 
         <div className="fixed bottom-6 right-6 z-50">

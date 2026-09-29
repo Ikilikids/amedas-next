@@ -1,13 +1,13 @@
 import React from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { REGION_LIST, RegionValue } from "../../../../setting/region";
-import { getPrefsInRegion, PrefValue } from "../../../../setting/pref";
-import ClimateArticlePageTemplate from "../../../../components/Article/ClimateArticlePageTemplate";
+import { REGION_LIST, RegionValue } from "../../../setting/region";
+import { getPrefsInRegion, PrefValue } from "../../../setting/pref";
+import ClimateArticlePageTemplate from "../../../components/ArticleTemplate/Climate";
 import {
   loadClimateDetailPageData,
   ClimateDetailPageProps,
-} from "../../../../utils/climatePageDataLoader";
+} from "../../../utils/climatePageDataLoader";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths: { params: { region: string; pref: string } }[] = [];
@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps<ClimateDetailPageProps> = async ({
   const regionKey = params?.region as RegionValue;
   const prefKey = params?.pref as PrefValue;
 
-  const data = loadClimateDetailPageData(regionKey, prefKey);
+  const data = await loadClimateDetailPageData(regionKey, prefKey);
   if (!data) return { notFound: true };
 
   return { props: data };
@@ -56,11 +56,11 @@ const PrefDetailPage: NextPage<ClimateDetailPageProps> = ({
     <ClimateArticlePageTemplate
       seoTitle={`${prefName}の気候とアメダス観測所まとめ - アメダス図鑑`}
       seoDescription={`${prefName}（${regionName}地方）の気候特性、平年値の傾向、アメダス観測データについて解説。`}
-      canonicalUrl={`https://amedas-zukan.jp/feature/region/${region.key}/${pref.key}`}
+      canonicalUrl={`https://amedas-zukan.jp/japan/${region.key}/${pref.key}`}
       breadcrumbs={[
-        { label: "気候特集", href: "/feature/meteo" },
-        { label: "地域別の気候解説", href: "/feature/region" },
-        { label: `${regionName}地方`, href: `/feature/region/${region.key}` },
+        { label: "気候特集", href: "/column" },
+        { label: "地域別の気候解説", href: "/japan" },
+        { label: `${regionName}地方`, href: `/japan/${region.key}` },
         { label: prefName },
       ]}
       hero={{
@@ -85,7 +85,7 @@ const PrefDetailPage: NextPage<ClimateDetailPageProps> = ({
         `キャッチコピー: ${article.catchphrase}`,
         `${prefName}内のアメダス観測所の雨温図・平年値データをまとめて確認可能`,
       ]}
-      backHref={`/feature/region/${region.key}`}
+      backHref={`/japan/${region.key}`}
       backLabel={`${regionName}地方の解説に戻る`}
       accentColor={colorStrong}
       overviewSection={{
@@ -115,14 +115,14 @@ const PrefDetailPage: NextPage<ClimateDetailPageProps> = ({
       siblingsNav={
         siblings && siblings.length > 1
           ? {
-              title: `5. ${regionName}地方の他の地域・都道府県`,
-              items: siblings.map((sib) => ({
-                key: sib.key,
-                label: sib.label,
-                href: `/feature/region/${region.key}/${sib.key}`,
-                isCurrent: sib.key === pref.key,
-              })),
-            }
+            title: `5. ${regionName}地方の他の地域・都道府県`,
+            items: siblings.map((sib) => ({
+              key: sib.key,
+              label: sib.label,
+              href: `/japan/${region.key}/${sib.key}`,
+              isCurrent: sib.key === pref.key,
+            })),
+          }
           : undefined
       }
     />

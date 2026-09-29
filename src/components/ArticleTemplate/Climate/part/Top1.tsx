@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
-import { ArticleSection } from "./ArticleTemplate";
-import { MetricKey, MetricValue } from "../../setting/metric";
-import { CategoryKey, CategoryValue } from "../../setting/category";
-import { RegionTop1Item } from "../../utils/ssgLoader";
+import { ArticleSection } from "../..";
+import { MetricKey, MetricValue } from "../../../../setting/metric";
+import { CategoryKey, CategoryValue } from "../../../../setting/category";
+import { RegionTop1Item } from "../../../../utils/ssgLoader";
 
 interface Top1StationsSectionProps {
   title: string;

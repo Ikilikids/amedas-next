@@ -75,11 +75,16 @@ export const BadgeLogic = {
       const result = evaluateRank(topRank, botRank, hasHigh, hasLow);
       if (!result) return;
 
+      const place = result.isHigh ? topRank : botRank;
+      const value = annualTable?.value ?? annualRatio?.value ?? overviewData?.[key]?.value;
+
       badges.push({
         metric: key,
         rank: result.rank,
         isHigh: result.isHigh,
         isIsland: _isIsland,
+        place: place ?? undefined,
+        value: value ?? undefined,
       });
     });
 

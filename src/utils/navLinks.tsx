@@ -7,10 +7,10 @@ import {
   FaSearch,
   FaStar,
 } from "react-icons/fa";
-import { FaMapLocationDot, FaSatelliteDish } from "react-icons/fa6";
+import { FaMapLocationDot } from "react-icons/fa6";
 import { IoIosTrophy } from "react-icons/io";
 import { PiRankingDuotone, PiThermometerHotFill } from "react-icons/pi";
-import { TbTemperaturePlus, TbTemperatureSun } from "react-icons/tb";
+import { TbTemperatureSun } from "react-icons/tb";
 
 export interface NavLink {
   href: string;
@@ -99,7 +99,7 @@ export const searchLinks: NavLink[] = [
 
 export const featureLinks: NavLink[] = [
   {
-    href: "/feature/region",
+    href: "/japan",
     Icon: <FaCompass />,
     title: "地域・都道府県の気候",
     description: "全国10地域と各都道府県の気候特性・風土を徹底解説",
@@ -119,27 +119,17 @@ export const featureLinks: NavLink[] = [
     iconClass: "text-blue-600",
   },
   {
-    href: "/feature/meteo",
+    href: "/column/prefectures-meteo",
     Icon: <FaBuilding />,
     title: "47都道府県まとめ",
-    description: "都道府県の代表地点です",
-    topPageTitle: "47都道府県の代表気象台まとめ",
+    description: "全国47都道府県の代表気象台・気候特性解説",
+    topPageTitle: "47都道府県の代表気象台・気候総まとめ",
     topPageDescription:
-      "全国47都道府県の県庁所在地・主要地方気象台を一挙に集約。日本各地の中核都市における気候特性や雨温図データを一覧で比較・閲覧できます。",
+      "全国47都道府県の県庁所在地・代表気象台を一挙に集約。日本各地の中核都市における気候特性や雨温図・順位データを地域ブロック別の解説記事形式で比較・閲覧できます。",
     iconClass: "text-red-500",
   },
   {
-    href: "/feature/special",
-    Icon: <FaSatelliteDish />,
-    title: "特別観測所まとめ",
-    description: "地域の代表地点です",
-    topPageTitle: "特別地域気象観測所まとめ",
-    topPageDescription:
-      "旧測候所などの歴史を持ち、高精度・多種多様な観測機器が維持されている地域の基幹観測所を特集。各エリアの気候の要となる重要地点を紹介します。",
-    iconClass: "text-yellow-500",
-  },
-  {
-    href: "/feature/hot",
+    href: "/column/hot-stations",
     Icon: <PiThermometerHotFill />,
     title: "暑い地点まとめ",
     description: "夏季に良くニュースになる地点をまとめました",
@@ -147,16 +137,6 @@ export const featureLinks: NavLink[] = [
     topPageDescription:
       "熊谷・多治見・館林・日田など、夏になると最高気温ランキングの上位に頻出する盆地や内陸の猛暑地点を特集。その独特の地形と気温上昇要因を解説します。",
     iconClass: "text-red-700",
-  },
-  {
-    href: "/feature/warm",
-    Icon: <TbTemperaturePlus />,
-    title: "暖かい地点まとめ",
-    description: "主に島などの暖かい地点をまとめました",
-    topPageTitle: "南国・温暖な海洋性気候地点まとめ",
-    topPageDescription:
-      "沖縄・奄美や小笠原諸島、黒潮の流れる温暖な沿岸部のアメダスをピックアップ。冬でも氷点下にならない常夏の気候特性や豊かな雨量を紐解きます。",
-    iconClass: "text-orange-500",
   },
 ];
 

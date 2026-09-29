@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaArrowRight, FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { ArticleSection } from "./ArticleTemplate";
-import { METRIC_LIST, MetricKey, MetricValue } from "../../setting/metric";
-import { CategoryKey, CategoryValue } from "../../setting/category";
-import { RegionRainbowStationItem } from "../../utils/ssgLoader";
-import RankBadge from "../../svg/RankBadge";
+import { ArticleSection } from "../..";
+import { METRIC_LIST, MetricKey, MetricValue } from "../../../../setting/metric";
+import { CategoryKey, CategoryValue } from "../../../../setting/category";
+import { RegionRainbowStationItem } from "../../../../utils/ssgLoader";
+import RankBadge from "../../../../svg/RankBadge";
 
 interface RainbowStationsSectionProps {
   title: string;
@@ -172,9 +172,8 @@ const RainbowMetricGroup: React.FC<RainbowMetricGroupProps> = ({ grp }) => {
                       </div>
                       <div className="text-xs font-bold mt-1 flex items-center gap-2">
                         <span
-                          className={`font-black ${
-                            badge.isHigh ? "text-rose-600" : "text-blue-600"
-                          }`}
+                          className={`font-black ${badge.isHigh ? "text-rose-600" : "text-blue-600"
+                            }`}
                         >
                           全国{badge.isHigh ? "上位" : "下位"}
                           {badge.place}位

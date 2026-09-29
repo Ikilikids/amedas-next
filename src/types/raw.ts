@@ -7,6 +7,7 @@ export interface RawData {
   uonzu?: RawUonzuData;
   table?: RawTableData;
   ratio?: RawRatioData;
+  stars?: RawStarsData;
   similarAll?: RawStationData[];
   similarMeteo?: RawStationData[];
   sameStations?: RawStationData[];
@@ -36,6 +37,7 @@ export type RawOverviewData = Record<string, RankedValue>;
 export type RawUonzuData = Record<string, number[]>;
 export type RawTableData = Record<string, MonthlyEntry[]>;
 export type RawRatioData = Record<string, MonthlyEntry[]>;
+export type RawStarsData = Record<string, number>;
 export interface RawHistoryData {
   date: string;
   hi: number | null;
@@ -61,6 +63,8 @@ export interface RawBadgeData {
   rank: BadgeRank;
   isHigh: boolean;
   isIsland?: boolean;
+  place?: number;
+  value?: number;
 }
 
 export type BadgeRank = "rainbow" | "gold" | "silver" | "bronze";

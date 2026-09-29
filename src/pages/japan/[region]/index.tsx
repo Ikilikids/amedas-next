@@ -1,12 +1,12 @@
 import React from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FaCompass } from "react-icons/fa";
-import { REGION_LIST, RegionValue } from "../../../../setting/region";
-import ClimateArticlePageTemplate from "../../../../components/Article/ClimateArticlePageTemplate";
+import { REGION_LIST, RegionValue } from "../../../setting/region";
+import ClimateArticlePageTemplate from "../../../components/ArticleTemplate/Climate";
 import {
   loadClimateDetailPageData,
   ClimateDetailPageProps,
-} from "../../../../utils/climatePageDataLoader";
+} from "../../../utils/climatePageDataLoader";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = REGION_LIST.map((region) => ({
@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps<ClimateDetailPageProps> = async ({
   params,
 }) => {
   const regionKey = params?.region as RegionValue;
-  const data = loadClimateDetailPageData(regionKey);
+  const data = await loadClimateDetailPageData(regionKey);
   if (!data) return { notFound: true };
 
   return { props: data };
@@ -43,10 +43,10 @@ const RegionDetailPage: NextPage<ClimateDetailPageProps> = ({
       seoDescription={`${regionName}地方の気候特性・風土メカニズムと、${childSections
         .map((p) => p.name)
         .join("・")}の都道府県別気候解説まとめ。`}
-      canonicalUrl={`https://amedas-zukan.jp/feature/region/${region.key}`}
+      canonicalUrl={`https://amedas-zukan.jp/japan/${region.key}`}
       breadcrumbs={[
-        { label: "気候特集", href: "/feature/meteo" },
-        { label: "地域別の気候解説", href: "/feature/region" },
+        { label: "気候特集", href: "/column" },
+        { label: "地域別の気候解説", href: "/japan" },
         { label: `${regionName}地方` },
       ]}
       hero={{
@@ -71,7 +71,7 @@ const RegionDetailPage: NextPage<ClimateDetailPageProps> = ({
         `キャッチコピー: ${article.catchphrase}`,
         `${regionName}地方を構成する全${childSections.length}都道県・地域の気候を見出し別に徹底解説`,
       ]}
-      backHref="/feature/region"
+      backHref="/japan"
       backLabel="全地域一覧に戻る"
       accentColor={colorStrong}
       overviewSection={{

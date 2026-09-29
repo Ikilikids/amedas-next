@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FaStar, FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { MetricKey, MetricMeta } from "../../setting/metric";
+import { MetricKey, MetricMeta } from "../../../../setting/metric";
 
-import { ClimateStarsResult } from "../../utils/climateStarCalculator";
+import { ClimateStarsResult } from "../../../../utils/climateStarCalculator";
 
 export type ClimateStarEntry = [number, number, number] | [number, number];
 

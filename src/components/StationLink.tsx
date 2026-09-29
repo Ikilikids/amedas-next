@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { RegionKey, RegionValue } from "../../setting/region";
+import { RegionKey, RegionValue } from "../setting/region";
 
 export interface StationLinkProps {
   id: string;

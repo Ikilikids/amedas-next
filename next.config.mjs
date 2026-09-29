@@ -16,6 +16,13 @@ const nextConfig = {
       fullUrl: false,
     },
   },
+  turbopack: {
+    resolveAlias: {
+      fs: { browser: "./src/utils/empty.ts" },
+      path: { browser: "./src/utils/empty.ts" },
+    },
+  },
+
   experimental: {
     // サーバーレス環境でのメモリリーク防止とディスクキャッシュ活用
     isrFlushToDisk: true,
@@ -32,6 +39,16 @@ const nextConfig = {
         ],
       },
     ];
+  },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+      };
+    }
+    return config;
   },
 };
 

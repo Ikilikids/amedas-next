@@ -8,6 +8,8 @@ import RankingList from "./RankingList";
 import RankingTabs from "./RankingTabs";
 import { RawRankingData } from "./types";
 import { useRankingData } from "./useRankingData";
+import { StationId } from "../../types/union";
+import { RawStationData } from "../../types/raw";
 
 interface RankingProps {
   onStationClick: (station: RawRankingData) => void;
@@ -15,6 +17,7 @@ interface RankingProps {
   initialSortKey?: MetricMeta;
   initialRankType?: RankMeta;
   initialMonth?: string;
+  masterData?: Record<StationId, RawStationData>;
 }
 
 const Ranking: React.FC<RankingProps> = ({
@@ -23,6 +26,7 @@ const Ranking: React.FC<RankingProps> = ({
   initialSortKey = MetricKey.av_avtemp,
   initialRankType = RankKey.top,
   initialMonth = "all",
+  masterData,
 }) => {
   const [sortKey, setSortKey] = useState<MetricMeta>(initialSortKey);
   const [rankType, setRankType] = useState<RankMeta>(initialRankType);
@@ -56,7 +60,8 @@ const Ranking: React.FC<RankingProps> = ({
     rankType,
     selectedRegion,
     selectedPref,
-    selectedMonth
+    selectedMonth,
+    masterData
   );
 
   return (

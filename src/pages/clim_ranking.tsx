@@ -20,12 +20,14 @@ import { RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
 import { MonthMap, getMetricColor } from "../utils/colorUtils";
 import { toStation } from "../utils/masterUtils";
-import { MetricKey, MetricMeta } from "../setting/metric";
+import { MetricKey, MetricMeta, MetricValue } from "../setting/metric";
 import { PrefKey, PrefMeta } from "../setting/pref";
 import { RankKey, RankMeta } from "../setting/rank";
 import { processRankingData } from "../utils/rankingUtils";
 import { RegionKey, RegionMeta } from "../setting/region";
 import { loadMaster } from "../utils/ssgLoader";
+import { loadSingleMetric } from "../utils/climateDataManager";
+import { MonthlyEntry } from "../types/union";
 
 interface Props {
   masterData: Record<string, RawStationData>;
@@ -44,7 +46,7 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
   // クライアントサイドで取得するデータ
   const [rankingRaw, setRankingRaw] = useState<Record<
     StationId,
-    number[]
+    MonthlyEntry[]
   > | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [prevMetricKey, setPrevMetricKey] = useState(metric.key);
@@ -57,9 +59,9 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
 
   useEffect(() => {
     let isMounted = true;
-    
-    fetch(`/ranking_not_null/${metric.key}.json`)
-      .then((res) => res.json())
+    const metricVal = metric.key.toLowerCase() as MetricValue;
+
+    loadSingleMetric(metricVal, masterData)
       .then((data) => {
         if (isMounted) {
           setRankingRaw(data);
@@ -70,10 +72,11 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
         console.error(err);
         if (isMounted) setIsLoading(false);
       });
+
     return () => {
       isMounted = false;
     };
-  }, [metric.key]);
+  }, [metric.key, masterData]);
 
   const monthIdx = useMemo(
     () => (selectedMonth === "all" ? 12 : parseInt(selectedMonth) - 1),
@@ -83,7 +86,7 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
   const dataBounds = useMemo(() => {
     if (!rankingRaw) return { min: 0, max: 0 };
     const values = Object.values(rankingRaw)
-      .map((v) => v[monthIdx])
+      .map((entries) => entries[monthIdx]?.value)
       .filter((v): v is number => v !== null && v !== undefined);
     if (values.length === 0) return { min: 0, max: 0 };
     return {
@@ -97,15 +100,15 @@ const ClimatologicalRankingPage: NextPage<Props> = ({ masterData }) => {
 
     // 1. RawRankingData に変換
     const rawList: RawRankingData[] = Object.entries(rankingRaw)
-      .map(([id, values]) => {
+      .map(([id, entries]) => {
         const master = masterData[id as StationId];
         if (!master) return null;
-        const value = values[monthIdx];
-        if (value === undefined || value === null) return null;
+        const entry = entries[monthIdx];
+        if (!entry || entry.value === undefined || entry.value === null) return null;
         return {
           ...master,
           id,
-          value,
+          value: entry.value,
           rank: 0,
         } as RawRankingData;
       })
