@@ -25,14 +25,6 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
   uonzuInfo,
   index,
 }) => {
-  if (!allData) return null;
-  const {
-    station,
-    uonzu: uonzuMap,
-    ratio: ratioMap,
-    description: descriptionData,
-  } = allData;
-
   // 表示オプションを動的に生成
   const visualOptions = useMemo(() => {
     const options = [];
@@ -63,6 +55,17 @@ const StationFeatureCard: React.FC<StationFeatureCardProps> = ({
       label: opt.label,
     }));
   }, [visualOptions]);
+
+  if (!allData) return null;
+
+  const {
+    station,
+    climateData,
+  } = allData;
+
+  const uonzuMap = climateData;
+  const ratioMap = climateData;
+  const descriptionData = undefined;
 
   const regionColor = station.pref.region.colorStrong;
   const category = station.category;

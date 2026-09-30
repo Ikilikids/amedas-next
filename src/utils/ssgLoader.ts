@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { RawBadgeData, RawStationData } from "../types/raw";
+import { RawMonthlyData, RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
 import {
   loadMaster,
@@ -14,7 +14,7 @@ export { loadMaster };
 export interface ArticleUonzuItem {
   id: string;
   name: string;
-  rawUonzu: Record<string, number[]>;
+  rawUonzu: RawMonthlyData;
 }
 
 /**
@@ -70,7 +70,7 @@ export interface RegionRainbowStationItem {
 }
 
 export function extractRainbowStations(
-  stationsMap: Record<StationId, { id: StationId; station: RawStationData; badge?: RawBadgeData[] }>,
+  stationsMap: Record<StationId, { station: RawStationData; climateData?: RawMonthlyData }>,
   prefCodes: readonly string[]
 ): RegionRainbowStationItem[] {
   const prefCodeSet = new Set(prefCodes);
@@ -78,19 +78,32 @@ export function extractRainbowStations(
 
   Object.values(stationsMap).forEach((st) => {
     if (!st.station.pref || !prefCodeSet.has(st.station.pref)) return;
-    const rainbowBadges = (st.badge || [])
-      .filter((b) => b.rank === "rainbow")
-      .map((b) => ({
-        metric: b.metric,
-        isHigh: b.isHigh,
-        rank: "rainbow" as const,
-        place: b.place ?? 1,
-        value: b.value ?? 0,
-      }));
+    const rainbowBadges: RegionRainbowStationItem["badges"] = [];
+
+    if (st.climateData) {
+      METRIC_LIST.forEach((m) => {
+        const entries = st.climateData?.[m];
+        if (!entries || entries.length === 0) return;
+        const annualEntry = entries.length > 12 ? entries[12] : entries[0];
+        if (!annualEntry || annualEntry.value == null) return;
+
+        // 全国1位なら rainbow バッジ
+        if (annualEntry.top === 1) {
+          const meta = MetricKey[m];
+          rainbowBadges.push({
+            metric: m,
+            isHigh: !!meta?.high,
+            rank: "rainbow",
+            place: 1,
+            value: annualEntry.value,
+          });
+        }
+      });
+    }
 
     if (rainbowBadges.length > 0) {
       results.push({
-        id: st.id,
+        id: st.station.id,
         stationName: st.station.station_name || "",
         prefName: resolvePref(st.station.pref)?.label || "",
         city: st.station.city || "",
@@ -104,7 +117,7 @@ export function extractRainbowStations(
 }
 
 export function extractTop1Stations(
-  stationsMap: Record<StationId, { id: StationId; station: RawStationData; overview?: Record<string, { value: number; rank: number }> }>,
+  stationsMap: Record<StationId, { station: RawStationData; climateData?: RawMonthlyData }>,
   prefCodes: readonly string[]
 ): RegionTop1Item[] {
   const prefCodeSet = new Set(prefCodes);
@@ -125,13 +138,15 @@ export function extractTop1Stations(
   TOP1_CONFIGS.forEach((cfg) => {
     const candidates = regionStations
       .map((st) => {
-        const item = st.overview?.[cfg.metric];
-        if (!item || item.value == null) return null;
+        const entries = st.climateData?.[cfg.metric];
+        if (!entries || entries.length === 0) return null;
+        const annualEntry = entries.length > 12 ? entries[12] : entries[0];
+        if (!annualEntry || annualEntry.value == null) return null;
         return {
           station: st.station,
-          id: st.id,
-          val: item.value,
-          nationalRank: item.rank,
+          id: st.station.id,
+          val: annualEntry.value,
+          nationalRank: annualEntry.top ?? 1,
         };
       })
       .filter((c): c is NonNullable<typeof c> => c !== null);

@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
-import { BadgeData, OverviewData, RatioData, StationData, TableData, UonzuData } from "../../types/all";
+import { MonthlyData, StationData } from "../../types/all";
 import { RawStationData } from "../../types/raw";
-import { MonthlyEntry, RankedValue, StationId } from "../../types/union";
-import { toBadge, toMetricMap, toStation } from "../../utils/masterUtils";
-import { BadgeLogic } from "../../utils/badgeLogic";
+import { MonthlyEntry, StationId } from "../../types/union";
+import { toMetricMap, toStation } from "../../utils/masterUtils";
 import { MetricMeta, MetricValue } from "../../setting/metric";
 import { PrefMeta } from "../../setting/pref";
 import { RankMeta, isIslandId } from "../../setting/rank";
 import { RegionMeta } from "../../setting/region";
 import { RawRankingData } from "./types";
 
-import {
-  loadSingleMetric,
-  getStationMetrics,
-} from "../../utils/climateDataManager";
-import { processRankingData } from "../../utils/rankingUtils";
+import { loadSingleMetric } from "../../utils/climateDataManager";
+import { processRankingData, assembleDisplayData } from "../../utils/rankingUtils";
 
 // =============================================================================
 // Hook: useRankingData
@@ -37,7 +33,7 @@ export const useRankingData = (
 
     const getRankingData = async () => {
       try {
-        const integrated = await loadSingleMetric(metric, masterData);
+        const integrated = await loadSingleMetric(metric);
         if (!integrated || !isMounted) return;
 
         const master = masterData;
@@ -86,18 +82,16 @@ export const useStationDetail = (
   initialMaster?: Record<StationId, RawStationData>
 ) => {
   const [stationData, setStationData] = useState<StationData | null>(null);
-  const [uonzuData, setUonzuData] = useState<UonzuData | null>(null);
-  const [overviewData, setOverviewData] = useState<OverviewData | null>(null);
-  const [tableData, setTableData] = useState<TableData | null>(null);
-  const [badges, setBadges] = useState<BadgeData[]>([]);
+  const [climateData, setClimateData] = useState<MonthlyData | null>(null);
+  const [uonzuData, setUonzuData] = useState<MonthlyData | null>(null);
+  const [tableData, setTableData] = useState<MonthlyData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     if (!stationId) {
       setStationData(null);
+      setClimateData(null);
       setUonzuData(null);
-      setOverviewData(null);
       setTableData(null);
-      setBadges([]);
       return;
     }
 
@@ -112,37 +106,18 @@ export const useStationDetail = (
         const raw = master[stationId];
         if (raw) setStationData(toStation(raw));
 
-        const metricsMap = await getStationMetrics(
-          [stationId],
-          ["overview", "uonzu", "badge"],
-          master
-        );
+        const metricsMap = await assembleDisplayData({
+          [stationId]: ["overview", "uonzu", "table"],
+        });
         const item = metricsMap[stationId];
         if (!item) return;
 
-        const { overview, table, ratio, uonzu, badge } = item;
+        const { climateData: rawClimate } = item;
+        const climateMap = toMetricMap(rawClimate, (v) => v);
 
-        const result = {
-          uonzuData: toMetricMap<(number | null)[], (number | null)[]>(
-            uonzu,
-            (v) => v
-          ),
-          overviewData: toMetricMap<RankedValue, RankedValue>(
-            overview,
-            (v) => v
-          ),
-          tableData: toMetricMap<(MonthlyEntry | null)[], (MonthlyEntry | null)[]>(
-            table,
-            (v) => v
-          ),
-        };
-
-        const resolvedBadges = (badge || []).map(toBadge);
-
-        setUonzuData(result.uonzuData);
-        setOverviewData(result.overviewData);
-        setTableData(result.tableData);
-        setBadges(resolvedBadges);
+        setClimateData(climateMap);
+        setUonzuData(climateMap);
+        setTableData(climateMap);
       } catch (e) {
         console.error("fetch error:", e);
       } finally {
@@ -154,10 +129,9 @@ export const useStationDetail = (
 
   return {
     stationData,
+    climateData,
     uonzuData,
-    overviewData,
     tableData,
-    badges,
     loading,
   };
 };

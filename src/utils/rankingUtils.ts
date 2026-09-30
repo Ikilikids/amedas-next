@@ -1,20 +1,16 @@
 import { RawRankingData } from "../components/Ranking/types";
 import {
-  RawBadgeData,
-  RawOverviewData,
-  RawRatioData,
-  RawStarsData,
+  RawData,
+  RawMonthlyData,
   RawStationData,
-  RawTableData,
-  RawUonzuData,
 } from "../types/raw";
 import { MonthlyEntry, StationId } from "../types/union";
-import { MetricKey, MetricValue } from "../setting/metric";
+import { AssembleKey, AssembleTarget, RankDepth } from "../setting/assemble";
+import { METRIC_LIST, MetricKey, MetricValue } from "../setting/metric";
 import { PrefKey, PrefMeta } from "../setting/pref";
 import { RankKey, RankMeta, isIslandId } from "../setting/rank";
 import { RegionMeta } from "../setting/region";
-import { BadgeLogic } from "./badgeLogic";
-import { calculateStar, TARGET_STAR_METRICS } from "./climateStarCalculator";
+import { loadSingleMetric, masterCache } from "./climateDataManager";
 
 /**
  * 1. 【共通】材料組み立て関数（Assembler）
@@ -104,14 +100,12 @@ export function integrateSingleMetric(
     const rawList = buildRawRankingList(rawData, stationsMaster, monthIdx);
     if (rawList.length === 0) continue;
 
-    // この月の全パターンの順位を事前に計算
     const topRanks = processRankingData(rawList, RankKey.top);
     const botRanks = processRankingData(rawList, RankKey.bot);
     const meteoRanks = processRankingData(rawList, RankKey.meteo);
     const specialRanks = processRankingData(rawList, RankKey.special);
     const islandRanks = processRankingData(rawList, RankKey.island);
 
-    // マップ化
     const topMap = new Map(topRanks.map((s) => [s.id, s.rank]));
     const botMap = new Map(botRanks.map((s) => [s.id, s.rank]));
     const meteoMap = new Map(meteoRanks.map((s) => [s.id, s.rank]));
@@ -121,136 +115,144 @@ export function integrateSingleMetric(
     const prefRanksMap = new Map<string, Map<StationId, number>>();
     const regionRanksMap = new Map<string, Map<StationId, number>>();
 
-    // 地点ごとに結果を格納
     rawList.forEach((s) => {
       // 県内順位
       if (!prefRanksMap.has(s.pref)) {
         const pMeta = Object.values(PrefKey).find((p) => p.code.includes(s.pref));
-        const pRanks = processRankingData(
-          rawList,
-          RankKey.pre,
-          undefined,
-          pMeta
-        );
+        const pRanks = processRankingData(rawList, RankKey.pre, undefined, pMeta);
         prefRanksMap.set(s.pref, new Map(pRanks.map((r) => [r.id, r.rank])));
       }
 
       // 地方順位
-      const regionLabel = Object.values(PrefKey).find((p) => p.code.includes(s.pref))
-        ?.region.label;
+      const regionLabel = Object.values(PrefKey).find((p) => p.code.includes(s.pref))?.region.label;
       if (regionLabel && !regionRanksMap.has(regionLabel)) {
         const rMeta = { label: regionLabel } as RegionMeta;
         const rRanks = processRankingData(rawList, RankKey.region, rMeta);
-        regionRanksMap.set(
-          regionLabel,
-          new Map(rRanks.map((r) => [r.id, r.rank]))
-        );
+        regionRanksMap.set(regionLabel, new Map(rRanks.map((r) => [r.id, r.rank])));
       }
 
-      const entry: MonthlyEntry = {
+      result[s.id][monthIdx] = {
         value: s.value,
         top: topMap.get(s.id) || 0,
         bot: botMap.get(s.id) || 0,
         pre: prefRanksMap.get(s.pref)?.get(s.id) || 0,
-        region: regionLabel
-          ? regionRanksMap.get(regionLabel)?.get(s.id) || 0
-          : 0,
+        region: regionLabel ? regionRanksMap.get(regionLabel)?.get(s.id) || 0 : 0,
         meteo: s.category === "meteo" ? meteoMap.get(s.id) || null : null,
-        special: ["meteo", "submeteo", "special"].includes(s.category)
-          ? specialMap.get(s.id) || null
-          : null,
+        special: ["meteo", "submeteo", "special"].includes(s.category) ? specialMap.get(s.id) || null : null,
         island: !isIslandId(s.id) ? islandMap.get(s.id) || null : null,
       };
-
-      result[s.id][monthIdx] = entry;
     });
   }
 
   return result;
 }
 
-export interface AssembleOptions {
-  overview?: boolean;
-  table?: boolean;
-  ratio?: boolean;
-  uonzu?: boolean;
-  stars?: boolean;
-  badge?: boolean;
-  stationId?: StationId;
-}
+export type AssembleConfig = Record<StationId, AssembleTarget[]>;
 
 /**
- * 【Assembler】特定地点の統合データを表示用に変換する
+ * 【Assembler】地点別オプション設定を受け取り、表示用データを返す
+ *
+ * @param targetConfig - 地点IDごとのオプション設定 Record<StationId, AssembleTarget[]>
  */
-export function assembleDisplayData(
-  integratedData: Partial<Record<MetricValue, MonthlyEntry[]>>,
-  options?: AssembleOptions
-) {
-  const needOverview = options?.overview ?? true;
-  const needTable = options?.table ?? true;
-  const needRatio = options?.ratio ?? true;
-  const needUonzu = options?.uonzu ?? true;
-  const needStars = options?.stars ?? true;
-  const needBadge = options?.badge ?? true;
-
-  const overview: RawOverviewData = {};
-  const table: RawTableData = {};
-  const ratio: RawRatioData = {};
-  const uonzu: RawUonzuData = {};
-  const stars: RawStarsData = {};
-
-  (Object.entries(integratedData) as [MetricValue, MonthlyEntry[]][]).forEach(
-    ([m, fullEntries]) => {
-      if (needTable) {
-        table[m] = fullEntries;
-      }
-      if (needOverview || needRatio || needStars) {
-        const annualEntry = fullEntries[12];
-        if (annualEntry) {
-          const metricMeta = MetricKey[m];
-          if (metricMeta?.tab === "主要" || metricMeta?.tab === "平均") {
-            if (needOverview) overview[m] = { value: annualEntry.value, rank: annualEntry.top };
-          } else {
-            if (needRatio) ratio[m] = fullEntries;
-          }
-
-          // Special case: Also expose hitemp_35 (猛暑日) in overview for rarity calculation
-          if (m === "hitemp_35" && needOverview) {
-            overview[m] = { value: annualEntry.value, rank: annualEntry.top };
-          }
-
-          // 星評価の算出 (TARGET_STAR_METRICS に含まれる場合)
-          if (needStars && (TARGET_STAR_METRICS as string[]).includes(m) && annualEntry.value != null) {
-            stars[m] = calculateStar(annualEntry.value, metricMeta?.star);
-          }
-        }
-      }
-      if (
-        needUonzu &&
-        [
-          "av_avtemp",
-          "sm_rain",
-          "av_hitemp",
-          "av_lwtemp",
-          "sm_sun",
-          "sm_snowing",
-        ].includes(m)
-      ) {
-        uonzu[m as MetricValue] = fullEntries.slice(0, 12).map((e) => e.value);
-      }
-    }
-  );
-
-  let badge: RawBadgeData[] | undefined;
-  if (needBadge) {
-    const isIsland = options?.stationId ? isIslandId(options.stationId) : false;
-    badge = BadgeLogic.getBadges(
-      overview as any,
-      ratio as any,
-      table as any,
-      isIsland
-    );
+export async function assembleDisplayData(
+  targetConfig: Record<StationId, AssembleTarget[]>
+): Promise<Record<StationId, RawData>> {
+  const master = masterCache;
+  if (!master) {
+    throw new Error("assembleDisplayData: masterCache is not loaded. Call loadMaster() or resisterMaster() first.");
   }
 
-  return { overview, table, ratio, uonzu, stars, ...(badge ? { badge } : {}) };
+  const result: Record<StationId, RawData> = {};
+
+  for (const [id, options] of Object.entries(targetConfig)) {
+    const station = master[id];
+    if (!station) continue;
+
+    // options が空配列の場合はマスタ（基本情報）のみ即返却（気象計算・JSON読み込みを全スキップ）
+    if (!options || options.length === 0) {
+      result[id] = { station };
+      continue;
+    }
+
+    const climateData: RawMonthlyData = {};
+
+    // 1. 各メトリックについて、要求されている target から必要な要件（rankDepth, isAnnualOnly）を集約
+    const metricReqs = new Map<
+      MetricValue,
+      { rankDepth: RankDepth; isAnnualOnly: boolean }
+    >();
+
+    const depthPriority: Record<RankDepth, number> = {
+      full: 3,
+      topBot: 2,
+      none: 1,
+    };
+
+    for (const target of options) {
+      const meta = AssembleKey[target];
+      if (!meta) continue;
+
+      for (const m of meta.getMetrics()) {
+        const current = metricReqs.get(m);
+        if (!current) {
+          metricReqs.set(m, {
+            rankDepth: meta.rankDepth,
+            isAnnualOnly: meta.isAnnualOnly,
+          });
+        } else {
+          // 優先度マージ: full > topBot > none
+          const mergedDepth =
+            depthPriority[meta.rankDepth] > depthPriority[current.rankDepth]
+              ? meta.rankDepth
+              : current.rankDepth;
+          // 月範囲マージ: 1つでも全月要求(false)があれば false (12か月+通年)
+          const mergedAnnualOnly = current.isAnnualOnly && meta.isAnnualOnly;
+
+          metricReqs.set(m, {
+            rankDepth: mergedDepth,
+            isAnnualOnly: mergedAnnualOnly,
+          });
+        }
+      }
+    }
+
+    // 2. メトリックごとにロードし、要件に基づいてデータをカット
+    for (const [m, req] of metricReqs.entries()) {
+      const integrated = await loadSingleMetric(m);
+      const entries = integrated?.[id as StationId];
+      if (!entries) continue;
+
+      // 月範囲のカット (通年のみの場合は entries[12] を保持)
+      const targetEntries = req.isAnnualOnly
+        ? entries.length > 12 ? [entries[12]] : [entries[0]]
+        : entries;
+
+      // フィールドのカット (rankDepth に応じてプロパティを精選)
+      const trimmedEntries: MonthlyEntry[] = targetEntries.map((e) => {
+        if (req.rankDepth === "none") {
+          return { value: e.value };
+        }
+        if (req.rankDepth === "topBot") {
+          return {
+            value: e.value,
+            top: e.top,
+            bot: e.bot,
+            island: e.island,
+          };
+        }
+        // full: 全フィールド保持
+        return { ...e };
+      });
+
+      climateData[m] = trimmedEntries;
+    }
+
+    result[id] = {
+      station,
+      ...(Object.keys(climateData).length > 0 ? { climateData } : {}),
+    };
+  }
+
+  return result;
 }
+

@@ -1,5 +1,5 @@
-import { AllData, BadgeData, StationData } from "../types/all";
-import { RawBadgeData, RawData, RawStationData } from "../types/raw";
+import { AllData, StationData } from "../types/all";
+import { RawData, RawStationData } from "../types/raw";
 import { CategoryKey, CategoryMeta } from "../setting/category";
 import { MetricKey, MetricMeta, MetricValue } from "../setting/metric";
 import { PrefKey, PrefMeta } from "../setting/pref";
@@ -59,8 +59,6 @@ export function toStation(raw: RawStationData): StationData {
     height: raw.height ?? undefined,
     lon: raw.lon ?? undefined,
     lat: raw.lat ?? undefined,
-
-    similar: raw.similar ?? undefined,
   };
 }
 
@@ -85,31 +83,27 @@ export function toMetricMap<V, R>(
   return map;
 }
 
-export function toBadge(raw: RawBadgeData): BadgeData {
-  return {
-    metric: resolveMetric(raw.metric),
-    rank: raw.rank,
-    isHigh: raw.isHigh,
-    isIsland: raw.isIsland,
-  };
-}
 
 /* =========================================================
  * Main
  * ========================================================= */
 
 export function toAllData(raw: RawData): AllData {
+  let otherStations: AllData["otherStations"] = undefined;
+  if (raw.otherStations) {
+    otherStations = {};
+    for (const [key, list] of Object.entries(raw.otherStations)) {
+      if (!list) continue;
+      otherStations[key as keyof typeof otherStations] = list.map((item) => ({
+        ...toStation(item),
+        similar: item.similar,
+      }));
+    }
+  }
+
   return {
     station: toStation(raw.station),
-    overview: toMetricMap(raw.overview, (v) => v),
-    uonzu: toMetricMap(raw.uonzu, (v) => v),
-    table: toMetricMap(raw.table, (v) => v),
-    ratio: toMetricMap(raw.ratio, (v) => v),
-    similarAll: raw.similarAll?.map(toStation),
-    similarMeteo: raw.similarMeteo?.map(toStation),
-    sameStations: raw.sameStations?.map(toStation),
-    meteoStations: raw.meteoStations?.map(toStation),
-    badge: raw.badge?.map(toBadge),
-    description: raw.description ?? undefined,
+    climateData: toMetricMap(raw.climateData, (v) => v),
+    otherStations,
   };
 }

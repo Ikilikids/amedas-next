@@ -12,7 +12,7 @@ import {
 } from "chart.js";
 import React from "react";
 import { Chart } from "react-chartjs-2";
-import { UonzuData } from "../../types/all";
+import { MonthlyData } from "../../types/all";
 import { MetricKey, MetricMeta } from "../../setting/metric";
 
 ChartJS.register(
@@ -31,8 +31,8 @@ ChartJS.register(
 // Props
 // ==============================
 interface CompareUonzuChartProps {
-  uonzuData1: UonzuData;
-  uonzuData2: UonzuData;
+  uonzuData1: MonthlyData;
+  uonzuData2: MonthlyData;
   name1: string;
   name2: string;
   selectedBar: MetricMeta;
@@ -54,17 +54,23 @@ const CompareUonzuChart: React.FC<CompareUonzuChartProps> = ({
 }) => {
   const labels = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
 
+  const getMonthlyValues = (data: MonthlyData, meta: MetricMeta) => {
+    const list = data.get(meta);
+    if (!list) return null;
+    return list.slice(0, 12).map((e) => e?.value ?? null);
+  };
+
   // ===== データ取得 1 =====
-  const temps1 = uonzuData1.get(MetricKey.av_avtemp);
-  const lows1 = uonzuData1.get(MetricKey.av_lwtemp);
-  const highs1 = uonzuData1.get(MetricKey.av_hitemp);
-  const bars1 = uonzuData1.get(selectedBar) ?? [];
+  const temps1 = getMonthlyValues(uonzuData1, MetricKey.av_avtemp);
+  const lows1 = getMonthlyValues(uonzuData1, MetricKey.av_lwtemp);
+  const highs1 = getMonthlyValues(uonzuData1, MetricKey.av_hitemp);
+  const bars1 = getMonthlyValues(uonzuData1, selectedBar) ?? [];
 
   // ===== データ取得 2 =====
-  const temps2 = uonzuData2.get(MetricKey.av_avtemp);
-  const lows2 = uonzuData2.get(MetricKey.av_lwtemp);
-  const highs2 = uonzuData2.get(MetricKey.av_hitemp);
-  const bars2 = uonzuData2.get(selectedBar) ?? [];
+  const temps2 = getMonthlyValues(uonzuData2, MetricKey.av_avtemp);
+  const lows2 = getMonthlyValues(uonzuData2, MetricKey.av_lwtemp);
+  const highs2 = getMonthlyValues(uonzuData2, MetricKey.av_hitemp);
+  const bars2 = getMonthlyValues(uonzuData2, selectedBar) ?? [];
 
   // ===== スケール計算 =====
   const allBars = [...bars1, ...bars2].filter((v): v is number => v !== null);

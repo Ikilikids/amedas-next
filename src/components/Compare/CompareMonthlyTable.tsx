@@ -1,11 +1,11 @@
 import React from "react";
-import { StationData, TableData } from "../../types/all";
+import { MonthlyData, StationData } from "../../types/all";
 import { MonthMap } from "../../utils/colorUtils";
 import { MetricKey, MetricMeta } from "../../setting/metric";
 
 interface CompareMonthlyTableProps {
-  tableData1: TableData | null;
-  tableData2: TableData | null;
+  tableData1: MonthlyData | null;
+  tableData2: MonthlyData | null;
   station1: StationData | null;
   station2: StationData | null;
 }

@@ -12,7 +12,7 @@ import {
 } from "chart.js";
 import React from "react";
 import { Chart } from "react-chartjs-2";
-import { UonzuData } from "../types/all";
+import { MonthlyData } from "../types/all";
 import { MetricKey, MetricMeta } from "../setting/metric";
 
 ChartJS.register(
@@ -31,7 +31,7 @@ ChartJS.register(
 // Props
 // ==============================
 interface UonzuChartProps {
-  uonzuData: UonzuData;
+  uonzuData: MonthlyData;
   selectedBar: MetricMeta;
   labels?: string[]; // Optional: defaults to 1..12
   height?: string;
@@ -54,11 +54,18 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
   );
   const displayLabels = labels || defaultMonths;
 
-  // ===== データ取得 =====
-  const temps = uonzuData.get(MetricKey.av_avtemp);
-  const lows = uonzuData.get(MetricKey.av_lwtemp);
-  const highs = uonzuData.get(MetricKey.av_hitemp);
-  const bars = uonzuData.get(selectedBar) ?? [];
+  // ===== データ取得 (日別なら全件、月別なら 0..11 の12ヶ月分) =====
+  const getValues = (meta: MetricMeta) => {
+    const list = uonzuData.get(meta);
+    if (!list) return null;
+    const targetList = isDaily ? list : list.slice(0, 12);
+    return targetList.map((e) => e?.value ?? null);
+  };
+
+  const temps = getValues(MetricKey.av_avtemp);
+  const lows = getValues(MetricKey.av_lwtemp);
+  const highs = getValues(MetricKey.av_hitemp);
+  const bars = getValues(selectedBar) ?? [];
   const threshold = isDaily ? 200 : 500;
   // ===== 棒グラフ切り替え =====
   const getBarData = () => {

@@ -1,5 +1,4 @@
-// src/utils/transformSimilar.ts
-import { RawStationData } from "../types/raw";
+import { RawSimilarStationData, RawStationData } from "../types/raw";
 import { OriginSimilarItem } from "../types/union";
 
 export const buildSimilar = (
@@ -7,10 +6,10 @@ export const buildSimilar = (
   rawSimilarMeteo: OriginSimilarItem[] | null,
   masterAll: Record<string, RawStationData>
 ): {
-  rawSimilarAll: RawStationData[];
-  rawSimilarMeteo: RawStationData[];
+  rawSimilarAll: RawSimilarStationData[];
+  rawSimilarMeteo: RawSimilarStationData[];
 } => {
-  const resolve = (items: OriginSimilarItem[] | null): RawStationData[] => {
+  const resolve = (items: OriginSimilarItem[] | null): RawSimilarStationData[] => {
     if (!items) return [];
 
     return items.map((item) => {

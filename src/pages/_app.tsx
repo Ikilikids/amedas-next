@@ -1,6 +1,7 @@
 import React, { Component as ReactComponent, useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
 
@@ -59,12 +60,12 @@ class ErrorBoundary extends ReactComponent<ErrorBoundaryProps, ErrorBoundaryStat
               >
                 ページを再読み込みする
               </button>
-              <a
+              <Link
                 href="/"
                 className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition-colors block text-center"
               >
                 トップページに戻る
-              </a>
+              </Link>
             </div>
           </div>
         </div>

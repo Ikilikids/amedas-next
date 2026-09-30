@@ -6,10 +6,10 @@ import { RankKey, RankValue } from "../../setting/rank";
 import { SectionWithDescription } from "../../utils/colorUtils";
 import { CiViewTable } from "react-icons/ci";
 
-import { TableData } from "../../types/all";
+import { MonthlyData } from "../../types/all";
 
 interface TableSectionProps {
-  tableData: TableData;
+  tableData: MonthlyData;
   regionColor: string;
   isMeteo: boolean;
   isIsland: boolean;

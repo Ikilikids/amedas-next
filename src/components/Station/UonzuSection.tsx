@@ -5,8 +5,10 @@ import { MetricKey, MetricMeta } from "../../setting/metric";
 import { SectionWithDescription } from "../../utils/colorUtils";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 
+import { MonthlyData } from "../../types/all";
+
 interface UonzuSectionProps {
-  uonzuData: Map<MetricMeta, number[]>;
+  uonzuData: MonthlyData;
   regionColor: string;
 }
 

@@ -4,7 +4,7 @@ import { FaChevronDown, FaChevronUp, FaChartBar, FaExternalLinkAlt } from "react
 import { ArticleUonzuItem } from "../../../../utils/ssgLoader";
 import { toMetricMap } from "../../../../utils/masterUtils";
 import { MetricKey } from "../../../../setting/metric";
-import { UonzuData } from "../../../../types/all";
+import { MonthlyData } from "../../../../types/all";
 import UonzuChart from "../../../UonzuChart";
 
 interface Props {
@@ -48,7 +48,7 @@ export const ClimateUonzuAccordion: React.FC<Props> = ({
         <div className="p-3.5 xl:p-4 border-t border-slate-200/60 bg-slate-50/40">
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
             {items.map((item) => {
-              const uonzuDataMap = toMetricMap(item.rawUonzu, (v) => v) as UonzuData;
+              const uonzuDataMap = toMetricMap(item.rawUonzu, (v) => v) as MonthlyData;
 
               return (
                 <div

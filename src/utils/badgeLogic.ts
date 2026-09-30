@@ -1,11 +1,17 @@
 import {
   BadgeRank,
-  RawBadgeData,
-  RawOverviewData,
-  RawRatioData,
-  RawTableData,
+  RawMonthlyData,
 } from "../types/raw";
 import { MetricKey, MetricValue } from "../setting/metric";
+
+export interface EvaluatedBadge {
+  metric: string;
+  rank: BadgeRank;
+  isHigh: boolean;
+  isIsland?: boolean;
+  place?: number;
+  value?: number;
+}
 
 const TARGET_METRICS: MetricValue[] = [
   "av_avtemp",
@@ -43,12 +49,10 @@ function evaluateRank(
 
 export const BadgeLogic = {
   getBadges(
-    overviewData: RawOverviewData,
-    ratioData: RawRatioData,
-    tableData?: RawTableData,
+    climateData: RawMonthlyData,
     _isIsland: boolean = false
-  ): RawBadgeData[] {
-    const badges: RawBadgeData[] = [];
+  ): EvaluatedBadge[] {
+    const badges: EvaluatedBadge[] = [];
 
     TARGET_METRICS.forEach((key) => {
       const meta = MetricKey[key];
@@ -58,15 +62,16 @@ export const BadgeLogic = {
       const hasLow = !!meta.low;
       if (!hasHigh && !hasLow) return;
 
-      // 年間エントリ（12番目のインデックス）から top / bot 順位を取得
-      const annualTable = tableData?.[key]?.[12];
-      const annualRatio = ratioData?.[key]?.[12];
-      let topRank = annualTable?.top ?? annualRatio?.top ?? overviewData?.[key]?.rank;
-      const botRank = annualTable?.bot ?? annualRatio?.bot;
+      // 年間エントリ（13個あれば12番目、1個のみなら0番目）から top / bot 順位を取得
+      const entries = climateData?.[key];
+      const annual =
+        entries && entries.length > 12 ? entries[12] : entries?.[0];
+      let topRank = annual?.top;
+      const botRank = annual?.bot;
 
       // 年平均気温（av_avtemp）のTOPは、島しょ部除外ランキングとの併用（より良い順位を採用）
       if (key === "av_avtemp") {
-        const islandRank = annualTable?.island ?? annualRatio?.island;
+        const islandRank = annual?.island;
         if (islandRank != null && islandRank > 0) {
           topRank = topRank != null && topRank > 0 ? Math.min(topRank, islandRank) : islandRank;
         }
@@ -76,7 +81,7 @@ export const BadgeLogic = {
       if (!result) return;
 
       const place = result.isHigh ? topRank : botRank;
-      const value = annualTable?.value ?? annualRatio?.value ?? overviewData?.[key]?.value;
+      const value = annual?.value;
 
       badges.push({
         metric: key,

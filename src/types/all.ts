@@ -2,45 +2,32 @@ import { CategoryMeta } from "../setting/category";
 import { MetricMeta } from "../setting/metric";
 import { PrefMeta } from "../setting/pref";
 import { AreaMeta } from "../setting/area";
-import { BadgeRank } from "./raw";
-import { DescriptionData, MonthlyEntry, RankedValue, StationId } from "./union";
+import { MonthlyEntry, StationId } from "./union";
+import { StationSort } from "./raw";
 
-export interface AllData {
+export type SimilarStationData = StationData & {
+  similar?: number;
+};
+
+export type OtherStations = Partial<Record<StationSort, SimilarStationData[]>>;
+
+export type AllData = {
   station: StationData;
-  overview?: OverviewData;
-  uonzu?: UonzuData;
-  table?: TableData;
-  ratio?: RatioData;
-  similarAll?: StationData[];
-  similarMeteo?: StationData[];
-  sameStations?: StationData[];
-  meteoStations?: StationData[];
-  badge?: BadgeData[];
-  description?: DescriptionData;
-}
+  climateData?: MonthlyData;
+  otherStations?: OtherStations;
+};
 
 export type StationData = {
   id: StationId;
   category: CategoryMeta;
   pref: PrefMeta;
   station_name: string;
-} & {
   official_name?: string;
   city?: string;
   area?: AreaMeta;
   height?: number;
   lon?: number;
   lat?: number;
-} & { similar?: number };
+};
 
-export type OverviewData = Map<MetricMeta, RankedValue>;
-export type UonzuData = Map<MetricMeta, (number | null)[]>;
-export type TableData = Map<MetricMeta, (MonthlyEntry | null)[]>;
-export type RatioData = Map<MetricMeta, (MonthlyEntry | null)[]>;
-
-export interface BadgeData {
-  metric: MetricMeta;
-  rank: BadgeRank;
-  isHigh: boolean;
-  isIsland?: boolean;
-}
+export type MonthlyData = Map<MetricMeta, (MonthlyEntry | null)[]>;

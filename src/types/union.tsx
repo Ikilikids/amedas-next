@@ -26,8 +26,6 @@ export interface OriginSimilarItem {
   similar: number;
 }
 
-export type DescriptionData = Record<string, string>;
-
 export type FeatureName = "meteo" | "hot";
 
 export interface RatioInfo {
@@ -54,68 +52,3 @@ export interface FeatureConfig {
   sideRankings: RankingSidebarConfig[];
 }
 
-export const FEATURE_CONFIGS: Record<FeatureName, FeatureConfig> = {
-  meteo: {
-    title: "47都道府県まとめ",
-    subTitle: "47都道府県",
-    description: "都道府県の代表気象台をまとめました。",
-    gradient: "bg-gradient-to-r from-pink-600 to-rose-600",
-    Icon: <FaBuilding />,
-    ratioTabs: [
-      { metricTab: "気温日数", ranking: "meteo", isCut: false },
-      { metricTab: "降水日数", ranking: "meteo", isCut: true },
-    ],
-    uonzuTabs: [MetricKey.sm_rain, MetricKey.sm_snowing, MetricKey.sm_sun],
-    sideRankings: (
-      [
-        MetricKey.av_avtemp,
-        MetricKey.av_hitemp,
-        MetricKey.sm_rain,
-        MetricKey.sm_snowing,
-        MetricKey.sm_sun,
-        MetricKey.av_wind,
-        MetricKey.hitemp_35,
-        MetricKey.hitemp_30,
-        MetricKey.hitemp_25,
-        MetricKey.lwtemp_0,
-        MetricKey.hitemp_0,
-        MetricKey.lwtemp_25,
-        MetricKey.rain_1,
-        MetricKey.rain_30,
-      ] as const
-    ).map((metric) => ({
-      metric,
-      rank: RankKey.meteo,
-      month: "all" as const,
-    })),
-  },
-  hot: {
-    title: "暑い地点まとめ",
-    subTitle: "暑い地点",
-    description: "夏季に良くニュースになる、暑さで有名な地点をまとめました。",
-    gradient: "bg-gradient-to-r from-red-600 to-rose-500",
-    Icon: <PiThermometerHotFill />,
-    ratioTabs: [{ metricTab: "気温日数", ranking: "island", isCut: true }],
-    uonzuTabs: [],
-    sideRankings: [
-      ...(
-        [
-          MetricKey.hitemp_35,
-          MetricKey.hitemp_30,
-          MetricKey.hitemp_25,
-          MetricKey.lwtemp_25,
-        ] as const
-      ).map((metric) => ({
-        metric,
-        rank: RankKey.island,
-        month: "all" as const,
-      })),
-
-      ...(["6", "7", "8", "9"] as const).map((month) => ({
-        metric: MetricKey.av_hitemp,
-        rank: RankKey.island,
-        month,
-      })),
-    ],
-  },
-};

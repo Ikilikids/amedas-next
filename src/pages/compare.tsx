@@ -22,34 +22,33 @@ import { SectionWithDescription } from "../utils/colorUtils";
 import { MetricKey, MetricMeta } from "../setting/metric";
 import { PrefKey } from "../setting/pref";
 import { loadMaster } from "../utils/ssgLoader";
+import { resisterMaster } from "../utils/climateDataManager";
 
 interface Props {
   masterData: Record<StationId, RawStationData>;
 }
 
 const ComparePage: NextPage<Props> = ({ masterData }) => {
+  resisterMaster(masterData);
   const [id1, setId1] = useState<StationId>("44132"); // 稚内
   const [id2, setId2] = useState<StationId>("62078"); // 東京
 
   // Prefecture state for filtering
-  const [pref1, setPref1] = useState<string>("44");
-  const [pref2, setPref2] = useState<string>("62");
-
+  const [pref1, setPref1] = useState<string>(PrefKey.tokyo.label);
+  const [pref2, setPref2] = useState<string>(PrefKey.osaka.label);
 
   const {
     stationData: s1,
+    climateData: c1,
     uonzuData: u1,
-    overviewData: o1,
     tableData: t1,
-    badges: b1,
     loading: l1,
   } = useStationDetail(id1, masterData);
   const {
     stationData: s2,
+    climateData: c2,
     uonzuData: u2,
-    overviewData: o2,
     tableData: t2,
-    badges: b2,
     loading: l2,
   } = useStationDetail(id2, masterData);
 
@@ -81,9 +80,9 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
       .map((p) => ({
         value: p.label,
         label: p.label,
-        code: p.code,
+        code: Number(p.code[0]),
       }))
-      .sort((a, b) => a.label.localeCompare(b.label, "ja"));
+      .sort((a, b) => a.code - b.code);
   }, []);
 
   const selectedPrefObj1 = useMemo(() => {
@@ -158,9 +157,15 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
   const [isInitialized, setIsInitialized] = useState(false);
   if (!isInitialized && masterData) {
     const s1Master = masterData[id1];
-    if (s1Master) setPref1(s1Master.pref);
+    if (s1Master) {
+      const p1 = Object.values(PrefKey).find((p) => p.code.includes(s1Master.pref));
+      if (p1) setPref1(p1.label);
+    }
     const s2Master = masterData[id2];
-    if (s2Master) setPref2(s2Master.pref);
+    if (s2Master) {
+      const p2 = Object.values(PrefKey).find((p) => p.code.includes(s2Master.pref));
+      if (p2) setPref2(p2.label);
+    }
     setIsInitialized(true);
   }
 
@@ -180,9 +185,9 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     return <span style={{ color: meta.colorFull }}>{meta.icon}</span>;
   };
 
-  const getRegionColor = (prefCode: string) => {
-    const pref = Object.values(PrefKey).find((p) =>
-      (p.code as readonly string[]).includes(prefCode)
+  const getRegionColor = (prefStr: string) => {
+    const pref = Object.values(PrefKey).find(
+      (p) => p.label === prefStr || (p.code as readonly string[]).includes(prefStr)
     );
     return pref?.region?.colorStrong || "#3b82f6";
   };
@@ -293,17 +298,15 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
                   <InfoPanel
                     stationData={s1}
-                    overViewData={o1}
+                    climateData={c1}
                     loading={l1}
                     isTitle={true}
-                    badges={b1}
                   />
                   <InfoPanel
                     stationData={s2}
-                    overViewData={o2}
+                    climateData={c2}
                     loading={l2}
                     isTitle={true}
-                    badges={b2}
                   />
                 </div>
               </div>

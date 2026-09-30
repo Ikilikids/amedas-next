@@ -8,11 +8,11 @@ import {
 import ArticleTemplate from "../../components/ArticleTemplate";
 import { FaBookOpen } from "react-icons/fa";
 
-import {
-  getStationMetrics,
-} from "../../utils/climateDataManager";
+import { assembleDisplayData } from "../../utils/rankingUtils";
+import { loadMaster, resisterMaster } from "../../utils/climateDataManager";
 import { ArticleUonzuItem } from "../../utils/ssgLoader";
 import { CLIMATE_DIVISIONS } from "../../data/classification";
+import { StationId } from "../../types/union";
 
 interface Props {
   slug: string;
@@ -34,12 +34,18 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   let uonzuItems: ArticleUonzuItem[] | undefined;
   if (slug === "japan-climate-classification") {
     const allStationIds = CLIMATE_DIVISIONS.flatMap((div) => div.stationIds);
-    const stationMetricsMap = await getStationMetrics(allStationIds, { uonzu: true });
+    const master = loadMaster();
+    resisterMaster(master);
+    const config: Record<StationId, ("uonzu")[]> = {};
+    for (const id of allStationIds) {
+      config[id] = ["uonzu"];
+    }
+    const stationMetricsMap = await assembleDisplayData(config);
 
     uonzuItems = Object.values(stationMetricsMap).map((st) => ({
-      id: st.id,
+      id: st.station.id,
       name: st.station.station_name || "",
-      rawUonzu: st.uonzu || {},
+      rawUonzu: st.climateData || {},
     }));
   }
 

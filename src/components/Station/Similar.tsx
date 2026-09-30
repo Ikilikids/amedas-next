@@ -1,6 +1,6 @@
 import React from "react";
 import { FaBuilding, FaLayerGroup } from "react-icons/fa";
-import { StationData } from "../../types/all";
+import { SimilarStationData } from "../../types/all";
 import { SectionWithDescription } from "../../utils/colorUtils";
 import StationListItem from "../StationListItem";
 
@@ -9,13 +9,13 @@ import StationListItem from "../StationListItem";
 // ==============================
 type StationListProps = {
   title: string;
-  items: StationData[];
+  items: SimilarStationData[];
   icon: React.ReactNode;
 };
 
 type SimilarPageProps = {
-  similarDataAll: StationData[];
-  similarDataMeteo: StationData[];
+  similarDataAll: SimilarStationData[];
+  similarDataMeteo: SimilarStationData[];
 };
 
 // ==============================

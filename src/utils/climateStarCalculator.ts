@@ -57,7 +57,6 @@ export function calculateStar(
 ): number {
   if (!starMeta) return 5;
   const { levels } = starMeta;
-  const maxStars = levels.length + 1;
 
   if (levels.length === 0 || val < levels[0].threshold) {
     return 1;

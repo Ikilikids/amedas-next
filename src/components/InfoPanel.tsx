@@ -4,27 +4,18 @@ import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { FaCity, FaStar } from "react-icons/fa";
 import { FaMapPin } from "react-icons/fa6";
 import { LiaMountainSolid } from "react-icons/lia";
-import { OverviewData, StationData, BadgeData } from "../types/all";
+import { MonthlyData, StationData } from "../types/all";
 import { MetricKey, MetricMeta } from "../setting/metric";
+import { MetricDistribution } from "../setting/metricDistributions";
+import { isIslandId } from "../setting/rank";
 import RankBadge from "../svg/RankBadge";
-import metricDistributionsRaw from "../data/metricDistributions.json";
-
-interface DistributionItem {
-  min: number;
-  max: number;
-  binWidth: number;
-  bins: number[];
-  totalCount: number;
-}
-
-const metricDistributions: Record<string, DistributionItem> = metricDistributionsRaw;
+import { calculateStar } from "../utils/climateStarCalculator";
 
 interface InfoPanelProps {
   stationData: StationData | null;
-  overViewData: OverviewData | null;
+  climateData: MonthlyData | null;
   loading: boolean;
   isTitle: boolean;
-  badges?: BadgeData[];
 }
 
 // ==============================
@@ -40,45 +31,10 @@ function showValue(
 }
 
 /**
- * 閾値セットから星の数(1〜maxStars)と該当文言を計算する
- */
-function evaluateStar(
-  value: number | null | undefined,
-  starMeta?: MetricMeta["star"]
-): { starCount: number; maxStars: number; label: string } {
-  if (!starMeta) {
-    return { starCount: 0, maxStars: 10, label: "--" };
-  }
-
-  const { baseLabel, levels } = starMeta;
-  const maxStars = levels.length + 1;
-
-  if (value == null || isNaN(value)) {
-    return { starCount: 0, maxStars, label: "--" };
-  }
-
-  if (levels.length === 0 || value < levels[0].threshold) {
-    return { starCount: 1, maxStars, label: baseLabel };
-  }
-
-  for (let i = levels.length - 1; i >= 0; i--) {
-    if (value >= levels[i].threshold) {
-      return {
-        starCount: i + 2,
-        maxStars,
-        label: levels[i].label,
-      };
-    }
-  }
-
-  return { starCount: 1, maxStars, label: baseLabel };
-}
-
-/**
  * 分布ヒストグラムバー + 現在地ポインター
  */
 const DistributionHistogram: React.FC<{
-  dist?: DistributionItem;
+  dist?: MetricDistribution;
   value: number | null | undefined;
   color: string;
 }> = ({ dist, value, color }) => {
@@ -144,10 +100,9 @@ const DistributionHistogram: React.FC<{
 // ==============================
 const InfoPanel: React.FC<InfoPanelProps> = ({
   stationData,
-  overViewData,
+  climateData,
   loading,
   isTitle,
-  badges,
 }) => {
   if (loading) {
     return (
@@ -230,13 +185,80 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
               {stationData.station_name}
             </h2>
           )}
-          {badges && badges.length > 0 && (
-            <div className="flex items-center gap-1 flex-wrap ml-1">
-              {badges.map((b: BadgeData, i: number) => (
-                <RankBadge key={i} {...b} size={26} />
-              ))}
-            </div>
-          )}
+          {/* バッジ（climateData の年値から上位/下位100位のものを集約） */}
+          {(() => {
+            const isIslandStation = isIslandId(stationData.id);
+            const allBadges = displayMetrics.flatMap((m) => {
+              const entries = climateData?.get(m);
+              const annual =
+                entries && entries.length > 12 ? entries[12] : entries?.[0];
+              if (!annual) return [];
+
+              let topRank = annual.top;
+              const botRank = annual.bot;
+
+              // 年平均気温（av_avtemp）のTOPは、島しょ部除外ランキングとの併用
+              if (m.key === "av_avtemp" && annual.island != null && annual.island > 0) {
+                topRank =
+                  topRank != null && topRank > 0
+                    ? Math.min(topRank, annual.island)
+                    : annual.island;
+              }
+
+              // 順位判定
+              const evaluate = (
+                rank?: number | null
+              ): "rainbow" | "gold" | "silver" | "bronze" | null => {
+                if (!rank || rank <= 0) return null;
+                if (rank <= 10) return "rainbow";
+                if (rank <= 25) return "gold";
+                if (rank <= 50) return "silver";
+                if (rank <= 100) return "bronze";
+                return null;
+              };
+
+              const badges: {
+                rank: "rainbow" | "gold" | "silver" | "bronze";
+                isHigh: boolean;
+                isIsland: boolean;
+                metric: typeof m;
+              }[] = [];
+
+              if (m.high) {
+                const highRank = evaluate(topRank);
+                if (highRank) {
+                  badges.push({
+                    rank: highRank,
+                    isHigh: true,
+                    isIsland: isIslandStation,
+                    metric: m,
+                  });
+                }
+              }
+
+              if (m.low) {
+                const lowRank = evaluate(botRank);
+                if (lowRank) {
+                  badges.push({
+                    rank: lowRank,
+                    isHigh: false,
+                    isIsland: isIslandStation,
+                    metric: m,
+                  });
+                }
+              }
+
+              return badges;
+            });
+
+            return allBadges.length > 0 ? (
+              <div className="flex items-center gap-1 flex-wrap ml-1">
+                {allBadges.map((b, i) => (
+                  <RankBadge key={i} {...b} size={26} />
+                ))}
+              </div>
+            ) : null;
+          })()}
         </div>
 
         <p className="text-xs text-slate-400 font-bold ml-7 mb-3">
@@ -272,10 +294,17 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
       {/* 2x3 グリッド: 各指標カード */}
       <div className="flex-1 grid grid-cols-2 gap-2.5">
         {displayMetrics.map((m) => {
-          const data = overViewData?.get(m);
-          const val = data?.value;
-          const { starCount, maxStars, label: starLabel } = evaluateStar(val, m.star);
-          const dist = metricDistributions[m.key];
+          const entries = climateData?.get(m);
+          const annual =
+            entries && entries.length > 12 ? entries[12] : entries?.[0];
+          const val = annual?.value;
+          const myStar = val != null && m.star ? calculateStar(val, m.star) : 0;
+          const maxStars = m.star?.levels.length ? m.star.levels.length + 1 : 10;
+          const starLabel = myStar > 0 && m.star
+            ? (m.star.levels[myStar - 1]?.label ?? m.star.baseLabel)
+            : (m.star?.baseLabel ?? "--");
+          const dist = m.distribution;
+          const rank = annual?.top;
 
           return (
             <div
@@ -309,7 +338,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
               <div className="flex items-center justify-between gap-1 my-0.5">
                 <div className="flex items-baseline gap-1 min-w-0">
                   <span className="text-lg font-black text-slate-800 leading-none">
-                    {data && val != null ? showValue(val) : "--"}
+                    {val != null ? showValue(val) : "--"}
                   </span>
                   <span className="text-[10px] font-bold text-slate-400 shrink-0">
                     {m.unit}
@@ -321,12 +350,12 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
                   <div className="flex items-center gap-0.5 bg-white/90 px-1 py-0.5 rounded border border-slate-100 shadow-2xs whitespace-nowrap">
                     <FaStar className="text-[9.5px]" style={{ color: m.color }} />
                     <span className="text-[9.5px] font-black font-mono text-slate-600">
-                      {starCount}/{maxStars}
+                      {myStar}/{maxStars}
                     </span>
                   </div>
-                  {data?.rank && (
+                  {rank != null && (
                     <span className="text-[8.5px] font-black text-slate-400 uppercase tracking-tight whitespace-nowrap leading-none pr-0.5">
-                      RANK {data.rank}
+                      RANK {rank}
                     </span>
                   )}
                 </div>

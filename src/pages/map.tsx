@@ -16,7 +16,7 @@ import { useStationDetail } from "../components/Ranking/useRankingData";
 import { MetricKey } from "../setting/metric";
 import { StationId } from "../types/union";
 import { RawStationData } from "../types/raw";
-import { loadMaster } from "../utils/climateDataManager";
+import { loadMaster, pickStationData, resisterMaster } from "../utils/climateDataManager";
 
 interface Props {
   masterData: Record<StationId, RawStationData>;
@@ -26,8 +26,9 @@ interface Props {
 //  ページコンポーネント
 // ==============================
 const MapPage: NextPage<Props> = ({ masterData }) => {
+  resisterMaster(masterData);
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
-  const { stationData, uonzuData, overviewData, badges, loading } = useStationDetail(
+  const { stationData, climateData, uonzuData, loading } = useStationDetail(
     (selectedStation as StationId) || null,
     masterData
   );
@@ -128,10 +129,9 @@ const MapPage: NextPage<Props> = ({ masterData }) => {
                       </h3>
                       <InfoPanel
                         stationData={stationData}
-                        overViewData={overviewData}
+                        climateData={climateData}
                         loading={loading}
                         isTitle={true}
-                        badges={badges}
                       />
                     </div>
 
@@ -169,6 +169,7 @@ const MapPage: NextPage<Props> = ({ masterData }) => {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const masterData = loadMaster();
+  const data = pickStationData(masterData, ["id", "category", "pref", "station_name"])
   return {
     props: {
       masterData,

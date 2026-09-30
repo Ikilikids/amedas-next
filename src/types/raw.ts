@@ -1,43 +1,47 @@
 import { CategoryValue } from "../setting/category";
-import { DescriptionData, MonthlyEntry, RankedValue, StationId } from "./union";
+import { MetricValue } from "../setting/metric";
+import { MonthlyEntry, RankedValue, StationId } from "./union";
 
-export interface RawData {
+export type StationSort =
+  | "similarAll"
+  | "similarMeteo"
+  | "sameStations"
+  | "meteoStations";
+
+export type RawSimilarStationData = RawStationData & {
+  similar?: number;
+};
+
+export type RawOtherStations = Partial<Record<StationSort, RawSimilarStationData[]>>;
+
+export type RawData = {
   station: RawStationData;
-  overview?: RawOverviewData;
-  uonzu?: RawUonzuData;
-  table?: RawTableData;
-  ratio?: RawRatioData;
-  stars?: RawStarsData;
-  similarAll?: RawStationData[];
-  similarMeteo?: RawStationData[];
-  sameStations?: RawStationData[];
-  meteoStations?: RawStationData[];
-  badge?: RawBadgeData[];
-  description?: DescriptionData;
-  history?: RawHistoryData[];
-  stats?: RawStatusData;
+  climateData?: RawMonthlyData;
+  otherStations?: RawOtherStations;
+};
+
+export type StationLiveData = {
+  history: RawHistoryData[];
+  stats: RawStatusData | null;
   lastUpdate?: string;
-}
+};
 
 export type RawStationData = {
   id?: StationId;
   category?: CategoryValue;
   pref?: string;
   station_name?: string;
-} & {
   official_name?: string;
   city?: string;
   area?: string;
   height?: number;
   lon?: number;
   lat?: number;
-} & { similar?: number };
+}
 
-export type RawOverviewData = Record<string, RankedValue>;
-export type RawUonzuData = Record<string, number[]>;
-export type RawTableData = Record<string, MonthlyEntry[]>;
-export type RawRatioData = Record<string, MonthlyEntry[]>;
-export type RawStarsData = Record<string, number>;
+
+
+export type RawMonthlyData = Partial<Record<MetricValue, MonthlyEntry[]>>;
 export interface RawHistoryData {
   date: string;
   hi: number | null;
@@ -56,15 +60,6 @@ export interface RawStatusData {
   lwtemp_0?: number;
   min_lwtemp?: number;
   sm_rain?: number;
-}
-
-export interface RawBadgeData {
-  metric: string;
-  rank: BadgeRank;
-  isHigh: boolean;
-  isIsland?: boolean;
-  place?: number;
-  value?: number;
 }
 
 export type BadgeRank = "rainbow" | "gold" | "silver" | "bronze";

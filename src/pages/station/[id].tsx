@@ -18,8 +18,8 @@ import { FaBookOpen, FaArrowLeft, FaMapLocationDot } from "react-icons/fa6";
 import { SectionWithDescription } from "../../utils/colorUtils";
 import { IoBook } from "react-icons/io5";
 
-import { AllData, BadgeData } from "../../types/all";
-import { RawBadgeData, RawData, RawStationData } from "../../types/raw";
+import { AllData, } from "../../types/all";
+import { RawData, RawStationData, StationLiveData } from "../../types/raw";
 import { OriginSimilarItem, StationId } from "../../types/union";
 import { CategoryKey } from "../../setting/category";
 import { toAllData } from "../../utils/masterUtils";
@@ -35,9 +35,10 @@ import { BadgeLogic } from "../../utils/badgeLogic";
 import { buildSimilar } from "../../utils/transformSimilar";
 import { readJson } from "../../utils/ssgLoader";
 import {
-  getStationMetrics,
   loadMaster,
+  resisterMaster,
 } from "../../utils/climateDataManager";
+import { assembleDisplayData } from "../../utils/rankingUtils";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const master = loadMaster();
@@ -49,16 +50,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
+  const master = loadMaster();
+  resisterMaster(master);
   const id = params?.id as StationId;
 
   // 地点詳細に必要な全メトリックを自動解決して取得
-  const stationMetricsMap = await getStationMetrics([id]);
+  const stationMetricsMap = await assembleDisplayData({
+    [id]: ["table", "overview", "ratio", "uonzu"],
+  });
   const stationData = stationMetricsMap[id];
   if (!stationData) return { notFound: true };
 
-  const master = loadMaster();
+
   const rawStationData = stationData.station;
-  const { overview, table, ratio, uonzu, stars, badge } = stationData;
+  const { climateData } = stationData;
 
   // --- 類似地点等の静的データ生成 ---
   const similarFile = readJson<any>("data", "similar", `${id}.json`);
@@ -86,22 +91,13 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   return {
     props: {
       station: rawStationData,
-      overview,
-      uonzu,
-      table,
-      ratio,
-      stars,
-      similarAll: result.rawSimilarAll,
-      similarMeteo: result.rawSimilarMeteo,
-      sameStations: rawSameStations,
-      meteoStations: rawMeteoStations,
-      badge: badge || [],
-      // history, stats, lastUpdate はクライアントサイドでフェッチされる
-      history: [],
-      stats: null,
-      lastUpdate: new Date().toLocaleString("ja-JP", {
-        timeZone: "Asia/Tokyo",
-      }),
+      climateData,
+      otherStations: {
+        similarAll: result.rawSimilarAll,
+        similarMeteo: result.rawSimilarMeteo,
+        sameStations: rawSameStations,
+        meteoStations: rawMeteoStations,
+      },
     },
   };
 };
@@ -112,23 +108,17 @@ const StationPage = (props: RawData) => {
 
   const {
     station: stationData,
-    overview: overviewData,
-    uonzu: uonzuData,
-    table: tableData,
-    ratio: ratioData,
-    similarAll,
-    similarMeteo,
-    sameStations,
-    meteoStations,
-    badge: badges,
+    climateData,
+    otherStations,
   } = allData;
 
+  const similarAll = otherStations?.similarAll;
+  const similarMeteo = otherStations?.similarMeteo;
+  const sameStations = otherStations?.sameStations || [];
+  const meteoStations = otherStations?.meteoStations || [];
+
   // 動的な履歴・統計データをクライアントサイドで管理
-  const [liveData, setLiveData] = useState<{
-    history: any[];
-    stats: any;
-    lastUpdate?: string;
-  } | null>(null);
+  const [liveData, setLiveData] = useState<StationLiveData | null>(null);
 
   useEffect(() => {
     if (!stationData.id) return;
@@ -298,10 +288,9 @@ const StationPage = (props: RawData) => {
                       <div className="xl:w-1/2 min-w-0">
                         <InfoPanel
                           stationData={stationData}
-                          overViewData={overviewData}
+                          climateData={climateData ?? null}
                           loading={false}
                           isTitle={false}
-                          badges={badges}
                         />
                       </div>
                       <div className="xl:w-1/2 flex flex-col min-w-0">
@@ -320,13 +309,13 @@ const StationPage = (props: RawData) => {
 
                   {/* セクション2: 雨温図 */}
                   <section id="section-uonzu" className="scroll-mt-24">
-                    <UonzuSection uonzuData={uonzuData} regionColor={regionStrong} />
+                    <UonzuSection uonzuData={climateData} regionColor={regionStrong} />
                   </section>
 
                   {/* セクション3: 月別気候データ一覧表 */}
                   <section id="section-table" className="scroll-mt-24">
                     <TableSection
-                      tableData={tableData}
+                      tableData={climateData}
                       regionColor={regionStrong}
                       isMeteo={isMeteo}
                       isIsland={isIsland}
@@ -336,7 +325,7 @@ const StationPage = (props: RawData) => {
                   {/* セクション4: 気候要素の割合・日数 */}
                   <section id="section-ratio" className="scroll-mt-24">
                     <RatioSection
-                      ratioData={ratioData}
+                      ratioData={climateData}
                       regionColor={regionStrong}
                       isMeteo={isMeteo}
                       isIsland={isIsland}

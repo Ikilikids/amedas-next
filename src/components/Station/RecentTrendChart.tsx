@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { UonzuData } from "../../types/all";
+import { MonthlyData } from "../../types/all";
 import { MetricKey, MetricMeta } from "../../setting/metric";
 import UonzuChart from "../UonzuChart";
 
@@ -89,10 +89,10 @@ const RecentTrendChart: React.FC<RecentTrendChartProps> = ({
   if (sortedData.length === 0) return null;
 
   // 雨温図形式に変換
-  const uonzuMap: UonzuData = new Map();
-  const hiValues = sortedData.map((d) => d.hi);
-  const lwValues = sortedData.map((d) => d.lw);
-  const rainValues = sortedData.map((d) => d.rain);
+  const uonzuMap: MonthlyData = new Map();
+  const hiValues = sortedData.map((d) => d.hi != null ? { value: d.hi } : null);
+  const lwValues = sortedData.map((d) => d.lw != null ? { value: d.lw } : null);
+  const rainValues = sortedData.map((d) => d.rain != null ? { value: d.rain } : null);
 
   if (hiValues.some((v) => v !== null)) {
     uonzuMap.set(MetricKey.av_hitemp, hiValues);

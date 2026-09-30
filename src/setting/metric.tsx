@@ -24,6 +24,7 @@ import { TbSnowman, TbTemperature, TbTemperaturePlus, TbWindOff } from "react-ic
 import { ImFire } from "react-icons/im";
 import { WiDayCloudy, WiNightSnowThunderstorm, WiSnow } from "react-icons/wi";
 import { GiWhirlwind } from "react-icons/gi";
+import { MetricDistribution, METRIC_DISTRIBUTIONS } from "./metricDistributions";
 
 // ==============================
 // 1. Types & Definitions (No dependencies)
@@ -41,6 +42,12 @@ export type MetricTab =
   | "極値";
 
 export type MetricGroup = "heat" | "cold" | "rain";
+
+export type AssembleTarget =
+  | "overview"
+  | "table"
+  | "ratio"
+  | "uonzu";
 
 export type MetricDirectionMeta = {
   label: string;
@@ -84,6 +91,7 @@ const _rawMetricKey = {
     tab: "主要",
     color: "#ea580c",
     icon: <TbTemperature />,
+    useForJson: ["overview", "table", "ratio", "uonzu"],
     high: {
       label: "年平均気温(温暖)",
       color: "#ea580c",
@@ -122,6 +130,7 @@ const _rawMetricKey = {
     tab: "主要",
     color: "#eab308",
     icon: <AiFillSun />,
+    useForJson: ["overview", "table", "ratio", "uonzu"],
     high: {
       label: "年間日照時間(多照)",
       color: "#eab308",
@@ -158,6 +167,7 @@ const _rawMetricKey = {
     tab: "主要",
     color: "#1d4ed8",
     icon: <BsFillCloudRainFill />,
+    useForJson: ["overview", "table", "ratio", "uonzu"],
     high: {
       label: "年間降水量(多雨)",
       color: "#1d4ed8",
@@ -195,6 +205,7 @@ const _rawMetricKey = {
     tab: "主要",
     color: "#7e22ce",
     icon: <FaSnowflake />,
+    useForJson: ["overview", "table", "ratio", "uonzu"],
     high: {
       label: "年間降雪量",
       color: "#7e22ce",
@@ -228,6 +239,7 @@ const _rawMetricKey = {
     tab: "平均",
     color: "#b91c1c",
     icon: <FaTemperatureArrowUp />,
+    useForJson: ["table", "ratio", "uonzu"],
     detail: {
       gradient: "linear-gradient(to right, #b91c1c, #ef4444)",
       hoverColor: "#b91c1c",
@@ -240,6 +252,7 @@ const _rawMetricKey = {
     tab: "平均",
     color: "#2563eb",
     icon: <FaTemperatureArrowDown />,
+    useForJson: ["table", "ratio", "uonzu"],
     detail: {
       gradient: "linear-gradient(to right, #2563eb, #0891b2)",
       hoverColor: "#2563eb",
@@ -252,6 +265,7 @@ const _rawMetricKey = {
     tab: "平均",
     color: "#16a34a",
     icon: <BiWind />,
+    useForJson: ["overview", "table", "ratio"],
     high: {
       label: "年平均風速",
       color: "#16a34a",
@@ -308,6 +322,7 @@ const _rawMetricKey = {
     tab: "気温日数",
     color: "#b91c1c",
     icon: <ImFire />,
+    useForJson: ["overview", "ratio"],
     high: {
       label: "猛暑日数",
       color: "#b91c1c",
@@ -340,6 +355,7 @@ const _rawMetricKey = {
     tab: "気温日数",
     color: "#ea580c",
     icon: <PiThermometerHotDuotone />,
+    useForJson: ["ratio"],
     chartOrder: 1,
     detail: {
       gradient: "linear-gradient(to right, #ea580c, #fb923c)",
@@ -354,6 +370,7 @@ const _rawMetricKey = {
     tab: "気温日数",
     color: "#fb923c",
     icon: <TbTemperaturePlus />,
+    useForJson: ["ratio"],
     chartOrder: 2,
     detail: {
       gradient: "linear-gradient(to right, #fb923c, #facc15)",
@@ -369,6 +386,7 @@ const _rawMetricKey = {
     tab: "気温日数",
     color: "#0891b2",
     icon: <PiThermometerColdFill />,
+    useForJson: ["ratio"],
     chartOrder: 4,
     detail: {
       gradient: "linear-gradient(to right, #0891b2, #3b82f6)",
@@ -383,6 +401,7 @@ const _rawMetricKey = {
     tab: "気温日数",
     color: "#7e22ce",
     icon: <BsThermometerSnow />,
+    useForJson: ["ratio"],
     chartOrder: 5,
     detail: {
       gradient: "linear-gradient(to right, #7e22ce, #a855f7)",
@@ -397,6 +416,7 @@ const _rawMetricKey = {
     tab: "気温日数",
     color: "#16a34a",
     icon: <MdOutlineNightsStay />,
+    useForJson: ["ratio"],
     detail: {
       gradient: "linear-gradient(to right, #16a34a, #4ade80)",
       hoverColor: "#16a34a",
@@ -448,6 +468,7 @@ const _rawMetricKey = {
     tab: "降水日数",
     color: "#0284c7",
     icon: <BsCloudDrizzleFill />,
+    useForJson: ["ratio"],
     chartOrder: 5,
     detail: {
       gradient: "linear-gradient(to right, #0284c7, #38bdf8)",
@@ -461,6 +482,7 @@ const _rawMetricKey = {
     tab: "降水日数",
     color: "#0369a1",
     icon: <BsCloudRainFill />,
+    useForJson: ["ratio"],
     chartOrder: 4,
     detail: {
       gradient: "linear-gradient(to right, #0369a1, #0ea5e9)",
@@ -474,6 +496,7 @@ const _rawMetricKey = {
     tab: "降水日数",
     color: "#1d4ed8",
     icon: <BsFillCloudRainFill />,
+    useForJson: ["ratio"],
     chartOrder: 3,
     detail: {
       gradient: "linear-gradient(to right, #1d4ed8, #3b82f6)",
@@ -487,6 +510,7 @@ const _rawMetricKey = {
     tab: "降水日数",
     color: "#1e40af",
     icon: <BsFillCloudRainHeavyFill />,
+    useForJson: ["ratio"],
     chartOrder: 2,
     detail: {
       gradient: "linear-gradient(to right, #1e40af, #2563eb)",
@@ -500,6 +524,7 @@ const _rawMetricKey = {
     tab: "降水日数",
     color: "#1e3a8a",
     icon: <BsFillCloudLightningRainFill />,
+    useForJson: ["ratio"],
     chartOrder: 1,
     detail: {
       gradient: "linear-gradient(to right, #1e3a8a, #1d4ed8)",
@@ -513,6 +538,7 @@ const _rawMetricKey = {
     tab: "降水日数",
     color: "#0f172a",
     icon: <IoThunderstormSharp />,
+    useForJson: ["ratio"],
     chartOrder: 0,
     detail: {
       gradient: "linear-gradient(to right, #0f172a, #1e3a8a)",
@@ -538,6 +564,7 @@ const _rawMetricKey = {
     tab: "積雪日数",
     color: "#ec4899",
     icon: <TbSnowman />,
+    useForJson: ["ratio"],
     chartOrder: 4,
     detail: {
       gradient: "linear-gradient(to right, #ec4899, #f472b6)",
@@ -551,6 +578,7 @@ const _rawMetricKey = {
     tab: "積雪日数",
     color: "#db2777",
     icon: <TbSnowman />,
+    useForJson: ["ratio"],
     chartOrder: 3,
     detail: {
       gradient: "linear-gradient(to right, #db2777, #ec4899)",
@@ -564,6 +592,7 @@ const _rawMetricKey = {
     tab: "積雪日数",
     color: "#be185d",
     icon: <TbSnowman />,
+    useForJson: ["ratio"],
     chartOrder: 2,
     detail: {
       gradient: "linear-gradient(to right, #be185d, #db2777)",
@@ -577,6 +606,7 @@ const _rawMetricKey = {
     tab: "積雪日数",
     color: "#9d174d",
     icon: <FaSnowman />,
+    useForJson: ["ratio"],
     chartOrder: 1,
     detail: {
       gradient: "linear-gradient(to right, #9d174d, #be185d)",
@@ -590,6 +620,7 @@ const _rawMetricKey = {
     tab: "積雪日数",
     color: "#701a75",
     icon: <FaSnowman />,
+    useForJson: ["ratio"],
     chartOrder: 0,
     detail: {
       gradient: "linear-gradient(to right, #701a75, #831843)",
@@ -615,6 +646,7 @@ const _rawMetricKey = {
     tab: "降雪日数",
     color: "#9333ea",
     icon: <WiSnow />,
+    useForJson: ["ratio"],
     chartOrder: 4,
     detail: {
       gradient: "linear-gradient(to right, #9333ea, #a855f7)",
@@ -628,6 +660,7 @@ const _rawMetricKey = {
     tab: "降雪日数",
     color: "#7e22ce",
     icon: <WiSnow />,
+    useForJson: ["ratio"],
     chartOrder: 3,
     detail: {
       gradient: "linear-gradient(to right, #7e22ce, #9333ea)",
@@ -641,6 +674,7 @@ const _rawMetricKey = {
     tab: "降雪日数",
     color: "#6b21a8",
     icon: <WiSnow />,
+    useForJson: ["ratio"],
     chartOrder: 2,
     detail: {
       gradient: "linear-gradient(to right, #6b21a8, #7e22ce)",
@@ -654,6 +688,7 @@ const _rawMetricKey = {
     tab: "降雪日数",
     color: "#581c87",
     icon: <WiNightSnowThunderstorm />,
+    useForJson: ["ratio"],
     chartOrder: 1,
     detail: {
       gradient: "linear-gradient(to right, #581c87, #6b21a8)",
@@ -667,6 +702,7 @@ const _rawMetricKey = {
     tab: "降雪日数",
     color: "#3b0764",
     icon: <WiNightSnowThunderstorm />,
+    useForJson: ["ratio"],
     chartOrder: 0,
     detail: {
       gradient: "linear-gradient(to right, #3b0764, #581c87)",
@@ -692,6 +728,7 @@ const _rawMetricKey = {
     tab: "風速日数",
     color: "#16a34a",
     icon: <MdWindPower />,
+    useForJson: ["ratio"],
     chartOrder: 3,
     detail: {
       gradient: "linear-gradient(to right, #16a34a, #22c55e)",
@@ -705,6 +742,7 @@ const _rawMetricKey = {
     tab: "風速日数",
     color: "#15803d",
     icon: <MdWindPower />,
+    useForJson: ["ratio"],
     chartOrder: 2,
     detail: {
       gradient: "linear-gradient(to right, #15803d, #16a34a)",
@@ -718,6 +756,7 @@ const _rawMetricKey = {
     tab: "風速日数",
     color: "#166534",
     icon: <GiWhirlwind />,
+    useForJson: ["ratio"],
     chartOrder: 1,
     detail: {
       gradient: "linear-gradient(to right, #166534, #15803d)",
@@ -731,6 +770,7 @@ const _rawMetricKey = {
     tab: "風速日数",
     color: "#14532d",
     icon: <GiWhirlwind />,
+    useForJson: ["ratio"],
     chartOrder: 0,
     detail: {
       gradient: "linear-gradient(to right, #14532d, #166534)",
@@ -766,10 +806,20 @@ export type MetricMeta = {
   high?: MetricDirectionMeta;
   low?: MetricDirectionMeta;
   star?: MetricStarMeta;
+  distribution?: MetricDistribution;
+  useForJson?: readonly AssembleTarget[]
 };
 
-// Expose MetricKey with unified Record type to prevent optional property access issues
-export const MetricKey: Record<MetricValue, MetricMeta> = _rawMetricKey;
+
+
+// MetricKey に distribution を join して export
+const _rawMetricKeyTyped = _rawMetricKey as Record<string, Omit<MetricMeta, "distribution">>;
+export const MetricKey: Record<MetricValue, MetricMeta> = Object.fromEntries(
+  Object.entries(_rawMetricKeyTyped).map(([k, v]) => [
+    k,
+    { ...v, distribution: METRIC_DISTRIBUTIONS[k as MetricValue] },
+  ])
+) as Record<MetricValue, MetricMeta>;
 
 // ==============================
 // 4. Utilities

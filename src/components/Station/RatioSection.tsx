@@ -8,10 +8,10 @@ import { RankKey, RankValue } from "../../setting/rank";
 import { SectionWithDescription } from "../../utils/colorUtils";
 import { FaChartPie } from "react-icons/fa";
 
-import { RatioData } from "../../types/all";
+import { MonthlyData } from "../../types/all";
 
 interface RatioSectionProps {
-  ratioData: RatioData;
+  ratioData: MonthlyData;
   regionColor: string;
   isMeteo: boolean;
   isIsland: boolean;
