@@ -41,7 +41,7 @@ export const useStationDetail = (
 
         const metricsMap = await climateDownload({
           [stationId]: ["overview", "uonzu", "table"],
-        });
+        }, master);
         const item = metricsMap[stationId];
         if (!item) return;
 

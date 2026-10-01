@@ -83,7 +83,7 @@ export async function loadClimateDetailPageData(
     regionConfig[id] = uonzuStationIds.has(id) ? ["uonzu", "overview"] : ["overview"];
   }
 
-  const regionMetricsMap = await climateDownload(regionConfig);
+  const regionMetricsMap = await climateDownload(regionConfig, master);
 
   const uonzuItems: ArticleUonzuItem[] = Object.values(regionMetricsMap)
     .filter((st) => uonzuStationIds.has(st.station.id))
@@ -123,7 +123,7 @@ export async function loadClimateDetailPageData(
           const uonzuIds = resolveStationNames(area.detail.uonzuList);
           const cfg: Record<StationId, ("uonzu")[]> = {};
           for (const uid of uonzuIds) cfg[uid] = ["uonzu"];
-          areaMetricsMap = await climateDownload(cfg);
+          areaMetricsMap = await climateDownload(cfg, master);
         }
         const areaUonzu: ArticleUonzuItem[] = Object.values(areaMetricsMap).map((st) => ({
           id: st.station.id,
@@ -156,7 +156,7 @@ export async function loadClimateDetailPageData(
             const uonzuIds = resolveStationNames(pDetail.uonzuList);
             const cfg: Record<StationId, ("uonzu")[]> = {};
             for (const uid of uonzuIds) cfg[uid] = ["uonzu"];
-            prefMetricsMap = await climateDownload(cfg);
+            prefMetricsMap = await climateDownload(cfg, master);
           }
           const prefUonzu: ArticleUonzuItem[] = Object.values(prefMetricsMap).map((st) => ({
             id: st.station.id,

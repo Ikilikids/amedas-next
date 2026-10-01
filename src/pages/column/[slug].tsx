@@ -8,7 +8,7 @@ import {
 import ArticleTemplate from "../../components/ArticleTemplate";
 import { FaBookOpen } from "react-icons/fa";
 import { climateDownload } from "../../utils/downloader";
-import { loadMaster, resisterMaster } from "../../utils/climateDataManager";
+import { loadMaster } from "../../utils/climateDataManager";
 import { ArticleUonzuItem } from "../../utils/ssgLoader";
 import { CLIMATE_DIVISIONS } from "../../data/classification";
 import { StationId } from "../../types/union";
@@ -34,12 +34,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   if (slug === "japan-climate-classification") {
     const allStationIds = CLIMATE_DIVISIONS.flatMap((div) => div.stationIds);
     const master = loadMaster();
-    resisterMaster(master);
     const config: Record<StationId, ("uonzu")[]> = {};
     for (const id of allStationIds) {
       config[id] = ["uonzu"];
     }
-    const stationMetricsMap = await climateDownload(config);
+    const stationMetricsMap = await climateDownload(config, master);
 
     uonzuItems = Object.values(stationMetricsMap).map((st) => ({
       id: st.station.id,

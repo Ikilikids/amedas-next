@@ -9,14 +9,13 @@ import InfoPanel from "../components/InfoPanel";
 import { useStationDetail } from "../hooks/useStationDetail";
 import { StationId } from "../types/union";
 import { RawStationData } from "../types/raw";
-import { loadMaster, pickStationData, resisterMaster } from "../utils/climateDataManager";
+import { loadMaster } from "../utils/climateDataManager";
 
 interface Props {
   masterData: Record<StationId, RawStationData>;
 }
 
 const MapPage: NextPage<Props> = ({ masterData }) => {
-  resisterMaster(masterData);
 
   const [selectedStation, setSelectedStation] = useState<StationId | null>(null);
 

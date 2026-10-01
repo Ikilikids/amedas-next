@@ -1,12 +1,12 @@
 import {
     RawData,
+    RawStationData,
 } from "../types/raw";
 import { MonthlyEntry, StationId } from "../types/union";
 import { AssembleKey, AssembleTarget, RankDepth } from "../setting/assemble";
 import { MetricValue } from "../setting/metric";
 import { loadJsonSingleMetric } from "./loadSingleMetric";
 import { calculateRankingEntries } from "./calculateRankingEntries";
-import { masterCache } from "./climateDataManager";
 
 
 /**
@@ -39,13 +39,9 @@ import { masterCache } from "./climateDataManager";
  * ```
  */
 export async function climateDownload(
-    targetConfig: Record<StationId, AssembleTarget[]>
+    targetConfig: Record<StationId, AssembleTarget[]>,
+    master: Record<StationId, RawStationData>
 ): Promise<Record<StationId, RawData>> {
-    const master = masterCache;
-    if (!master) {
-        throw new Error("assembleDisplayData: masterCache is not loaded. Call loadMaster() or resisterMaster() first.");
-    }
-
     const result: Record<StationId, RawData> = {};
 
     for (const [id, options] of Object.entries(targetConfig)) {

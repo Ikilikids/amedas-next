@@ -1,5 +1,3 @@
-import { MetricValue } from "./metric";
-
 export type MetricDistribution = {
   min: number;
   max: number;
@@ -8,7 +6,7 @@ export type MetricDistribution = {
   totalCount: number;
 };
 
-export const METRIC_DISTRIBUTIONS: Partial<Record<MetricValue, MetricDistribution>> = {
+export const METRIC_DISTRIBUTIONS: Record<string, MetricDistribution> = {
   av_avtemp: {
     min: 4, max: 25, binWidth: 0.88, totalCount: 904,
     bins: [23, 52, 77, 62, 50, 51, 61, 77, 74, 65, 80, 84, 92, 100, 81, 52, 32, 17, 10, 17, 23, 27, 33, 21],

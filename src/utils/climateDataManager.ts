@@ -1,13 +1,12 @@
 import { RawStationData } from "../types/raw";
-import { MonthlyEntry, StationId } from "../types/union";
-import { MetricValue } from "../setting/metric";
+import { StationId } from "../types/union";
 
-// ==========================================
-// キャッシュ本体 (メモリ上に常駐)
-// ==========================================
-export let masterCache: Record<StationId, RawStationData> | null = null;
+// SSG（Node.js環境）での重複読み込み防止用キャッシュ
+let masterCache: Record<StationId, RawStationData> | null = null;
 
-// ★ SSGで絶対に回す関数、キャッシュがあれば読み込まない
+/**
+ * ★ SSG（サーバー）専用：stations.json を読み込んで返す
+ */
 export function loadMaster(): Record<StationId, RawStationData> {
   if (!masterCache) {
     const fs = require("fs");
@@ -15,12 +14,7 @@ export function loadMaster(): Record<StationId, RawStationData> {
     const p = path.join(process.cwd(), "public", "stations.json");
     masterCache = JSON.parse(fs.readFileSync(p, "utf-8"));
   }
-  return masterCache;
-}
-
-// ★ SSGから渡されたデータを登録する関数
-export function resisterMaster(data: Record<StationId, RawStationData>) {
-  masterCache = data;
+  return masterCache!;
 }
 
 export function pickStationData(

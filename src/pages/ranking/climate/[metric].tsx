@@ -8,7 +8,6 @@ import { RawStationData } from "../../../types/raw";
 import { MonthlyEntry, StationId } from "../../../types/union";
 import { MetricKey, MetricValue } from "../../../setting/metric";
 import { getRankingStaticProps } from "../../../utils/ssgLoader";
-import { resisterMaster } from "../../../utils/climateDataManager";
 import { loadJsonSingleMetric } from "../../../utils/loadSingleMetric";
 import { calculateRankingEntries } from "../../../utils/calculateRankingEntries";
 
@@ -18,7 +17,6 @@ interface Props {
 }
 
 const ClimateRankingMetricPage: NextPage<Props> = ({ masterData, targetMetric }) => {
-  resisterMaster(masterData);
   const router = useRouter();
 
   const metricKey = ((router.query.metric as MetricValue) || targetMetric).toLowerCase() as MetricValue;

@@ -33,7 +33,6 @@ import { buildSimilar } from "../../utils/transformSimilar";
 import { readJson } from "../../utils/ssgLoader";
 import {
   loadMaster,
-  resisterMaster,
 } from "../../utils/climateDataManager";
 import { climateDownload } from "../../utils/downloader";
 
@@ -48,13 +47,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   const master = loadMaster();
-  resisterMaster(master);
   const id = params?.id as StationId;
 
   // 地点詳細に必要な全メトリックを自動解決して取得
   const stationMetricsMap = await climateDownload({
     [id]: ["table", "overview", "ratio", "uonzu"],
-  });
+  }, master);
   const stationData = stationMetricsMap[id];
   if (!stationData) return { notFound: true };
 

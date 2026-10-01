@@ -19,14 +19,12 @@ import { SectionWithDescription } from "../utils/colorUtils";
 import { MetricKey, MetricMeta } from "../setting/metric";
 import { PrefKey } from "../setting/pref";
 import { loadMaster } from "../utils/ssgLoader";
-import { resisterMaster } from "../utils/climateDataManager";
 
 interface Props {
   masterData: Record<StationId, RawStationData>;
 }
 
 const ComparePage: NextPage<Props> = ({ masterData }) => {
-  resisterMaster(masterData);
   const [id1, setId1] = useState<StationId>("44132"); // 稚内
   const [id2, setId2] = useState<StationId>("62078"); // 東京
 
