@@ -1,9 +1,9 @@
 import { GetStaticPaths, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-import RankingPageTemplate from "../../../components/Ranking/RankingPageTemplate";
-import DailySelector, { DAILY_METRICS } from "../../../components/Ranking/selectors/DailySelector";
-import { RankingItem } from "../../../components/Ranking/types";
+import RankingPageTemplate from "../../../components/Individual/Ranking/RankingPageTemplate";
+import DailySelector, { DAILY_METRICS } from "../../../components/Individual/Ranking/selectors/DailySelector";
+import { RankingItem } from "../../../components/Individual/Ranking/types";
 import { RawStationData } from "../../../types/raw";
 import { StationId } from "../../../types/union";
 import { MetricKey, MetricValue } from "../../../setting/metric";

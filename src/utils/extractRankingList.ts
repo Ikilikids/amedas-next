@@ -1,7 +1,6 @@
-import { RankingData } from "../components/Ranking/types";
+import { RankingData } from "../components/Individual/Ranking/types";
 import { RawStationData } from "../types/raw";
 import { MonthlyEntry, StationId } from "../types/union";
-import { toStation } from "./masterUtils";
 import { PrefKey, PrefMeta } from "../setting/pref";
 import { RankMeta } from "../setting/rank";
 import { RegionMeta } from "../setting/region";
@@ -62,7 +61,8 @@ export function extractRankingList(
     if (rank === null || rank === undefined || rank <= 0) continue;
 
     results.push({
-      ...toStation({ ...master, id }),
+      ...master,
+      id,
       value: entry.value,
       rank,
       time: timeMap?.get(id) || undefined,

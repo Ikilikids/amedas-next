@@ -1,24 +1,19 @@
 import { NextPage } from "next";
-import Head from "next/head";
 import Layout from "../components/Layout";
 import { FaChartLine, FaShieldAlt, FaEnvelope, FaUser, FaExternalLinkAlt } from "react-icons/fa";
 
 const About: NextPage = () => {
   return (
-    <>
-      <Head>
-        <title>このサイトについて・お問い合わせ - アメダス図鑑</title>
-        <meta
-          name="description"
-          content="アメダス図鑑のサイト趣旨、気候データの独自分析アルゴリズム、データ出典、運営者情報、お問い合わせ窓口についてご紹介します。"
-        />
-        <link rel="canonical" href="https://amedas-zukan.jp/about" />
-      </Head>
-
-      <Layout
-        breadcrumbs={[
-          { label: "このサイトについて・お問い合わせ" },
-        ]}
+    <Layout
+      seo={{
+        title: "このサイトについて・お問い合わせ - アメダス図鑑",
+        description:
+          "アメダス図鑑のサイト趣旨、気候データの独自分析アルゴリズム、データ出典、運営者情報、お問い合わせ窓口についてご紹介します。",
+        canonical: "https://amedas-zukan.jp/about",
+      }}
+      breadcrumbs={[
+        { label: "このサイトについて・お問い合わせ" },
+      ]}
         heroProps={{
           badgeIcon: <FaUser className="text-sky-300" />,
           badgeText: "About & Contact",
@@ -238,7 +233,6 @@ const About: NextPage = () => {
           },
         ]}
       />
-    </>
   );
 };
 

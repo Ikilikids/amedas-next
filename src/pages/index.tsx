@@ -1,7 +1,6 @@
 import { NextPage } from "next";
-import Head from "next/head";
 import Layout from "../components/Layout";
-import LinkCard from "../components/LinkCard";
+import LinkCard from "../components/Individual/FirstPage/LinkCard";
 import { navSections } from "../utils/navLinks";
 import { FaThermometerHalf } from "react-icons/fa";
 
@@ -11,18 +10,14 @@ interface Props {
 
 const Home: NextPage<Props> = ({ lastUpdated }) => {
   return (
-    <>
-      <Head>
-        <title>アメダス図鑑 - 全国約1,300地点のアメダス観測データ・ランキング</title>
-        <meta
-          name="description"
-          content="日本全国約1,300地点のアメダス観測所の詳細データ（雨温図、気温・降水量・日照時間の平年値・月間ランキング・割合データなど）を網羅した図鑑サイトです。"
-        />
-        <link rel="canonical" href="https://amedas-zukan.jp/" />
-      </Head>
-
-      <Layout
-        heroProps={{
+    <Layout
+      seo={{
+        title: "アメダス図鑑 - 全国約1,300地点のアメダス観測データ・ランキング",
+        description:
+          "日本全国約1,300地点のアメダス観測所の詳細データ（雨温図、気温・降水量・日照時間の平年値・月間ランキング・割合データなど）を網羅した図鑑サイトです。",
+        canonical: "https://amedas-zukan.jp/",
+      }}
+      heroProps={{
           badgeIcon: <FaThermometerHalf className="text-sky-300" />,
           badgeText: "Japan AMeDAS Database",
           title: "アメダス図鑑へようこそ",
@@ -49,7 +44,6 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
           ),
         }))}
       />
-    </>
   );
 };
 

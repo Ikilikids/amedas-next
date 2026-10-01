@@ -1,18 +1,17 @@
 import { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import Layout from "../../components/Layout";
-import { RankingItem, RawRankingData } from "../../components/Ranking/types";
+import { RankingItem, RawRankingData } from "../../components/Individual/Ranking/types";
 import { getMetricColor } from "../../utils/colorUtils";
-import { toStation } from "../../utils/masterUtils";
+import { resolveCategory } from "../../utils/masterUtils";
 import { PrefKey } from "../../setting/pref";
 import { RegionKey } from "../../setting/region";
 import { loadMaster } from "../../utils/ssgLoader";
 
 import { TbTemperatureSun } from "react-icons/tb";
-import { colorWithAlpha } from "../../components/LayeredPieChart/chartUtils";
+import { colorWithAlpha } from "../../components/Individual/Station/widgets/Ratio/function";
 import { RawStationData } from "../../types/raw";
 import { StationId } from "../../types/union";
 import { MetricKey } from "../../setting/metric";
@@ -83,18 +82,16 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
 
   return (
     <>
-      <Head>
-        <title>{`現在の気温 (リアルタイム) - アメダス図鑑`}</title>
-        <meta
-          name="description"
-          content="全国約1,300地点のアメダス観測データから、現在のリアルタイムな気温状況を10分ごとに自動取得して表示します。日本各地の今の天気を視覚的に把握できます。"
-        />
-        <link rel="canonical" href="https://amedas-zukan.jp/live/realtime" />
-      </Head>
       <Layout
-        breadcrumbs={[
-          { label: "リアルタイム気温" },
-        ]}
+        seo={{
+          title: "現在の気温 (リアルタイム) - アメダス図鑑",
+        description:
+          "全国約1,300地点のアメダス観測データから、現在のリアルタイムな気温状況を10分ごとに自動取得して表示します。日本各地の今の天気を視覚的に把握できます。",
+        canonical: "https://amedas-zukan.jp/live/realtime",
+      }}
+      breadcrumbs={[
+        { label: "リアルタイム気温" },
+      ]}
         heroProps={{
           badgeText: "Realtime Weather",
           Icon: <TbTemperatureSun />,
@@ -137,12 +134,12 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
               <div className="flex flex-col gap-10">
                 {prefsInRegion.map((pref) => {
                   const stationsInPref = stations
-                    .filter((s) => pref.code.includes(s.pref))
-                    .map((s) => toStation(s))
+                    .filter((s) => s.pref && pref.code.includes(s.pref))
                     .sort(
                       (a, b) =>
-                        a.category.value - b.category.value ||
-                        a.id.localeCompare(b.id)
+                        ((a.category ? resolveCategory(a.category)?.value : 99) || 99) -
+                        ((b.category ? resolveCategory(b.category)?.value : 99) || 99) ||
+                        (a.id || "").localeCompare(b.id || "")
                     );
 
                   if (stationsInPref.length === 0) return null;
@@ -176,7 +173,8 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
                       <div className="p-5">
                         <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
                           {stationsInPref.map((s) => {
-                            const temp = tempMap[s.id];
+                            const temp = tempMap[s.id || ""];
+                            const category = s.category ? resolveCategory(s.category) : undefined;
                             const baseClasses =
                               "group border rounded-lg p-3 transition-all duration-200 flex flex-col items-center justify-center gap-1 min-h-[85px] text-center shadow-sm hover:shadow-md hover:-translate-y-0.5";
 
@@ -188,14 +186,14 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
                                 className={`${baseClasses}`}
                               >
                                 <div className="flex items-center gap-1">
-                                  {s.category.value !== 4 && (
+                                  {category && category.value !== 4 && (
                                     <span
                                       className="transform group-hover:scale-110 transition-transform"
                                       style={{
-                                        color: s.category.colorFull,
+                                        color: category.colorFull,
                                       }}
                                     >
-                                      {s.category?.icon}
+                                      {category.icon}
                                     </span>
                                   )}
                                   <span

@@ -1,11 +1,11 @@
 import React from "react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { REGION_LIST, RegionValue } from "../../../setting/region";
-import ClimateArticlePageTemplate from "../../../components/ArticleTemplate/Climate";
+import ClimateArticlePageTemplate from "../../../components/Individual/ArticleTemplate/Climate";
 import {
   loadClimateDetailPageData,
   ClimateDetailPageProps,
-} from "../../../utils/climatePageDataLoader";
+} from "../../../components/Individual/ArticleTemplate/Climate/ssg_function";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = REGION_LIST.map((region) => ({

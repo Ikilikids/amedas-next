@@ -2,7 +2,7 @@
  * 気象庁のCSVデータを取得・解析するユーティリティ
  */
 
-import { RankingItem } from "../components/Ranking/types";
+import { RankingItem } from "../components/Individual/Ranking/types";
 
 /**
  * 気象庁の最新の最高・最低気温・降水量ランキングCSVを取得して解析する

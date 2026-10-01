@@ -114,3 +114,16 @@ export interface ClimateSection {
   - 既存のUIスタイル、マージン、余白を勝手に変更しない。
 - **不要なコマンド実行の禁止**:
   - ユーザーからの明示的な指示がない限り、バックグラウンドでのビルドや型チェック（`tsc`）、`git` コマンド等を勝手に実行しない。
+
+---
+
+## 8. 気候記事テンプレートの完成形アーキテクチャ【厳守】
+
+気候記事の画面描画は、全ページ共通標準である `page-architecture-pattern`（3層構造）に基づき、以下の構成を**完成形**として確立している。
+
+- **詳細定義**: [.agent/skills/page-architecture-pattern/SKILL.md](file:///c:/AMeDAS_Web/amedas-next/.agent/skills/page-architecture-pattern/SKILL.md)
+- **気候記事ディレクトリ**: `src/components/Individual/ArticleTemplate/Climate/`
+  - `ssg_function.ts`: `getStaticProps` 等のページ冒頭（SSGフェーズ）で呼び出され、気候データや関連指標の集計・加工を行う。
+  - `index.tsx`: `ssg_function.ts` から渡された props を受け取り、ページ全体をレイアウト・描画する。
+  - `widgets/`: `index.tsx` 内で使用される各パーツ・可視化ウィジェット群（Intro, Rainbow, Top1 等）。
+

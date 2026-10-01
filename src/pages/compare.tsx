@@ -1,17 +1,16 @@
 import { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import { useMemo, useState } from "react";
 import { FaBalanceScaleLeft, FaExchangeAlt } from "react-icons/fa";
 import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 import { PiRankingDuotone } from "react-icons/pi";
-import CompareMonthlyTable from "../components/Compare/CompareMonthlyTable";
-import CompareUonzuChart from "../components/Compare/CompareUonzuChart";
+import CompareMonthlyTable from "../components/Individual/Compare/CompareMonthlyTable";
+import CompareUonzuChart from "../components/Individual/Compare/CompareUonzuChart";
 import Layout from "../components/Layout";
-import Sidebar from "../components/Sidebar";
-import InfoPanel from "../components/InfoPanel";
+import Sidebar from "../components/Layout/widgets/Sidebar";
+import InfoPanel from "../components/common/InfoPanel";
 import { useStationDetail } from "../hooks/useStationDetail";
-import CustomSelect from "../components/UI/CustomSelect";
+import CustomSelect from "../components/common/CustomSelect";
 import { RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
 import { CategoryKey } from "../setting/category";
@@ -52,7 +51,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     if (!u1 || !u2) return [];
 
     return targets
-      .filter((meta) => u1.has(meta) || u2.has(meta))
+      .filter((meta) => !!u1[meta.key] || !!u2[meta.key])
       .map((meta) => ({
         value: meta.key,
         label: meta.label,
@@ -188,20 +187,16 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
   };
 
   return (
-    <>
-      <Head>
-        <title>アメダス地点比較 - アメダス図鑑</title>
-        <meta
-          name="description"
-          content="全国約1,300地点のアメダス観測所から2地点を自由に選択し、平年気温や降水量の差、気候パターンの特徴を並べて詳細に比較できるツールです。"
-        />
-        <link rel="canonical" href="https://amedas-zukan.jp/compare" />
-      </Head>
-
-      <Layout
-        breadcrumbs={[
-          { label: "地点を比較する" },
-        ]}
+    <Layout
+      seo={{
+        title: "アメダス地点比較 - アメダス図鑑",
+        description:
+          "全国約1,300地点のアメダス観測所から2地点を自由に選択し、平年気温や降水量の差、気候パターンの特徴を並べて詳細に比較できるツールです。",
+        canonical: "https://amedas-zukan.jp/compare",
+      }}
+      breadcrumbs={[
+        { label: "地点を比較する" },
+      ]}
         sidebar={<Sidebar />}
         heroProps={{
           badgeIcon: <FaBalanceScaleLeft />,
@@ -358,7 +353,6 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
           },
         ]}
       />
-    </>
   );
 };
 

@@ -1,8 +1,8 @@
 import { GetStaticPaths, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-import RankingPageTemplate from "../../../components/Ranking/RankingPageTemplate";
-import RecentSelector, { ALL_RECENT_METRICS } from "../../../components/Ranking/selectors/RecentSelector";
+import RankingPageTemplate from "../../../components/Individual/Ranking/RankingPageTemplate";
+import RecentSelector, { ALL_RECENT_METRICS } from "../../../components/Individual/Ranking/selectors/RecentSelector";
 import { RawStationData } from "../../../types/raw";
 import { StationId } from "../../../types/union";
 import { MetricKey, MetricValue } from "../../../setting/metric";

@@ -1,11 +1,10 @@
 import React, { useMemo } from "react";
 import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { FaCompass, FaArrowRight } from "react-icons/fa";
 import { RegionKey, REGION_LIST } from "../../setting/region";
 import { getPrefsInRegion } from "../../setting/pref";
-import ArticleTemplate, { ArticleSectionItem } from "../../components/ArticleTemplate";
+import ArticleTemplate, { ArticleSectionItem } from "../../components/Individual/ArticleTemplate";
 
 const RegionIndexPage: NextPage = () => {
   const sections: ArticleSectionItem[] = useMemo(() => {
@@ -91,21 +90,17 @@ const RegionIndexPage: NextPage = () => {
   }, []);
 
   return (
-    <>
-      <Head>
-        <title>日本の地域別気候解説・特徴まとめ - アメダス図鑑</title>
-        <meta
-          name="description"
-          content="全国10地方（北海道から沖縄まで）の気候区分と特徴を一覧解説。気候メカニズムや雨温図の傾向を地域ごとに深掘りします。"
-        />
-        <link rel="canonical" href="https://amedas-zukan.jp/japan" />
-      </Head>
-
-      <ArticleTemplate
-        breadcrumbs={[
-          { label: "気候特集", href: "/column" },
-          { label: "地域別の気候解説" },
-        ]}
+    <ArticleTemplate
+      seo={{
+        title: "日本の地域別気候解説・特徴まとめ - アメダス図鑑",
+        description:
+          "全国10地方（北海道から沖縄まで）の気候区分と特徴を一覧解説。気候メカニズムや雨温図の傾向を地域ごとに深掘りします。",
+        canonical: "https://amedas-zukan.jp/japan",
+      }}
+      breadcrumbs={[
+        { label: "気候特集", href: "/column" },
+        { label: "地域別の気候解説" },
+      ]}
         hero={{
           badgeIcon: <FaCompass className="text-sky-300" />,
           badgeText: "Regional Climate Encyclopedia",
@@ -124,7 +119,6 @@ const RegionIndexPage: NextPage = () => {
         backHref="/column"
         backLabel="コラム一覧に戻る"
       />
-    </>
   );
 };
 

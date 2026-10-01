@@ -2,13 +2,23 @@ import React from "react";
 import { FaBuilding } from "react-icons/fa";
 import { FaCloudSunRain } from "react-icons/fa6";
 import { PiThermometerHotFill } from "react-icons/pi";
-import { ArticleSectionItem } from "../../components/ArticleTemplate";
-import { ArticleUonzuItem } from "../../utils/ssgLoader";
-import { buildJapanClimateSections } from "./japanClimateClassification";
-import { PREFECTURES_METEO_SECTIONS } from "./prefecturesMeteo";
-import { HOT_STATIONS_SECTIONS } from "./hotStations";
+import {
+  getHotArticleData,
+  HotArticleData,
+} from "../../components/Individual/ArticleTemplate/Hot/ssg_function";
+import { HotArticlePageTemplate } from "../../components/Individual/ArticleTemplate/Hot";
+import {
+  getMeteoArticleData,
+  MeteoArticleData,
+} from "../../components/Individual/ArticleTemplate/Meteo/ssg_function";
+import { MeteoArticlePageTemplate } from "../../components/Individual/ArticleTemplate/Meteo";
+import {
+  getJapanClimateArticleData,
+  JapanClimateArticleData,
+} from "../../components/Individual/ArticleTemplate/JapanClimateClassification/ssg_function";
+import { JapanClimateArticlePageTemplate } from "../../components/Individual/ArticleTemplate/JapanClimateClassification";
 
-export interface ColumnArticle {
+export interface ColumnArticle<T = any> {
   slug: string;
   title: string;
   description: string;
@@ -19,6 +29,8 @@ export interface ColumnArticle {
   summary: string;
   Icon: React.ReactNode;
   color: string;
+  loadData?: () => Promise<T>;
+  Component: React.ComponentType<{ data: T }>;
 }
 
 export const COLUMNS: ColumnArticle[] = [
@@ -34,6 +46,8 @@ export const COLUMNS: ColumnArticle[] = [
       "日本列島は南北に長く、中央に険しい山脈が連なるため、わずか数十km離れるだけで別世界のような気候が広がります。本記事では雨温図の見方と6大気候区分のメカニズムを解説します。",
     Icon: <FaCloudSunRain />,
     color: "#2563eb",
+    loadData: getJapanClimateArticleData,
+    Component: JapanClimateArticlePageTemplate,
   },
   {
     slug: "prefectures-meteo",
@@ -47,6 +61,8 @@ export const COLUMNS: ColumnArticle[] = [
       "北は札幌から南は那覇まで、全国47都道府県の代表気象台の気象平年値（1991〜2020年）を網羅。各地域の気候特性や特徴的な観測記録を地域ブロックごとに解説します。",
     Icon: <FaBuilding />,
     color: "#e11d48",
+    loadData: getMeteoArticleData,
+    Component: MeteoArticlePageTemplate,
   },
   {
     slug: "hot-stations",
@@ -60,14 +76,7 @@ export const COLUMNS: ColumnArticle[] = [
       "40℃超えを連発する内陸盆地や、山越えのフェーン現象で記録的高温を叩き出す地点、夜間も気温が下がらない大都市まで、日本の代表的な暑い地点の観測記録と特徴をまとめました。",
     Icon: <PiThermometerHotFill />,
     color: "#dc2626",
+    loadData: getHotArticleData,
+    Component: HotArticlePageTemplate,
   },
 ];
-
-export const COLUMN_SECTIONS: Record<
-  string,
-  (uonzuItems?: ArticleUonzuItem[]) => ArticleSectionItem[]
-> = {
-  "japan-climate-classification": (uonzuItems) => buildJapanClimateSections(uonzuItems),
-  "prefectures-meteo": () => PREFECTURES_METEO_SECTIONS,
-  "hot-stations": () => HOT_STATIONS_SECTIONS,
-};

@@ -20,13 +20,6 @@ export interface MonthlyEntry {
   meteo?: number | null;
 }
 
-export interface OriginSimilarItem {
-  id: StationId;
-  similar: number;
-}
-
-export type FeatureName = "meteo" | "hot";
-
 export interface RatioInfo {
   metricTab: MetricTab;
   ranking: RankValue;

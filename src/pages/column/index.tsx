@@ -1,8 +1,7 @@
 import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import Layout from "../../components/Layout";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/Layout/widgets/Sidebar";
 import { COLUMNS, ColumnArticle } from "../../data/columns";
 import { FaBookOpen, FaClock, FaCalendarAlt, FaChevronRight, FaInfoCircle, FaTags } from "react-icons/fa";
 import { FaMapLocationDot } from "react-icons/fa6";
@@ -10,20 +9,16 @@ import { PiRankingDuotone } from "react-icons/pi";
 
 const ColumnIndexPage: NextPage = () => {
   return (
-    <>
-      <Head>
-        <title>気象コラム・気候解説 - アメダス図鑑</title>
-        <meta
-          name="description"
-          content="アメダス図鑑がお届けする気象・気候の解説コラム。日本の気候区分の秘密や雨温図の読み解き方、観測網の仕組みなどを専門的かつ分かりやすく解説します。"
-        />
-        <link rel="canonical" href="https://amedas-zukan.jp/column" />
-      </Head>
-
-      <Layout
-        breadcrumbs={[
-          { label: "気象コラム" },
-        ]}
+    <Layout
+      seo={{
+        title: "気象コラム・気候解説 - アメダス図鑑",
+        description:
+          "アメダス図鑑がお届けする気象・気候の解説コラム。日本の気候区分の秘密や雨温図の読み解き方、観測網の仕組みなどを専門的かつ分かりやすく解説します。",
+        canonical: "https://amedas-zukan.jp/column",
+      }}
+      breadcrumbs={[
+        { label: "気象コラム" },
+      ]}
         sidebar={<Sidebar />}
         heroProps={{
           badgeIcon: <FaBookOpen className="text-sky-300" />,
@@ -93,7 +88,6 @@ const ColumnIndexPage: NextPage = () => {
           },
         ]}
       />
-    </>
   );
 };
 

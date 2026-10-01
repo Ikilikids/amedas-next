@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { MonthlyData, StationData } from "../types/all";
-import { RawStationData } from "../types/raw";
+import { RawMonthlyData, RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
-import { toMetricMap, toStation } from "../utils/masterUtils";
 import { climateDownload } from "../utils/downloader";
 
 // ==========================================
@@ -13,10 +11,10 @@ export const useStationDetail = (
   stationId: StationId | null,
   initialMaster?: Record<StationId, RawStationData>
 ) => {
-  const [stationData, setStationData] = useState<StationData | null>(null);
-  const [climateData, setClimateData] = useState<MonthlyData | null>(null);
-  const [uonzuData, setUonzuData] = useState<MonthlyData | null>(null);
-  const [tableData, setTableData] = useState<MonthlyData | null>(null);
+  const [stationData, setStationData] = useState<RawStationData | null>(null);
+  const [climateData, setClimateData] = useState<RawMonthlyData | null>(null);
+  const [uonzuData, setUonzuData] = useState<RawMonthlyData | null>(null);
+  const [tableData, setTableData] = useState<RawMonthlyData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -37,7 +35,7 @@ export const useStationDetail = (
         }
 
         const raw = master[stationId];
-        if (raw) setStationData(toStation(raw));
+        if (raw) setStationData(raw);
 
         const metricsMap = await climateDownload({
           [stationId]: ["overview", "uonzu", "table"],
@@ -46,11 +44,10 @@ export const useStationDetail = (
         if (!item) return;
 
         const { climateData: rawClimate } = item;
-        const climateMap = toMetricMap(rawClimate, (v) => v);
 
-        setClimateData(climateMap);
-        setUonzuData(climateMap);
-        setTableData(climateMap);
+        setClimateData(rawClimate || null);
+        setUonzuData(rawClimate || null);
+        setTableData(rawClimate || null);
       } catch (e) {
         console.error("fetch error:", e);
       } finally {

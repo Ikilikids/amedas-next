@@ -1,15 +1,15 @@
 import { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
 import { useCallback, useState } from "react";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { FaInfoCircle } from "react-icons/fa";
 import Layout from "../components/Layout";
-import StationMap from "../components/StationMap";
-import InfoPanel from "../components/InfoPanel";
+import StationMap from "../components/common/StationMap";
+import InfoPanel from "../components/common/InfoPanel";
 import { useStationDetail } from "../hooks/useStationDetail";
 import { StationId } from "../types/union";
 import { RawStationData } from "../types/raw";
 import { loadMaster } from "../utils/climateDataManager";
+import { resolvePref } from "../utils/masterUtils";
 
 interface Props {
   masterData: Record<StationId, RawStationData>;
@@ -28,22 +28,20 @@ const MapPage: NextPage<Props> = ({ masterData }) => {
     setSelectedStation(s.id);
   }, []);
 
-  const regionStrong = stationData?.pref?.region?.colorStrong || "#10b981";
+  const pref = stationData?.pref ? resolvePref(stationData.pref) : undefined;
+  const regionStrong = pref?.region?.colorStrong || "#10b981";
 
   return (
-    <>
-      <Head>
-        <title>全国アメダス観測所マップ - アメダス図鑑</title>
-        <meta
-          name="description"
-          content="アメダス観測所の雨温図や降水量、猛暑日日数などの気候データを月別で確認できます。地図上のピンをクリックして、各観測所の詳細データを簡単にチェック可能です。"
-        />
-        <link rel="canonical" href="https://amedas-zukan.jp/map" />
-      </Head>
-      <Layout
-        breadcrumbs={[
-          { label: "マップから探す" },
-        ]}
+    <Layout
+      seo={{
+        title: "全国アメダス観測所マップ - アメダス図鑑",
+        description:
+          "アメダス観測所の雨温図や降水量、猛暑日日数などの気候データを月別で確認できます。地図上のピンをクリックして、各観測所の詳細データを簡単にチェック可能です。",
+        canonical: "https://amedas-zukan.jp/map",
+      }}
+      breadcrumbs={[
+        { label: "マップから探す" },
+      ]}
         heroProps={{
           badgeIcon: <FaMapLocationDot />,
           badgeText: "Interactive Map",
@@ -81,7 +79,6 @@ const MapPage: NextPage<Props> = ({ masterData }) => {
           },
         ]}
       />
-    </>
   );
 };
 
