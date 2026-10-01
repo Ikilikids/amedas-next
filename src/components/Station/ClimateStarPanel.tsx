@@ -1,17 +1,9 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import { MetricMeta } from "../../setting/metric";
-import metricDistributionsRaw from "../../data/metricDistributions.json";
+import { MetricDistribution, METRIC_DISTRIBUTIONS } from "../../setting/metricDistributions";
 
-interface DistributionItem {
-  min: number;
-  max: number;
-  binWidth: number;
-  bins: number[];
-  totalCount: number;
-}
-
-const metricDistributions: Record<string, DistributionItem> = metricDistributionsRaw;
+const metricDistributions = METRIC_DISTRIBUTIONS;
 
 interface ClimateStarPanelProps {
   metrics: {
@@ -62,7 +54,7 @@ function evaluateStar(
  * 分布ヒストグラムバー + 現在地ポインター
  */
 const DistributionHistogram: React.FC<{
-  dist?: DistributionItem;
+  dist?: MetricDistribution;
   value: number | null | undefined;
   color: string;
 }> = ({ dist, value, color }) => {

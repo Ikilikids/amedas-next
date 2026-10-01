@@ -298,11 +298,12 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
           const annual =
             entries && entries.length > 12 ? entries[12] : entries?.[0];
           const val = annual?.value;
-          const myStar = val != null && m.star ? calculateStar(val, m.star) : 0;
+          const hasVal = val != null && !isNaN(val);
+          const myStar = hasVal && m.star ? calculateStar(val, m.star) : null;
           const maxStars = m.star?.levels.length ? m.star.levels.length + 1 : 10;
-          const starLabel = myStar > 0 && m.star
-            ? (m.star.levels[myStar - 1]?.label ?? m.star.baseLabel)
-            : (m.star?.baseLabel ?? "--");
+          const starLabel = hasVal && m.star
+            ? (myStar && myStar >= 2 ? (m.star.levels[myStar - 2]?.label ?? m.star.baseLabel) : m.star.baseLabel)
+            : "データなし";
           const dist = m.distribution;
           const rank = annual?.top;
 
@@ -328,7 +329,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
                 </div>
                 <span
                   className="text-[9.5px] font-black px-1.5 py-0.5 rounded-md bg-white border border-slate-200/80 shadow-2xs shrink-0"
-                  style={{ color: m.color }}
+                  style={{ color: hasVal ? m.color : "#94a3b8" }}
                 >
                   {starLabel}
                 </span>
@@ -338,7 +339,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
               <div className="flex items-center justify-between gap-1 my-0.5">
                 <div className="flex items-baseline gap-1 min-w-0">
                   <span className="text-lg font-black text-slate-800 leading-none">
-                    {val != null ? showValue(val) : "--"}
+                    {hasVal ? showValue(val) : "--"}
                   </span>
                   <span className="text-[10px] font-bold text-slate-400 shrink-0">
                     {m.unit}
@@ -348,9 +349,9 @@ const InfoPanel: React.FC<InfoPanelProps> = ({
                 {/* 右側: 上が★スター、下がRANK */}
                 <div className="flex flex-col items-end gap-0.5 shrink-0">
                   <div className="flex items-center gap-0.5 bg-white/90 px-1 py-0.5 rounded border border-slate-100 shadow-2xs whitespace-nowrap">
-                    <FaStar className="text-[9.5px]" style={{ color: m.color }} />
+                    <FaStar className="text-[9.5px]" style={{ color: hasVal ? m.color : "#cbd5e1" }} />
                     <span className="text-[9.5px] font-black font-mono text-slate-600">
-                      {myStar}/{maxStars}
+                      {hasVal ? myStar : "-"}/{maxStars}
                     </span>
                   </div>
                   {rank != null && (

@@ -43,21 +43,15 @@ export const TableSection: React.FC<TableSectionProps> = ({
 
   return (
     <>
-      <div className="pb-3 border-b border-slate-200 mb-4 space-y-3">
-        <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
-          <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: regionColor }}></span>
-          3. 月別気候データ一覧表
-        </h2>
-        <div>
-          <CustomSelect
-            value={tableRankValue}
-            onChange={(v) => setTableRankValue(v)}
-            options={tableRankOptions.map((opt) => ({
-              value: opt,
-              label: RankKey[opt].ratioLabel,
-            }))}
-          />
-        </div>
+      <div className="pb-3 border-b border-slate-200 mb-4">
+        <CustomSelect
+          value={tableRankValue}
+          onChange={(v) => setTableRankValue(v)}
+          options={tableRankOptions.map((opt) => ({
+            value: opt,
+            label: RankKey[opt].ratioLabel,
+          }))}
+        />
       </div>
       <p className="text-xs text-slate-500 mb-4">
         各月の平年値数値と、全国・地方・都道府県内における順位です。

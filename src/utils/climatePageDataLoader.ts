@@ -12,7 +12,6 @@ import {
   ArticleUonzuItem,
 } from "./ssgLoader";
 import { loadMaster } from "./climateDataManager";
-import { assembleDisplayData } from "./rankingUtils";
 import { RawData, RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
 import { ClimateChildSectionItem } from "../components/ArticleTemplate/Climate/part/ChildSections";
@@ -20,6 +19,7 @@ import {
   calculateClimateStarsForStations,
   ClimateStarsResult,
 } from "./climateStarCalculator";
+import { climateDownload } from "./downloader";
 
 /**
  * 地方・都道府県の気候解説ページ共通のProps
@@ -83,7 +83,7 @@ export async function loadClimateDetailPageData(
     regionConfig[id] = uonzuStationIds.has(id) ? ["uonzu", "overview"] : ["overview"];
   }
 
-  const regionMetricsMap = await assembleDisplayData(regionConfig);
+  const regionMetricsMap = await climateDownload(regionConfig);
 
   const uonzuItems: ArticleUonzuItem[] = Object.values(regionMetricsMap)
     .filter((st) => uonzuStationIds.has(st.station.id))
@@ -123,7 +123,7 @@ export async function loadClimateDetailPageData(
           const uonzuIds = resolveStationNames(area.detail.uonzuList);
           const cfg: Record<StationId, ("uonzu")[]> = {};
           for (const uid of uonzuIds) cfg[uid] = ["uonzu"];
-          areaMetricsMap = await assembleDisplayData(cfg);
+          areaMetricsMap = await climateDownload(cfg);
         }
         const areaUonzu: ArticleUonzuItem[] = Object.values(areaMetricsMap).map((st) => ({
           id: st.station.id,
@@ -156,7 +156,7 @@ export async function loadClimateDetailPageData(
             const uonzuIds = resolveStationNames(pDetail.uonzuList);
             const cfg: Record<StationId, ("uonzu")[]> = {};
             for (const uid of uonzuIds) cfg[uid] = ["uonzu"];
-            prefMetricsMap = await assembleDisplayData(cfg);
+            prefMetricsMap = await climateDownload(cfg);
           }
           const prefUonzu: ArticleUonzuItem[] = Object.values(prefMetricsMap).map((st) => ({
             id: st.station.id,

@@ -1,31 +1,15 @@
 import { CategoryValue } from "../setting/category";
 import { MetricValue } from "../setting/metric";
-import { MonthlyEntry, RankedValue, StationId } from "./union";
+import { MonthlyEntry, StationId } from "./union";
 
-export type StationSort =
-  | "similarAll"
-  | "similarMeteo"
-  | "sameStations"
-  | "meteoStations";
-
-export type RawSimilarStationData = RawStationData & {
-  similar?: number;
-};
-
-export type RawOtherStations = Partial<Record<StationSort, RawSimilarStationData[]>>;
-
+// jsonから読み込むデータ型
 export type RawData = {
-  station: RawStationData;
-  climateData?: RawMonthlyData;
-  otherStations?: RawOtherStations;
+  station: RawStationData; // A. アメダス地点の基本情報
+  climateData?: RawMonthlyData; // B. 月別気候データ
+  otherStations?: RawOtherStations; // C. 類似地点データ
 };
 
-export type StationLiveData = {
-  history: RawHistoryData[];
-  stats: RawStatusData | null;
-  lastUpdate?: string;
-};
-
+// A. 基本情報
 export type RawStationData = {
   id?: StationId;
   category?: CategoryValue;
@@ -39,9 +23,36 @@ export type RawStationData = {
   lat?: number;
 }
 
-
-
+// B. 月別気候データ
 export type RawMonthlyData = Partial<Record<MetricValue, MonthlyEntry[]>>;
+
+// C. 類似地点データ
+export type RawOtherStations = Partial<Record<StationSort, RawSimilarStationData[]>>;
+
+export type StationSort =
+  | "similarAll"
+  | "similarMeteo"
+  | "sameStations"
+  | "meteoStations";
+
+export type RawSimilarStationData = RawStationData & {
+  similar?: number;
+};
+
+
+
+
+
+export type StationLiveData = {
+  history: RawHistoryData[];
+  stats: RawStatusData | null;
+  lastUpdate?: string;
+};
+
+
+
+
+
 export interface RawHistoryData {
   date: string;
   hi: number | null;

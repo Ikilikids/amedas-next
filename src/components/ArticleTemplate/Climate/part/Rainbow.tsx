@@ -148,6 +148,7 @@ const RainbowMetricGroup: React.FC<RainbowMetricGroupProps> = ({ grp }) => {
                         metric={mMeta}
                         rank="rainbow"
                         isHigh={badge.isHigh}
+                        isIsland={badge.isIsland}
                         size={38}
                       />
                     </div>

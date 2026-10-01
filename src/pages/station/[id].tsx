@@ -4,15 +4,12 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Layout from "../../components/Layout";
-import PageLayout from "../../components/PageLayout";
-import HeroSection from "../../components/HeroSection";
 import Sidebar from "../../components/Sidebar";
 import InfoPanel from "../../components/InfoPanel";
 import StationMap from "../../components/StationMap";
 import { MetricKey } from "../../setting/metric";
 import Similar from "../../components/Station/Similar";
 import PrefecturePart from "../../components/Station/PrefecturePart";
-import Breadcrumb from "../../components/Breadcrumb";
 import { FaBookOpen, FaArrowLeft, FaMapLocationDot } from "react-icons/fa6";
 
 import { SectionWithDescription } from "../../utils/colorUtils";
@@ -38,7 +35,7 @@ import {
   loadMaster,
   resisterMaster,
 } from "../../utils/climateDataManager";
-import { assembleDisplayData } from "../../utils/rankingUtils";
+import { climateDownload } from "../../utils/downloader";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const master = loadMaster();
@@ -55,7 +52,7 @@ export const getStaticProps: GetStaticProps<RawData> = async ({ params }) => {
   const id = params?.id as StationId;
 
   // 地点詳細に必要な全メトリックを自動解決して取得
-  const stationMetricsMap = await assembleDisplayData({
+  const stationMetricsMap = await climateDownload({
     [id]: ["table", "overview", "ratio", "uonzu"],
   });
   const stationData = stationMetricsMap[id];
@@ -157,212 +154,159 @@ const StationPage = (props: RawData) => {
         <link rel="canonical" href={`https://amedas-zukan.jp/station/${stationData.id}`} />
       </Head>
 
-      <Layout>
-        <main className="flex-1 max-w-[1280px] mx-auto p-4 my-4 w-full overflow-x-hidden">
-          {/* パンくずリスト */}
-          <Breadcrumb
-            items={[
-              { label: "気候ランキング", href: "/clim_ranking" },
-              { label: stationData.pref.label },
-              { label: stationData.official_name },
-            ]}
-          />
+      <Layout
+        breadcrumbs={[
+          { label: "気候ランキング", href: "/ranking/climate/av_avtemp" },
+          { label: stationData.pref.label },
+          { label: stationData.official_name },
+        ]}
+        sidebar={
+          <>
+            {/* 類似地点カード */}
+            {similarAll && similarMeteo && (
+              <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
+                <Similar
+                  similarDataAll={similarAll}
+                  similarDataMeteo={similarMeteo}
+                />
+              </div>
+            )}
 
-          <PageLayout
-            sidebar={
-              <Sidebar
-                tocItems={[
-                  { id: "section-basic", label: "1. 基本データ・位置マップ" },
-                  { id: "section-uonzu", label: "2. 雨温図（平年値グラフ）" },
-                  { id: "section-table", label: "3. 月別気候データ一覧表" },
-                  { id: "section-ratio", label: "4. 気候要素の割合・日数" },
-                  ...(history && history.length > 0
-                    ? [{ id: "section-recent", label: "5. 直近の観測推移" }]
-                    : []),
-                ]}
-              >
-                {/* 類似地点カード */}
-                {similarAll && similarMeteo && (
-                  <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
-                    <Similar
-                      similarDataAll={similarAll}
-                      similarDataMeteo={similarMeteo}
-                    />
-                  </div>
-                )}
-
-                {/* 同じ県の観測所カード */}
-                <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
-                  <PrefecturePart
-                    sameStations={sameStations}
-                    meteoStations={meteoStations}
+            {/* 同じ県の観測所カード */}
+            <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
+              <PrefecturePart
+                sameStations={sameStations}
+                meteoStations={meteoStations}
+              />
+            </div>
+          </>
+        }
+        heroProps={{
+          badgeIcon: <span>{stationData.category.icon}</span>,
+          badgeText: `${stationData.pref.label} ${stationData.city || ""} ・ ${stationData.category.label}`,
+          title: (
+            <div className="flex items-baseline gap-3 flex-wrap">
+              <span>{stationData.official_name}</span>
+              {stationData.official_name !== stationData.station_name && (
+                <span className="text-base font-medium text-white/80">
+                  （通称: {stationData.station_name}）
+                </span>
+              )}
+            </div>
+          ),
+          description: `気象庁アメダス「${stationData.official_name}」観測所の1991〜2020年平年値統計データです。標高${stationData.height != null ? `${stationData.height}m` : "未公表"}（北緯${stationData.lat ? Number(stationData.lat).toFixed(2) : "--"}度、東経${stationData.lon ? Number(stationData.lon).toFixed(2) : "--"}度）に位置し、雨温図グラフ・月別平年値一覧・各種比率・直近推移を掲載しています。`,
+          watermark: "STATION",
+          gradient: `linear-gradient(135deg, ${regionStrong} 0%, color-mix(in srgb, ${regionStrong} 75%, black) 100%)`,
+          rightContent: (
+            <div className="flex flex-col items-start xl:items-end gap-1.5 shrink-0">
+              <div className="text-xs font-mono font-bold text-white bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20">
+                観測所番号: #{stationData.id}
+              </div>
+              {lastUpdate && (
+                <span className="text-white/80 text-[11px] font-mono">
+                  最終更新: {lastUpdate}
+                </span>
+              )}
+            </div>
+          ),
+        }}
+        sections={[
+          {
+            id: "section-basic",
+            label: "1. 基本データ・位置マップ",
+            subLabel: "観測所の位置・標高および代表的な年平均平年値（気温・降水・日照・風速）です。",
+            accentColor: regionStrong,
+            children: (
+              <div className="flex flex-col xl:flex-row gap-6 items-stretch">
+                <div className="xl:w-1/2 min-w-0">
+                  <InfoPanel
+                    stationData={stationData}
+                    climateData={climateData ?? null}
+                    loading={false}
+                    isTitle={false}
                   />
                 </div>
-              </Sidebar>
-            }
-          >
-            {/* 左カラム */}
-            <div className="space-y-6">
-              <HeroSection
-                badgeIcon={<span>{stationData.category.icon}</span>}
-                badgeText={`${stationData.pref.label} ${stationData.city || ""} ・ ${stationData.category.label}`}
-                title={
-                  <div className="flex items-baseline gap-3 flex-wrap">
-                    <span>{stationData.official_name}</span>
-                    {stationData.official_name !== stationData.station_name && (
-                      <span className="text-base font-medium text-white/80">
-                        （通称: {stationData.station_name}）
-                      </span>
-                    )}
-                  </div>
-                }
-                description={`気象庁アメダス「${stationData.official_name}」観測所の1991〜2020年平年値統計データです。標高${stationData.height != null ? `${stationData.height}m` : "未公表"}（北緯${stationData.lat ? Number(stationData.lat).toFixed(2) : "--"}度、東経${stationData.lon ? Number(stationData.lon).toFixed(2) : "--"}度）に位置し、雨温図グラフ・月別平年値一覧・各種比率・直近推移を掲載しています。`}
-                watermark="STATION"
-                gradient={`linear-gradient(135deg, ${regionStrong} 0%, color-mix(in srgb, ${regionStrong} 75%, black) 100%)`}
-                rightContent={
-                  <div className="flex flex-col items-start xl:items-end gap-1.5 shrink-0">
-                    <div className="text-xs font-mono font-bold text-white bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20">
-                      観測所番号: #{stationData.id}
-                    </div>
-                    {lastUpdate && (
-                      <span className="text-white/80 text-[11px] font-mono">
-                        最終更新: {lastUpdate}
-                      </span>
-                    )}
-                  </div>
-                }
-              />
-
-              {/* 記事本文コンテナ */}
-              <article className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm break-words">
-                {/* モバイル用目次 (lg以上は右サイドバーに表示) */}
-                <div className="lg:hidden bg-blue-50/50 border border-blue-100 rounded-2xl p-5 mb-10">
-                  <div className="flex items-center gap-2 font-black text-blue-900 mb-3 text-sm">
-                    <FaBookOpen className="text-blue-600" />
-                    <span>目次</span>
-                  </div>
-                  <ul className="space-y-2 text-xs font-bold text-slate-700">
-                    <li>
-                      <a href="#section-basic" className="hover:text-blue-600 transition-colors">
-                        1. 基本データ・位置マップ
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#section-uonzu" className="hover:text-blue-600 transition-colors">
-                        2. 雨温図（平年値グラフ）
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#section-table" className="hover:text-blue-600 transition-colors">
-                        3. 月別気候データ一覧表
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#section-ratio" className="hover:text-blue-600 transition-colors">
-                        4. 気候要素の割合・日数
-                      </a>
-                    </li>
-                    {history && history.length > 0 && (
-                      <li>
-                        <a href="#section-recent" className="hover:text-blue-600 transition-colors">
-                          5. 直近の観測推移
-                        </a>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-
-                {/* 本文コンテンツセクション群 */}
-                <div className="space-y-12 text-slate-700 leading-relaxed text-sm">
-                  {/* セクション1: 基本データ */}
-                  <section id="section-basic" className="scroll-mt-24">
-                    <h2 className="text-xl font-black text-slate-800 pb-3 border-b border-slate-200 flex items-center gap-2 mb-4">
-                      <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: regionStrong }}></span>
-                      1. 基本データ・位置マップ
-                    </h2>
-                    <p className="text-xs text-slate-500 mb-4">
-                      観測所の位置・標高および代表的な年平均平年値（気温・降水・日照・風速）です。
-                    </p>
-
-                    <div className="flex flex-col xl:flex-row gap-6 items-stretch">
-                      <div className="xl:w-1/2 min-w-0">
-                        <InfoPanel
-                          stationData={stationData}
-                          climateData={climateData ?? null}
-                          loading={false}
-                          isTitle={false}
-                        />
-                      </div>
-                      <div className="xl:w-1/2 flex flex-col min-w-0">
-                        <div className="flex-1 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative bg-slate-50 min-h-[350px] xl:min-h-0">
-                          <div className="w-full h-[350px] xl:h-full xl:absolute xl:inset-0">
-                            <StationMap
-                              isMini
-                              lat={stationData.lat}
-                              lng={stationData.lon}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-
-                  {/* セクション2: 雨温図 */}
-                  <section id="section-uonzu" className="scroll-mt-24">
-                    <UonzuSection uonzuData={climateData} regionColor={regionStrong} />
-                  </section>
-
-                  {/* セクション3: 月別気候データ一覧表 */}
-                  <section id="section-table" className="scroll-mt-24">
-                    <TableSection
-                      tableData={climateData}
-                      regionColor={regionStrong}
-                      isMeteo={isMeteo}
-                      isIsland={isIsland}
-                    />
-                  </section>
-
-                  {/* セクション4: 気候要素の割合・日数 */}
-                  <section id="section-ratio" className="scroll-mt-24">
-                    <RatioSection
-                      ratioData={climateData}
-                      regionColor={regionStrong}
-                      isMeteo={isMeteo}
-                      isIsland={isIsland}
-                      stationId={stationData.id}
-                    />
-                  </section>
-
-                  {/* セクション5: 直近の観測推移 */}
-                  {history && history.length > 0 && (
-                    <section id="section-recent" className="scroll-mt-24">
-                      <RecentSection
-                        history={history}
-                        stats={stats}
-                        regionColor={regionStrong}
+                <div className="xl:w-1/2 flex flex-col min-w-0">
+                  <div className="flex-1 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative bg-slate-50 min-h-[350px] xl:min-h-0">
+                    <div className="w-full h-[350px] xl:h-full xl:absolute xl:inset-0">
+                      <StationMap
+                        isMini
+                        lat={stationData.lat}
+                        lng={stationData.lon}
                       />
-                    </section>
-                  )}
-                </div>
-
-                {/* 記事フッター (columnと統一) */}
-                <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col justify-between items-center gap-4">
-                  <Link
-                    href="/clim_ranking"
-                    className="inline-flex items-center gap-2 text-sm font-black text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    <FaArrowLeft />
-                    <span>気候ランキングに戻る</span>
-                  </Link>
-                  <div className="text-xs text-slate-400 font-bold">
-                    出典: 気象庁「過去の気象データ・平年値（1991〜2020年）」をもとに作成
+                    </div>
                   </div>
                 </div>
-              </article>
+              </div>
+            ),
+          },
+          {
+            id: "section-uonzu",
+            label: "2. 雨温図（平年値グラフ）",
+            accentColor: regionStrong,
+            children: (
+              <UonzuSection uonzuData={climateData} regionColor={regionStrong} />
+            ),
+          },
+          {
+            id: "section-table",
+            label: "3. 月別気候データ一覧表",
+            accentColor: regionStrong,
+            children: (
+              <TableSection
+                tableData={climateData}
+                regionColor={regionStrong}
+                isMeteo={isMeteo}
+                isIsland={isIsland}
+              />
+            ),
+          },
+          {
+            id: "section-ratio",
+            label: "4. 気候要素の割合・日数",
+            accentColor: regionStrong,
+            children: (
+              <RatioSection
+                ratioData={climateData}
+                regionColor={regionStrong}
+                isMeteo={isMeteo}
+                isIsland={isIsland}
+                stationId={stationData.id}
+              />
+            ),
+          },
+          ...(history && history.length > 0
+            ? [
+                {
+                  id: "section-recent",
+                  label: "5. 直近の観測推移",
+                  accentColor: regionStrong,
+                  children: (
+                    <RecentSection
+                      history={history}
+                      stats={stats}
+                      regionColor={regionStrong}
+                    />
+                  ),
+                },
+              ]
+            : []),
+        ]}
+        footerContent={
+          <>
+            <Link
+              href="/ranking/climate/av_avtemp"
+              className="inline-flex items-center gap-2 text-sm font-black text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              <FaArrowLeft />
+              <span>気候ランキングに戻る</span>
+            </Link>
+            <div className="text-xs text-slate-400 font-bold">
+              出典: 気象庁「過去の気象データ・平年値（1991〜2020年）」をもとに作成
             </div>
-          </PageLayout>
-        </main>
-      </Layout>
+          </>
+        }
+      />
     </>
   );
 };

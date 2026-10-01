@@ -36,11 +36,6 @@ export const RankKey = {
     rankingLabel: "47都道府県",
     ratioLabel: "47都道府県",
   },
-  special: {
-    key: "special",
-    rankingLabel: "気象台など",
-    ratioLabel: "気象台など",
-  },
 } as const satisfies Record<string, any>;
 
 export const ISLAND_PREFIXES = [

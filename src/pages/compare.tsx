@@ -8,12 +8,9 @@ import { PiRankingDuotone } from "react-icons/pi";
 import CompareMonthlyTable from "../components/Compare/CompareMonthlyTable";
 import CompareUonzuChart from "../components/Compare/CompareUonzuChart";
 import Layout from "../components/Layout";
-import PageLayout from "../components/PageLayout";
-import HeroSection from "../components/HeroSection";
 import Sidebar from "../components/Sidebar";
 import InfoPanel from "../components/InfoPanel";
-import Breadcrumb from "../components/Breadcrumb";
-import { useStationDetail } from "../components/Ranking/useRankingData";
+import { useStationDetail } from "../hooks/useStationDetail";
 import CustomSelect from "../components/UI/CustomSelect";
 import { RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
@@ -203,29 +200,25 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
         <link rel="canonical" href="https://amedas-zukan.jp/compare" />
       </Head>
 
-      <Layout>
-        <main className="max-w-[1280px] mx-auto p-4  my-4 w-full">
-          {/* パンくずリスト */}
-          <Breadcrumb
-            items={[
-              { label: "地点を比較する" },
-            ]}
-          />
-
-          <PageLayout sidebar={<Sidebar />}>
-            {/* メインエリア */}
-            <div className="space-y-8">
-              {/* ページヘッダーカード */}
-              <HeroSection
-                badgeIcon={<FaBalanceScaleLeft />}
-                badgeText="Station Comparison"
-                title="地点を比較する"
-                description="2つのアメダス観測所を選択し、気温や降水量の違い・雨温図パターンを並べて詳しく比較できます。"
-                watermark="COMPARE"
-                gradient="bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700"
-              />
-
-              {/* Selector Area */}
+      <Layout
+        breadcrumbs={[
+          { label: "地点を比較する" },
+        ]}
+        sidebar={<Sidebar />}
+        heroProps={{
+          badgeIcon: <FaBalanceScaleLeft />,
+          badgeText: "Station Comparison",
+          title: "地点を比較する",
+          description: "2つのアメダス観測所を選択し、気温や降水量の違い・雨温図パターンを並べて詳しく比較できます。",
+          watermark: "COMPARE",
+          gradient: "bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700",
+        }}
+        sections={[
+          {
+            id: "selector-section",
+            label: "地点の選択",
+            accentColor: "#6366f1",
+            children: (
               <div className="flex flex-col xl:flex-row items-center justify-center gap-6 bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
                 <div className="flex flex-col gap-4 w-full flex-1">
                   <div className="flex-1">
@@ -287,44 +280,43 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                   </div>
                 </div>
               </div>
-
-              {/* Comparison Grid */}
-              <div className="flex flex-col gap-4 mb-12">
-                <SectionWithDescription
-                  icon={<IoBook />}
-                  title="地点概要"
-                  bgColor="#10b981"
+            ),
+          },
+          {
+            id: "info-section",
+            label: "地点概要",
+            accentColor: "#10b981",
+            children: (
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
+                <InfoPanel
+                  stationData={s1}
+                  climateData={c1}
+                  loading={l1}
+                  isTitle={true}
                 />
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
-                  <InfoPanel
-                    stationData={s1}
-                    climateData={c1}
-                    loading={l1}
-                    isTitle={true}
-                  />
-                  <InfoPanel
-                    stationData={s2}
-                    climateData={c2}
-                    loading={l2}
-                    isTitle={true}
-                  />
-                </div>
+                <InfoPanel
+                  stationData={s2}
+                  climateData={c2}
+                  loading={l2}
+                  isTitle={true}
+                />
               </div>
-
-              {/* Combined Uonzu Chart */}
-              <div className="flex flex-col gap-4 mb-12">
-                <SectionWithDescription
-                  icon={<LuChartNoAxesCombined />}
-                  title="雨温図比較"
-                  bgColor="#3b82f6"
-                >
+            ),
+          },
+          {
+            id: "uonzu-section",
+            label: "雨温図比較",
+            accentColor: "#3b82f6",
+            children: (
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center justify-end">
                   <CustomSelect
                     value={selectedBar.key}
                     onChange={(v) => setSelectedBar(MetricKey[v])}
                     options={uonzuOptions}
-                    className="ml-2 w-44"
+                    className="w-44"
                   />
-                </SectionWithDescription>
+                </div>
                 <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 overflow-hidden">
                   {u1 && u2 && s1 && s2 ? (
                     <CompareUonzuChart
@@ -342,15 +334,14 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                   )}
                 </div>
               </div>
-
-              {/* Monthly Comparison Table */}
-              <div className="flex flex-col gap-4">
-                <SectionWithDescription
-                  icon={<PiRankingDuotone />}
-                  title="月別データ比較"
-                  bgColor="#ef4444"
-                />
-
+            ),
+          },
+          {
+            id: "table-section",
+            label: "月別データ比較",
+            accentColor: "#ef4444",
+            children: (
+              <div>
                 {l1 || l2 ? (
                   <div className="bg-white rounded-3xl p-12 border border-slate-100 shadow-sm flex flex-col items-center justify-center gap-4">
                     <div className="animate-spin w-8 h-8 border-4 border-slate-100 border-t-indigo-600 rounded-full"></div>
@@ -365,10 +356,10 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                   />
                 )}
               </div>
-            </div>
-          </PageLayout>
-        </main>
-      </Layout>
+            ),
+          },
+        ]}
+      />
     </>
   );
 };

@@ -149,7 +149,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>
             <Link
-              href="/live/daily_ranking/av_hitemp"
+              href="/ranking/daily/av_hitemp"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
             >
               <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
@@ -159,7 +159,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <FaChevronRight className="text-[10px] text-slate-400 group-hover:text-blue-600" />
             </Link>
             <Link
-              href="/clim_ranking"
+              href="/ranking/climate/av_avtemp"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors group"
             >
               <span className="flex items-center gap-2.5 text-xs font-bold text-slate-700 group-hover:text-blue-600">
@@ -205,4 +205,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar, (prev, next) => {
+  if (prev.children !== next.children) return false;
+  if (prev.showColumns !== next.showColumns) return false;
+  if (prev.showTools !== next.showTools) return false;
+  if (prev.showAbout !== next.showAbout) return false;
+
+  const prevLen = prev.tocItems?.length ?? 0;
+  const nextLen = next.tocItems?.length ?? 0;
+  if (prevLen !== nextLen) return false;
+
+  for (let i = 0; i < prevLen; i++) {
+    if (
+      prev.tocItems![i].id !== next.tocItems![i].id ||
+      prev.tocItems![i].label !== next.tocItems![i].label
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+});

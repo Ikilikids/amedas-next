@@ -2,100 +2,131 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import HeroSection, { HeroSectionProps } from "./HeroSection";
-import AdMax from "./AdMax";
+import Breadcrumb, { BreadcrumbItem } from "./Breadcrumb";
+import Sidebar, { TocItem } from "./Sidebar";
+import { FaBookOpen } from "react-icons/fa";
 
-export type { HeroSectionProps };
+export type { HeroSectionProps, BreadcrumbItem, TocItem };
+
+export interface LayoutSectionItem {
+  id: string;
+  label: string;
+  subLabel?: React.ReactNode;
+  accentColor?: string;
+  className?: string;
+  children: React.ReactNode;
+}
 
 interface LayoutProps {
-  children: React.ReactNode;
-  heroProps?: HeroSectionProps;
-  hideAd?: boolean;
+  breadcrumbs?: BreadcrumbItem[];
+  heroProps: HeroSectionProps;
+  sidebar?: React.ReactNode; // ページ固有のサイドバーウィジェット（類似地点など）
+  introContent?: React.ReactNode; // 目次上部に表示する前置きコンテンツ
+  sections?: LayoutSectionItem[]; // 目次と連動するセクション配列
+  footerContent?: React.ReactNode; // 記事フッターコンテンツ（戻るリンク等）
+  children?: React.ReactNode; // sections を使わない場合のフォールバック用
 }
 
 export const Layout: React.FC<LayoutProps> = ({
-  children,
+  breadcrumbs,
   heroProps,
-  hideAd = true,
+  sidebar,
+  introContent,
+  sections,
+  footerContent,
+  children,
 }) => {
+  // sections から自動で目次項目を生成
+  const tocItems: TocItem[] | undefined = sections
+    ? sections.map((sec) => ({ id: sec.id, label: sec.label }))
+    : undefined;
+
   return (
     <div className="min-h-screen bg-[#fcfcfd] flex flex-col font-sans relative">
       <Header />
 
-      {heroProps && <HeroSection {...heroProps} />}
-
       <div className="flex-1 w-full flex justify-center relative">
-        {/* Left Side Ad: visible on >= 1680px */}
-        {!hideAd && (
-          <aside
-            aria-label="Sponsored Left"
-            className="hidden wide1680:block w-[160px] shrink-0 mr-4 self-start sticky top-[128px] z-30 pointer-events-auto pt-4"
-          >
-            <div className="flex flex-col items-center">
-              <span className="text-[10px] text-slate-400 font-bold tracking-wider uppercase mb-1">
-                SPONSORED
-              </span>
-              <div className="w-[160px] min-h-[600px] bg-slate-50 border border-slate-200/80 rounded-lg p-1 flex justify-center items-start shadow-sm">
-                <AdMax
-                  id="8d30ed4e0e8f5f22736d28d5fe432383"
-                  type="banner"
-                  width={160}
-                  height={600}
-                  className="!my-0 !min-h-[600px]"
-                />
-              </div>
+        <main className="w-full max-w-[1280px] min-w-0 flex-1 p-4 my-4 overflow-x-hidden">
+          {breadcrumbs && breadcrumbs.length > 0 && (
+            <Breadcrumb items={breadcrumbs} />
+          )}
+
+          <div className="flex flex-col lg:flex-row gap-8 items-start">
+            {/* メインカラム */}
+            <div className="flex-1 min-w-0 w-full space-y-6">
+              <HeroSection {...heroProps} />
+
+              {sections && sections.length > 0 ? (
+                <article className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm break-words">
+                  {/* 目次上部の導入コンテンツ */}
+                  {introContent && <div className="mb-6">{introContent}</div>}
+
+                  {/* モバイル用目次 (lg:hidden) */}
+                  <div className="lg:hidden bg-blue-50/50 border border-blue-100 rounded-2xl p-5 mb-10">
+                    <div className="flex items-center gap-2 font-black text-blue-900 mb-3 text-sm">
+                      <FaBookOpen className="text-blue-600" />
+                      <span>目次</span>
+                    </div>
+                    <ul className="space-y-2 text-xs font-bold text-slate-700">
+                      {sections.map((sec) => (
+                        <li key={sec.id}>
+                          <a
+                            href={`#${sec.id}`}
+                            className="hover:text-blue-600 transition-colors block py-0.5"
+                          >
+                            {sec.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* セクション群 */}
+                  <div className="space-y-12 text-slate-700 leading-relaxed text-sm">
+                    {sections.map((sec) => (
+                      <section
+                        key={sec.id}
+                        id={sec.id}
+                        className={`scroll-mt-24 ${sec.className || ""}`}
+                      >
+                        <h2 className="text-xl font-black text-slate-800 pb-3 border-b border-slate-200 flex items-center gap-2 mb-4">
+                          <span
+                            className="w-1.5 h-6 rounded-full shrink-0"
+                            style={{
+                              backgroundColor: sec.accentColor || "#2563eb",
+                            }}
+                          />
+                          <span>{sec.label}</span>
+                        </h2>
+                        {sec.subLabel && (
+                          <div className="text-xs text-slate-500 -mt-2 mb-4">
+                            {sec.subLabel}
+                          </div>
+                        )}
+                        {sec.children}
+                      </section>
+                    ))}
+                  </div>
+
+                  {/* 記事フッター */}
+                  {footerContent && (
+                    <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col justify-between items-center gap-4">
+                      {footerContent}
+                    </div>
+                  )}
+                </article>
+              ) : (
+                children
+              )}
             </div>
-          </aside>
-        )}
 
-        {/* Main Content Area: flex-1 up to 1280px */}
-        <main className="w-full max-w-[1280px] min-w-0 flex-1">
-          {children}
-        </main>
-
-        {/* Right Side Ad: visible on >= 1280px (xl) */}
-        {!hideAd && (
-          <aside
-            aria-label="Sponsored Right"
-            className="hidden  w-[160px] shrink-0 ml-4 self-start sticky top-[128px] z-30 pointer-events-auto pt-4"
-          >
-            <div className="flex flex-col items-center">
-              <span className="text-[10px] text-slate-400 font-bold tracking-wider uppercase mb-1">
-                SPONSORED
-              </span>
-              <div className="w-[160px] min-h-[600px] bg-slate-50 border border-slate-200/80 rounded-lg p-1 flex justify-center items-start shadow-sm">
-                <AdMax
-                  id="8d30ed4e0e8f5f22736d28d5fe432383"
-                  type="banner"
-                  width={160}
-                  height={600}
-                  className="!my-0 !min-h-[600px]"
-                />
-              </div>
-            </div>
-          </aside>
-        )}
-      </div>
-
-      {/* Mobile Bottom Bar Ad (320x50): ONLY visible when sidebars are hidden (< 1280px) */}
-      {!hideAd && (
-        <aside
-          aria-label="Sponsored Mobile Overlay"
-          className=" fixed bottom-0 left-0 right-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm border-t border-slate-200 shadow-2xl py-1 pointer-events-auto"
-        >
-          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none mb-0.5">
-            SPONSORED
-          </span>
-          <div className="w-[320px] h-[50px] flex items-center justify-center overflow-hidden">
-            <AdMax
-              id="e4c02042afcb98662fa7b5d77620565b"
-              type="banner"
-              width={320}
-              height={50}
-              className="!my-0 !min-h-[50px] w-[320px] h-[50px]"
-            />
+            {/* サイドバー: 目次を自動展開 + ページ固有のウィジェット */}
+            <Sidebar tocItems={tocItems}>
+              {sidebar}
+            </Sidebar>
           </div>
-        </aside>
-      )}
+        </main>
+      </div>
 
       <Footer />
     </div>

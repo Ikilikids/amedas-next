@@ -18,7 +18,6 @@ export interface MonthlyEntry {
   region?: number;
   pre?: number;
   meteo?: number | null;
-  special?: number | null;
 }
 
 export interface OriginSimilarItem {
@@ -34,21 +33,5 @@ export interface RatioInfo {
   isCut: boolean;
 }
 
-export interface RankingSidebarConfig {
-  metric: MetricMeta;
-  rank: RankMeta;
-  month: string;
-}
 
-// 特徴ごとに必要な割合タブや表示設定を定義
-export interface FeatureConfig {
-  title: string;
-  subTitle: string;
-  description: string;
-  gradient: string;
-  Icon: React.ReactNode;
-  ratioTabs: RatioInfo[];
-  uonzuTabs: MetricMeta[]; // 追加: 気温図で選択可能なタブ
-  sideRankings: RankingSidebarConfig[];
-}
 

@@ -43,7 +43,7 @@ export const realtimeLinks: NavLink[] = [
     iconClass: "text-orange-500",
   },
   {
-    href: "/live/daily_ranking/av_hitemp",
+    href: "/ranking/daily/av_hitemp",
     Icon: <PiRankingDuotone />,
     title: "今日のランキング",
     description: "本日の気温・降水ランキング",
@@ -53,20 +53,20 @@ export const realtimeLinks: NavLink[] = [
     iconClass: "text-yellow-500",
   },
   {
-    href: "/live/recent_ranking/max_hitemp",
+    href: "/ranking/recent/max_hitemp",
     Icon: <IoIosTrophy />,
-    title: "今年これまでのランキング",
+    title: "2026年のランキング",
     description: "最高・最低気温や猛暑日・降水量など",
-    topPageTitle: "今年これまでのランキング（年間速報）",
+    topPageTitle: "2026年のランキング（年間速報）",
     topPageDescription:
-      "今年これまでに記録された全国の最高・最低気温や猛暑日・熱帯夜の日数、積算降水量などを集計。最新の年間記録を一覧で確認できます。",
+      "2026年に記録された全国の最高・最低気温や猛暑日・熱帯夜の日数、積算降水量などを集計。最新の年間記録を一覧で確認できます。",
     iconClass: "text-amber-500",
   },
 ];
 
 export const searchLinks: NavLink[] = [
   {
-    href: "/clim_ranking",
+    href: "/ranking/climate/av_avtemp",
     Icon: <IoIosTrophy />,
     title: "平年値ランキング",
     description: "全国の平年値データをランキング形式で比較できます",

@@ -47,19 +47,13 @@ export const UonzuSection: React.FC<UonzuSectionProps> = ({
 
   return (
     <>
-      <div className="pb-3 border-b border-slate-200 mb-4 space-y-3">
-        <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
-          <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: regionColor }}></span>
-          2. 雨温図（平年値グラフ）
-        </h2>
-        <div>
-          <CustomSelect
-            value={selectedBar.key}
-            onChange={(v) => setSelectedBar(MetricKey[v])}
-            options={uonzuOptions}
-            activeColor={regionColor}
-          />
-        </div>
+      <div className="pb-3 border-b border-slate-200 mb-4">
+        <CustomSelect
+          value={selectedBar.key}
+          onChange={(v) => setSelectedBar(MetricKey[v])}
+          options={uonzuOptions}
+          activeColor={regionColor}
+        />
       </div>
 
       <p className="text-xs text-slate-500 mb-4">

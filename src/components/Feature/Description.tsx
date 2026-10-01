@@ -1,7 +1,14 @@
 import React from "react";
 import { IoIosTrophy, IoMdInformationCircleOutline } from "react-icons/io";
 import { WiThermometer, WiRaindrops, WiStars } from "react-icons/wi";
-import { DescriptionData } from "../../types/union";
+export type DescriptionData = {
+  record?: string;
+  prime?: string;
+  temp?: string;
+  rain?: string;
+  other?: string;
+  [key: string]: string | undefined;
+};
 
 // ==============================
 // Types

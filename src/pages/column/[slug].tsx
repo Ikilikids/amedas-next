@@ -7,8 +7,7 @@ import {
 } from "../../data/columns";
 import ArticleTemplate from "../../components/ArticleTemplate";
 import { FaBookOpen } from "react-icons/fa";
-
-import { assembleDisplayData } from "../../utils/rankingUtils";
+import { climateDownload } from "../../utils/downloader";
 import { loadMaster, resisterMaster } from "../../utils/climateDataManager";
 import { ArticleUonzuItem } from "../../utils/ssgLoader";
 import { CLIMATE_DIVISIONS } from "../../data/classification";
@@ -40,7 +39,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     for (const id of allStationIds) {
       config[id] = ["uonzu"];
     }
-    const stationMetricsMap = await assembleDisplayData(config);
+    const stationMetricsMap = await climateDownload(config);
 
     uonzuItems = Object.values(stationMetricsMap).map((st) => ({
       id: st.station.id,

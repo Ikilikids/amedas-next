@@ -8,6 +8,7 @@ import {
 import { METRIC_LIST, MetricKey, MetricValue } from "../setting/metric";
 import { isIslandId } from "../setting/rank";
 import { resolvePref } from "./masterUtils";
+import { BadgeLogic } from "./badgeLogic";
 
 export { loadMaster };
 
@@ -63,6 +64,7 @@ export interface RegionRainbowStationItem {
   badges: {
     metric: string;
     isHigh: boolean;
+    isIsland?: boolean;
     rank: "rainbow";
     place: number;
     value: number;
@@ -78,28 +80,20 @@ export function extractRainbowStations(
 
   Object.values(stationsMap).forEach((st) => {
     if (!st.station.pref || !prefCodeSet.has(st.station.pref)) return;
-    const rainbowBadges: RegionRainbowStationItem["badges"] = [];
+    if (!st.climateData) return;
 
-    if (st.climateData) {
-      METRIC_LIST.forEach((m) => {
-        const entries = st.climateData?.[m];
-        if (!entries || entries.length === 0) return;
-        const annualEntry = entries.length > 12 ? entries[12] : entries[0];
-        if (!annualEntry || annualEntry.value == null) return;
-
-        // 全国1位なら rainbow バッジ
-        if (annualEntry.top === 1) {
-          const meta = MetricKey[m];
-          rainbowBadges.push({
-            metric: m,
-            isHigh: !!meta?.high,
-            rank: "rainbow",
-            place: 1,
-            value: annualEntry.value,
-          });
-        }
-      });
-    }
+    const isIsland = isIslandId(st.station.id);
+    const badges = BadgeLogic.getBadges(st.climateData, isIsland);
+    const rainbowBadges: RegionRainbowStationItem["badges"] = badges
+      .filter((b) => b.rank === "rainbow")
+      .map((b) => ({
+        metric: b.metric,
+        isHigh: b.isHigh,
+        isIsland: b.isIsland,
+        rank: "rainbow" as const,
+        place: b.place ?? 1,
+        value: b.value ?? 0,
+      }));
 
     if (rainbowBadges.length > 0) {
       results.push({
@@ -173,5 +167,34 @@ export function extractTop1Stations(
   });
 
   return results;
+}
+
+/**
+ * ランキング画面（clim_ranking, daily_ranking, recent_ranking）共通の getStaticProps 生成ヘルパー
+ */
+export function getRankingStaticProps(defaultMetric: MetricValue = "av_avtemp") {
+  return async ({ params }: { params?: any }) => {
+    const metric = (params?.metric as MetricValue) || defaultMetric;
+    const master = loadMaster();
+
+    const masterData: Record<string, RawStationData> = Object.fromEntries(
+      Object.entries(master).map(([id, s]) => [
+        id,
+        {
+          id: s.id,
+          pref: s.pref,
+          station_name: s.station_name,
+          category: s.category,
+        },
+      ])
+    );
+
+    return {
+      props: {
+        masterData,
+        targetMetric: metric,
+      },
+    };
+  };
 }
 

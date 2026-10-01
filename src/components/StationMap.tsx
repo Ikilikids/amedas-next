@@ -115,4 +115,4 @@ const StationMap: React.FC<StationMapProps> = ({
   );
 };
 
-export default StationMap;
+export default React.memo(StationMap);

@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { GiIsland } from "react-icons/gi";
 
-import { BadgeData } from "../types/all";
+import { MetricMeta } from "../setting/metric";
 import { BadgeRank } from "../types/raw";
 
 /* =====================
@@ -47,14 +47,11 @@ const medalColors: Record<
   },
 };
 
-/* =====================
- * 上位アイコン
- * ===================== */
-
-/* =====================
- * コンポーネント
- * ===================== */
-interface RankBadgeProps extends BadgeData {
+export interface RankBadgeProps {
+  rank: BadgeRank;
+  isHigh: boolean;
+  metric: MetricMeta;
+  isIsland?: boolean;
   size?: number;
 }
 

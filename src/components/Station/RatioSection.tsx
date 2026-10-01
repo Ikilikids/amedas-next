@@ -85,23 +85,17 @@ export const RatioSection: React.FC<RatioSectionProps> = ({
 
   return (
     <>
-      <div className="pb-3 border-b border-slate-200 mb-4 space-y-3">
-        <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
-          <span className="w-1.5 h-6 rounded-full" style={{ backgroundColor: regionColor }}></span>
-          4. 気候要素の割合・日数
-        </h2>
-        <div>
-          <ChartControls
-            type={ratioType}
-            setType={setRatioType}
-            selectedMonth={ratioMonth}
-            setSelectedMonth={setRatioMonth}
-            rankType={ratioRankValue}
-            setRankType={setRatioRankValue}
-            rankOptions={ratioRankOptions}
-            typeOptions={typeOptions}
-          />
-        </div>
+      <div className="pb-3 border-b border-slate-200 mb-4">
+        <ChartControls
+          type={ratioType}
+          setType={setRatioType}
+          selectedMonth={ratioMonth}
+          setSelectedMonth={setRatioMonth}
+          rankType={ratioRankValue}
+          setRankType={setRatioRankValue}
+          rankOptions={ratioRankOptions}
+          typeOptions={typeOptions}
+        />
       </div>
       <p className="text-xs text-slate-500 mb-4">
         気温日数や降水日数などの年間・月別構成比を可視化した多層円グラフです。
