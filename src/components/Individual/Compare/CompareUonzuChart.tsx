@@ -273,7 +273,7 @@ const CompareUonzuChart: React.FC<CompareUonzuChartProps> = ({
 
   return (
     <div
-      className="w-full relative flex-none p-2"
+      className="w-full relative flex-none p-0"
       style={{ height, minHeight: height, maxHeight: height }}
     >
       <Chart

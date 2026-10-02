@@ -31,13 +31,12 @@ const LinkCard: React.FC<LinkCardProps> = ({
     <Link
       href={href}
       prefetch={false}
-      className="group block bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300"
+      className="group block bg-white border border-slate-200/80 rounded-2xl p-4 xl:p-5 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-300"
     >
       <div className="flex flex-col gap-5 items-start">
         <div
-          className={`text-4xl p-4 bg-slate-50 border border-slate-100 rounded-2xl shrink-0 group-hover:scale-105 transition-transform duration-300 ${
-            iconClass || "text-blue-600"
-          }`}
+          className={`text-4xl p-4 bg-slate-50 border border-slate-100 rounded-2xl shrink-0 group-hover:scale-105 transition-transform duration-300 ${iconClass || "text-blue-600"
+            }`}
         >
           {Icon}
         </div>

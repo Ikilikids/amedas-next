@@ -197,162 +197,162 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
       breadcrumbs={[
         { label: "地点を比較する" },
       ]}
-        sidebar={<Sidebar />}
-        heroProps={{
-          badgeIcon: <FaBalanceScaleLeft />,
-          badgeText: "Station Comparison",
-          title: "地点を比較する",
-          description: "2つのアメダス観測所を選択し、気温や降水量の違い・雨温図パターンを並べて詳しく比較できます。",
-          watermark: "COMPARE",
-          gradient: "bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700",
-        }}
-        sections={[
-          {
-            id: "selector-section",
-            label: "地点の選択",
-            accentColor: "#6366f1",
-            children: (
-              <div className="flex flex-col xl:flex-row items-center justify-center gap-6 bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
-                <div className="flex flex-col gap-4 w-full flex-1">
-                  <div className="flex-1">
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                      地点 1: 都道府県
-                    </label>
-                    <CustomSelect
-                      value={pref1}
-                      onChange={(v) => setPref1(v as string)}
-                      options={prefOptions}
-                      activeColor={getRegionColor(pref1)}
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                      地点 1: 観測所
-                    </label>
-                    <CustomSelect
-                      value={id1}
-                      onChange={(v) => setId1(v as StationId)}
-                      options={stationOptions1}
-                      leftIcon={getCategoryIcon(id1)}
-                      activeColor={getRegionColor(pref1)}
-                    />
-                  </div>
-                </div>
-
-                <button
-                  onClick={swapStations}
-                  className="p-4 rounded-full bg-slate-100 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-all active:scale-95 shadow-inner shrink-0"
-                  title="入れ替え"
-                >
-                  <FaExchangeAlt className="rotate-90 xl:rotate-0" />
-                </button>
-
-                <div className="flex flex-col gap-4 w-full flex-1">
-                  <div className="flex-1">
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                      地点 2: 都道府県
-                    </label>
-                    <CustomSelect
-                      value={pref2}
-                      onChange={(v) => setPref2(v as string)}
-                      options={prefOptions}
-                      activeColor={getRegionColor(pref2)}
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                      地点 2: 観測所
-                    </label>
-                    <CustomSelect
-                      value={id2}
-                      onChange={(v) => setId2(v as StationId)}
-                      options={stationOptions2}
-                      leftIcon={getCategoryIcon(id2)}
-                      activeColor={getRegionColor(pref2)}
-                    />
-                  </div>
-                </div>
-              </div>
-            ),
-          },
-          {
-            id: "info-section",
-            label: "地点概要",
-            accentColor: "#10b981",
-            children: (
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
-                <InfoPanel
-                  stationData={s1}
-                  climateData={c1}
-                  loading={l1}
-                  isTitle={true}
-                />
-                <InfoPanel
-                  stationData={s2}
-                  climateData={c2}
-                  loading={l2}
-                  isTitle={true}
-                />
-              </div>
-            ),
-          },
-          {
-            id: "uonzu-section",
-            label: "雨温図比較",
-            accentColor: "#3b82f6",
-            children: (
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center justify-end">
+      sidebar={<Sidebar />}
+      heroProps={{
+        badgeIcon: <FaBalanceScaleLeft />,
+        badgeText: "Station Comparison",
+        title: "地点を比較する",
+        description: "2つのアメダス観測所を選択し、気温や降水量の違い・雨温図パターンを並べて詳しく比較できます。",
+        watermark: "COMPARE",
+        gradient: "bg-gradient-to-r from-blue-600 via-indigo-600 to-indigo-700",
+      }}
+      sections={[
+        {
+          id: "selector-section",
+          label: "地点の選択",
+          accentColor: "#6366f1",
+          children: (
+            <div className="flex flex-col xl:flex-row items-center justify-center gap-6 bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
+              <div className="flex flex-col gap-4 w-full flex-1">
+                <div className="flex-1">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                    地点 1: 都道府県
+                  </label>
                   <CustomSelect
-                    value={selectedBar.key}
-                    onChange={(v) => setSelectedBar(MetricKey[v])}
-                    options={uonzuOptions}
-                    className="w-44"
+                    value={pref1}
+                    onChange={(v) => setPref1(v as string)}
+                    options={prefOptions}
+                    activeColor={getRegionColor(pref1)}
                   />
                 </div>
-                <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 overflow-hidden">
-                  {u1 && u2 && s1 && s2 ? (
-                    <CompareUonzuChart
-                      uonzuData1={u1}
-                      uonzuData2={u2}
-                      name1={s1.station_name}
-                      name2={s2.station_name}
-                      selectedBar={selectedBar}
-                      height="400px"
-                    />
-                  ) : (
-                    <div className="h-[400px] flex items-center justify-center text-slate-300 font-bold">
-                      データ読み込み中...
-                    </div>
-                  )}
+                <div className="flex-1">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                    地点 1: 観測所
+                  </label>
+                  <CustomSelect
+                    value={id1}
+                    onChange={(v) => setId1(v as StationId)}
+                    options={stationOptions1}
+                    leftIcon={getCategoryIcon(id1)}
+                    activeColor={getRegionColor(pref1)}
+                  />
                 </div>
               </div>
-            ),
-          },
-          {
-            id: "table-section",
-            label: "月別データ比較",
-            accentColor: "#ef4444",
-            children: (
-              <div>
-                {l1 || l2 ? (
-                  <div className="bg-white rounded-3xl p-12 border border-slate-100 shadow-sm flex flex-col items-center justify-center gap-4">
-                    <div className="animate-spin w-8 h-8 border-4 border-slate-100 border-t-indigo-600 rounded-full"></div>
-                    <p className="text-slate-400 font-bold">データを準備中...</p>
-                  </div>
-                ) : (
-                  <CompareMonthlyTable
-                    tableData1={t1}
-                    tableData2={t2}
-                    station1={s1 ?? null}
-                    station2={s2 ?? null}
+
+              <button
+                onClick={swapStations}
+                className="p-4 rounded-full bg-slate-100 text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-all active:scale-95 shadow-inner shrink-0"
+                title="入れ替え"
+              >
+                <FaExchangeAlt className="rotate-90 xl:rotate-0" />
+              </button>
+
+              <div className="flex flex-col gap-4 w-full flex-1">
+                <div className="flex-1">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                    地点 2: 都道府県
+                  </label>
+                  <CustomSelect
+                    value={pref2}
+                    onChange={(v) => setPref2(v as string)}
+                    options={prefOptions}
+                    activeColor={getRegionColor(pref2)}
                   />
+                </div>
+                <div className="flex-1">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+                    地点 2: 観測所
+                  </label>
+                  <CustomSelect
+                    value={id2}
+                    onChange={(v) => setId2(v as StationId)}
+                    options={stationOptions2}
+                    leftIcon={getCategoryIcon(id2)}
+                    activeColor={getRegionColor(pref2)}
+                  />
+                </div>
+              </div>
+            </div>
+          ),
+        },
+        {
+          id: "info-section",
+          label: "地点概要",
+          accentColor: "#10b981",
+          children: (
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
+              <InfoPanel
+                stationData={s1}
+                climateData={c1}
+                loading={l1}
+                isTitle={true}
+              />
+              <InfoPanel
+                stationData={s2}
+                climateData={c2}
+                loading={l2}
+                isTitle={true}
+              />
+            </div>
+          ),
+        },
+        {
+          id: "uonzu-section",
+          label: "雨温図比較",
+          accentColor: "#3b82f6",
+          children: (
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center justify-end">
+                <CustomSelect
+                  value={selectedBar.key}
+                  onChange={(v) => setSelectedBar(MetricKey[v])}
+                  options={uonzuOptions}
+                  className="w-44"
+                />
+              </div>
+              <div className="bg-white rounded-3xl px-2 xl:px-6 py-4 shadow-sm border border-slate-100 overflow-hidden">
+                {u1 && u2 && s1 && s2 ? (
+                  <CompareUonzuChart
+                    uonzuData1={u1}
+                    uonzuData2={u2}
+                    name1={s1.station_name}
+                    name2={s2.station_name}
+                    selectedBar={selectedBar}
+                    height="400px"
+                  />
+                ) : (
+                  <div className="h-[400px] flex items-center justify-center text-slate-300 font-bold">
+                    データ読み込み中...
+                  </div>
                 )}
               </div>
-            ),
-          },
-        ]}
-      />
+            </div>
+          ),
+        },
+        {
+          id: "table-section",
+          label: "月別データ比較",
+          accentColor: "#ef4444",
+          children: (
+            <div>
+              {l1 || l2 ? (
+                <div className="bg-white rounded-3xl p-12 border border-slate-100 shadow-sm flex flex-col items-center justify-center gap-4">
+                  <div className="animate-spin w-8 h-8 border-4 border-slate-100 border-t-indigo-600 rounded-full"></div>
+                  <p className="text-slate-400 font-bold">データを準備中...</p>
+                </div>
+              ) : (
+                <CompareMonthlyTable
+                  tableData1={t1}
+                  tableData2={t2}
+                  station1={s1 ?? null}
+                  station2={s2 ?? null}
+                />
+              )}
+            </div>
+          ),
+        },
+      ]}
+    />
   );
 };
 

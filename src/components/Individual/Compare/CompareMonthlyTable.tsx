@@ -53,7 +53,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
         <tr className="hover:bg-slate-50/50 transition-colors">
           <td
             rowSpan={2}
-            className="sticky left-0 z-10 bg-white px-2 py-3 w-[104px] min-w-[104px] text-center align-middle font-bold text-xs border-t-2 border-r border-r-slate-200 border-t-slate-300"
+            className="sticky left-0 z-10 bg-white px-2 py-3 min-w-[90px] text-center align-middle font-bold text-xs border-t-2 border-r border-r-slate-200 border-t-slate-300"
           >
             <div className="flex flex-col items-center gap-0.5">
               <div className="flex items-center gap-1">
@@ -68,7 +68,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
             </div>
           </td>
           <td
-            className="sticky left-[104px] z-10 bg-white border-r border-t-slate-300  border-r-slate-200 px-2 py-1 w-[60px] min-w-[60px] text-[10px] font-black text-center whitespace-nowrap shadow-[2px_0_4px_-2px_#0000001a] border-t-2"
+            className="sticky left-[90px] z-10 bg-white border-r border-t-slate-300  border-r-slate-200 px-2 py-1 min-w-[50px] text-[10px] font-black text-center whitespace-nowrap shadow-[2px_0_4px_-2px_#0000001a] border-t-2"
             style={{ color: station1?.pref ? resolvePref(station1.pref)?.region?.colorStrong : undefined }}
           >
             {station1?.station_name ?? "地点1"}
@@ -98,7 +98,7 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
         {/* Station 2 Row */}
         <tr className="hover:bg-slate-50/50 transition-colors">
           <td
-            className="sticky left-[104px] z-10 bg-white border-r border-t-slate-200 border-r-slate-200 px-2 py-1 w-[60px] min-w-[60px] text-[10px] font-black text-center whitespace-nowrap shadow-[2px_0_4px_-2px_#0000001a] border-t"
+            className="sticky left-[90px] z-10 bg-white border-r border-t-slate-200 border-r-slate-200 px-2 py-1 min-w-[50px] text-[10px] font-black text-center whitespace-nowrap shadow-[2px_0_4px_-2px_#0000001a] border-t"
             style={{ color: station2?.pref ? resolvePref(station2.pref)?.region?.colorStrong : undefined }}
           >
             {station2?.station_name ?? "地点2"}
@@ -134,18 +134,18 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
       <table className="w-full border-collapse">
         <thead>
           <tr className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-            <th className="sticky left-0 top-0 z-20 bg-slate-100 border-b border-r border-slate-200 p-2 w-[104px] min-w-[104px]">
+            <th className="sticky left-0 top-0 z-20 bg-slate-100 border-b border-r border-slate-200 p-2 min-w-[90px]">
               項目
             </th>
-            <th className="sticky left-[104px] top-0 z-20 bg-slate-100 border-r border-b border-slate-200 p-2 w-[60px] min-w-[60px]">
+            <th className="sticky left-[90px] top-0 z-20 bg-slate-100 border-r border-b border-slate-200 p-2 min-w-[50px]">
               地点
             </th>
             {months.map((m) => (
               <th
                 key={m.slug}
                 className={`border-b border-slate-200 p-2 min-w-[60px] ${m.slug === "all"
-                    ? "font-bold text-slate-500 bg-blue-50/50"
-                    : ""
+                  ? "font-bold text-slate-500 bg-blue-50/50"
+                  : ""
                   }`}
               >
                 {m.label}

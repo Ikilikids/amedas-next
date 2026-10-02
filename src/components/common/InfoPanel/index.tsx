@@ -20,7 +20,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
 }) => {
   if (loading) {
     return (
-      <div className="rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center justify-center animate-pulse h-full bg-slate-50 min-h-[300px]">
+      <div className="rounded-3xl p-3 xl:p-6 shadow-sm border border-slate-100 flex items-center justify-center animate-pulse h-full bg-slate-50 min-h-[300px]">
         <div className="flex flex-col items-center gap-2 text-slate-400">
           <div className="w-8 h-8 rounded-full border-2 border-slate-300 border-t-blue-500 animate-spin" />
           <p className="text-xs">データを読み込み中...</p>
@@ -31,7 +31,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
 
   if (!stationData) {
     return (
-      <div className="rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center justify-center text-slate-400 text-sm h-full bg-slate-50 min-h-[300px]">
+      <div className="rounded-3xl p-3 xl:p-6 shadow-sm border border-slate-100 flex items-center justify-center text-slate-400 text-sm h-full bg-slate-50 min-h-[300px]">
         <div className="flex flex-col items-center gap-2">
           <BsFillQuestionCircleFill className="text-3xl" />
           <p>地点を選択してください</p>
@@ -44,7 +44,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
   const region = pref?.region;
 
   return (
-    <div className="rounded-3xl px-5 py-4 shadow-sm border border-slate-100 flex flex-col relative overflow-hidden transition-all h-full bg-white">
+    <div className="rounded-3xl px-3 xl:px-5 py-5 shadow-sm border border-slate-100 flex flex-col relative overflow-hidden transition-all h-full bg-white">
       {/* Background Accent */}
       <div
         className="absolute top-0 left-0 w-full h-1"

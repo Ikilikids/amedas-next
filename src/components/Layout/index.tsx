@@ -60,7 +60,7 @@ export const Layout: React.FC<LayoutProps> = ({
       <Header />
 
       <div className="flex-1 w-full flex justify-center relative">
-        <main className="w-full max-w-[1280px] min-w-0 flex-1 p-4 my-4 overflow-x-hidden">
+        <main className="w-full max-w-[1280px] min-w-0 flex-1 p-3 xl:p-4 my-4 overflow-x-hidden">
           {breadcrumbs && breadcrumbs.length > 0 && (
             <Breadcrumb items={breadcrumbs} />
           )}
@@ -71,7 +71,7 @@ export const Layout: React.FC<LayoutProps> = ({
               <HeroSection {...heroProps} />
 
               {sections && sections.length > 0 ? (
-                <article className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm break-words">
+                <article className="bg-white border border-slate-200/80 rounded-3xl p-4 xl:p-6 shadow-sm break-words">
                   {/* 目次上部の導入コンテンツ */}
                   {introContent && <div className="mb-6">{introContent}</div>}
 

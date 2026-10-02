@@ -18,32 +18,32 @@ const Home: NextPage<Props> = ({ lastUpdated }) => {
         canonical: "https://amedas-zukan.jp/",
       }}
       heroProps={{
-          badgeIcon: <FaThermometerHalf className="text-sky-300" />,
-          badgeText: "Japan AMeDAS Database",
-          title: "アメダス図鑑へようこそ",
-          description: "日本全国約1,300地点の気象庁アメダス観測データを網羅。各地の「雨温図」や「平年値ランキング」「類似地点の算出」など、地域の豊かな気候特性を直感的に探求できるデータポータルです。",
-          watermark: "AMeDAS",
-        }}
-        sections={navSections.map((section) => ({
-          id: section.id,
-          label: section.title,
-          subLabel: section.description,
-          accentColor: "#2563eb",
-          children: (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
-              {section.links.map((link) => (
-                <LinkCard
-                  key={link.href}
-                  {...link}
-                  title={link.topPageTitle || link.title}
-                  description={link.topPageDescription || link.description}
-                  category={section.title}
-                />
-              ))}
-            </div>
-          ),
-        }))}
-      />
+        badgeIcon: <FaThermometerHalf className="text-sky-300" />,
+        badgeText: "Japan AMeDAS Database",
+        title: "アメダス図鑑へようこそ",
+        description: "日本全国約1,300地点の気象庁アメダス観測データを網羅。各地の「雨温図」や「平年値ランキング」「類似地点の算出」など、地域の豊かな気候特性を直感的に探求できるデータポータルです。",
+        watermark: "AMeDAS",
+      }}
+      sections={navSections.map((section) => ({
+        id: section.id,
+        label: section.title,
+        subLabel: section.description,
+        accentColor: "#2563eb",
+        children: (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            {section.links.map((link) => (
+              <LinkCard
+                key={link.href}
+                {...link}
+                title={link.topPageTitle || link.title}
+                description={link.topPageDescription || link.description}
+                category={section.title}
+              />
+            ))}
+          </div>
+        ),
+      }))}
+    />
   );
 };
 

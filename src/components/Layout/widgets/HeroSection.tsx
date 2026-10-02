@@ -30,9 +30,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <div
-      className={`${
-        isTailwind ? gradient : ""
-      } rounded-3xl p-6 text-white shadow-xl relative overflow-hidden`}
+      className={`${isTailwind ? gradient : ""
+        } rounded-3xl p-5 xl:p-6 text-white shadow-xl relative overflow-hidden`}
       style={!isTailwind ? { background: gradient } : {}}
     >
       {/* 背景のウォーターマーク大文字 */}

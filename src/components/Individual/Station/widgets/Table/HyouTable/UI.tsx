@@ -21,7 +21,7 @@ export const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) =>
         key={meta.key}
         className="group hover:bg-slate-50/30 transition-colors"
       >
-        <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 w-24 min-w-[104px] h-10 text-center align-middle font-bold text-xs shadow-[2px_0_4px_-2px_#0000001a] group-hover:bg-slate-50 transition-colors">
+        <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm border-r border-slate-200 min-w-[90px] h-10 text-center align-middle font-bold text-xs shadow-[2px_0_4px_-2px_#0000001a] group-hover:bg-slate-50 transition-colors">
           <div className="flex flex-col items-center justify-center leading-tight px-1 gap-0.5">
             <div className="flex items-center gap-1">
               <span className="text-slate-800 whitespace-nowrap">
@@ -47,9 +47,8 @@ export const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) =>
           return (
             <td
               key={i}
-              className={`border-r border-slate-100 min-w-[56px] h-10 text-center align-middle transition-colors ${
-                isAnnual ? "ring-1 ring-inset ring-slate-200/50" : ""
-              }`}
+              className={`border-r border-slate-100 min-w-[56px] h-10 text-center align-middle transition-colors ${isAnnual ? "ring-1 ring-inset ring-slate-200/50" : ""
+                }`}
               style={{ backgroundColor: bgColor }}
             >
               <div className="flex flex-col justify-center items-center -space-y-0.5">
@@ -83,17 +82,16 @@ export const HyouTable: React.FC<HyouTableProps> = ({ tableData, rankValue }) =>
         <table className="w-full border-collapse text-center table-auto">
           <thead>
             <tr className="bg-slate-50 text-xs">
-              <th className="sticky left-0 top-0 z-20 bg-slate-100 border-r border-b border-slate-200 w-24 min-w-[104px] h-10 font-bold text-slate-600 shadow-[2px_0_4px_-2px_#0000001a]">
+              <th className="sticky left-0 top-0 z-20 bg-slate-100 border-r border-b border-slate-200 min-w-[90px] h-10 font-bold text-slate-600 shadow-[2px_0_4px_-2px_#0000001a]">
                 項目
               </th>
               {months.map((m) => (
                 <th
                   key={m.slug}
-                  className={`border-b border-r border-slate-200 min-w-[56px] h-10 font-bold ${
-                    m.slug === "all"
-                      ? "text-blue-700 bg-blue-50/50"
-                      : "text-slate-600"
-                  }`}
+                  className={`border-b border-r border-slate-200 min-w-[56px] h-10 font-bold ${m.slug === "all"
+                    ? "text-blue-700 bg-blue-50/50"
+                    : "text-slate-600"
+                    }`}
                 >
                   {m.label}
                 </th>
