@@ -1,5 +1,5 @@
 import { MonthlyEntry, RatioInfo } from "../../../../../types/union";
-import { MetricKey, MetricMeta, MetricTab } from "../../../../../setting/metric";
+import { MetricKey, MetricMeta, MetricTab, MetricTabKey } from "../../../../../setting/metric";
 import { RankValue } from "../../../../../setting/rank";
 import { RawMonthlyData } from "../../../../../types/raw";
 import { CHART_METRICS, MONTH_DAYS } from "./constants";
@@ -11,6 +11,7 @@ export interface RatioTypeOption {
   key: ChartType;
   label: string;
   color: string;
+  icon?: React.ReactNode;
 }
 
 export function colorWithAlpha(color: string, alpha: number = 0.8): string {
@@ -115,15 +116,12 @@ export function getRatioTypeOptions(ratioData: RawMonthlyData): RatioTypeOption[
   return Object.keys(CHART_METRICS)
     .filter((p) => tabs.has(p as MetricTab))
     .map((tab) => {
-      const label = tab.replace("日数", "");
-      const schema = CHART_METRICS[tab];
-      const baseMetric = schema?.[tab === "気温日数" ? 0 : 2]?.metric as MetricMeta;
-      const baseColor = baseMetric?.color;
-
+      const meta = MetricTabKey[tab as MetricTab];
       return {
         key: tab as ChartType,
-        label,
-        color: baseColor,
+        label: meta?.label ?? tab.replace("日数", ""),
+        color: meta?.color ?? "#64748b",
+        icon: meta?.icon,
       };
     });
 }

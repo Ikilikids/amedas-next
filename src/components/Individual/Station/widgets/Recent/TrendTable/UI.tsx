@@ -11,7 +11,7 @@ export const TrendTable: React.FC<TrendTableProps> = ({ history }) => {
   if (sortedData.length === 0) return null;
 
   return (
-    <div className="mt-8 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+    <div className="mt-2 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
       <div className="p-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
         <h4 className="font-bold text-xs text-slate-800 flex items-center gap-1.5">
           <span>日別データ一覧</span>

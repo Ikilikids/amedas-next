@@ -22,7 +22,7 @@ export const RecentWidget: React.FC<RecentWidgetProps> = ({
         気象庁リアルタイム観測データによる直近15日間の日最高・最低気温と降水量の推移です。
       </p>
 
-      <div className="bg-white rounded-xl flex flex-col gap-6">
+      <div className="bg-white rounded-xl flex flex-col gap-3">
         <TrendChart
           history={history}
           stats={stats}

@@ -23,6 +23,41 @@ interface Props {
   masterData: Record<StationId, RawStationData>;
 }
 
+const getCategoryIconByValue = (catValue?: string) => {
+  if (!catValue) return null;
+  const meta = CategoryKey[catValue as keyof typeof CategoryKey];
+  if (!meta) return null;
+  return <span style={{ color: meta.colorFull }}>{meta.icon}</span>;
+};
+
+const getCategoryIconById = (id: StationId, masterData: Record<StationId, RawStationData>) => {
+  const cat = masterData?.[id]?.category;
+  return getCategoryIconByValue(cat);
+};
+
+const getPrefMeta = (prefStr: string) => {
+  return Object.values(PrefKey).find(
+    (p) => p.label === prefStr || (p.code as readonly string[]).includes(prefStr)
+  );
+};
+
+const getStationOptionsForPref = (prefStr: string, masterData: Record<StationId, RawStationData>) => {
+  const prefObj = getPrefMeta(prefStr) || PrefKey.tokyo;
+  return Object.values(masterData || {})
+    .filter((s) => prefObj.code.includes(s.pref))
+    .sort((a, b) => {
+      const catA = a.category ? CategoryKey[a.category].value : 99;
+      const catB = b.category ? CategoryKey[b.category].value : 99;
+      if (catA !== catB) return catA - catB;
+      return (a.station_name || "").localeCompare(b.station_name || "");
+    })
+    .map((s) => ({
+      value: s.id,
+      label: s.station_name,
+      icon: getCategoryIconByValue(s.category),
+    }));
+};
+
 const ComparePage: NextPage<Props> = ({ masterData }) => {
   const [id1, setId1] = useState<StationId>("44132"); // 稚内
   const [id2, setId2] = useState<StationId>("62078"); // 東京
@@ -74,77 +109,23 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
       .map((p) => ({
         value: p.label,
         label: p.label,
+        icon: p.icon,
+        color: p.region.colorStrong,
         code: Number(p.code[0]),
       }))
       .sort((a, b) => a.code - b.code);
   }, []);
 
-  const selectedPrefObj1 = useMemo(() => {
-    return Object.values(PrefKey).find((p) => p.label === pref1 || p.code.includes(pref1)) || PrefKey.tokyo;
-  }, [pref1]);
-
-  const selectedPrefObj2 = useMemo(() => {
-    return Object.values(PrefKey).find((p) => p.label === pref2 || p.code.includes(pref2)) || PrefKey.osaka;
-  }, [pref2]);
-
-  const stationsByPref1 = useMemo(() => {
-    return Object.values(masterData)
-      .filter((s) => selectedPrefObj1.code.includes(s.pref))
-      .sort((a, b) => {
-        const catA = a.category ? CategoryKey[a.category].value : 99;
-        const catB = b.category ? CategoryKey[b.category].value : 99;
-        if (catA !== catB) return catA - catB;
-        return (a.station_name || "").localeCompare(b.station_name || "");
-      });
-  }, [masterData, selectedPrefObj1]);
-
-  const stationsByPref2 = useMemo(() => {
-    return Object.values(masterData)
-      .filter((s) => selectedPrefObj2.code.includes(s.pref))
-      .sort((a, b) => {
-        const catA = a.category ? CategoryKey[a.category].value : 99;
-        const catB = b.category ? CategoryKey[b.category].value : 99;
-        if (catA !== catB) return catA - catB;
-        return (a.station_name || "").localeCompare(b.station_name || "");
-      });
-  }, [masterData, selectedPrefObj2]);
-
-  const getCategoryIconByValue = (catValue?: string) => {
-    if (!catValue) return null;
-    const meta = CategoryKey[catValue as keyof typeof CategoryKey];
-    if (!meta) return null;
-    return <span style={{ color: meta.colorFull }}>{meta.icon}</span>;
-  };
-
-  const stationOptions1 = useMemo(() => {
-    return stationsByPref1.map((s) => ({
-      value: s.id,
-      label: s.station_name,
-      icon: getCategoryIconByValue(s.category),
-    }));
-  }, [stationsByPref1]);
-
-  const stationOptions2 = useMemo(() => {
-    return stationsByPref2.map((s) => ({
-      value: s.id,
-      label: s.station_name,
-      icon: getCategoryIconByValue(s.category),
-    }));
-  }, [stationsByPref2]);
+  const stationOptions1 = useMemo(() => getStationOptionsForPref(pref1, masterData), [masterData, pref1]);
+  const stationOptions2 = useMemo(() => getStationOptionsForPref(pref2, masterData), [masterData, pref2]);
 
   // Update station ID when prefecture changes (Render-time sync)
-  if (
-    stationsByPref1.length > 0 &&
-    !stationsByPref1.some((s) => s.id === id1)
-  ) {
-    setId1(stationsByPref1[0].id);
+  if (stationOptions1.length > 0 && !stationOptions1.some((s) => s.value === id1)) {
+    setId1(stationOptions1[0].value);
   }
 
-  if (
-    stationsByPref2.length > 0 &&
-    !stationsByPref2.some((s) => s.id === id2)
-  ) {
-    setId2(stationsByPref2[0].id);
+  if (stationOptions2.length > 0 && !stationOptions2.some((s) => s.value === id2)) {
+    setId2(stationOptions2[0].value);
   }
 
   // Initial sync for defaults (Render-time sync)
@@ -172,18 +153,44 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     setPref2(tempPref);
   };
 
-  const getCategoryIcon = (id: StationId) => {
-    const cat = masterData[id]?.category;
-    if (!cat) return null;
-    const meta = CategoryKey[cat];
-    return <span style={{ color: meta.colorFull }}>{meta.icon}</span>;
-  };
-
-  const getRegionColor = (prefStr: string) => {
-    const pref = Object.values(PrefKey).find(
-      (p) => p.label === prefStr || (p.code as readonly string[]).includes(prefStr)
+  const renderStationSelector = (
+    label: string,
+    currentPref: string,
+    setPref: (v: string) => void,
+    currentId: StationId,
+    setId: (v: StationId) => void,
+    stationOptions: Array<{ value: StationId; label: string; icon?: React.ReactNode }>
+  ) => {
+    const prefMeta = getPrefMeta(currentPref);
+    const regionColor = prefMeta?.region?.colorStrong || "#3b82f6";
+    return (
+      <div className="flex flex-col gap-4 w-full flex-1">
+        <div className="flex-1">
+          <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+            {label}: 都道府県
+          </label>
+          <CustomSelect
+            value={currentPref}
+            onChange={(v) => setPref(v as string)}
+            options={prefOptions}
+            activeColor={regionColor}
+            leftIcon={prefMeta?.icon}
+          />
+        </div>
+        <div className="flex-1">
+          <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
+            {label}: 観測所
+          </label>
+          <CustomSelect
+            value={currentId}
+            onChange={(v) => setId(v as StationId)}
+            options={stationOptions}
+            leftIcon={getCategoryIconById(currentId, masterData)}
+            activeColor={regionColor}
+          />
+        </div>
+      </div>
     );
-    return pref?.region?.colorStrong || "#3b82f6";
   };
 
   return (
@@ -213,31 +220,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
           accentColor: "#6366f1",
           children: (
             <div className="flex flex-col xl:flex-row items-center justify-center gap-6 bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80">
-              <div className="flex flex-col gap-4 w-full flex-1">
-                <div className="flex-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                    地点 1: 都道府県
-                  </label>
-                  <CustomSelect
-                    value={pref1}
-                    onChange={(v) => setPref1(v as string)}
-                    options={prefOptions}
-                    activeColor={getRegionColor(pref1)}
-                  />
-                </div>
-                <div className="flex-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                    地点 1: 観測所
-                  </label>
-                  <CustomSelect
-                    value={id1}
-                    onChange={(v) => setId1(v as StationId)}
-                    options={stationOptions1}
-                    leftIcon={getCategoryIcon(id1)}
-                    activeColor={getRegionColor(pref1)}
-                  />
-                </div>
-              </div>
+              {renderStationSelector("地点 1", pref1, setPref1, id1, setId1, stationOptions1)}
 
               <button
                 onClick={swapStations}
@@ -247,31 +230,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                 <FaExchangeAlt className="rotate-90 xl:rotate-0" />
               </button>
 
-              <div className="flex flex-col gap-4 w-full flex-1">
-                <div className="flex-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                    地点 2: 都道府県
-                  </label>
-                  <CustomSelect
-                    value={pref2}
-                    onChange={(v) => setPref2(v as string)}
-                    options={prefOptions}
-                    activeColor={getRegionColor(pref2)}
-                  />
-                </div>
-                <div className="flex-1">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">
-                    地点 2: 観測所
-                  </label>
-                  <CustomSelect
-                    value={id2}
-                    onChange={(v) => setId2(v as StationId)}
-                    options={stationOptions2}
-                    leftIcon={getCategoryIcon(id2)}
-                    activeColor={getRegionColor(pref2)}
-                  />
-                </div>
-              </div>
+              {renderStationSelector("地点 2", pref2, setPref2, id2, setId2, stationOptions2)}
             </div>
           ),
         },

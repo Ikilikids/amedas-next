@@ -53,8 +53,8 @@ export const StationDetailPageTemplate: React.FC<
   const stats = liveData?.stats || null;
   const lastUpdate = liveData?.lastUpdate
     ? new Date(liveData.lastUpdate).toLocaleString("ja-JP", {
-        timeZone: "Asia/Tokyo",
-      })
+      timeZone: "Asia/Tokyo",
+    })
     : "更新を確認中...";
 
   const regionStrong = pref?.region.colorStrong || "#2563eb";
@@ -95,7 +95,7 @@ export const StationDetailPageTemplate: React.FC<
               )}
           </div>
         ),
-        description: `気象庁アメダス「${station.official_name || station.station_name}」観測所の1991〜2020年平年値統計データです。標高${station.height != null ? `${station.height}m` : "未公表"}（北緯${station.lat ? Number(station.lat).toFixed(2) : "--"}度、東経${station.lon ? Number(station.lon).toFixed(2) : "--"}度）に位置し、雨温図グラフ・月別平年値一覧・各種比率・直近推移を掲載しています。`,
+        description: `気象庁アメダス「${station.official_name || station.station_name}」観測所の1991〜2020年平年値統計データです。雨温図グラフ・月別平年値一覧・各種比率・直近推移を掲載しています。`,
         watermark: "STATION",
         gradient: `linear-gradient(135deg, ${regionStrong} 0%, color-mix(in srgb, ${regionStrong} 75%, black) 100%)`,
         rightContent: (
@@ -175,19 +175,19 @@ export const StationDetailPageTemplate: React.FC<
         },
         ...(history && history.length > 0
           ? [
-              {
-                id: "section-recent",
-                label: "5. 直近の観測推移",
-                accentColor: regionStrong,
-                children: (
-                  <RecentWidget
-                    history={history}
-                    stats={stats}
-                    regionColor={regionStrong}
-                  />
-                ),
-              },
-            ]
+            {
+              id: "section-recent",
+              label: "5. 直近の観測推移",
+              accentColor: regionStrong,
+              children: (
+                <RecentWidget
+                  history={history}
+                  stats={stats}
+                  regionColor={regionStrong}
+                />
+              ),
+            },
+          ]
           : []),
       ]}
       footerContent={

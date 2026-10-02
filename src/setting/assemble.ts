@@ -47,29 +47,20 @@ export const AssembleKey: Record<AssembleTarget, AssembleMeta> = {
     isAnnualOnly: false,
     rankDepth: "full",
     getMetrics: () =>
-      METRIC_LIST.filter((m) => {
-        const tab = MetricKey[m]?.tab;
-        const isDaysTab =
-          tab &&
-          [
-            "気温日数",
-            "降水日数",
-            "降雪日数",
-            "積雪日数",
-            "風速日数",
-          ].includes(tab);
-        return !!isDaysTab;
-      }),
+      METRIC_LIST.filter((m) => !!MetricKey[m]?.tab && MetricKey[m]?.existJson),
   },
   overview: {
     key: "overview",
     label: "概況・看板",
     isAnnualOnly: true,
     rankDepth: "topBot",
-    getMetrics: () =>
-      METRIC_LIST.filter((m) => {
-        const tab = MetricKey[m]?.tab;
-        return tab === "主要" || tab === "平均" || m === "hitemp_35";
-      }),
+    getMetrics: () => [
+      "av_avtemp",
+      "sm_rain",
+      "sm_sun",
+      "sm_snowing",
+      "av_wind",
+      "hitemp_35"
+    ],
   },
 };

@@ -32,14 +32,51 @@ import { MetricDistribution, METRIC_DISTRIBUTIONS } from "./metricDistributions"
 export type MetricUnit = "℃" | "mm" | "cm" | "m/s" | "h" | "日";
 
 export type MetricTab =
-  | "主要"
-  | "平均"
   | "気温日数"
   | "降水日数"
   | "降雪日数"
   | "積雪日数"
-  | "風速日数"
-  | "極値";
+  | "風速日数";
+
+export type MetricTabMeta = {
+  key: MetricTab;
+  label: string;
+  color: string;
+  icon: React.ReactNode;
+};
+
+export const MetricTabKey: Record<MetricTab, MetricTabMeta> = {
+  気温日数: {
+    key: "気温日数",
+    label: "気温",
+    color: "#ef4444",
+    icon: <TbTemperature />,
+  },
+  降水日数: {
+    key: "降水日数",
+    label: "降水",
+    color: "#0284c7",
+    icon: <BsFillCloudRainFill />,
+  },
+  降雪日数: {
+    key: "降雪日数",
+    label: "降雪",
+    color: "#7e22ce",
+    icon: <WiSnow />,
+  },
+  積雪日数: {
+    key: "積雪日数",
+    label: "積雪",
+    color: "#db2777",
+    icon: <TbSnowman />,
+  },
+  風速日数: {
+    key: "風速日数",
+    label: "風速",
+    color: "#16a34a",
+    icon: <MdWindPower />,
+  },
+};
 
 export type MetricGroup = "heat" | "cold" | "rain";
 
@@ -88,7 +125,6 @@ const _rawMetricKey = {
     key: "av_avtemp",
     label: "平均気温",
     unit: "℃",
-    tab: "主要",
     color: "#ea580c",
     icon: <TbTemperature />,
     high: {
@@ -127,7 +163,6 @@ const _rawMetricKey = {
     key: "sm_sun",
     label: "日照時間",
     unit: "h",
-    tab: "主要",
     color: "#eab308",
     icon: <AiFillSun />,
     high: {
@@ -164,7 +199,6 @@ const _rawMetricKey = {
     key: "sm_rain",
     label: "降水量",
     unit: "mm",
-    tab: "主要",
     color: "#1d4ed8",
     icon: <BsFillCloudRainFill />,
     high: {
@@ -202,7 +236,6 @@ const _rawMetricKey = {
     key: "sm_snowing",
     label: "降雪量",
     unit: "cm",
-    tab: "主要",
     color: "#7e22ce",
     icon: <FaSnowflake />,
     high: {
@@ -236,7 +269,6 @@ const _rawMetricKey = {
     key: "av_hitemp",
     label: "最高気温",
     unit: "℃",
-    tab: "平均",
     color: "#b91c1c",
     icon: <FaTemperatureArrowUp />,
     detail: {
@@ -248,7 +280,6 @@ const _rawMetricKey = {
     key: "av_lwtemp",
     label: "最低気温",
     unit: "℃",
-    tab: "平均",
     color: "#2563eb",
     icon: <FaTemperatureArrowDown />,
     detail: {
@@ -260,7 +291,6 @@ const _rawMetricKey = {
     key: "av_wind",
     label: "平均風速",
     unit: "m/s",
-    tab: "平均",
     color: "#16a34a",
     icon: <BiWind />,
     high: {
@@ -293,6 +323,7 @@ const _rawMetricKey = {
     key: "max_hitemp",
     label: "最高気温",
     unit: "℃",
+    existJson: false,
     color: "#9333ea",
     icon: <FaTemperatureArrowUp />,
     detail: {
@@ -305,6 +336,7 @@ const _rawMetricKey = {
     key: "min_lwtemp",
     label: "最低気温",
     unit: "℃",
+    existJson: false,
     color: "#2563eb",
     icon: <FaTemperatureArrowDown />,
     detail: {
@@ -420,6 +452,7 @@ const _rawMetricKey = {
     key: "temp_other",
     label: "その他",
     unit: "日",
+    existJson: false,
     tab: "気温日数",
     color: "#009664",
     icon: <TbTemperature />,
@@ -432,6 +465,7 @@ const _rawMetricKey = {
     key: "rain_15d",
     label: "15日降水",
     unit: "mm",
+    existJson: false,
     color: "#4338ca",
     icon: <BsFillCloudRainHeavyFill />,
     detail: {
@@ -444,6 +478,7 @@ const _rawMetricKey = {
     key: "rain_7d",
     label: "7日降水",
     unit: "mm",
+    existJson: false,
     color: "#4f46e5",
     icon: <BsFillCloudLightningRainFill />,
     detail: {
@@ -456,7 +491,7 @@ const _rawMetricKey = {
   // ===== 降水日数 (Days) =====
   rain_1: {
     key: "rain_1",
-    label: "1mm~",
+    label: "降水1mm~日数",
     unit: "日",
     tab: "降水日数",
     color: "#0284c7",
@@ -469,7 +504,7 @@ const _rawMetricKey = {
   },
   rain_10: {
     key: "rain_10",
-    label: "10mm~",
+    label: "降水10mm~日数",
     unit: "日",
     tab: "降水日数",
     color: "#0369a1",
@@ -482,7 +517,7 @@ const _rawMetricKey = {
   },
   rain_30: {
     key: "rain_30",
-    label: "30mm~",
+    label: "降水30mm~日数",
     unit: "日",
     tab: "降水日数",
     color: "#1d4ed8",
@@ -495,7 +530,7 @@ const _rawMetricKey = {
   },
   rain_50: {
     key: "rain_50",
-    label: "50mm~",
+    label: "降水50mm~日数",
     unit: "日",
     tab: "降水日数",
     color: "#1e40af",
@@ -508,7 +543,7 @@ const _rawMetricKey = {
   },
   rain_70: {
     key: "rain_70",
-    label: "70mm~",
+    label: "降水70mm~日数",
     unit: "日",
     tab: "降水日数",
     color: "#1e3a8a",
@@ -521,7 +556,7 @@ const _rawMetricKey = {
   },
   rain_100: {
     key: "rain_100",
-    label: "100mm~",
+    label: "降水100mm~日数",
     unit: "日",
     tab: "降水日数",
     color: "#0f172a",
@@ -534,8 +569,9 @@ const _rawMetricKey = {
   },
   rain_0: {
     key: "rain_0",
-    label: "~1mm",
+    label: "降水~1mm日数",
     unit: "日",
+    existJson: false,
     tab: "降水日数",
     color: "#a9a9a9",
     icon: <BsFillCloudSunFill />,
@@ -546,7 +582,7 @@ const _rawMetricKey = {
   // ===== 積雪日数 =====
   snowed_5: {
     key: "snowed_5",
-    label: "5cm~",
+    label: "積雪5cm~日数",
     unit: "日",
     tab: "積雪日数",
     color: "#ec4899",
@@ -559,7 +595,7 @@ const _rawMetricKey = {
   },
   snowed_10: {
     key: "snowed_10",
-    label: "10cm~",
+    label: "積雪10cm~日数",
     unit: "日",
     tab: "積雪日数",
     color: "#db2777",
@@ -572,7 +608,7 @@ const _rawMetricKey = {
   },
   snowed_20: {
     key: "snowed_20",
-    label: "20cm~",
+    label: "積雪20cm~日数",
     unit: "日",
     tab: "積雪日数",
     color: "#be185d",
@@ -585,7 +621,7 @@ const _rawMetricKey = {
   },
   snowed_50: {
     key: "snowed_50",
-    label: "50cm~",
+    label: "積雪50cm~日数",
     unit: "日",
     tab: "積雪日数",
     color: "#9d174d",
@@ -598,7 +634,7 @@ const _rawMetricKey = {
   },
   snowed_100: {
     key: "snowed_100",
-    label: "100cm~",
+    label: "積雪100cm~日数",
     unit: "日",
     tab: "積雪日数",
     color: "#701a75",
@@ -611,8 +647,9 @@ const _rawMetricKey = {
   },
   snowed_0: {
     key: "snowed_0",
-    label: "~5cm",
+    label: "積雪~5cm日数",
     unit: "日",
+    existJson: false,
     tab: "積雪日数",
     color: "#a9a9a9",
     icon: <BsFillCloudSunFill />,
@@ -623,7 +660,7 @@ const _rawMetricKey = {
   // ===== 降雪日数 =====
   snowing_3: {
     key: "snowing_3",
-    label: "3cm~",
+    label: "降雪3cm~日数",
     unit: "日",
     tab: "降雪日数",
     color: "#9333ea",
@@ -636,7 +673,7 @@ const _rawMetricKey = {
   },
   snowing_5: {
     key: "snowing_5",
-    label: "5cm~",
+    label: "降雪5cm~日数",
     unit: "日",
     tab: "降雪日数",
     color: "#7e22ce",
@@ -649,7 +686,7 @@ const _rawMetricKey = {
   },
   snowing_10: {
     key: "snowing_10",
-    label: "10cm~",
+    label: "降雪10cm~日数",
     unit: "日",
     tab: "降雪日数",
     color: "#6b21a8",
@@ -662,7 +699,7 @@ const _rawMetricKey = {
   },
   snowing_20: {
     key: "snowing_20",
-    label: "20cm~",
+    label: "降雪20cm~日数",
     unit: "日",
     tab: "降雪日数",
     color: "#581c87",
@@ -675,7 +712,7 @@ const _rawMetricKey = {
   },
   snowing_50: {
     key: "snowing_50",
-    label: "50cm~",
+    label: "降雪50cm~日数",
     unit: "日",
     tab: "降雪日数",
     color: "#3b0764",
@@ -688,8 +725,9 @@ const _rawMetricKey = {
   },
   snowing_0: {
     key: "snowing_0",
-    label: "~3cm",
+    label: "降雪~3cm日数",
     unit: "日",
+    existJson: false,
     tab: "降雪日数",
     color: "#a9a9a9",
     icon: <BsFillCloudSunFill />,
@@ -700,7 +738,7 @@ const _rawMetricKey = {
   // ===== 風速日数 =====
   wind_10: {
     key: "wind_10",
-    label: "10m/s~",
+    label: "風速10m/s~日数",
     unit: "日",
     tab: "風速日数",
     color: "#16a34a",
@@ -713,7 +751,7 @@ const _rawMetricKey = {
   },
   wind_15: {
     key: "wind_15",
-    label: "15m/s~",
+    label: "風速15m/s~日数",
     unit: "日",
     tab: "風速日数",
     color: "#15803d",
@@ -726,7 +764,7 @@ const _rawMetricKey = {
   },
   wind_20: {
     key: "wind_20",
-    label: "20m/s~",
+    label: "風速20m/s~日数",
     unit: "日",
     tab: "風速日数",
     color: "#166534",
@@ -739,7 +777,7 @@ const _rawMetricKey = {
   },
   wind_30: {
     key: "wind_30",
-    label: "30m/s~",
+    label: "風速30m/s~日数",
     unit: "日",
     tab: "風速日数",
     color: "#14532d",
@@ -752,8 +790,9 @@ const _rawMetricKey = {
   },
   wind_0: {
     key: "wind_0",
-    label: "~10m/s",
+    label: "風速~10m/s日数",
     unit: "日",
+    existJson: false,
     tab: "風速日数",
     color: "#a9a9a9",
     icon: <TbWindOff />,
@@ -772,6 +811,7 @@ export type MetricMeta = {
   label: string;
   unit: MetricUnit;
   tab?: MetricTab;
+  existJson?: boolean;
   color: string;
   icon?: React.ReactNode;
   detail: MetricDetail;
@@ -782,9 +822,15 @@ export type MetricMeta = {
   distribution?: MetricDistribution;
 };
 
-
-
-export const MetricKey: Record<MetricValue, MetricMeta> = _rawMetricKey;
+export const MetricKey: Record<MetricValue, MetricMeta> = Object.fromEntries(
+  Object.entries(_rawMetricKey).map(([key, meta]) => [
+    key,
+    {
+      ...meta,
+      existJson: "existJson" in meta ? (meta as any).existJson : true,
+    },
+  ])
+) as Record<MetricValue, MetricMeta>;
 
 // ==============================
 // 4. Utilities

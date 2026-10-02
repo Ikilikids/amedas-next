@@ -1,42 +1,62 @@
+import React from "react";
+import { FaSortAmountDown, FaSortAmountUp, FaWater, FaMapMarkedAlt, FaMapPin, FaFlag } from "react-icons/fa";
 import { StationId } from "../types/union";
+import { FaBuilding } from "react-icons/fa";
+
+export type RankValue = "top" | "bot" | "island" | "region" | "pre" | "meteo";
+
 export type RankMeta = {
   key: RankValue;
   rankingLabel: string;
   ratioLabel: string;
+  color: string;
+  icon: React.ReactNode;
 };
 
-export const RankKey = {
+export const RankKey: Record<RankValue, RankMeta> = {
   top: {
     key: "top",
     rankingLabel: "上位100地点",
     ratioLabel: "降順",
+    color: "#f43f5e", //pink
+    icon: <FaSortAmountDown />,
   },
   bot: {
     key: "bot",
     rankingLabel: "下位100地点",
     ratioLabel: "昇順",
+    color: "#8b5cf6", // violet
+    icon: <FaSortAmountUp />,
   },
   island: {
     key: "island",
     rankingLabel: "島嶼部を除く",
     ratioLabel: "島除く",
+    color: "#06b6d4", // cyan
+    icon: <FaWater />,
   },
   region: {
     key: "region",
     rankingLabel: "地域別",
     ratioLabel: "地方別",
+    color: "#10b981", // emerald
+    icon: <FaMapMarkedAlt />,
   },
   pre: {
     key: "pre",
     rankingLabel: "県別",
     ratioLabel: "県別",
+    color: "#f97316", // orange
+    icon: <FaMapPin />,
   },
   meteo: {
     key: "meteo",
-    rankingLabel: "47都道府県",
-    ratioLabel: "47都道府県",
+    rankingLabel: "気象台",
+    ratioLabel: "気象台",
+    color: "#ef4444", // red
+    icon: <FaBuilding />,
   },
-} as const satisfies Record<string, any>;
+};
 
 export const ISLAND_PREFIXES = [
   "11046",
@@ -91,5 +111,3 @@ export const ISLAND_PREFIXES = [
 
 export const isIslandId = (id: StationId): boolean =>
   ISLAND_PREFIXES.some((p) => id.startsWith(p));
-
-export type RankValue = keyof typeof RankKey;

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { MetricKey, MetricMeta } from "../../../../../../setting/metric";
 import UonzuChart from "../../../../../common/UonzuChart";
 import { formatTrendChartData, HistoryEntry } from "./function";
@@ -27,7 +27,7 @@ const GroupCard: React.FC<{
       <span>{title}</span>
     </div>
     <div
-      className="grid border border-gray-400 overflow-hidden rounded-lg shadow-sm"
+      className="grid border border-gray-400 overflow-hidden rounded shadow-sm"
       style={{ gridTemplateColumns: `repeat(${metrics.length}, minmax(0, 1fr))` }}
     >
       <div className="contents">
@@ -67,12 +67,27 @@ export const TrendChart: React.FC<TrendChartProps> = ({
   renderSelectOnly = false,
   renderChartOnly = false,
 }) => {
+  const [isBelowXl, setIsBelowXl] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(max-width: 1279px)").matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1279px)");
+    const handler = (e: MediaQueryListEvent) => setIsBelowXl(e.matches);
+
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
   const allMetrics = useMemo(() => Object.values(MetricKey), []);
   const heatMetrics = useMemo(() => allMetrics.filter((m) => m?.detail?.group === "heat"), [allMetrics]);
   const coldMetrics = useMemo(() => allMetrics.filter((m) => m?.detail?.group === "cold"), [allMetrics]);
   const rainMetrics = useMemo(() => allMetrics.filter((m) => m?.detail?.group === "rain"), [allMetrics]);
 
-  const { labels, uonzuMap } = useMemo(
+  const { labels, shortLabels, uonzuMap } = useMemo(
     () => formatTrendChartData(history),
     [history]
   );
@@ -100,7 +115,8 @@ export const TrendChart: React.FC<TrendChartProps> = ({
         <UonzuChart
           uonzuData={uonzuMap}
           selectedBar={MetricKey.sm_rain}
-          labels={labels}
+          labels={isBelowXl ? shortLabels : labels}
+          tooltipLabels={labels}
           height="100%"
         />
       </div>

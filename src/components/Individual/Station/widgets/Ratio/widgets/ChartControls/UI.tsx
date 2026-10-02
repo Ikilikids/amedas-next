@@ -1,7 +1,9 @@
 import React from "react";
 import { RankKey, RankValue } from "../../../../../../../setting/rank";
+import { MonthKey, MonthValue } from "../../../../../../../setting/month";
 import CustomSelect from "../../../../../../common/CustomSelect";
 import { ChartType } from "../../types";
+import { RatioTypeOption } from "../../function";
 
 export interface ChartControlsProps {
   type: ChartType;
@@ -11,7 +13,7 @@ export interface ChartControlsProps {
   rankType: RankValue;
   setRankType: (rank: RankValue) => void;
   rankOptions: RankValue[];
-  typeOptions: { key: ChartType; label: string; activeClassName?: string }[];
+  typeOptions: RatioTypeOption[];
 }
 
 export const ChartControls: React.FC<ChartControlsProps> = ({
@@ -24,7 +26,9 @@ export const ChartControls: React.FC<ChartControlsProps> = ({
   rankOptions,
   typeOptions,
 }) => {
-  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const currentMonthKey = (selectedMonth !== null ? String(selectedMonth) : "all") as MonthValue;
+  const currentMonthMeta = MonthKey[currentMonthKey];
+  const currentTypeOpt = typeOptions.find((opt) => opt.key === type);
 
   return (
     <div className="grid grid-cols-3 gap-2 w-full p-1">
@@ -32,9 +36,12 @@ export const ChartControls: React.FC<ChartControlsProps> = ({
         <CustomSelect
           value={type}
           onChange={setType}
+          activeColor={currentTypeOpt?.color}
           options={typeOptions.map((opt) => ({
             value: opt.key,
             label: opt.label,
+            icon: opt.icon,
+            color: opt.color,
           }))}
         />
       </div>
@@ -43,10 +50,13 @@ export const ChartControls: React.FC<ChartControlsProps> = ({
         <CustomSelect
           value={selectedMonth ?? "all"}
           onChange={(val) => setSelectedMonth(val === "all" ? null : (val as number))}
-          options={[
-            { value: "all", label: "通年" },
-            ...months.map((m) => ({ value: m, label: `${m}月` })),
-          ]}
+          activeColor={currentMonthMeta?.color}
+          options={Object.values(MonthKey).map((m) => ({
+            value: m.key === "all" ? "all" : Number(m.key),
+            label: m.label,
+            icon: m.icon,
+            color: m.color,
+          }))}
         />
       </div>
 
@@ -54,9 +64,12 @@ export const ChartControls: React.FC<ChartControlsProps> = ({
         <CustomSelect
           value={rankType}
           onChange={(v) => setRankType(v)}
+          activeColor={RankKey[rankType]?.color}
           options={rankOptions.map((opt) => ({
             value: opt,
             label: RankKey[opt].ratioLabel,
+            icon: RankKey[opt].icon,
+            color: RankKey[opt].color,
           }))}
         />
       </div>

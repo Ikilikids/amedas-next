@@ -2,7 +2,6 @@ import { GetStaticPaths, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import RankingPageTemplate from "../../../components/Individual/Ranking/RankingPageTemplate";
-import DailySelector, { DAILY_METRICS } from "../../../components/Individual/Ranking/selectors/DailySelector";
 import { RankingItem } from "../../../components/Individual/Ranking/types";
 import { RawStationData } from "../../../types/raw";
 import { StationId } from "../../../types/union";
@@ -14,6 +13,8 @@ interface Props {
   masterData: Record<string, RawStationData>;
   targetMetric: MetricValue;
 }
+
+const DAILY_METRICS: MetricValue[] = ["av_hitemp", "av_lwtemp", "sm_rain"];
 
 const DailyRankingMetricPage: NextPage<Props> = ({ masterData, targetMetric }) => {
   const router = useRouter();
@@ -66,8 +67,10 @@ const DailyRankingMetricPage: NextPage<Props> = ({ masterData, targetMetric }) =
 
   return (
     <RankingPageTemplate
-      pageTitle={`今日の本日の${config.label}ランキング - アメダス速報`}
-      pageDescription={`本日これまでのアメダス${config.label}の全国・地域・都道府県別ランキングです。気象庁の最新観測データに基づき、最高記録地点を速報表示します。`}
+      category="daily"
+      pageTitle={`今日の${config.label}ランキング - アメダス速報`}
+      heroTitle={`今日の${config.label}ランキング`}
+      pageDescription={`今日これまでのアメダス${config.label}の全国・地域・都道府県別ランキングです。気象庁の最新観測データに基づき、最高記録地点を速報表示します。`}
       canonicalUrl={`https://amedas-zukan.jp/ranking/daily/${metric}`}
       breadcrumbLabel="今日のランキング"
       badgeText="Today's Ranking"
@@ -79,7 +82,6 @@ const DailyRankingMetricPage: NextPage<Props> = ({ masterData, targetMetric }) =
       masterData={masterData}
       timeMap={timeMap}
       subTextPrefix="観測時刻: "
-      selectorBar={<DailySelector currentMetric={metric} />}
     />
   );
 };

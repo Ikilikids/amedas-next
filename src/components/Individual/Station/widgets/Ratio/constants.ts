@@ -13,11 +13,16 @@ const getChartSchema = (tabName: string) =>
   allMetrics
     .filter((m) => m.tab === tabName && m.chartOrder !== undefined)
     .sort((a, b) => (a.chartOrder ?? 0) - (b.chartOrder ?? 0))
-    .map((m) => ({
-      metric: m,
-      chartLabel: m.label,
-      color: m.color,
-    }));
+    .map((m) => {
+      const cleanLabel = m.label
+        .replace(/^(降水|積雪|降雪|風速)/, "")
+        .replace(/日数$/, "");
+      return {
+        metric: m,
+        chartLabel: cleanLabel,
+        color: m.color,
+      };
+    });
 
 export const CHART_METRICS: Record<string, any[]> = {
   気温日数: getChartSchema("気温日数"),

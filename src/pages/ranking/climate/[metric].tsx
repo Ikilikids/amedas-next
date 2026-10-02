@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { IoIosTrophy } from "react-icons/io";
 import RankingPageTemplate from "../../../components/Individual/Ranking/RankingPageTemplate";
-import ClimateSelector from "../../../components/Individual/Ranking/selectors/ClimateSelector";
 import { RawStationData } from "../../../types/raw";
 import { MonthlyEntry, StationId } from "../../../types/union";
 import { MetricKey, MetricValue } from "../../../setting/metric";
@@ -63,14 +62,16 @@ const ClimateRankingMetricPage: NextPage<Props> = ({ masterData, targetMetric })
   );
 
   const monthText = selectedMonth === "all" ? "通年" : `${selectedMonth}月`;
-  const labelText = config.tab?.includes("日数") ? `${config.label}（${config.tab}）` : config.label;
+  const labelText = config.label;
 
   return (
     <RankingPageTemplate
+      category="climate"
       pageTitle={`${monthText}の${labelText}ランキング - アメダス図鑑`}
+      heroTitle={`${monthText}の${labelText}ランキング`}
       pageDescription={`全国約1,300地点のアメダス観測データに基づき、${monthText}の${labelText}平年値ランキングを表示。地域・都道府県別での絞り込み比較も可能です。`}
       canonicalUrl={`https://amedas-zukan.jp/ranking/climate/${metricKey}`}
-      breadcrumbLabel="気候平年値ランキング"
+      breadcrumbLabel="平年値ランキング"
       badgeText="Climatological Ranking"
       badgeIcon={<IoIosTrophy className="text-amber-200" />}
       watermark="CLIMATE"
@@ -79,20 +80,17 @@ const ClimateRankingMetricPage: NextPage<Props> = ({ masterData, targetMetric })
       masterData={masterData}
       monthIdx={monthIdx}
       isLoading={isLoading}
-      selectorBar={
-        <ClimateSelector
-          currentMetric={metricKey}
-          selectedMonth={selectedMonth}
-          onSelectMonth={setSelectedMonth}
-        />
-      }
+      selectedMonth={selectedMonth}
+      onSelectMonth={setSelectedMonth}
     />
   );
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: Object.keys(MetricKey).map((metric) => ({ params: { metric } })),
+    paths: Object.values(MetricKey)
+      .filter((m) => m.existJson)
+      .map((m) => ({ params: { metric: m.key } })),
     fallback: false,
   };
 };

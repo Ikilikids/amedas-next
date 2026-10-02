@@ -85,13 +85,13 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
       <Layout
         seo={{
           title: "現在の気温 (リアルタイム) - アメダス図鑑",
-        description:
-          "全国約1,300地点のアメダス観測データから、現在のリアルタイムな気温状況を10分ごとに自動取得して表示します。日本各地の今の天気を視覚的に把握できます。",
-        canonical: "https://amedas-zukan.jp/live/realtime",
-      }}
-      breadcrumbs={[
-        { label: "リアルタイム気温" },
-      ]}
+          description:
+            "全国約1,300地点のアメダス観測データから、現在のリアルタイムな気温状況を10分ごとに自動取得して表示します。日本各地の今の天気を視覚的に把握できます。",
+          canonical: "https://amedas-zukan.jp/live/realtime",
+        }}
+        breadcrumbs={[
+          { label: "リアルタイム気温" },
+        ]}
         heroProps={{
           badgeText: "Realtime Weather",
           Icon: <TbTemperatureSun />,
@@ -104,23 +104,6 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
           lastUpdateLabel: "最新観測",
           lastUpdateValue: displayLastUpdate,
         }}
-        introContent={
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80 flex flex-wrap gap-2 justify-center">
-            {regions.map((region) => (
-              <a
-                key={`nav-${region.label}`}
-                href={`#region-${region.label}`}
-                className="px-4 py-1.5 rounded-full text-xs font-bold transition-all hover:scale-105 active:scale-95 shadow-sm border border-slate-200"
-                style={{
-                  backgroundColor: region.colorBase,
-                  color: "#1e293b",
-                }}
-              >
-                {region.label}
-              </a>
-            ))}
-          </div>
-        }
         sections={regions.map((region) => {
           const prefsInRegion = Object.values(PrefKey).filter(
             (p) => p.region === region
@@ -170,7 +153,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
                         </h3>
                       </div>
 
-                      <div className="p-5">
+                      <div className="p-3 xl:p-5">
                         <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
                           {stationsInPref.map((s) => {
                             const temp = tempMap[s.id || ""];

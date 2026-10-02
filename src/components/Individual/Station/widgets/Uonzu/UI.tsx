@@ -39,9 +39,12 @@ export const UonzuWidget: React.FC<UonzuWidgetProps> = ({
             const opt = uonzuOptions.find((o) => o.value === val);
             if (opt) setSelectedBar(opt.meta);
           }}
+          activeColor={selectedBar.color}
           options={uonzuOptions.map((opt) => ({
             value: opt.value,
             label: opt.label,
+            icon: opt.meta.icon,
+            color: opt.meta.color,
           }))}
         />
       </div>

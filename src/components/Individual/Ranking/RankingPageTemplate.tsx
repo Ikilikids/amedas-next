@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
+import { useRouter } from "next/router";
 import { FaChevronDown } from "react-icons/fa";
 import Layout from "../../Layout";
 import Sidebar from "../../Layout/widgets/Sidebar";
-import RankingScopeFilter from "./RankingScopeFilter";
 import RankingGrid from "./RankingGrid";
-import { MetricMeta } from "../../../setting/metric";
+import RankingSelector, { RankingCategory } from "./RankingSelector";
+import { MetricMeta, MetricValue } from "../../../setting/metric";
 import { RankKey, RankMeta } from "../../../setting/rank";
 import { RegionKey, RegionMeta } from "../../../setting/region";
 import { PrefKey, PrefMeta } from "../../../setting/pref";
@@ -12,8 +13,12 @@ import { MonthlyEntry, StationId } from "../../../types/union";
 import { RawStationData } from "../../../types/raw";
 import { extractRankingList } from "../../../utils/extractRankingList";
 
+export type { RankingCategory };
+
 export interface RankingPageTemplateProps {
+  category: RankingCategory;
   pageTitle: string;
+  heroTitle?: string;
   pageDescription: string;
   canonicalUrl: string;
   breadcrumbLabel: string;
@@ -29,11 +34,14 @@ export interface RankingPageTemplateProps {
   timeMap?: Map<string, string | null>;
   isLoading?: boolean;
   subTextPrefix?: string;
-  selectorBar: React.ReactNode;
+  selectedMonth?: string;
+  onSelectMonth?: (m: string) => void;
 }
 
 export const RankingPageTemplate: React.FC<RankingPageTemplateProps> = ({
+  category,
   pageTitle,
+  heroTitle,
   pageDescription,
   canonicalUrl,
   breadcrumbLabel,
@@ -49,14 +57,24 @@ export const RankingPageTemplate: React.FC<RankingPageTemplateProps> = ({
   timeMap,
   isLoading = false,
   subTextPrefix,
-  selectorBar,
+  selectedMonth,
+  onSelectMonth,
 }) => {
+  const router = useRouter();
   const detail = useMemo(() => config.detail, [config]);
 
-  // スコープのState管理をテンプレート内に集約
+  // スコープのState管理
   const [rankMeta, setRankMeta] = useState<RankMeta>(RankKey.top);
   const [selectedRegion, setSelectedRegion] = useState<RegionMeta>(RegionKey.kanto);
   const [selectedPref, setSelectedPref] = useState<PrefMeta>(PrefKey.tokyo);
+
+  const handleSelectMetric = (nextMetric: MetricValue) => {
+    if (nextMetric === config.key) return;
+    router.push(`/ranking/${category}/${nextMetric}`, undefined, {
+      shallow: true,
+      scroll: false,
+    });
+  };
 
   // 共通の抽出ロジックで displayList を生成
   const displayList = useMemo(() => {
@@ -81,6 +99,8 @@ export const RankingPageTemplate: React.FC<RankingPageTemplateProps> = ({
     };
   }, [displayList]);
 
+  const displayHeroTitle = heroTitle ?? pageTitle.split(" - ")[0].trim();
+
   return (
     <Layout
       seo={{
@@ -92,41 +112,39 @@ export const RankingPageTemplate: React.FC<RankingPageTemplateProps> = ({
         { label: breadcrumbLabel },
         { label: config.label },
       ]}
-        sidebar={<Sidebar />}
-        heroProps={{
-          badgeIcon: badgeIcon,
-          badgeText: badgeText,
-          Icon: config.icon || (config as any).high?.icon,
-          title: pageTitle,
-          description: pageDescription,
-          watermark: watermark,
-          gradient: detail?.gradient || "from-sky-500 to-indigo-600",
-          lastUpdateLabel: lastUpdateLabel,
-          lastUpdateValue: lastUpdateValue,
-        }}
-        sections={[
-          {
-            id: "ranking-grid",
-            label: `${config.label}ランキング`,
-            accentColor: config.color,
-            children: (
-              <div className="space-y-6">
-                {/* 統合コントロールパネル */}
-                <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 space-y-5">
-                  {/* 1. 各画面特有のセレクター（指標タブ、月選択、グループタブ等） */}
-                  {selectorBar}
-
-                  {/* 2. 共通絞り込みナビゲーション（全国・地方・県別・気象台・島除外） */}
-                  <RankingScopeFilter
-                    rankMeta={rankMeta}
-                    setRankMeta={setRankMeta}
-                    selectedRegion={selectedRegion}
-                    setSelectedRegion={setSelectedRegion}
-                    selectedPref={selectedPref}
-                    setSelectedPref={setSelectedPref}
-                    accentColor={config.color}
-                  />
-                </div>
+      sidebar={<Sidebar />}
+      heroProps={{
+        badgeIcon: badgeIcon,
+        badgeText: badgeText,
+        Icon: config.icon || (config as any).high?.icon,
+        title: displayHeroTitle,
+        description: pageDescription,
+        watermark: watermark,
+        gradient: detail?.gradient || "from-sky-500 to-indigo-600",
+        lastUpdateLabel: lastUpdateLabel,
+        lastUpdateValue: lastUpdateValue,
+      }}
+      sections={[
+        {
+          id: "ranking-grid",
+          label: displayHeroTitle,
+          accentColor: config.color,
+          children: (
+            <div className="space-y-6">
+              {/* セレクター */}
+              <RankingSelector
+                category={category}
+                config={config}
+                onSelectMetric={handleSelectMetric}
+                selectedMonth={selectedMonth}
+                onSelectMonth={onSelectMonth}
+                rankMeta={rankMeta}
+                onSelectRank={setRankMeta}
+                selectedRegion={selectedRegion}
+                onSelectRegion={setSelectedRegion}
+                selectedPref={selectedPref}
+                onSelectPref={setSelectedPref}
+              />
 
                 {/* ランキンググリッド一覧 */}
                 <RankingGrid

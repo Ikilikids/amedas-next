@@ -33,9 +33,12 @@ export const TableWidget: React.FC<TableWidgetProps> = ({
         <CustomSelect
           value={tableRankValue}
           onChange={(v) => setTableRankValue(v)}
+          activeColor={RankKey[tableRankValue]?.color}
           options={tableRankOptions.map((opt) => ({
             value: opt,
             label: RankKey[opt].ratioLabel,
+            icon: RankKey[opt].icon,
+            color: RankKey[opt].color,
           }))}
         />
       </div>

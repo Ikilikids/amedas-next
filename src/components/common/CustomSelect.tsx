@@ -4,6 +4,7 @@ export interface Option<T> {
   value: T;
   label: string;
   icon?: React.ReactNode;
+  color?: string;
 }
 
 interface CustomSelectProps<T extends string | number> {
@@ -48,6 +49,9 @@ const CustomSelect = <T extends string | number>({
     setIsOpen(false);
   };
 
+  const triggerIcon = leftIcon || selectedOption?.icon;
+  const triggerIconColor = activeColor || selectedOption?.color;
+
   return (
     <div className={`relative ${className}`} ref={containerRef}>
       {/* Trigger */}
@@ -55,13 +59,15 @@ const CustomSelect = <T extends string | number>({
         type="button"
         disabled={disabled}
         onClick={() => !disabled && setIsOpen(!isOpen)}
-        className={`relative flex items-center bg-white border border-slate-200 rounded-xl py-1.5 pr-8 text-xs font-black text-slate-700 shadow-sm outline-none transition-all cursor-pointer w-full text-left ${
-          leftIcon ? "pl-9" : "px-4"
-        } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`relative flex items-center bg-white border border-slate-200 rounded-xl py-1.5 pr-8 text-xs font-black text-slate-700 shadow-sm outline-none transition-all cursor-pointer w-full text-left ${triggerIcon ? "pl-7" : "px-3"
+          } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
       >
-        {leftIcon && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10 scale-90">
-            {leftIcon}
+        {triggerIcon && (
+          <div
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none z-10"
+            style={{ color: triggerIconColor }}
+          >
+            {triggerIcon}
           </div>
         )}
         <span className="truncate">{selectedOption?.label || ""}</span>
@@ -75,6 +81,7 @@ const CustomSelect = <T extends string | number>({
         <div className="absolute z-[100] mt-1 w-full max-h-60 overflow-auto bg-white border border-slate-100 rounded-xl shadow-xl py-1 animate-in fade-in slide-in-from-top-1 duration-200">
           {options.map((opt) => {
             const isSelected = opt.value === value;
+            const itemColor = opt.color || activeColor;
             return (
               <button
                 key={String(opt.value)}
@@ -93,12 +100,16 @@ const CustomSelect = <T extends string | number>({
                     e.currentTarget.style.backgroundColor = "transparent";
                   }
                 }}
-                className={`flex items-center gap-2 w-full px-3 py-2 text-xs font-black transition-colors text-left ${
-                  !isSelected ? "text-slate-600" : ""
-                }`}
+                className={`flex items-center gap-2 w-full px-3 py-2 text-xs font-black transition-colors text-left ${!isSelected ? "text-slate-600" : ""
+                  }`}
               >
                 {opt.icon && (
-                  <span className="shrink-0 scale-90 opacity-80">{opt.icon}</span>
+                  <span
+                    className="shrink-0 opacity-90"
+                    style={{ color: itemColor }}
+                  >
+                    {opt.icon}
+                  </span>
                 )}
                 <span className="truncate">{opt.label}</span>
               </button>

@@ -13,6 +13,9 @@ export function formatTrendChartData(history: HistoryEntry[]) {
   const labels = sortedData.map((item) =>
     item.date.split("-").slice(1).join("/")
   );
+  const shortLabels = sortedData.map((item) =>
+    item.date.split("-").slice(2).join("/")
+  );
 
   const uonzuMap: RawMonthlyData = {};
   const hiValues = sortedData.map((d) => (d.hi != null ? { value: d.hi } : null));
@@ -29,5 +32,5 @@ export function formatTrendChartData(history: HistoryEntry[]) {
     uonzuMap[MetricKey.sm_rain.key] = rainValues as any;
   }
 
-  return { labels, uonzuMap };
+  return { labels, shortLabels, uonzuMap };
 }

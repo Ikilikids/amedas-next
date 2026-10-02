@@ -34,6 +34,7 @@ interface UonzuChartProps {
   uonzuData: RawMonthlyData;
   selectedBar: MetricMeta;
   labels?: string[]; // Optional: defaults to 1..12
+  tooltipLabels?: string[]; // Optional: label to show in tooltip (e.g. MM/DD)
   height?: string;
   hideLegend?: boolean;
 }
@@ -45,6 +46,7 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
   uonzuData,
   selectedBar,
   labels,
+  tooltipLabels,
   height = "350px",
   hideLegend = false,
 }) => {
@@ -212,6 +214,16 @@ const UonzuChart: React.FC<UonzuChartProps> = ({
         borderWidth: 1,
         padding: 12,
         cornerRadius: 8,
+        callbacks: {
+          title: (tooltipItems: any[]) => {
+            if (!tooltipItems.length) return "";
+            const index = tooltipItems[0].dataIndex;
+            if (tooltipLabels && tooltipLabels[index] !== undefined) {
+              return tooltipLabels[index];
+            }
+            return tooltipItems[0].label;
+          },
+        },
       },
     },
   };
