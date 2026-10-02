@@ -12,8 +12,8 @@ import { climateDownload } from "../../../../utils/downloader";
  * SSGからは純粋な RawData (stationsMap) と静的メタのみを渡す
  */
 export interface ClimateDetailPageProps {
-  region: RegionMeta;
-  pref: PrefMeta | null;
+  regionKey: RegionValue;
+  prefKey: PrefValue | null;
   article: ClimateArticleData;
   stationsMap: Record<StationId, RawData>;
   siblings: {
@@ -84,8 +84,8 @@ export async function loadClimateDetailPageData(
     : null;
 
   return {
-    region: regionMeta,
-    pref: prefMeta ?? null,
+    regionKey,
+    prefKey: prefKey ?? null,
     article,
     stationsMap,
     siblings,

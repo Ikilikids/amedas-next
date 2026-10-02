@@ -8,7 +8,8 @@ import { RainbowStationsSection } from "./widgets/Rainbow/UI";
 import { Top1StationsSection } from "./widgets/Top1/UI";
 import { getChildSectionList } from "./widgets/Intro/function";
 import { ClimateDetailPageProps } from "./ssg_function";
-import { getPrefsInRegion } from "../../../../setting/pref";
+import { RegionKey } from "../../../../setting/region";
+import { PrefKey, getPrefsInRegion } from "../../../../setting/pref";
 
 export interface ClimateArticlePageTemplateProps {
   data: ClimateDetailPageProps;
@@ -18,12 +19,15 @@ export const ClimateArticlePageTemplate: React.FC<ClimateArticlePageTemplateProp
   data,
 }) => {
   const {
-    region,
-    pref,
+    regionKey,
+    prefKey,
     article,
     stationsMap,
     siblings,
   } = data;
+
+  const region = RegionKey[regionKey];
+  const pref = prefKey ? PrefKey[prefKey] : null;
 
   const isPref = !!pref;
   const regionName = region.label;
