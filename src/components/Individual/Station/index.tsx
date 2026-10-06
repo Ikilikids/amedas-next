@@ -15,23 +15,19 @@ import { resolveCategory, resolvePref } from "../../../utils/masterUtils";
 import { isIslandId } from "../../../setting/rank";
 import { FaArrowLeft } from "react-icons/fa6";
 
-export interface StationDetailPageTemplateProps {
-  data: StationDetailPageProps;
-}
-
-export const StationDetailPageTemplate: React.FC<
-  StationDetailPageTemplateProps
-> = ({ data }) => {
-  const station = data.station;
-  const climateData = data.climateData;
+export const StationDetailPageTemplate: React.FC<{
+  rawData: StationDetailPageProps;
+}> = ({ rawData }) => {
+  const station = rawData.station;
+  const climateData = rawData.climateData;
 
   const pref = station.pref ? resolvePref(station.pref) : undefined;
   const category = station.category ? resolveCategory(station.category) : undefined;
 
-  const similarAll = data.otherStations?.similarAll;
-  const similarMeteo = data.otherStations?.similarMeteo;
-  const sameStations = data.otherStations?.sameStations || [];
-  const meteoStations = data.otherStations?.meteoStations || [];
+  const similarAll = rawData.otherStations?.similarAll;
+  const similarMeteo = rawData.otherStations?.similarMeteo;
+  const sameStations = rawData.otherStations?.sameStations || [];
+  const meteoStations = rawData.otherStations?.meteoStations || [];
 
   // 動的な履歴・統計データをクライアントサイドで管理
   const [liveData, setLiveData] = useState<StationLiveData | null>(null);
@@ -122,8 +118,7 @@ export const StationDetailPageTemplate: React.FC<
             <div className="flex flex-col xl:flex-row gap-6 items-stretch">
               <div className="xl:w-1/2 min-w-0">
                 <InfoPanel
-                  stationData={station}
-                  climateData={climateData ?? null}
+                  rawData={rawData}
                   loading={false}
                   isTitle={false}
                 />
@@ -131,7 +126,7 @@ export const StationDetailPageTemplate: React.FC<
               <div className="xl:w-1/2 flex flex-col min-w-0">
                 <div className="flex-1 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative bg-slate-50 min-h-[350px] xl:min-h-0">
                   <div className="w-full h-[350px] xl:h-full xl:absolute xl:inset-0">
-                    <StationMap isMini lat={station.lat} lng={station.lon} />
+                    <StationMap lat={station.lat} lng={station.lon} />
                   </div>
                 </div>
               </div>
@@ -143,7 +138,7 @@ export const StationDetailPageTemplate: React.FC<
           label: "2. 雨温図（平年値グラフ）",
           accentColor: regionStrong,
           children: (
-            <UonzuWidget uonzuData={climateData} regionColor={regionStrong} />
+            <UonzuWidget rawData={rawData} />
           ),
         },
         {

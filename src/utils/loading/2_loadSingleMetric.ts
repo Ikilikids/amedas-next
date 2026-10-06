@@ -1,5 +1,5 @@
-import { MetricValue } from "../setting/metric";
-import { StationId } from "../types/union";
+import { MetricValue } from "../../setting/metric";
+import { StationId } from "../../types/union";
 
 const rawDataCache: Partial<Record<MetricValue, Record<StationId, number[]>>> = {};
 

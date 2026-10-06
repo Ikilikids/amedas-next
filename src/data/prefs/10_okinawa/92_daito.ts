@@ -20,5 +20,5 @@ export const okinawaDaitoData: ClimateArticleData = {
     "山岳性降雨の欠如による県内最少雨傾向",
     "最盛期台風の直撃に伴う極限的暴風",
   ],
-  uonzuList: ["南大東"],
+  uonzuList: ["92011"],
 };

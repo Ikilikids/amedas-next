@@ -20,6 +20,6 @@ export const naganoData: ClimateArticleData = {
     "松本・上田盆地などの少雨と長い日照時間",
     "菅平や諏訪など冬の放射冷却による極寒",
   ],
-  uonzuList: ["長野", "松本", "飯山"],
+  uonzuList: ["48156", "48361", "48066"],
 };
 

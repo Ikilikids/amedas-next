@@ -23,6 +23,6 @@ export const hokurikuData: ClimateArticleData = {
     "冬の雪雲による全国屈指の短い日照",
     "意外にも北関東並みの気温と西高傾向",
   ],
-  uonzuList: ["新潟", "富山", "金沢"],
+  uonzuList: ["54232", "55102", "56227"],
 };
 

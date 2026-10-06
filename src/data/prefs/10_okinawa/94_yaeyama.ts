@@ -20,5 +20,5 @@ export const okinawaYaeyamaData: ClimateArticleData = {
     "山岳地形による西表島の年間2500mm多雨",
     "日本最西端・与那国島の通年強風環境",
   ],
-  uonzuList: ["石垣島", "西表島", "与那国島"],
+  uonzuList: ["94081", "94062", "94017"],
 };

@@ -113,7 +113,7 @@ export const TrendChart: React.FC<TrendChartProps> = ({
 
       <div className="h-[350px] w-full">
         <UonzuChart
-          uonzuData={uonzuMap}
+          rawData={{ station: {}, climateData: uonzuMap }}
           selectedBar={MetricKey.sm_rain}
           labels={isBelowXl ? shortLabels : labels}
           tooltipLabels={labels}

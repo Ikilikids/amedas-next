@@ -1,16 +1,13 @@
-import {
-  BadgeRank,
-  RawMonthlyData,
-} from "../types/raw";
-import { MetricKey, MetricValue } from "../setting/metric";
+import React from "react";
+import { GiIsland } from "react-icons/gi";
+import { BadgeRank, RawData } from "../types/raw";
+import { MetricKey, MetricMeta, MetricValue } from "../setting/metric";
+import { isIslandId } from "../setting/rank";
 
 export interface EvaluatedBadge {
-  metric: string;
   rank: BadgeRank;
-  isHigh: boolean;
-  isIsland?: boolean;
-  place?: number;
-  value?: number;
+  icon: React.ReactNode;
+  title: string;
 }
 
 const TARGET_METRICS: MetricValue[] = [
@@ -22,13 +19,26 @@ const TARGET_METRICS: MetricValue[] = [
   "av_wind",
 ];
 
+const rankLabelMap: Record<BadgeRank, string> = {
+  rainbow: "上位10位",
+  gold: "上位25位",
+  silver: "上位50位",
+  bronze: "上位100位",
+};
+
+const BadgeValue: Record<BadgeRank, number> = {
+  rainbow: 1,
+  gold: 2,
+  silver: 3,
+  bronze: 4,
+};
+
 function evaluateRank(
   topRank?: number | null,
   botRank?: number | null,
   hasHigh: boolean = true,
   hasLow: boolean = true
 ): { rank: BadgeRank; isHigh: boolean } | null {
-  // 上位判定 (TOP 10 -> rainbow, 25 -> gold, 50 -> silver, 100 -> bronze)
   if (hasHigh && topRank != null && topRank > 0) {
     if (topRank <= 10) return { rank: "rainbow", isHigh: true };
     if (topRank <= 25) return { rank: "gold", isHigh: true };
@@ -36,7 +46,6 @@ function evaluateRank(
     if (topRank <= 100) return { rank: "bronze", isHigh: true };
   }
 
-  // 下位判定 (BOTTOM 10 -> rainbow, 25 -> gold, 50 -> silver, 100 -> bronze)
   if (hasLow && botRank != null && botRank > 0) {
     if (botRank <= 10) return { rank: "rainbow", isHigh: false };
     if (botRank <= 25) return { rank: "gold", isHigh: false };
@@ -47,59 +56,53 @@ function evaluateRank(
   return null;
 }
 
-export const BadgeLogic = {
-  getBadges(
-    climateData: RawMonthlyData,
-    _isIsland: boolean = false
-  ): EvaluatedBadge[] {
-    const badges: EvaluatedBadge[] = [];
+export function computeStationBadges(rawData: RawData): EvaluatedBadge[] {
+  const { station, climateData } = rawData;
+  if (!climateData) return [];
 
-    TARGET_METRICS.forEach((key) => {
-      const meta = MetricKey[key];
-      if (!meta) return;
+  const isIsland = station?.id ? isIslandId(station.id) : false;
+  const badges: EvaluatedBadge[] = [];
 
-      const hasHigh = !!meta.high;
-      const hasLow = !!meta.low;
-      if (!hasHigh && !hasLow) return;
+  TARGET_METRICS.forEach((key) => {
+    const meta = MetricKey[key];
+    if (!meta) return;
 
-      // 年間エントリ（13個あれば12番目、1個のみなら0番目）から top / bot 順位を取得
-      const entries = climateData?.[key];
-      const annual =
-        entries && entries.length > 12 ? entries[12] : entries?.[0];
-      let topRank = annual?.top;
-      const botRank = annual?.bot;
+    const hasHigh = !!meta.high;
+    const hasLow = !!meta.low;
+    if (!hasHigh && !hasLow) return;
 
-      // 年平均気温（av_avtemp）のTOPは、島しょ部除外ランキングとの併用（より良い順位を採用）
-      if (key === "av_avtemp") {
-        const islandRank = annual?.island;
-        if (islandRank != null && islandRank > 0) {
-          topRank = topRank != null && topRank > 0 ? Math.min(topRank, islandRank) : islandRank;
-        }
+    const entries = climateData[key];
+    const annual = entries && entries.length > 12 ? entries[12] : entries?.[0];
+    let topRank = annual?.top;
+    const botRank = annual?.bot;
+
+    if (key === "av_avtemp") {
+      const islandRank = annual?.island;
+      if (islandRank != null && islandRank > 0) {
+        topRank = topRank != null && topRank > 0 ? Math.min(topRank, islandRank) : islandRank;
       }
+    }
 
-      const result = evaluateRank(topRank, botRank, hasHigh, hasLow);
-      if (!result) return;
+    const result = evaluateRank(topRank, botRank, hasHigh, hasLow);
+    if (!result) return;
 
-      const place = result.isHigh ? topRank : botRank;
-      const value = annual?.value;
+    const dir = result.isHigh ? meta.high : meta.low;
+    const isIslandTemp = isIsland && meta.key === "av_avtemp";
+    const notIsIslandTemp = !isIsland && meta.key === "av_avtemp";
+    const icon = isIslandTemp ? React.createElement(GiIsland) : (dir?.icon || meta.icon);
 
-      badges.push({
-        metric: key,
-        rank: result.rank,
-        isHigh: result.isHigh,
-        isIsland: _isIsland,
-        place: place ?? undefined,
-        value: value ?? undefined,
-      });
+    const tierText = result.isHigh
+      ? rankLabelMap[result.rank]
+      : `下位${rankLabelMap[result.rank].replace("上位", "")}`;
+    const islandText = isIslandTemp ? "(全国)" : notIsIslandTemp ? "(本土)" : "";
+    const title = `${dir?.label || meta.label}：${tierText}${islandText}`;
+
+    badges.push({
+      rank: result.rank,
+      icon,
+      title,
     });
+  });
 
-    return badges.sort((a, b) => BadgeValue[a.rank] - BadgeValue[b.rank]);
-  },
-};
-
-const BadgeValue: Record<BadgeRank, number> = {
-  rainbow: 1,
-  gold: 2,
-  silver: 3,
-  bronze: 4,
-};
+  return badges.sort((a, b) => BadgeValue[a.rank] - BadgeValue[b.rank]);
+}

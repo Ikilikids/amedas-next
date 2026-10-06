@@ -20,6 +20,6 @@ export const hokkaidoDoutouData: ClimateArticleData = {
     "オホーツク海沿岸の全国最少級の降水量",
     "釧路・根室沿岸の夏季の海霧と冷涼気候",
   ],
-  uonzuList: ["帯広", "網走", "釧路"],
+  uonzuList: ["20432", "17341", "19432"],
 };
 

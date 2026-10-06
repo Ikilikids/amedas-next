@@ -14,10 +14,11 @@ export const TARGET_STAR_METRICS: MetricMeta[] = [
 
 export interface StarPanelItem {
   meta: MetricMeta;
-  repStar: number;
+  repStar: number | null;
   maxStars: number;
   rangeText: string;
   label: string;
+  hasData: boolean;
 }
 
 export interface StarPanelData {
@@ -55,8 +56,20 @@ export function extractStarPanelData(
       .map((val) => calculateStar(val, meta.star))
       .sort((a, b) => a.star - b.star);
 
-    const minRes = sorted[0] ?? { star: 5, label: meta.star?.baseLabel || "--" };
-    const maxRes = sorted[sorted.length - 1] ?? minRes;
+    // 集計対象地点が1つもない（沖縄の雪など）場合
+    if (sorted.length === 0) {
+      return {
+        meta,
+        repStar: null,
+        maxStars,
+        rangeText: "",
+        label: "データなし",
+        hasData: false,
+      };
+    }
+
+    const minRes = sorted[0];
+    const maxRes = sorted[sorted.length - 1];
 
     // 代表地点の星
     const repEntries = targetRep?.climateData?.[metricKey];
@@ -72,6 +85,7 @@ export function extractStarPanelData(
       maxStars,
       rangeText,
       label,
+      hasData: true,
     };
   });
 

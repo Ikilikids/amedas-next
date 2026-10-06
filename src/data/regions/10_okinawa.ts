@@ -20,5 +20,5 @@ export const okinawaData: ClimateArticleData = {
     "超大型台風の直撃ルート（猛烈な暴風雨）",
     "強い紫外線と突然のスコール（カタブイ）",
   ],
-  uonzuList: ["那覇","名護","石垣島"],
+  uonzuList: ["91197", "91107", "94081"],
 };

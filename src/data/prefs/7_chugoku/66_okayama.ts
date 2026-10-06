@@ -20,5 +20,5 @@ export const okayamaData: ClimateArticleData = {
     "蒜山高原や新見北部など冬の豪雪環境",
     "津山盆地の冬の強い放射冷却と濃霧",
   ],
-  uonzuList: ["岡山", "津山", "蒜山"],
+  uonzuList: ["66408", "66186", "66046"],
 };

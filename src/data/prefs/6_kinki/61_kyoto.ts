@@ -20,5 +20,5 @@ export const kyotoData: ClimateArticleData = {
     "冬の夜間の放射冷却による盆地底冷え",
     "丹後・中丹地方の冬季時雨と日本海側降雪",
   ],
-  uonzuList: ["京都", "舞鶴", "福知山"],
+  uonzuList: ["61286", "61111", "61187"],
 };

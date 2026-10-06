@@ -20,5 +20,5 @@ export const okinawaMainData: ClimateArticleData = {
     "夏の猛暑日極小と連日の熱帯夜継続",
     "冬季の北西季節風による曇天と日照減少",
   ],
-  uonzuList: ["那覇", "名護", "久米島"],
+  uonzuList: ["91197", "91107", "91146"],
 };

@@ -20,5 +20,5 @@ export const kochiData: ClimateArticleData = {
     "魚梁瀬など四国山地南斜面の4000mm多雨",
     "室戸岬の暴風記録と江川崎の夏季極限猛暑",
   ],
-  uonzuList: ["高知", "室戸岬", "清水"],
+  uonzuList: ["74182", "74372", "74516"],
 };

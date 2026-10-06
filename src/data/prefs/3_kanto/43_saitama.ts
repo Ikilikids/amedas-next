@@ -21,5 +21,5 @@ export const saitamaData: ClimateArticleData = {
     "冬の強いからっ風と豊富な日照時間",
     "秩父盆地の大きな寒暖差と南岸低気圧雪",
   ],
-  uonzuList: ["さいたま", "熊谷", "秩父"],
+  uonzuList: ["43241", "43056", "43156"],
 };

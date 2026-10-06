@@ -1,13 +1,11 @@
 import React from "react";
 import { CLIMATE_DIVISIONS } from "../../../../../../data/classification";
-import { ClimateUonzuAccordion } from "../../../Climate/widgets/UonzuAccordion";
-import { ArticleUonzuItem } from "../../../../../../utils/ssgLoader";
+import { RawData } from "../../../../../../types/raw";
+import ClimateUonzuAccordion from "../../../widgets/UonzuAccordion";
 
-export interface DivisionsSectionProps {
-  uonzuMap: Map<string, ArticleUonzuItem>;
-}
-
-export const DivisionsSection: React.FC<DivisionsSectionProps> = ({ uonzuMap }) => {
+export const DivisionsSection: React.FC<{
+  stationsMap: Record<string, RawData>;
+}> = ({ stationsMap }) => {
   return (
     <div className="space-y-6">
       <p>
@@ -29,9 +27,11 @@ export const DivisionsSection: React.FC<DivisionsSectionProps> = ({ uonzuMap }) 
             <p className="text-xs text-slate-600">{div.description}</p>
             <ClimateUonzuAccordion
               title={`${div.name}の雨温図`}
-              items={div.stationIds
-                .map((id) => uonzuMap.get(id))
-                .filter((item): item is ArticleUonzuItem => Boolean(item))}
+              stationsMap={Object.fromEntries(
+                div.stationIds
+                  .filter((id) => stationsMap[id])
+                  .map((id) => [id, stationsMap[id]])
+              )}
               accentColor={div.accentColor}
             />
           </div>

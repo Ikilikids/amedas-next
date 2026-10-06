@@ -1,24 +1,13 @@
-import React, { useMemo } from "react";
+import React from "react";
 import ArticleTemplate, { ArticleSectionItem } from "..";
 import { FaBookOpen, FaChartBar } from "react-icons/fa";
-import { JapanClimateArticleData } from "./ssg_function";
+import { StationId } from "../../../../types/union";
+import { RawData } from "../../../../types/raw";
 import { DivisionsSection } from "./widgets/DivisionsSection/UI";
-import { ArticleUonzuItem } from "../../../../utils/ssgLoader";
 
-export interface JapanClimateArticlePageTemplateProps {
-  data: JapanClimateArticleData;
-}
-
-export const JapanClimateArticlePageTemplate: React.FC<
-  JapanClimateArticlePageTemplateProps
-> = ({ data }) => {
-  const { uonzuItems } = data;
-
-  const uonzuMap = useMemo(() => {
-    return new Map<string, ArticleUonzuItem>(
-      uonzuItems.map((item) => [item.id, item])
-    );
-  }, [uonzuItems]);
+export const JapanClimateArticlePageTemplate: React.FC<{
+  stationsMap: Record<StationId, RawData>;
+}> = ({ stationsMap }) => {
 
   const sections: ArticleSectionItem[] = [
     {
@@ -74,7 +63,7 @@ export const JapanClimateArticlePageTemplate: React.FC<
       id: "section3",
       title: "3. 日本の6大気候区分の特徴と雨温図パターン",
       accentColor: "#2563eb",
-      content: <DivisionsSection uonzuMap={uonzuMap} />,
+      content: <DivisionsSection stationsMap={stationsMap} />,
     },
     {
       id: "section4",

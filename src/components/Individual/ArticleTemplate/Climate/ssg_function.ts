@@ -1,93 +1,77 @@
-import { RegionMeta, RegionKey, RegionValue } from "../../../../setting/region";
-import { PrefMeta, PrefKey, PrefValue, getPrefsInRegion } from "../../../../setting/pref";
-import { getAreasInPref } from "../../../../setting/area";
+import { RegionValue } from "../../../../setting/region";
+import { PrefValue } from "../../../../setting/pref";
 import { ClimateArticleData } from "../../../../data/types";
-import { resolveStationNames, loadMaster } from "../../../../utils/ssgLoader";
+import { loadMaster } from "../../Ranking/ssg_function";
 import { RawData } from "../../../../types/raw";
 import { StationId } from "../../../../types/union";
-import { climateDownload } from "../../../../utils/downloader";
+import { climateDownload } from "../../../../utils/loading/1_downloader";
+import {
+  ClimateScopeDataLoaders,
+  ClimateScopeValue,
+} from "../../../../setting/japan2";
 
 /**
- * 地方・都道府県の気候解説ページ共通のProps
- * SSGからは純粋な RawData (stationsMap) と静的メタのみを渡す
+ * 全国・地方・都道府県の気候解説ページ共通のProps
  */
 export interface ClimateDetailPageProps {
-  regionKey: RegionValue;
+  regionKey: RegionValue | null;
   prefKey: PrefValue | null;
   article: ClimateArticleData;
+  childArticles: Record<string, ClimateArticleData>;
   stationsMap: Record<StationId, RawData>;
-  siblings: {
-    key: string;
-    label: string;
-  }[] | null;
 }
 
 /**
- * 地方ページ（prefKeyなし）および 都道府県ページ（prefKeyあり）のデータを一元生成する統合ローダー
+ * 全国（引数なし）・地方（prefKeyなし）・都道府県（prefKeyあり）のデータを一元生成する統合ローダー
  */
 export async function loadClimateDetailPageData(
-  regionKey: RegionValue,
+  regionKey?: RegionValue,
   prefKey?: PrefValue
 ): Promise<ClimateDetailPageProps | null> {
-  const regionMeta = RegionKey[regionKey];
-  if (!regionMeta) return null;
-
-  const prefMeta = prefKey ? PrefKey[prefKey] : undefined;
-  if (prefKey && (!prefMeta || prefMeta.region.label !== regionMeta.label)) {
-    return null;
-  }
-
-  // 1. スコープ対象の都道府県コード群
-  const prefsInRegion = getPrefsInRegion(regionKey);
-  const targetPrefCodes: readonly string[] = prefMeta
-    ? prefMeta.code
-    : prefsInRegion.flatMap((p) => p.code);
-  const targetCodeSet = new Set(targetPrefCodes);
   const master = loadMaster();
 
-  // 2. 静的解説データ（article）
-  const article: ClimateArticleData = (prefMeta?.detail ?? regionMeta.detail)!;
+  // 1. スコープ判定
+  const scopeType: ClimateScopeValue = prefKey
+    ? "pref"
+    : regionKey
+    ? "region"
+    : "national";
 
-  // 3. 全雨温図対象地点の抽出（本文 + 子階層エリア/県）
-  const uonzuNames: string[] = [...(article.uonzuList || [])];
-  if (prefKey) {
-    getAreasInPref(prefKey).forEach((area) => {
-      if (area.detail.uonzuList) uonzuNames.push(...area.detail.uonzuList);
-    });
-  } else {
-    prefsInRegion.forEach((pMeta) => {
-      if (pMeta.detail?.uonzuList) uonzuNames.push(...pMeta.detail.uonzuList);
-    });
-  }
-  const uonzuStationIdSet = new Set(resolveStationNames(uonzuNames));
+  const loader = ClimateScopeDataLoaders[scopeType];
+  if (!loader) return null;
 
-  // 4. スコープ対象全地点の config を構築
-  const regionStationIds = Object.values(master)
-    .filter((s) => s.pref && targetCodeSet.has(s.pref))
-    .map((s) => s.id)
-    .filter((id): id is StationId => !!id);
+  // 2. 記事2種 + 地点2種の収集（japan2.tsのローダーを使用）
+  const { article, childArticles, uonzuStationIds, overviewStationIds } =
+    loader.getData({ regionKey, prefKey, master });
 
+  // 3. ダウンロード対象 config の構築
+  const uonzuSet = new Set(uonzuStationIds);
   const targetConfig: Record<StationId, ("uonzu" | "overview")[]> = {};
-  for (const id of regionStationIds) {
-    targetConfig[id] = uonzuStationIdSet.has(id) ? ["uonzu", "overview"] : ["overview"];
+
+  for (const id of uonzuStationIds) {
+    targetConfig[id] = ["uonzu"];
   }
 
-  // 5. 1回の climateDownload で全地点データを一括取得！
-  const stationsMap = await climateDownload(targetConfig, master);
+  for (const id of overviewStationIds) {
+    targetConfig[id] = uonzuSet.has(id)
+      ? ["uonzu", "overview"]
+      : ["overview"];
+  }
 
-  // 6. ナビゲーション（同地方内の都道府県リンク）
-  const siblings = prefKey
-    ? prefsInRegion.map((p) => ({
-      key: p.key,
-      label: p.label,
-    }))
-    : null;
+  // 4. 気象データのダウンロード
+  const stationsMap = await climateDownload(targetConfig, master, [
+    "id",
+    "station_name",
+    "pref",
+    "area",
+    "category",
+  ]);
 
   return {
-    regionKey,
+    regionKey: regionKey ?? null,
     prefKey: prefKey ?? null,
     article,
+    childArticles,
     stationsMap,
-    siblings,
   };
 }

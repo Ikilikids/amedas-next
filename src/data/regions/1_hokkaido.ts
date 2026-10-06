@@ -22,5 +22,5 @@ export const hokkaidoData: ClimateArticleData = {
     "内陸盆地で氷点下30℃級の極寒",
     "冬の日本海側豪雪と十勝晴れ",
   ],
-  uonzuList: ["札幌", "旭川", "函館"],
+  uonzuList: ["14163", "12442", "23232"],
 };

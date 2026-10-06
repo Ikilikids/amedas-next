@@ -8,12 +8,10 @@ import { RawData } from "../../../../../../types/raw";
 import { StationId } from "../../../../../../types/union";
 import { extractRainbowGroups, RainbowGroupItem } from "./function";
 
-interface RainbowStationsSectionProps {
+export const RainbowStationsSection: React.FC<{
   areaName: string;
   stationsMap: Record<StationId, RawData>;
-}
-
-export const RainbowStationsSection: React.FC<RainbowStationsSectionProps> = ({
+}> = ({
   areaName,
   stationsMap,
 }) => {
@@ -46,11 +44,7 @@ export const RainbowStationsSection: React.FC<RainbowStationsSectionProps> = ({
   );
 };
 
-interface RainbowMetricGroupProps {
-  grp: RainbowGroupItem;
-}
-
-const RainbowMetricGroup: React.FC<RainbowMetricGroupProps> = ({ grp }) => {
+const RainbowMetricGroup: React.FC<{ grp: RainbowGroupItem }> = ({ grp }) => {
   const [isOpen, setIsOpen] = useState(false);
   const mMeta = MetricKey[grp.metric];
   const dirMeta = grp.isHigh ? mMeta?.high : mMeta?.low;
@@ -104,10 +98,8 @@ const RainbowMetricGroup: React.FC<RainbowMetricGroupProps> = ({ grp }) => {
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="shrink-0 scale-95 origin-center">
                       <RankBadge
-                        metric={mMeta}
                         rank="rainbow"
-                        isHigh={badge.isHigh}
-                        isIsland={badge.isIsland}
+                        icon={badge.icon}
                         size={38}
                       />
                     </div>

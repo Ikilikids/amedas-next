@@ -14,9 +14,8 @@ import {
 import { MeteoArticlePageTemplate } from "../../components/Individual/ArticleTemplate/Meteo";
 import {
   getJapanClimateArticleData,
-  JapanClimateArticleData,
-} from "../../components/Individual/ArticleTemplate/JapanClimateClassification/ssg_function";
-import { JapanClimateArticlePageTemplate } from "../../components/Individual/ArticleTemplate/JapanClimateClassification";
+} from "../../components/Individual/ArticleTemplate/Classification/ssg_function";
+import { JapanClimateArticlePageTemplate } from "../../components/Individual/ArticleTemplate/Classification";
 
 export interface ColumnArticle<T = any> {
   slug: string;
@@ -30,12 +29,12 @@ export interface ColumnArticle<T = any> {
   Icon: React.ReactNode;
   color: string;
   loadData?: () => Promise<T>;
-  Component: React.ComponentType<{ data: T }>;
+  Component: React.ComponentType<T>;
 }
 
 export const COLUMNS: ColumnArticle[] = [
   {
-    slug: "japan-climate-classification",
+    slug: "classification",
     title: "雨温図で読み解く日本の6大気候区分〜なぜ日本は地域によってこんなに天気が違うのか？〜",
     description:
       "太平洋側、日本海側、瀬戸内、中央高地、南西諸島、オホーツク海側の6大気候区分をアメダスの雨温図（平年値データ）とともに徹底解説。季節風と山脈がもたらす気候の違いの謎に迫ります。",

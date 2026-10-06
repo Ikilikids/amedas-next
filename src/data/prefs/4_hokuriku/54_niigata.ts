@@ -20,6 +20,6 @@ export const niigataData: ClimateArticleData = {
     "山越え南風による新潟平野のフェーン酷暑",
     "佐渡島の暖流による冬季冷え込みの緩和",
   ],
-  uonzuList: ["新潟", "高田", "津南"],
+  uonzuList: ["54232", "54651", "54836"],
 };
 

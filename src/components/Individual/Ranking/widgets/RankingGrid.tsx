@@ -1,5 +1,5 @@
 import React from "react";
-import { RankingData } from "./types";
+import { RankingData } from "../types";
 import RankingCard from "./RankingCard";
 
 interface RankingGridProps {

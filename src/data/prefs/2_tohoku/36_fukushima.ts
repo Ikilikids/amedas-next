@@ -20,6 +20,6 @@ export const fukushimaData: ClimateArticleData = {
     "福島盆地を中心とする夏季のフェーン猛暑",
     "浜通りの冬季の温暖少雪と夏の海風",
   ],
-  uonzuList: ["福島", "会津若松", "小名浜"],
+  uonzuList: ["36127", "36361", "36846"],
 };
 

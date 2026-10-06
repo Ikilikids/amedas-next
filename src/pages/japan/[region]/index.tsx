@@ -20,12 +20,11 @@ export const getStaticProps: GetStaticProps<ClimateDetailPageProps> = async ({
   const regionKey = params?.region as RegionValue;
   const data = await loadClimateDetailPageData(regionKey);
   if (!data) return { notFound: true };
-
   return { props: data };
 };
 
 const RegionDetailPage: NextPage<ClimateDetailPageProps> = (props) => {
-  return <ClimateArticlePageTemplate data={props} />;
+  return <ClimateArticlePageTemplate {...props} />;
 };
 
 export default RegionDetailPage;

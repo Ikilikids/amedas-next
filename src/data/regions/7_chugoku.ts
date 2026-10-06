@@ -39,6 +39,6 @@ export const chugokuData: ClimateArticleData = {
     "冬の降雪・曇天と日照が短い山陰",
     "四国・中国山地に挟まれた山陽の少雨",
   ],
-  uonzuList: ["鳥取", "松江", "岡山"],
+  uonzuList: ["69122", "68132", "66408"],
 };
 

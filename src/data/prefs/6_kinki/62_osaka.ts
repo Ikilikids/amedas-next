@@ -20,5 +20,5 @@ export const osakaData: ClimateArticleData = {
     "瀬戸内海式気候特有の通年少雨傾向",
     "枚方など平野内陸部の夏季の極端な猛暑",
   ],
-  uonzuList: ["大阪", "堺", "熊取"],
+  uonzuList: ["62078", "62091", "62131"],
 };

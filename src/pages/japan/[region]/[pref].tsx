@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps<ClimateDetailPageProps> = async ({
 
 const PrefDetailPage: NextPage<ClimateDetailPageProps> = (props) => {
   if (!props.prefKey) return null;
-  return <ClimateArticlePageTemplate data={props} />;
+  return <ClimateArticlePageTemplate {...props} />;
 };
 
 export default PrefDetailPage;

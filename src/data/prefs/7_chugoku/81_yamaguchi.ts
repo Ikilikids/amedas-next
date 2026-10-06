@@ -20,5 +20,5 @@ export const yamaguchiData: ClimateArticleData = {
     "関門海峡周辺の年間を通じた強風環境",
     "阿東や山口盆地など内陸部の冬季冷え込み",
   ],
-  uonzuList: ["下関", "山口", "萩"],
+  uonzuList: ["81428", "81286", "81071"],
 };

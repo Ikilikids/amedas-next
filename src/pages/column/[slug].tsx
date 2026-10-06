@@ -28,7 +28,7 @@ const ColumnDetailPage: NextPage<Props> = ({ slug, data }) => {
 
   const PageComponent = article.Component;
 
-  return <PageComponent data={data} />;
+  return <PageComponent {...data} />;
 };
 
 export default ColumnDetailPage;

@@ -4,14 +4,9 @@ import { FaBookOpen } from "react-icons/fa";
 import { MeteoArticleData } from "./ssg_function";
 import { MeteoStationCard } from "./widgets/MeteoStationCard/UI";
 
-export interface MeteoArticlePageTemplateProps {
-  data: MeteoArticleData;
-}
-
-export const MeteoArticlePageTemplate: React.FC<
-  MeteoArticlePageTemplateProps
-> = ({ data }) => {
-  const { groups } = data;
+export const MeteoArticlePageTemplate: React.FC<MeteoArticleData> = ({
+  groups,
+}) => {
 
   const sections: ArticleSectionItem[] = [
     {

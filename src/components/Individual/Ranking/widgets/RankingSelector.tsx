@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
-import CustomSelect from "../../common/CustomSelect";
-import { MetricKey, MetricMeta, MetricValue } from "../../../setting/metric";
-import { RankKey, RankMeta } from "../../../setting/rank";
-import { RegionKey, RegionMeta } from "../../../setting/region";
-import { PrefKey, PrefMeta } from "../../../setting/pref";
-import { MonthKey, MonthValue } from "../../../setting/month";
+import CustomSelect from "../../../common/CustomSelect";
+import { MetricKey, MetricMeta, MetricValue } from "../../../../setting/metric";
+import { RankKey, RankMeta } from "../../../../setting/rank";
+import { RegionKey, RegionMeta } from "../../../../setting/region";
+import { PrefKey, PrefMeta } from "../../../../setting/pref";
+import { MonthKey, MonthValue } from "../../../../setting/month";
 import { PiMapPinAreaFill } from "react-icons/pi";
 
 export type RankingCategory = "climate" | "recent" | "daily";

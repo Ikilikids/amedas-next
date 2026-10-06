@@ -20,6 +20,6 @@ export const hokkaidoDououData: ClimateArticleData = {
     "胆振・日高沿岸の冬季少雪と乾燥晴天",
     "太平洋沿岸の夏季海霧と冷涼気候",
   ],
-  uonzuList: ["札幌", "倶知安", "室蘭"],
+  uonzuList: ["14163", "16217", "21323"],
 };
 

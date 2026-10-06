@@ -20,6 +20,6 @@ export const yamagataData: ClimateArticleData = {
     "山形盆地などのフェーン現象による酷暑",
     "庄内沿岸の冬季季節風と局地風清川だし",
   ],
-  uonzuList: ["山形", "酒田", "肘折"],
+  uonzuList: ["35426", "35052", "35216"],
 };
 

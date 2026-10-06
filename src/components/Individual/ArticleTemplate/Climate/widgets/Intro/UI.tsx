@@ -1,67 +1,87 @@
 import React, { useMemo, useCallback } from "react";
 import Link from "next/link";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
-import { ClimateUonzuAccordion } from "../UonzuAccordion";
 import { ClimateArticleData } from "../../../../../../data/types";
 import { ArticleClimateStarPanel } from "./StarPanel/UI";
 import { CategoryKey, CategoryValue } from "../../../../../../setting/category";
 import { RawData, RawStationData } from "../../../../../../types/raw";
 import { StationId } from "../../../../../../types/union";
-import { computeIntroData } from "./function";
+import ClimateUonzuAccordion from "../../../widgets/UonzuAccordion";
 
-export interface ClimateIntroSectionProps {
-  areaLabel: string;
-  data: ClimateArticleData;
+import { ChildSectionItem } from "./function";
+
+export const ClimateIntroSection: React.FC<{
+  item: ChildSectionItem;
   stationsMap: Record<StationId, RawData>;
-  stationMatcher?: (s: RawStationData) => boolean;
-  targetPrefCodes?: readonly string[];
-  representativeStationId?: string;
-  uonzuTitle?: string;
-  accentColor?: string;
-  linkHref?: string;
-  linkLabel?: string;
-  stationLinks?: { id: string; name: string; category?: string }[];
-}
-
-export const ClimateIntroSection: React.FC<ClimateIntroSectionProps> = ({
-  areaLabel,
-  data,
+  hideWidgets?: boolean;
+  summaryOnly?: boolean;
+}> = ({
+  item,
   stationsMap,
-  stationMatcher,
-  targetPrefCodes,
-  representativeStationId,
-  uonzuTitle,
-  accentColor = "#2563eb",
-  linkHref,
-  linkLabel,
-  stationLinks,
+  hideWidgets = false,
+  summaryOnly = false,
 }) => {
+  const areaLabel = item.name;
+  const accentColor = item.color || "#2563eb";
+
   const matcher = useCallback(
     (s: RawStationData) => {
-      if (stationMatcher) return stationMatcher(s);
-      if (targetPrefCodes) {
-        const codeSet = new Set(targetPrefCodes);
+      if (item.targetPrefCodes && item.targetPrefCodes.length > 0) {
+        const codeSet = new Set(item.targetPrefCodes);
         return !!s.pref && codeSet.has(s.pref);
+      }
+      if (item.key) {
+        return s.area === item.key;
       }
       return true;
     },
-    [stationMatcher, targetPrefCodes]
+    [item.targetPrefCodes, item.key]
   );
 
-  const { uonzuItems } = useMemo(() => {
-    return computeIntroData(stationsMap, data.uonzuList);
-  }, [stationsMap, data.uonzuList]);
+  const displaySections = useMemo(() => {
+    if (!item.description) return [];
+    if (summaryOnly) {
+      const summaries = item.description.filter((sec) => sec.isSummary);
+      return summaries.length > 0 ? summaries : [item.description[0]].filter(Boolean);
+    }
+    return item.description;
+  }, [item.description, summaryOnly]);
+
+  // 雨温図対象地点のみを抽出（uonzuListまたは代表地点）
+  const uonzuStationsMap = useMemo(() => {
+    if (!stationsMap) return {};
+    const targetIds =
+      item.uonzuList && item.uonzuList.length > 0
+        ? item.uonzuList
+        : item.representativeStationId
+        ? [item.representativeStationId]
+        : [];
+
+    if (targetIds.length === 0) return {};
+
+    const filtered: Record<StationId, RawData> = {};
+    for (const id of targetIds) {
+      if (stationsMap[id]) {
+        filtered[id] = stationsMap[id];
+      }
+    }
+    return filtered;
+  }, [stationsMap, item.uonzuList, item.representativeStationId]);
+
 
   return (
     <div className="space-y-4">
       {/* 特徴と解説文 */}
-      <p className="font-bold text-slate-800">
-        【特徴】{data.catchphrase}（{data.climateType}）
-      </p>
+      {item.catchphrase && (
+        <p className="font-bold text-slate-800">
+          【特徴】{item.catchphrase}（{item.climateType}）
+        </p>
+      )}
+
       <div className="space-y-4 text-slate-600 leading-relaxed">
-        {data.description.map((sec, sIdx) => (
+        {displaySections.map((sec, sIdx) => (
           <div key={sIdx} className="space-y-1">
-            {sec.title && (
+            {sec.title && sec.title !== "全体の特徴" && (
               <h3 className="font-bold text-slate-800">【{sec.title}】</h3>
             )}
             <p>{sec.content.join("")}</p>
@@ -70,13 +90,13 @@ export const ClimateIntroSection: React.FC<ClimateIntroSectionProps> = ({
       </div>
 
       {/* 主な気候ポイント（ハイライト） */}
-      {data.highlights && data.highlights.length > 0 && (
+      {!hideWidgets && item.highlights && item.highlights.length > 0 && (
         <div className="my-4 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
           <span className="text-xs font-black text-slate-700 block">
             {areaLabel}の主な気候ポイント:
           </span>
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-2">
-            {data.highlights.map((hl, hIdx) => (
+            {item.highlights.map((hl, hIdx) => (
               <div
                 key={hIdx}
                 className="flex items-center gap-2 text-xs font-bold text-slate-700 bg-white px-3 py-2 rounded-xl border border-slate-200/80 shadow-sm min-w-0"
@@ -94,48 +114,69 @@ export const ClimateIntroSection: React.FC<ClimateIntroSectionProps> = ({
         </div>
       )}
 
-      {/* 気候特性スター評価（ArticleClimateStarPanel 自身が stationsMap から計算して描画） */}
-      <ArticleClimateStarPanel
-        stationsMap={stationsMap}
-        matcher={matcher}
-        representativeStationId={representativeStationId}
-        defaultOpen={false}
-      />
+      {/* 気候特性スター評価（ArticleClimateStarPanel 自身が stationsMap から計算して描画、全国サマリー表示時は非表示） */}
+      {!hideWidgets && !summaryOnly && (
+        <ArticleClimateStarPanel
+          stationsMap={stationsMap}
+          matcher={matcher}
+          representativeStationId={item.representativeStationId}
+          defaultOpen={false}
+        />
+      )}
 
-      {/* 代表地点の雨温図（開閉式アコーディオン） */}
-      {uonzuItems && uonzuItems.length > 0 && (
+      {/* 代表地点の雨温図（開閉式アコーディオン：uonzuListまたは代表地点のみに絞り込み） */}
+      {!hideWidgets && Object.keys(uonzuStationsMap).length > 0 && (
         <ClimateUonzuAccordion
-          title={uonzuTitle || `${areaLabel}の代表雨温図`}
-          items={uonzuItems}
+          title={`${areaLabel}の代表雨温図`}
+          stationsMap={uonzuStationsMap}
           accentColor={accentColor}
           defaultOpen={false}
         />
       )}
 
+
+      {/* 所属都道府県リンク（地方一覧表示時用） */}
+      {item.prefLinks && item.prefLinks.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 pt-2">
+          <span className="text-xs font-bold text-slate-500 self-center mr-1">
+            所属都道府県:
+          </span>
+          {item.prefLinks.map((p) => (
+            <Link
+              key={p.key}
+              href={p.href}
+              className="text-xs font-bold px-2.5 py-1 bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 rounded-lg border border-slate-200/60 transition-colors"
+            >
+              {p.label}
+            </Link>
+          ))}
+        </div>
+      )}
+
       {/* 下位階層へのリンクボタン（地方→都道府県など単一リンク） */}
-      {linkHref && (
+      {item.linkHref && (
         <div className="pt-2">
           <Link
-            href={linkHref}
+            href={item.linkHref}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black text-white shadow-sm hover:opacity-95 transition-all"
             style={{
               background: `linear-gradient(135deg, ${accentColor} 0%, color-mix(in srgb, ${accentColor} 75%, black) 100%)`,
             }}
           >
-            <span>{linkLabel || `${areaLabel}の詳しい気候解説へ`}</span>
+            <span>{item.linkLabel || `${areaLabel}の詳しい気候解説へ`}</span>
             <FaArrowRight className="text-[10px]" />
           </Link>
         </div>
       )}
 
       {/* エリア所属のアメダス観測所一覧リンク（都道府県→各観測所詳細） */}
-      {stationLinks && stationLinks.length > 0 && (
+      {item.stationLinks && item.stationLinks.length > 0 && (
         <div className="pt-3 border-t border-slate-100">
           <span className="text-[11px] font-bold text-slate-500 block mb-2">
             📍 {areaLabel}のアメダス観測所詳細データ:
           </span>
           <div className="flex flex-wrap gap-2">
-            {stationLinks.map((st) => {
+            {item.stationLinks.map((st) => {
               const catMeta = st.category
                 ? CategoryKey[st.category as CategoryValue]
                 : CategoryKey.amedas;

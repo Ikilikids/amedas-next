@@ -20,5 +20,5 @@ export const wakayamaData: ClimateArticleData = {
     "台風接近時の激しい暴風と記録的豪雨",
     "紀の川流域の内陸盆地的な冬季冷え込み",
   ],
-  uonzuList: ["和歌山", "潮岬", "栗栖川"],
+  uonzuList: ["65042", "65356", "65256"],
 };

@@ -20,5 +20,5 @@ export const kumamotoData: ClimateArticleData = {
     "阿蘇山系における年間3000mmの豪雨",
     "阿蘇カルデラや人吉盆地の冬の放射冷却",
   ],
-  uonzuList: ["熊本", "阿蘇山", "牛深"],
+  uonzuList: ["86141", "86111", "86491"],
 };

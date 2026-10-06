@@ -20,5 +20,5 @@ export const ehimeData: ClimateArticleData = {
     "法皇山脈を吹き下ろす局地強風「やまじ風」",
     "石鎚山岳部の冬季多雪と大洲の肱川あらし",
   ],
-  uonzuList: ["松山", "宇和島", "新居浜"],
+  uonzuList: ["73166", "73442", "73151"],
 };

@@ -1,6 +1,6 @@
 import hotDataRaw from "../../../../../data/feature/hot.json";
 import { resolvePref } from "../../../../utils/masterUtils";
-import { loadMaster } from "../../../../utils/climateDataManager";
+import { loadMaster } from "../../../../utils/loading/0_stationData";
 import { StationId } from "../../../../types/union";
 
 export interface HotStationItem {

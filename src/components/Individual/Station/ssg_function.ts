@@ -2,8 +2,8 @@ import fs from "fs";
 import path from "path";
 import { RawData, RawStationData } from "../../../types/raw";
 import { StationId } from "../../../types/union";
-import { loadMaster } from "../../../utils/climateDataManager";
-import { climateDownload } from "../../../utils/downloader";
+import { loadMaster } from "../../../utils/loading/0_stationData";
+import { climateDownload } from "../../../utils/loading/1_downloader";
 
 export type StationDetailPageProps = RawData;
 

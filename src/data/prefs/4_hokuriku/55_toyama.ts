@@ -20,6 +20,6 @@ export const toyamaData: ClimateArticleData = {
     "立山山岳部における10m級の極度積雪",
     "山越え南風による強烈なフェーン昇温",
   ],
-  uonzuList: ["富山", "伏木", "室堂"],
+  uonzuList: ["55102", "55091", "55217"],
 };
 

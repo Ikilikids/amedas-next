@@ -3,15 +3,15 @@ import { useRouter } from "next/router";
 import { FaChevronDown } from "react-icons/fa";
 import Layout from "../../Layout";
 import Sidebar from "../../Layout/widgets/Sidebar";
-import RankingGrid from "./RankingGrid";
-import RankingSelector, { RankingCategory } from "./RankingSelector";
+import RankingGrid from "./widgets/RankingGrid";
+import RankingSelector, { RankingCategory } from "./widgets/RankingSelector";
 import { MetricMeta, MetricValue } from "../../../setting/metric";
 import { RankKey, RankMeta } from "../../../setting/rank";
 import { RegionKey, RegionMeta } from "../../../setting/region";
 import { PrefKey, PrefMeta } from "../../../setting/pref";
 import { MonthlyEntry, StationId } from "../../../types/union";
 import { RawStationData } from "../../../types/raw";
-import { extractRankingList } from "../../../utils/extractRankingList";
+import { extractRankingList } from "./extractRankingList";
 
 export type { RankingCategory };
 
@@ -146,32 +146,32 @@ export const RankingPageTemplate: React.FC<RankingPageTemplateProps> = ({
                 onSelectPref={setSelectedPref}
               />
 
-                {/* ランキンググリッド一覧 */}
-                <RankingGrid
-                  items={displayList}
-                  unit={config.unit}
-                  minBound={dataBounds.min}
-                  maxBound={dataBounds.max}
-                  subTextPrefix={subTextPrefix}
-                  fractionDigits={config.key === "sm_rain" ? 0 : 1}
-                  isLoading={isLoading}
-                />
-              </div>
-            ),
-          },
-        ]}
-        footerContent={
-          <div className="fixed bottom-6 right-6 z-50">
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="p-4 bg-white shadow-2xl rounded-full text-slate-400 border border-slate-100 transition-colors hover:text-slate-600"
-              aria-label="ページ先頭へ戻る"
-            >
-              <FaChevronDown className="transform rotate-180" />
-            </button>
-          </div>
-        }
-      />
+              {/* ランキンググリッド一覧 */}
+              <RankingGrid
+                items={displayList}
+                unit={config.unit}
+                minBound={dataBounds.min}
+                maxBound={dataBounds.max}
+                subTextPrefix={subTextPrefix}
+                fractionDigits={config.key === "sm_rain" ? 0 : 1}
+                isLoading={isLoading}
+              />
+            </div>
+          ),
+        },
+      ]}
+      footerContent={
+        <div className="fixed bottom-6 right-6 z-50">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="p-4 bg-white shadow-2xl rounded-full text-slate-400 border border-slate-100 transition-colors hover:text-slate-600"
+            aria-label="ページ先頭へ戻る"
+          >
+            <FaChevronDown className="transform rotate-180" />
+          </button>
+        </div>
+      }
+    />
   );
 };
 

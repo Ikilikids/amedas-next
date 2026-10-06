@@ -20,6 +20,6 @@ export const gifuData: ClimateArticleData = {
     "白川郷など飛騨北西部の冬季豪雪環境",
     "高山盆地など内陸部の冬の強い放射冷却",
   ],
-  uonzuList: ["岐阜", "高山", "多治見"],
+  uonzuList: ["52586", "52146", "52606"],
 };
 

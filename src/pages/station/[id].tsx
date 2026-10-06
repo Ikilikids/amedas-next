@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<StationDetailPageProps> = async ({
 };
 
 const StationPage: NextPage<StationDetailPageProps> = (data) => {
-  return <StationDetailPageTemplate data={data} />;
+  return <StationDetailPageTemplate rawData={data} />;
 };
 
 export default StationPage;

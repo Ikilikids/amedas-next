@@ -20,6 +20,6 @@ export const aomoriData: ClimateArticleData = {
     "太平洋側の冬の晴天と少ない降雪量",
     "初夏から夏にかけて吹き込むやませの低温",
   ],
-  uonzuList: ["青森", "八戸", "酸ヶ湯"],
+  uonzuList: ["31312", "31602", "31482"],
 };
 

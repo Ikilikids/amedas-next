@@ -38,6 +38,6 @@ export const shikokuData: ClimateArticleData = {
     "特に香川で顕著な瀬戸内側の少雨気候",
     "日本屈指の多雨と長い日照の太平洋側",
   ],
-  uonzuList: ["高知", "高松", "松山"],
+  uonzuList: ["74182", "72086", "73166"],
 };
 

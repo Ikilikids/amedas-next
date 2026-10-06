@@ -20,6 +20,6 @@ export const kanagawaData: ClimateArticleData = {
     "箱根・丹沢山岳地帯の年間3000mm多雨",
     "横浜・川崎市街地の熱帯夜多発傾向",
   ],
-  uonzuList: ["横浜", "辻堂", "箱根"],
+  uonzuList: ["46106", "46141", "46161"],
 };
 

@@ -1,229 +1,166 @@
 import React, { useMemo } from "react";
-import Head from "next/head";
 import Link from "next/link";
-import { FaCompass, FaMapMarkerAlt } from "react-icons/fa";
 import ArticleTemplate, { ArticleSectionItem } from "..";
 import { ClimateIntroSection } from "./widgets/Intro/UI";
 import { RainbowStationsSection } from "./widgets/Rainbow/UI";
 import { Top1StationsSection } from "./widgets/Top1/UI";
 import { getChildSectionList } from "./widgets/Intro/function";
 import { ClimateDetailPageProps } from "./ssg_function";
-import { RegionKey } from "../../../../setting/region";
-import { PrefKey, getPrefsInRegion } from "../../../../setting/pref";
+import { getPrefsInRegion } from "../../../../setting/pref";
+import { getClimatePageDisplayMeta } from "../../../../setting/japan";
 
-export interface ClimateArticlePageTemplateProps {
-  data: ClimateDetailPageProps;
-}
-
-export const ClimateArticlePageTemplate: React.FC<ClimateArticlePageTemplateProps> = ({
-  data,
+export const ClimateArticlePageTemplate: React.FC<ClimateDetailPageProps> = ({
+  regionKey,
+  prefKey,
+  article,
+  childArticles,
+  stationsMap,
 }) => {
+  // 1. スコープ・表示メタ情報の一元取得（japan.tsxから取得）
+  const meta = useMemo(() => {
+    return getClimatePageDisplayMeta(regionKey, prefKey, article);
+  }, [regionKey, prefKey, article]);
+
   const {
-    regionKey,
-    prefKey,
-    article,
-    stationsMap,
-    siblings,
-  } = data;
+    scopeKey,
+    currentKey,
+    targetName,
+    colorStrong,
+    parentKey,
+    targetPrefCodes,
+    representativeStationId,
+    category,
+    readTime,
+    icon,
+    badgeText,
+    rightBadge,
+    pageTitle,
+    seoTitle,
+    seoDescription,
+    canonicalUrl,
+    watermark,
+    backHref,
+    backLabel,
+    breadcrumbs,
+    hasRankingWidgets,
+    top1RankScopeText,
+    rainbowAreaName,
+    overviewTitle,
+    hideOverviewWidgets,
+    childSectionPrefix,
+    childSummaryOnly,
+    childTitleSuffix,
+    points,
+  } = meta;
 
-  const region = RegionKey[regionKey];
-  const pref = prefKey ? PrefKey[prefKey] : null;
-
-  const isPref = !!pref;
-  const regionName = region.label;
-  const prefName = pref?.label;
-  const targetName = isPref ? prefName! : `${regionName}地方`;
-  const colorStrong = region.colorStrong;
-
-  // 対象の都道府県コード一覧
-  const targetPrefCodes: readonly string[] = useMemo(() => {
-    if (pref) return pref.code;
-    return getPrefsInRegion(region.key).flatMap((p) => p.code);
-  }, [pref, region.key]);
-
-  // 子階層セクション（地方なら県別、県ならエリア別）の構成アイテム計算
+  // 2. 子階層セクション
   const childSections = useMemo(() => {
-    return getChildSectionList(isPref, region.key, pref?.key, stationsMap);
-  }, [isPref, region.key, pref?.key, stationsMap]);
+    return getChildSectionList(regionKey, prefKey, stationsMap, childArticles);
+  }, [regionKey, prefKey, stationsMap, childArticles]);
 
-  // SEO 関連
-  const seoTitle = isPref
-    ? `${prefName}の気候とアメダス観測所まとめ - アメダス図鑑`
-    : `${regionName}地方の気候・都道府県別特徴まとめ - アメダス図鑑`;
+  // 3. Hero 看板
+  const hero = useMemo(() => ({
+    badgeIcon: icon,
+    badgeText,
+    title: pageTitle,
+    description: article.heroDescription,
+    watermark,
+    gradient: `linear-gradient(135deg, ${colorStrong} 0%, color-mix(in srgb, ${colorStrong} 75%, black) 100%)`,
+    rightContent: rightBadge ? (
+      <div className="text-xs font-mono font-bold bg-black/20 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/20 text-white shrink-0">
+        {rightBadge}
+      </div>
+    ) : undefined,
+  }), [icon, badgeText, pageTitle, article.heroDescription, watermark, colorStrong, rightBadge]);
 
-  const seoDescription = isPref
-    ? `${prefName}（${regionName}地方）の気候特性、平年値の傾向、アメダス観測データについて解説。`
-    : `${regionName}地方の気候特性・風土メカニズムと、${childSections
-      .map((p) => p.name)
-      .join("・")}の都道府県別気候解説まとめ。`;
+  // 4. 同地方の他都道府県リンク
+  const siblingPrefs = useMemo(() => {
+    if (scopeKey !== "pref" || !parentKey) return [];
+    return getPrefsInRegion(parentKey as any)
+      .filter((p) => p.key !== currentKey)
+      .map((p) => ({ key: p.key, label: p.label, href: `/japan/${parentKey}/${p.key}` }));
+  }, [scopeKey, parentKey, currentKey]);
 
-  const canonicalUrl = isPref
-    ? `https://amedas-zukan.jp/japan/${region.key}/${pref!.key}`
-    : `https://amedas-zukan.jp/japan/${region.key}`;
-
-  const breadcrumbs: { label: string; href?: string }[] = useMemo(() => {
-    const base: { label: string; href?: string }[] = [
-      { label: "気候特集", href: "/column" },
-      { label: "地域別の気候解説", href: "/japan" },
-    ];
-    if (isPref) {
-      base.push({ label: `${regionName}地方`, href: `/japan/${region.key}` });
-      base.push({ label: prefName! });
-    } else {
-      base.push({ label: `${regionName}地方` });
-    }
-    return base;
-  }, [isPref, regionName, prefName, region.key]);
-
-  // Hero 看板関連
-  const hero = useMemo(
-    () => ({
-      badgeIcon: isPref ? (
-        <FaMapMarkerAlt className="text-white/90" />
-      ) : (
-        <FaCompass className="text-white/90" />
-      ),
-      badgeText: isPref
-        ? `${prefName} (${regionName})`
-        : `${regionName} Region Climate`,
-      title: isPref
-        ? `${prefName}の気候・観測データ`
-        : `${regionName}地方の気候特性・特徴まとめ`,
-      description: article.heroDescription,
-      watermark: (pref?.key ?? region.key).toUpperCase(),
-      gradient: `linear-gradient(135deg, ${colorStrong} 0%, color-mix(in srgb, ${colorStrong} 75%, black) 100%)`,
-      rightContent: isPref ? (
-        <div className="text-xs font-mono font-bold bg-black/20 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/20 text-white shrink-0">
-          PREF CODE: #{pref!.code.join(", #")}
-        </div>
-      ) : (
-        <div className="text-xs font-bold bg-black/20 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/20 text-white shrink-0">
-          {childSections.length} 都道府県・地域
-        </div>
-      ),
-    }),
-    [isPref, prefName, regionName, pref, region.key, article.heroDescription, colorStrong, childSections.length]
-  );
-
-  // 記事メタ
-  const category = isPref ? "気候学・都道府県別解説" : "気候学・地方別解説";
-  const publishedAt = "2026年9月16日";
-  const readTime = isPref ? "約4分" : "約7分";
-  const pageTitle = isPref
-    ? `${prefName}の気候特性〜風土・季節の特徴とアメダス観測データ〜`
-    : `${regionName}地方の気候特性〜風土・季節風・地形のメカニズム〜`;
-
-  const points = useMemo(() => {
-    const list = [
-      `気候区分: ${article.climateType}`,
-      `キャッチコピー: ${article.catchphrase}`,
-    ];
-    if (isPref) {
-      list.push(`${prefName}内のアメダス観測所の雨温図・平年値データをまとめて確認可能`);
-    } else {
-      list.push(
-        `${regionName}地方を構成する全${childSections.length}都道県・地域の気候を見出し別に徹底解説`
-      );
-    }
-    return list;
-  }, [article.climateType, article.catchphrase, isPref, prefName, regionName, childSections.length]);
-
-  const backHref = isPref ? `/japan/${region.key}` : "/japan";
-  const backLabel = isPref ? `${regionName}地方の解説に戻る` : "全地域一覧に戻る";
-
-  // セクション組み立て
+  // 5. 記事本文セクション
   const sections: ArticleSectionItem[] = useMemo(() => {
     const list: ArticleSectionItem[] = [
-      // セクション1: 気候の特徴と概況
       {
         id: "overview",
-        title: isPref
-          ? `1. ${prefName}の気候概況`
-          : `1. ${regionName}地方の気候の特徴とメカニズム`,
+        title: overviewTitle,
         accentColor: colorStrong,
         content: (
           <ClimateIntroSection
-            areaLabel={targetName}
-            data={article}
+            item={{
+              key: currentKey,
+              name: targetName,
+              color: colorStrong,
+              targetPrefCodes,
+              representativeStationId,
+              ...article,
+            }}
             stationsMap={stationsMap}
-            targetPrefCodes={targetPrefCodes}
-            representativeStationId={pref?.representativeStationId ?? region.representativeStationId}
-            accentColor={colorStrong}
+            hideWidgets={hideOverviewWidgets}
           />
         ),
       },
-      // セクション2: 虹バッジ地点
-      {
+    ];
+
+    if (hasRankingWidgets) {
+      list.push({
         id: "rainbow-stations",
         title: `2. ${targetName}の虹バッジ地点`,
         accentColor: colorStrong,
         content: (
           <RainbowStationsSection
-            areaName={isPref ? `${prefName}内` : `${regionName}地方`}
+            areaName={rainbowAreaName}
             stationsMap={stationsMap}
           />
         ),
-      },
-      // セクション3: 記録 No.1地点
-      {
+      });
+
+      list.push({
         id: "top1-stations",
         title: `3. ${targetName}の気候極値（No.1）地点`,
         accentColor: colorStrong,
         content: (
           <Top1StationsSection
             areaLabel={targetName}
-            rankScopeText={isPref ? "県内第1位（極値）" : "地方第1位（極値）"}
+            rankScopeText={top1RankScopeText}
             stationsMap={stationsMap}
           />
         ),
-      },
-    ];
+      });
+    }
 
-    // セクション4〜: 子要素の気候解説（同じ ClimateIntroSection をループ展開）
     if (childSections && childSections.length > 0) {
       childSections.forEach((child, idx) => {
-        const stationMatcher = isPref
-          ? (s: any) => s.area === child.key
-          : undefined;
-
         list.push({
           id: child.key,
-          title: `4-${idx + 1}. ${child.name}の気候`,
-          accentColor: colorStrong,
+          title: `${childSectionPrefix}-${idx + 1}. ${child.name}${childTitleSuffix}の気候`,
+          accentColor: child.color ?? colorStrong,
           content: (
             <ClimateIntroSection
-              areaLabel={child.name}
-              data={child}
+              item={child}
               stationsMap={stationsMap}
-              stationMatcher={stationMatcher}
-              targetPrefCodes={child.targetPrefCodes}
-              representativeStationId={child.representativeStationId}
-              accentColor={colorStrong}
-              linkHref={child.linkHref}
-              linkLabel={child.linkLabel}
-              stationLinks={child.stationLinks}
+              summaryOnly={childSummaryOnly}
             />
           ),
         });
       });
     }
 
-    // 末尾ナビゲーション
-    if (isPref && siblings && siblings.length > 1) {
+    if (siblingPrefs && siblingPrefs.length > 0) {
       list.push({
         id: "siblings",
-        title: `5. ${regionName}地方の他の地域・都道府県`,
+        title: `5. 同地方の他の地域・都道府県`,
         accentColor: colorStrong,
         content: (
           <div className="flex flex-wrap gap-2">
-            {siblings.map((sib) => (
+            {siblingPrefs.map((sib) => (
               <Link
                 key={sib.key}
-                href={`/japan/${region.key}/${sib.key}`}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${sib.key === pref!.key
-                  ? "bg-slate-800 text-white shadow-sm"
-                  : "bg-slate-100 hover:bg-slate-200 text-slate-700"
-                  }`}
+                href={sib.href}
+                className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-700"
               >
                 {sib.label}
               </Link>
@@ -235,19 +172,23 @@ export const ClimateArticlePageTemplate: React.FC<ClimateArticlePageTemplateProp
 
     return list;
   }, [
-    isPref,
-    prefName,
-    regionName,
-    targetName,
+    overviewTitle,
     colorStrong,
+    currentKey,
+    targetName,
+    targetPrefCodes,
+    representativeStationId,
     article,
     stationsMap,
-    targetPrefCodes,
-    pref,
-    region.representativeStationId,
+    hideOverviewWidgets,
+    hasRankingWidgets,
+    rainbowAreaName,
+    top1RankScopeText,
     childSections,
-    siblings,
-    region.key,
+    childSectionPrefix,
+    childTitleSuffix,
+    childSummaryOnly,
+    siblingPrefs,
   ]);
 
   return (
@@ -260,9 +201,9 @@ export const ClimateArticlePageTemplate: React.FC<ClimateArticlePageTemplateProp
       breadcrumbs={breadcrumbs}
       hero={hero}
       category={category}
-      publishedAt={publishedAt}
+      publishedAt="2026年9月16日"
       readTime={readTime}
-      title={pageTitle}
+      title={hero.title}
       points={points}
       sections={sections}
       backHref={backHref}

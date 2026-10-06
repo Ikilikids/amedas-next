@@ -20,5 +20,5 @@ export const mieData: ClimateArticleData = {
     "東紀州沿岸の黒潮による冬季温暖気候",
     "伊賀盆地の冬の強い放射冷却と濃霧",
   ],
-  uonzuList: ["津", "尾鷲", "四日市"],
+  uonzuList: ["53133", "53378", "53061"],
 };

@@ -20,5 +20,5 @@ export const kagawaData: ClimateArticleData = {
     "「瀬戸の夕凪」による夏の蒸し暑さと熱帯夜",
     "讃岐山脈越えの南風によるフェーン現象",
   ],
-  uonzuList: ["高松", "多度津", "小豆島"],
+  uonzuList: ["72086", "72111", "72061"],
 };

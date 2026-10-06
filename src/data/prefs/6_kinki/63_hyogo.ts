@@ -20,5 +20,5 @@ export const hyogoData: ClimateArticleData = {
     "豊岡盆地の夏季フェーン現象による酷暑",
     "瀬戸内沿岸の年間を通じた少雨と温暖さ",
   ],
-  uonzuList: ["神戸", "豊岡", "姫路"],
+  uonzuList: ["63518", "63051", "63383"],
 };

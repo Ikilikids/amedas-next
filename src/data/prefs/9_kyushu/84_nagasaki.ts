@@ -20,5 +20,5 @@ export const nagasakiData: ClimateArticleData = {
     "梅雨末期の東シナ海気流による集中豪雨",
     "五島や対馬など離島部の通年強風環境",
   ],
-  uonzuList: ["長崎", "厳原", "福江"],
+  uonzuList: ["84496", "84072", "84536"],
 };

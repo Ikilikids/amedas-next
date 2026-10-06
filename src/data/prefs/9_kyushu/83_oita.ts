@@ -20,5 +20,5 @@ export const oitaData: ClimateArticleData = {
     "日田盆地における夏季の記録的酷暑多発",
     "九重連山や由布院など高原部の冬季極寒",
   ],
-  uonzuList: ["大分", "日田", "湯布院"],
+  uonzuList: ["83216", "83137", "83201"],
 };

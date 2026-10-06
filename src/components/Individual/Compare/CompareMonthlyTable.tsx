@@ -1,6 +1,6 @@
 import React from "react";
 import { RawMonthlyData, RawStationData } from "../../../types/raw";
-import { MonthMap } from "../../../utils/colorUtils";
+import { MonthKey } from "../../../setting/month";
 import { MetricKey, MetricMeta } from "../../../setting/metric";
 import { resolvePref } from "../../../utils/masterUtils";
 
@@ -17,9 +17,9 @@ const CompareMonthlyTable: React.FC<CompareMonthlyTableProps> = ({
   station1,
   station2,
 }) => {
-  const months = Object.entries(MonthMap).map(([slug, label]) => ({
-    slug,
-    label,
+  const months = Object.values(MonthKey).map((m) => ({
+    slug: m.key,
+    label: m.label,
   }));
 
   const displayMetrics = [

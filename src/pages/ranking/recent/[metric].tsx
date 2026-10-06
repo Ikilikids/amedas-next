@@ -1,12 +1,12 @@
 import { GetStaticPaths, NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-import RankingPageTemplate from "../../../components/Individual/Ranking/RankingPageTemplate";
+import RankingPageTemplate from "../../../components/Individual/Ranking";
 import { RawStationData } from "../../../types/raw";
 import { StationId } from "../../../types/union";
 import { MetricKey, MetricValue } from "../../../setting/metric";
-import { getRankingStaticProps } from "../../../utils/ssgLoader";
-import { calculateRankingEntries } from "../../../utils/calculateRankingEntries";
+import { getRankingStaticProps } from "../../../components/Individual/Ranking/ssg_function";
+import { calculateRankingEntries } from "../../../utils/loading/3_calculateRanking";
 interface Props {
   masterData: Record<string, RawStationData>;
   targetMetric: MetricValue;

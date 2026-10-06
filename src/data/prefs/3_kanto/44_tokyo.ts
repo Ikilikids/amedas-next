@@ -20,5 +20,5 @@ export const tokyoData: ClimateArticleData = {
     "冬の卓越した快晴日数と極度の乾燥",
     "多摩地域の寒暖差と西部山岳の積雪",
   ],
-  uonzuList: ["東京", "八王子", "奥多摩"],
+  uonzuList: ["44132", "44112", "44046"],
 };

@@ -1,19 +1,27 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
-import { RawMonthlyData } from "../../../../../types/raw";
+import { MetricKey, MetricMeta } from "../../../../../setting/metric";
 import { MetricDistribution } from "../../../../../setting/metricDistributions";
+import { RawData } from "../../../../../types/raw";
+import { calculateStar } from "../../../../../utils/starUtils";
 import { showValue } from "../../function";
-import { computeMetricGridItems } from "./function";
 
-export interface MetricGridProps {
-  climateData: RawMonthlyData | null;
-}
+const INFO_GRID_METRICS: MetricMeta[] = [
+  MetricKey.av_avtemp,
+  MetricKey.sm_sun,
+  MetricKey.sm_rain,
+  MetricKey.sm_snowing,
+  MetricKey.av_wind,
+  MetricKey.hitemp_35,
+];
 
 const DistributionHistogram: React.FC<{
-  dist?: MetricDistribution;
+  metric: MetricMeta;
   value: number | null | undefined;
-  color: string;
-}> = ({ dist, value, color }) => {
+}> = ({ metric, value }) => {
+  const dist = metric.distribution;
+  const color = metric.color;
+
   if (!dist || dist.bins.length === 0) {
     return <div className="h-4 bg-slate-100 rounded" />;
   }
@@ -67,14 +75,22 @@ const DistributionHistogram: React.FC<{
   );
 };
 
-export const MetricGrid: React.FC<MetricGridProps> = ({ climateData }) => {
-  const items = computeMetricGridItems(climateData);
+export const MetricGrid: React.FC<{ rawData: RawData }> = ({ rawData }) => {
+  const climateData = rawData.climateData;
 
   return (
     <div className="flex-1 grid grid-cols-2 gap-2.5">
-      {items.map((item) => {
-        const { meta: m, val, hasVal, myStar, maxStars, starLabel, rank } = item;
-        const dist = m.distribution;
+      {INFO_GRID_METRICS.map((m) => {
+        const entries = climateData?.[m.key];
+        const annual = entries && entries.length > 12 ? entries[12] : entries?.[0];
+        const val = annual?.value;
+        const hasVal = val != null && !isNaN(val);
+
+        const starResult = hasVal && m.star ? calculateStar(val, m.star) : null;
+        const myStar = starResult?.star ?? null;
+        const maxStars = m.star?.levels.length ? m.star.levels.length + 1 : 10;
+        const starLabel = starResult ? starResult.label : "データなし";
+        const rank = annual?.top;
 
         return (
           <div
@@ -129,7 +145,7 @@ export const MetricGrid: React.FC<MetricGridProps> = ({ climateData }) => {
             </div>
 
             <div className="mt-1">
-              <DistributionHistogram dist={dist} value={val} color={m.color} />
+              <DistributionHistogram metric={m} value={val} />
             </div>
           </div>
         );

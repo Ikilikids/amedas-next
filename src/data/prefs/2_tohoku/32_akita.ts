@@ -20,6 +20,6 @@ export const akitaData: ClimateArticleData = {
     "沿岸部の冬季季節風と頻発する雪起こし雷",
     "冬季の極端な日照不足と夏のフェーン猛暑",
   ],
-  uonzuList: ["秋田", "横手", "鷹巣"],
+  uonzuList: ["32402", "32596", "32126"],
 };
 

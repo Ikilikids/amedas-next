@@ -20,5 +20,5 @@ export const hiroshimaData: ClimateArticleData = {
     "北広島町八幡など芸北山岳の冬季豪雪",
     "三次盆地などの放射冷却極寒と濃霧の海",
   ],
-  uonzuList: ["広島", "庄原", "呉"],
+  uonzuList: ["67437", "67116", "67511"],
 };

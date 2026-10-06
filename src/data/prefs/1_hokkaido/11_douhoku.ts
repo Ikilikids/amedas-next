@@ -20,6 +20,6 @@ export const hokkaidoDouhokuData: ClimateArticleData = {
     "宗谷・留萌沿岸の通年強風と冬の暴風雪",
     "沿岸部の極めて冷涼な夏季気候",
   ],
-  uonzuList: ["旭川", "稚内", "留萌"],
+  uonzuList: ["12442", "11016", "13277"],
 };
 

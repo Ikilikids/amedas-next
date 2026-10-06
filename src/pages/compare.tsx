@@ -5,7 +5,7 @@ import { IoBook } from "react-icons/io5";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 import { PiRankingDuotone } from "react-icons/pi";
 import CompareMonthlyTable from "../components/Individual/Compare/CompareMonthlyTable";
-import CompareUonzuChart from "../components/Individual/Compare/CompareUonzuChart";
+import UonzuChart from "../components/common/UonzuChart";
 import Layout from "../components/Layout";
 import Sidebar from "../components/Layout/widgets/Sidebar";
 import InfoPanel from "../components/common/InfoPanel";
@@ -14,10 +14,9 @@ import CustomSelect from "../components/common/CustomSelect";
 import { RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
 import { CategoryKey } from "../setting/category";
-import { SectionWithDescription } from "../utils/colorUtils";
 import { MetricKey, MetricMeta } from "../setting/metric";
 import { PrefKey } from "../setting/pref";
-import { loadMaster } from "../utils/ssgLoader";
+import { loadMaster } from "../components/Individual/Ranking/ssg_function";
 
 interface Props {
   masterData: Record<StationId, RawStationData>;
@@ -67,6 +66,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
   const [pref2, setPref2] = useState<string>(PrefKey.osaka.label);
 
   const {
+    rawData: rawData1,
     stationData: s1,
     climateData: c1,
     uonzuData: u1,
@@ -74,6 +74,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
     loading: l1,
   } = useStationDetail(id1, masterData);
   const {
+    rawData: rawData2,
     stationData: s2,
     climateData: c2,
     uonzuData: u2,
@@ -241,14 +242,12 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
           children: (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
               <InfoPanel
-                stationData={s1}
-                climateData={c1}
+                rawData={rawData1}
                 loading={l1}
                 isTitle={true}
               />
               <InfoPanel
-                stationData={s2}
-                climateData={c2}
+                rawData={rawData2}
                 loading={l2}
                 isTitle={true}
               />
@@ -270,12 +269,10 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
                 />
               </div>
               <div className="bg-white rounded-3xl px-2 xl:px-6 py-4 shadow-sm border border-slate-100 overflow-hidden">
-                {u1 && u2 && s1 && s2 ? (
-                  <CompareUonzuChart
-                    uonzuData1={u1}
-                    uonzuData2={u2}
-                    name1={s1.station_name}
-                    name2={s2.station_name}
+                {rawData1 && rawData2 ? (
+                  <UonzuChart
+                    rawData={rawData1}
+                    rawData2={rawData2}
                     selectedBar={selectedBar}
                     height="400px"
                   />

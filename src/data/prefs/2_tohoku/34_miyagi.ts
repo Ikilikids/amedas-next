@@ -20,6 +20,6 @@ export const miyagiData: ClimateArticleData = {
     "海風とやませによる夏季の猛暑抑制",
     "奥羽山脈東斜面の冬季雪雲の越境流入",
   ],
-  uonzuList: ["仙台", "石巻", "古川"],
+  uonzuList: ["34392", "34292", "34216"],
 };
 

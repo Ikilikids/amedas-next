@@ -20,5 +20,5 @@ export const sagaData: ClimateArticleData = {
     "佐賀平野における夏季の高温多湿と猛暑",
     "梅雨末期の線状降水帯による極端な豪雨",
   ],
-  uonzuList: ["佐賀", "唐津", "伊万里"],
+  uonzuList: ["85142", "85033", "85116"],
 };

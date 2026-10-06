@@ -1,7 +1,4 @@
 import { useId } from "react";
-import { GiIsland } from "react-icons/gi";
-
-import { MetricMeta } from "../setting/metric";
 import { BadgeRank } from "../types/raw";
 
 /* =====================
@@ -49,35 +46,19 @@ const medalColors: Record<
 
 export interface RankBadgeProps {
   rank: BadgeRank;
-  isHigh: boolean;
-  metric: MetricMeta;
-  isIsland?: boolean;
+  icon: React.ReactNode;
   size?: number;
 }
 
-const RankBadge = ({ size = 40, ...props }: RankBadgeProps) => {
-  const { rank, isHigh, metric, isIsland } = props;
+export const RankBadge = ({
+  rank,
+  icon,
+  size = 40,
+}: RankBadgeProps) => {
   const uid = useId();
-
-  const dir = isHigh ? metric.high : metric.low;
-  const isIslandTemp = isIsland && metric.key === "av_avtemp";
-  const notIsIslandTemp = !isIsland && metric.key === "av_avtemp";
-  const Icon = isIslandTemp ? <GiIsland /> : (dir?.icon || metric.icon);
-  if (!Icon) return null;
+  if (!icon) return null;
 
   const colors = medalColors[rank] || medalColors.bronze;
-  const rankLabelMap: Record<BadgeRank, string> = {
-    rainbow: "上位10位",
-    gold: "上位25位",
-    silver: "上位50位",
-    bronze: "上位100位",
-  };
-  const tierText = isHigh
-    ? `${rankLabelMap[rank]}`
-    : `下位${rankLabelMap[rank].replace("上位", "")}`;
-  const islandText = isIslandTemp ? "(全国)" : notIsIslandTemp ? "(本土)" : "";
-  const titleText = `${dir?.label || metric.label}：${tierText}${islandText}`;
-
   const medalGradId = `medal-${uid}`;
   const shineGradId = `shine-${uid}`;
   const rainbowGradId = `rainbow-${uid}`;
@@ -85,7 +66,6 @@ const RankBadge = ({ size = 40, ...props }: RankBadgeProps) => {
 
   return (
     <div
-      title={titleText}
       style={{
         position: "relative",
         width: size,
@@ -165,7 +145,7 @@ const RankBadge = ({ size = 40, ...props }: RankBadgeProps) => {
           justifyContent: "center",
         }}
       >
-        {Icon}
+        {icon}
       </span>
     </div>
   );

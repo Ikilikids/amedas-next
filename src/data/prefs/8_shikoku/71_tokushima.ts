@@ -20,5 +20,5 @@ export const tokushimaData: ClimateArticleData = {
     "吉野川流域平野部の通年温暖と豊富な日照",
     "剣山山岳部における冬季の氷点下と積雪",
   ],
-  uonzuList: ["徳島", "日和佐", "剣山"],
+  uonzuList: ["71106", "71266", "71191"],
 };

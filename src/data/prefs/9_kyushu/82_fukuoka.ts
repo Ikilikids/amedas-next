@@ -20,5 +20,5 @@ export const fukuokaData: ClimateArticleData = {
     "久留米など筑後平野の夏季の極端な酷暑",
     "梅雨末期の線状降水帯による記録的豪雨",
   ],
-  uonzuList: ["福岡", "北九州", "久留米"],
+  uonzuList: ["82182", "82056", "82306"],
 };

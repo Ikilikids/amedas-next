@@ -1,7 +1,7 @@
-import { RawStationData } from "../types/raw";
-import { MonthlyEntry, StationId } from "../types/union";
-import { isIslandId } from "../setting/rank";
-import { PrefKey } from "../setting/pref";
+import { RawStationData } from "../../types/raw";
+import { MonthlyEntry, StationId } from "../../types/union";
+import { isIslandId } from "../../setting/rank";
+import { PrefKey } from "../../setting/pref";
 
 type RankCalcItem = RawStationData & {
   value: number;

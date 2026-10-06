@@ -1,7 +1,7 @@
 import meteoDataRaw from "../../../../../data/feature/meteo.json";
 import { resolvePref } from "../../../../utils/masterUtils";
 import { RegionValue } from "../../../../setting/region";
-import { loadMaster } from "../../../../utils/climateDataManager";
+import { loadMaster } from "../../../../utils/loading/0_stationData";
 import { StationId } from "../../../../types/union";
 
 export interface MeteoItem {

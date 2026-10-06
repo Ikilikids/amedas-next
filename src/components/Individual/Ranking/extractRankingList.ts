@@ -1,9 +1,9 @@
-import { RankingData } from "../components/Individual/Ranking/types";
-import { RawStationData } from "../types/raw";
-import { MonthlyEntry, StationId } from "../types/union";
-import { PrefKey, PrefMeta } from "../setting/pref";
-import { RankMeta } from "../setting/rank";
-import { RegionMeta } from "../setting/region";
+import { RankingData } from "./types";
+import { RawStationData } from "../../../types/raw";
+import { MonthlyEntry, StationId } from "../../../types/union";
+import { PrefKey, PrefMeta } from "../../../setting/pref";
+import { RankMeta } from "../../../setting/rank";
+import { RegionMeta } from "../../../setting/region";
 
 export interface RankingScopeOptions {
   rankMeta: RankMeta;

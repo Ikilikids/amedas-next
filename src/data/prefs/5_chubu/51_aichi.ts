@@ -20,6 +20,6 @@ export const aichiData: ClimateArticleData = {
     "冬に関ヶ原から吹き抜ける伊吹おろし",
     "渥美・知多両半島沿岸の冬季温暖気候",
   ],
-  uonzuList: ["名古屋", "豊橋", "岡崎"],
+  uonzuList: ["51106", "51331", "51226"],
 };
 

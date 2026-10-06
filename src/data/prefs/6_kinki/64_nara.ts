@@ -20,5 +20,5 @@ export const naraData: ClimateArticleData = {
     "奈良盆地特有の通年少雨と大きな寒暖差",
     "吉野山間部における冬季の氷点下と積雪",
   ],
-  uonzuList: ["奈良", "風屋", "上北山"],
+  uonzuList: ["64036", "64227", "64206"],
 };

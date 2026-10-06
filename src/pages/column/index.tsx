@@ -4,8 +4,6 @@ import Layout from "../../components/Layout";
 import Sidebar from "../../components/Layout/widgets/Sidebar";
 import { COLUMNS, ColumnArticle } from "../../data/columns";
 import { FaBookOpen, FaClock, FaCalendarAlt, FaChevronRight, FaInfoCircle, FaTags } from "react-icons/fa";
-import { FaMapLocationDot } from "react-icons/fa6";
-import { PiRankingDuotone } from "react-icons/pi";
 
 const ColumnIndexPage: NextPage = () => {
   return (

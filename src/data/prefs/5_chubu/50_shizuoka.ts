@@ -20,6 +20,6 @@ export const shizuokaData: ClimateArticleData = {
     "遠州灘沿岸の冬季乾燥風（からっ風）",
     "天城山や赤石山脈南部の3000mm多雨",
   ],
-  uonzuList: ["静岡", "浜松", "網代"],
+  uonzuList: ["50331", "50456", "50281"],
 };
 

@@ -20,6 +20,6 @@ export const ishikawaData: ClimateArticleData = {
     "JPCZによる加賀平野の集中里雪降雪",
     "白山山越えの南風によるフェーン猛暑",
   ],
-  uonzuList: ["金沢", "輪島", "白山河内"],
+  uonzuList: ["56227", "56052", "56286"],
 };
 

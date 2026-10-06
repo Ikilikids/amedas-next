@@ -20,6 +20,6 @@ export const hokkaidoDounanData: ClimateArticleData = {
     "函館周辺の冬季少雪と穏やかな冷え込み",
     "日本海沿岸の冬季季節風と湿った降雪",
   ],
-  uonzuList: ["函館", "江差", "長万部"],
+  uonzuList: ["23232", "24217", "23031"],
 };
 

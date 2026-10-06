@@ -20,6 +20,6 @@ export const fukuiData: ClimateArticleData = {
     "大野や勝山など奥越盆地の豪雪と冷え込み",
     "若狭湾沿岸の暖流による冬季の少雪傾向",
   ],
-  uonzuList: ["福井", "敦賀", "大野"],
+  uonzuList: ["57066", "57248", "57121"],
 };
 

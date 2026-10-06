@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import { FaChevronDown, FaChevronUp, FaChartBar, FaExternalLinkAlt } from "react-icons/fa";
-import { ArticleUonzuItem } from "../../../../../utils/ssgLoader";
-import { MetricKey } from "../../../../../setting/metric";
-import UonzuChart from "../../../../common/UonzuChart";
+import { RawData } from "../../../../types/raw";
+import UonzuChart from "../../../common/UonzuChart";
+import { MetricKey } from "../../../../setting/metric";
 
-interface Props {
+import { StationId } from "../../../../types/union";
+
+export const ClimateUonzuAccordion: React.FC<{
   title?: string;
-  items: ArticleUonzuItem[];
+  stationsMap: Record<StationId, RawData>;
   accentColor?: string;
   defaultOpen?: boolean;
-}
-
-export const ClimateUonzuAccordion: React.FC<Props> = ({
+}> = ({
   title = "代表地点の雨温図（平年値）",
-  items,
+  stationsMap,
   accentColor = "#2563eb",
   defaultOpen = true,
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-  if (!items || items.length === 0) return null;
+  const items = Object.values(stationsMap);
+
+  if (items.length === 0) return null;
 
   return (
     <div className="my-4 rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-xs">
@@ -33,7 +35,7 @@ export const ClimateUonzuAccordion: React.FC<Props> = ({
         <div className="flex items-center gap-2 min-w-0">
           <FaChartBar style={{ color: accentColor }} className="text-sm shrink-0" />
           <span className="text-xs font-black text-slate-800 truncate">
-            {title} ({items.map((i) => i.name).join("・")})
+            {title} ({items.map((i) => i.station.station_name).join("・")})
           </span>
         </div>
         <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 shrink-0 ml-2">
@@ -49,15 +51,15 @@ export const ClimateUonzuAccordion: React.FC<Props> = ({
 
               return (
                 <div
-                  key={item.id}
+                  key={item.station.id}
                   className="bg-white rounded-xl border border-slate-200/80 p-3 shadow-xs flex flex-col"
                 >
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-2">
                     <span className="text-xs font-black text-slate-800">
-                      {item.name}
+                      {item.station.station_name}
                     </span>
                     <Link
-                      href={`/station/${item.id}`}
+                      href={`/station/${item.station.id}`}
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 transition-colors"
                     >
                       <span>観測データ詳細</span>
@@ -66,7 +68,7 @@ export const ClimateUonzuAccordion: React.FC<Props> = ({
                   </div>
                   <div className="w-full">
                     <UonzuChart
-                      uonzuData={item.rawUonzu}
+                      rawData={item}
                       selectedBar={MetricKey.sm_rain}
                       height="200px"
                       hideLegend={true}

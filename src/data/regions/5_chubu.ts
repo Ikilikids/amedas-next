@@ -38,6 +38,6 @@ export const chubuData: ClimateArticleData = {
     "中央高地・盆地の極端な少雨と寒暖差",
     "濃尾平野の猛暑と三重南部の多雨",
   ],
-  uonzuList: ["松本", "名古屋", "静岡"],
+  uonzuList: ["48361", "51106", "50331"],
 };
 

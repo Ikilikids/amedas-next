@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RawMonthlyData, RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
-import { climateDownload } from "../utils/downloader";
+import { climateDownload } from "../utils/loading/1_downloader";
 
 // ==========================================
 // Hook: useStationDetail
@@ -11,6 +11,7 @@ export const useStationDetail = (
   stationId: StationId | null,
   initialMaster?: Record<StationId, RawStationData>
 ) => {
+  const [rawData, setRawData] = useState<RawData | null>(null);
   const [stationData, setStationData] = useState<RawStationData | null>(null);
   const [climateData, setClimateData] = useState<RawMonthlyData | null>(null);
   const [uonzuData, setUonzuData] = useState<RawMonthlyData | null>(null);
@@ -19,6 +20,7 @@ export const useStationDetail = (
 
   useEffect(() => {
     if (!stationId) {
+      setRawData(null);
       setStationData(null);
       setClimateData(null);
       setUonzuData(null);
@@ -43,6 +45,7 @@ export const useStationDetail = (
         const item = metricsMap[stationId];
         if (!item) return;
 
+        setRawData(item);
         const { climateData: rawClimate } = item;
 
         setClimateData(rawClimate || null);
@@ -58,6 +61,7 @@ export const useStationDetail = (
   }, [stationId]);
 
   return {
+    rawData,
     stationData,
     climateData,
     uonzuData,

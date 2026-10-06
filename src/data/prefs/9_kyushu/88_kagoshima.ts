@@ -20,5 +20,5 @@ export const kagoshimaData: ClimateArticleData = {
     "薩摩・大隅両半島の真冬でも温暖な海洋性",
     "台風の主上陸経路に伴う激しい暴風雨",
   ],
-  uonzuList: ["鹿児島", "屋久島", "名瀬"],
+  uonzuList: ["88317", "88686", "88837"],
 };

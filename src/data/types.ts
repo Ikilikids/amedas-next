@@ -1,3 +1,5 @@
+import { StationId } from "../types/union";
+
 export interface ClimateSection {
   title?: string;
   content: string[];
@@ -10,5 +12,5 @@ export interface ClimateArticleData {
   heroDescription: string;
   description: ClimateSection[];
   highlights: string[];
-  uonzuList?: string[];
+  uonzuList?: StationId[];
 }

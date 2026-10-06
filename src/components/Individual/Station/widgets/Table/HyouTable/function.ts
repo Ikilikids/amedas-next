@@ -1,6 +1,6 @@
 import { RawMonthlyData } from "../../../../../../types/raw";
 import { MonthlyEntry } from "../../../../../../types/union";
-import { MonthMap } from "../../../../../../utils/colorUtils";
+import { MonthKey } from "../../../../../../setting/month";
 import { MetricMeta } from "../../../../../../setting/metric";
 import { RankValue } from "../../../../../../setting/rank";
 
@@ -14,12 +14,10 @@ export interface MonthOption {
   label: string;
 }
 
-export const MONTH_OPTIONS: MonthOption[] = Object.entries(MonthMap).map(
-  ([slug, label]) => ({
-    slug,
-    label,
-  })
-);
+export const MONTH_OPTIONS: MonthOption[] = Object.values(MonthKey).map((m) => ({
+  slug: m.key,
+  label: m.label,
+}));
 
 function mixColor(c1: string, c2: string, t: number): string {
   const rgb1 = c1.match(/\d+/g)?.map(Number) || [0, 0, 0];

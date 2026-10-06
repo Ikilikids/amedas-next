@@ -46,6 +46,6 @@ export const kinkiData: ClimateArticleData = {
     "瀬戸内沿岸の少雨と盆地の厳しい猛暑",
     "紀伊山地における日本屈指の多雨豪雨",
   ],
-  uonzuList: ["豊岡", "大阪", "潮岬"],
+  uonzuList: ["63051", "62078", "65356"],
 };
 

@@ -20,6 +20,6 @@ export const gunmaData: ClimateArticleData = {
     "冬季の強い乾燥下降気流（からっ風）",
     "みなかみ町など北部山岳地帯の豪雪",
   ],
-  uonzuList: ["前橋", "みなかみ", "館林"],
+  uonzuList: ["42251", "42091", "42366"],
 };
 

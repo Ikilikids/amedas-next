@@ -2,19 +2,11 @@ import React, { useMemo, useState } from "react";
 import CustomSelect from "../../../../common/CustomSelect";
 import UonzuChart from "../../../../common/UonzuChart";
 import { MetricKey, MetricMeta } from "../../../../../setting/metric";
-import { RawMonthlyData } from "../../../../../types/raw";
-import { getUonzuOptions } from "./function";
+import { RawData } from "../../../../../types/raw";
+import { getUonzuOptions } from "../../../../../utils/convert/uonzu";
 
-export interface UonzuWidgetProps {
-  uonzuData: RawMonthlyData;
-  regionColor: string;
-}
-
-export const UonzuWidget: React.FC<UonzuWidgetProps> = ({
-  uonzuData,
-  regionColor,
-}) => {
-  const uonzuOptions = useMemo(() => getUonzuOptions(uonzuData), [uonzuData]);
+export const UonzuWidget: React.FC<{ rawData: RawData }> = ({ rawData }) => {
+  const uonzuOptions = useMemo(() => getUonzuOptions(rawData), [rawData]);
 
   const [selectedBar, setSelectedBar] = useState<MetricMeta>(
     uonzuOptions[0]?.meta || MetricKey.sm_rain
@@ -55,7 +47,7 @@ export const UonzuWidget: React.FC<UonzuWidgetProps> = ({
 
       <div className="w-full">
         <UonzuChart
-          uonzuData={uonzuData}
+          rawData={rawData}
           selectedBar={selectedBar}
         />
       </div>

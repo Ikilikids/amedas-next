@@ -40,5 +40,5 @@ export const tohokuData: ClimateArticleData = {
     "日本屈指の豪雪と短い日照の日本海側",
     "岩手内陸の極寒と福島内陸の猛暑",
   ],
-  uonzuList: ["青森", "盛岡", "仙台"],
+  uonzuList: ["31312", "33431", "34392"],
 };

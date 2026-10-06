@@ -20,6 +20,6 @@ export const tochigiData: ClimateArticleData = {
     "冬の男体おろしと夜間の強い放射冷却",
     "奥日光や那須高原の夏冷涼と冬の氷点下",
   ],
-  uonzuList: ["宇都宮", "日光", "奥日光"],
+  uonzuList: ["41277", "41011", "41166"],
 };
 

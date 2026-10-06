@@ -20,5 +20,5 @@ export const miyazakiData: ClimateArticleData = {
     "黒潮の影響による沿岸部の冬季温暖気候",
     "えびのや諸塚など山間部の4000mm多雨",
   ],
-  uonzuList: ["宮崎", "延岡", "都城"],
+  uonzuList: ["87376", "87141", "87426"],
 };

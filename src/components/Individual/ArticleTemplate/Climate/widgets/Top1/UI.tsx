@@ -7,13 +7,11 @@ import { RawData } from "../../../../../../types/raw";
 import { StationId } from "../../../../../../types/union";
 import { extractTop1Stations } from "./function";
 
-interface Top1StationsSectionProps {
+export const Top1StationsSection: React.FC<{
   areaLabel: string;
-  rankScopeText: string; // 例: "地方第1位（極値）" または "県内第1位（極値）"
+  rankScopeText: string;
   stationsMap: Record<StationId, RawData>;
-}
-
-export const Top1StationsSection: React.FC<Top1StationsSectionProps> = ({
+}> = ({
   areaLabel,
   rankScopeText,
   stationsMap,

@@ -20,6 +20,6 @@ export const ibarakiData: ClimateArticleData = {
     "古河など県西平野部の強い夏季内陸昇温",
     "大子盆地や県北部の冬の強い放射冷却",
   ],
-  uonzuList: ["水戸", "つくば", "大子"],
+  uonzuList: ["40201", "40336", "40061"],
 };
 

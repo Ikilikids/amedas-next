@@ -8,7 +8,7 @@ import { getMetricColor } from "../../utils/colorUtils";
 import { resolveCategory } from "../../utils/masterUtils";
 import { PrefKey } from "../../setting/pref";
 import { RegionKey } from "../../setting/region";
-import { loadMaster } from "../../utils/ssgLoader";
+import { loadMaster } from "../../components/Individual/Ranking/ssg_function";
 
 import { TbTemperatureSun } from "react-icons/tb";
 import { colorWithAlpha } from "../../components/Individual/Station/widgets/Ratio/function";

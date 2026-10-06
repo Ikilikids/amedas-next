@@ -37,6 +37,6 @@ export const kyushuData: ClimateArticleData = {
     "梅雨末期の線状降水帯による集中豪雨",
     "台風の接近数と年間降水量の多さ",
   ],
-  uonzuList: ["福岡", "宮崎", "屋久島"],
+  uonzuList: ["82182", "87376", "88686"],
 };
 

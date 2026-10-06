@@ -1,22 +1,20 @@
 import React from "react";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
-import { RawMonthlyData, RawStationData } from "../../../types/raw";
+import { RawData } from "../../../types/raw";
 import { resolvePref } from "../../../utils/masterUtils";
 import InfoHeader from "./widgets/Header/UI";
 import MetricGrid from "./widgets/MetricGrid/UI";
 
 export interface InfoPanelProps {
-  stationData: RawStationData | null;
-  climateData: RawMonthlyData | null;
-  loading: boolean;
-  isTitle: boolean;
+  rawData?: RawData | null;
+  loading?: boolean;
+  isTitle?: boolean;
 }
 
 export const InfoPanel: React.FC<InfoPanelProps> = ({
-  stationData,
-  climateData,
-  loading,
-  isTitle,
+  rawData,
+  loading = false,
+  isTitle = false,
 }) => {
   if (loading) {
     return (
@@ -29,7 +27,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
     );
   }
 
-  if (!stationData) {
+  if (!rawData?.station) {
     return (
       <div className="rounded-3xl p-3 xl:p-6 shadow-sm border border-slate-100 flex items-center justify-center text-slate-400 text-sm h-full bg-slate-50 min-h-[300px]">
         <div className="flex flex-col items-center gap-2">
@@ -40,7 +38,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
     );
   }
 
-  const pref = stationData.pref ? resolvePref(stationData.pref) : undefined;
+  const pref = rawData.station.pref ? resolvePref(rawData.station.pref) : undefined;
   const region = pref?.region;
 
   return (
@@ -52,12 +50,11 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({
       />
 
       <InfoHeader
-        stationData={stationData}
-        climateData={climateData}
+        rawData={rawData}
         isTitle={isTitle}
       />
 
-      <MetricGrid climateData={climateData} />
+      <MetricGrid rawData={rawData} />
     </div>
   );
 };

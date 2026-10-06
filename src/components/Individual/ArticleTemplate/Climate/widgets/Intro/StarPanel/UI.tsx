@@ -53,7 +53,7 @@ export const ArticleClimateStarPanel: React.FC<ArticleClimateStarPanelProps> = (
       {isOpen && (
         <div className="p-3.5 xl:p-4 border-t border-slate-200/60 bg-slate-50/40">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {items.map(({ meta, repStar, maxStars, rangeText, label }) => {
+            {items.map(({ meta, repStar, maxStars, rangeText, label, hasData }) => {
               return (
                 <div
                   key={meta.key}
@@ -64,7 +64,7 @@ export const ArticleClimateStarPanel: React.FC<ArticleClimateStarPanelProps> = (
                     <div className="flex items-center gap-1 min-w-0">
                       <span
                         className="text-xs shrink-0 p-0.5 rounded bg-slate-50 border border-slate-200/60"
-                        style={{ color: meta.color }}
+                        style={{ color: hasData ? meta.color : "#94a3b8" }}
                       >
                         {meta.icon || meta.high?.icon}
                       </span>
@@ -73,8 +73,12 @@ export const ArticleClimateStarPanel: React.FC<ArticleClimateStarPanelProps> = (
                       </span>
                     </div>
                     <span
-                      className="text-[9.5px] font-black px-1.5 py-0.5 rounded-md bg-slate-50 border border-slate-200/80 shrink-0 truncate max-w-[55%]"
-                      style={{ color: meta.color }}
+                      className={`text-[9.5px] font-black px-1.5 py-0.5 rounded-md border shrink-0 truncate max-w-[55%] ${
+                        hasData
+                          ? "bg-slate-50 border-slate-200/80"
+                          : "bg-slate-100/70 text-slate-400 border-slate-200/60"
+                      }`}
+                      style={hasData ? { color: meta.color } : undefined}
                       title={label}
                     >
                       {label}
@@ -83,18 +87,31 @@ export const ArticleClimateStarPanel: React.FC<ArticleClimateStarPanelProps> = (
 
                   {/* 星 ＋ 数値（中央寄せ） */}
                   <div className="flex items-center justify-center pt-2 pb-0.5 border-t border-slate-100">
-                    <div className="flex items-center gap-1">
-                      <FaStar className="text-xs shrink-0" style={{ color: meta.color }} />
-                      <span className="text-xs font-black font-mono text-slate-800">
-                        {repStar}
-                      </span>
-                      <span className="text-[10px] font-bold font-mono text-slate-400">
-                        /{maxStars}
-                      </span>
-                      <span className="text-[10px] font-medium font-mono text-slate-500 ml-1">
-                        {rangeText}
-                      </span>
-                    </div>
+                    {hasData && repStar != null ? (
+                      <div className="flex items-center gap-1">
+                        <FaStar className="text-xs shrink-0" style={{ color: meta.color }} />
+                        <span className="text-xs font-black font-mono text-slate-800">
+                          {repStar}
+                        </span>
+                        <span className="text-[10px] font-bold font-mono text-slate-400">
+                          /{maxStars}
+                        </span>
+                        {rangeText && (
+                          <span className="text-[10px] font-medium font-mono text-slate-500 ml-1">
+                            {rangeText}
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1 text-slate-400">
+                        <span className="text-xs font-black font-mono text-slate-400">
+                          -
+                        </span>
+                        <span className="text-[10px] font-bold font-mono text-slate-300">
+                          /{maxStars}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               );

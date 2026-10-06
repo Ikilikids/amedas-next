@@ -20,6 +20,6 @@ export const yamanashiData: ClimateArticleData = {
     "勝沼や甲府における夏季のフェーン酷暑",
     "富士北麓の冬季極低温と南岸低気圧大雪",
   ],
-  uonzuList: ["甲府", "河口湖", "勝沼"],
+  uonzuList: ["49142", "49251", "49151"],
 };
 

@@ -1,55 +1,33 @@
 import { RawData, RawStationData } from "../../../../../../types/raw";
 import { StationId } from "../../../../../../types/union";
-import { RegionValue } from "../../../../../../setting/region";
+import { RegionValue, REGION_LIST, RegionKey } from "../../../../../../setting/region";
 import { PrefValue, getPrefsInRegion } from "../../../../../../setting/pref";
 import { getAreasInPref } from "../../../../../../setting/area";
 import { CategoryKey, CategoryValue } from "../../../../../../setting/category";
-import { ArticleUonzuItem } from "../../../../../../utils/ssgLoader";
 import { ClimateArticleData } from "../../../../../../data/types";
-
-export interface IntroComputedData {
-  uonzuItems: ArticleUonzuItem[];
-}
-
-export function computeIntroData(
-  stationsMap: Record<StationId, RawData>,
-  uonzuNames?: string[]
-): IntroComputedData {
-  // 代表雨温図の抽出
-  const nameSet = new Set(uonzuNames || []);
-  const uonzuItems: ArticleUonzuItem[] = Object.values(stationsMap)
-    .filter((st) => st.station.station_name && nameSet.has(st.station.station_name))
-    .map((st) => ({
-      id: st.station.id ?? "",
-      name: st.station.station_name || "",
-      rawUonzu: st.climateData || {},
-    }));
-
-  return {
-    uonzuItems,
-  };
-}
 
 export interface ChildSectionItem extends ClimateArticleData {
   key: string;
   name: string;
+  color?: string;
   targetPrefCodes: readonly string[];
   representativeStationId?: string;
   linkHref?: string;
   linkLabel?: string;
   stationLinks?: { id: string; name: string; category?: string }[];
+  prefLinks?: { key: string; label: string; href: string }[];
 }
 
 /**
- * 地方なら配下の各県カルテ情報、県なら管轄下の各エリア情報を生成する
+ * 全国なら各地方、地方なら配下の各県、県なら管轄下の各エリア情報を生成する
  */
 export function getChildSectionList(
-  isPref: boolean,
-  regionKey: RegionValue,
-  prefKey?: PrefValue,
-  stationsMap?: Record<StationId, RawData>
+  regionKey?: RegionValue | null,
+  prefKey?: PrefValue | null,
+  stationsMap?: Record<StationId, RawData>,
+  childArticles?: Record<string, ClimateArticleData>
 ): ChildSectionItem[] {
-  if (isPref && prefKey) {
+  if (prefKey) {
     return getAreasInPref(prefKey).map((area) => {
       let stationLinks: { id: string; name: string; category?: string }[] = [];
       if (stationsMap) {
@@ -69,10 +47,13 @@ export function getChildSectionList(
         }));
       }
 
+      const article = childArticles?.[area.key];
+
       return {
         key: area.key,
         name: area.label,
-        ...area.detail,
+        color: area.pref.region.colorStrong,
+        ...(article || ({} as ClimateArticleData)),
         targetPrefCodes: [],
         representativeStationId: area.representativeStationId,
         stationLinks,
@@ -81,18 +62,47 @@ export function getChildSectionList(
   }
 
   // 地方の場合: 同地方内の各県カルテ
-  const prefsInRegion = getPrefsInRegion(regionKey);
-  return prefsInRegion
-    .filter((pMeta) => !!pMeta.detail)
-    .map((pMeta) => {
-      return {
-        key: pMeta.key,
-        name: pMeta.label,
-        ...pMeta.detail!,
-        targetPrefCodes: pMeta.code,
-        representativeStationId: pMeta.representativeStationId,
-        linkHref: `/japan/${regionKey}/${pMeta.key}`,
-        linkLabel: `${pMeta.label}の詳しい気候解説・アメダス観測データへ`,
-      };
-    });
+  if (regionKey) {
+    const prefsInRegion = getPrefsInRegion(regionKey);
+    return prefsInRegion
+      .filter((pMeta) => !childArticles || !!childArticles[pMeta.key])
+      .map((pMeta) => {
+        const article = childArticles?.[pMeta.key];
+        return {
+          key: pMeta.key,
+          name: pMeta.label,
+          color: pMeta.region.colorStrong,
+          ...(article || ({} as ClimateArticleData)),
+          targetPrefCodes: pMeta.code,
+          representativeStationId: pMeta.representativeStationId,
+          linkHref: `/japan/${regionKey}/${pMeta.key}`,
+          linkLabel: `${pMeta.label}の詳しい気候解説・アメダス観測データへ`,
+        };
+      });
+  }
+
+  // 全国の場合: 各地方のカルテ一覧 + 所属都道府県リンク
+  return REGION_LIST.map((regKey) => {
+    const regMeta = RegionKey[regKey];
+    const prefs = getPrefsInRegion(regKey);
+    const prefLinks = prefs.map((p) => ({
+      key: p.key,
+      label: p.label,
+      href: `/japan/${regKey}/${p.key}`,
+    }));
+
+    const article = childArticles?.[regKey];
+
+    return {
+      key: regKey,
+      name: regMeta.label,
+      color: regMeta.colorStrong,
+      ...(article || ({} as ClimateArticleData)),
+      targetPrefCodes: prefs.flatMap((p) => p.code),
+      representativeStationId: regMeta.representativeStationId,
+      linkHref: `/japan/${regKey}`,
+      linkLabel: `${regMeta.label}地方の詳しい気候解説・都道府県一覧へ`,
+      prefLinks,
+    };
+  });
 }

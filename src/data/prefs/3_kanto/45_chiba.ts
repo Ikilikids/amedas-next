@@ -20,6 +20,6 @@ export const chibaData: ClimateArticleData = {
     "勝浦など外洋沿岸の夏季猛暑の極小傾向",
     "成田など下総台地内陸の冬季冷え込み",
   ],
-  uonzuList: ["千葉", "勝浦", "館山"],
+  uonzuList: ["45212", "45371", "45401"],
 };
 

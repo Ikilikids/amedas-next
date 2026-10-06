@@ -20,5 +20,5 @@ export const okinawaMiyakoData: ClimateArticleData = {
     "山岳性降雨の少なさと比較的豊富な日照",
     "発達した台風直撃時の極限的暴風記録",
   ],
-  uonzuList: ["宮古島"],
+  uonzuList: ["93041"],
 };

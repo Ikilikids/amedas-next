@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { RankingData } from "./types";
-import { colorWithAlpha } from "../Station/widgets/Ratio/function";
-import { getMetricColor } from "../../../utils/colorUtils";
-import { resolveCategory, resolvePref } from "../../../utils/masterUtils";
+import { RankingData } from "../types";
+import { colorWithAlpha } from "../../Station/widgets/Ratio/function";
+import { getMetricColor } from "../../../../utils/colorUtils";
+import { resolveCategory, resolvePref } from "../../../../utils/masterUtils";
 
 interface RankingCardProps {
   station: RankingData;

@@ -20,6 +20,6 @@ export const iwateData: ClimateArticleData = {
     "三陸沿岸の冬の乾燥晴天と少ない積雪量",
     "初夏から夏に吹く冷涼なやませと濃霧",
   ],
-  uonzuList: ["盛岡", "宮古", "大船渡"],
+  uonzuList: ["33431", "33472", "33877"],
 };
 

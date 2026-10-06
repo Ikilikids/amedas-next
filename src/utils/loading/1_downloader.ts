@@ -1,12 +1,12 @@
 import {
     RawData,
     RawStationData,
-} from "../types/raw";
-import { MonthlyEntry, StationId } from "../types/union";
-import { AssembleKey, AssembleTarget, RankDepth } from "../setting/assemble";
-import { MetricValue } from "../setting/metric";
-import { loadJsonSingleMetric } from "./loadSingleMetric";
-import { calculateRankingEntries } from "./calculateRankingEntries";
+} from "../../types/raw";
+import { MonthlyEntry, StationId } from "../../types/union";
+import { AssembleKey, AssembleTarget, RankDepth } from "../../setting/assemble";
+import { MetricValue } from "../../setting/metric";
+import { loadJsonSingleMetric } from "./2_loadSingleMetric";
+import { calculateRankingEntries } from "./3_calculateRanking";
 
 
 /**
@@ -40,7 +40,8 @@ import { calculateRankingEntries } from "./calculateRankingEntries";
  */
 export async function climateDownload(
     targetConfig: Record<StationId, AssembleTarget[]>,
-    master: Record<StationId, RawStationData>
+    master: Record<StationId, RawStationData>,
+    fields?: (keyof RawStationData)[]
 ): Promise<Record<StationId, RawData>> {
     const result: Record<StationId, RawData> = {};
 
@@ -75,6 +76,18 @@ export async function climateDownload(
             station,
             ...(Object.keys(climateData).length > 0 ? { climateData } : {}),
         };
+    }
+
+    // 最後に fields が指定されている場合のみ、各地点の station データを削る
+    if (fields) {
+        for (const id of Object.keys(result)) {
+            const currentStation = result[id].station;
+            result[id].station = Object.fromEntries(
+                (Object.keys(currentStation) as (keyof RawStationData)[])
+                    .filter((key) => fields.includes(key))
+                    .map((key) => [key, currentStation[key]])
+            ) as RawStationData;
+        }
     }
 
     return result;

@@ -20,5 +20,5 @@ export const shigaData: ClimateArticleData = {
     "琵琶湖の水熱容量による寒暖差の緩和",
     "比良山地や比叡山からの冬の局地吹き下ろし",
   ],
-  uonzuList: ["彦根", "大津", "長浜"],
+  uonzuList: ["60131", "60216", "73256"],
 };

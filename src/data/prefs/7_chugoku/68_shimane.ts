@@ -20,5 +20,5 @@ export const shimaneData: ClimateArticleData = {
     "奥出雲や匹見など山間部の冬季豪雪",
     "対馬暖流による沿岸部の冷え込み緩和",
   ],
-  uonzuList: ["松江", "浜田", "西郷"],
+  uonzuList: ["68132", "68376", "68022"],
 };

@@ -4,14 +4,9 @@ import { FaBookOpen, FaFireAlt, FaTemperatureHigh, FaSun } from "react-icons/fa"
 import { HotArticleData } from "./ssg_function";
 import { HotStationCard } from "./widgets/HotStationCard/UI";
 
-export interface HotArticlePageTemplateProps {
-  data: HotArticleData;
-}
-
-export const HotArticlePageTemplate: React.FC<HotArticlePageTemplateProps> = ({
-  data,
+export const HotArticlePageTemplate: React.FC<HotArticleData> = ({
+  stations,
 }) => {
-  const { stations } = data;
 
   const sections: ArticleSectionItem[] = [
     {

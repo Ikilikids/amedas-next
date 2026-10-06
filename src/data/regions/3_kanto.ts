@@ -39,6 +39,6 @@ export const kantoData: ClimateArticleData = {
     "内陸平野部の危険な猛暑（熊谷・館林）",
     "南岸低気圧通過時の予測困難な大雪リスク",
   ],
-  uonzuList: ["東京", "熊谷", "銚子"],
+  uonzuList: ["44132", "43056", "45148"],
 };
 

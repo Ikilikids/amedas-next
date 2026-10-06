@@ -20,5 +20,5 @@ export const tottoriData: ClimateArticleData = {
     "JPCZ流入による鳥取平野の集中降雪",
     "山越え南風による鳥取平野のフェーン酷暑",
   ],
-  uonzuList: ["鳥取", "米子", "大山"],
+  uonzuList: ["69122", "69076", "69152"],
 };

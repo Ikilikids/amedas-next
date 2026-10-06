@@ -8,18 +8,16 @@ import InfoPanel from "../components/common/InfoPanel";
 import { useStationDetail } from "../hooks/useStationDetail";
 import { StationId } from "../types/union";
 import { RawStationData } from "../types/raw";
-import { loadMaster } from "../utils/climateDataManager";
-import { resolvePref } from "../utils/masterUtils";
+import { loadMaster } from "../utils/loading/0_stationData";
 
-interface Props {
+type MapPageProps = {
   masterData: Record<StationId, RawStationData>;
-}
+};
 
-const MapPage: NextPage<Props> = ({ masterData }) => {
-
+const MapPage: NextPage<MapPageProps> = ({ masterData }) => {
   const [selectedStation, setSelectedStation] = useState<StationId | null>(null);
 
-  const { stationData, climateData, loading } = useStationDetail(
+  const { rawData, loading } = useStationDetail(
     selectedStation,
     masterData
   );
@@ -27,9 +25,6 @@ const MapPage: NextPage<Props> = ({ masterData }) => {
   const handleStationClick = useCallback((s: { id: StationId }) => {
     setSelectedStation(s.id);
   }, []);
-
-  const pref = stationData?.pref ? resolvePref(stationData.pref) : undefined;
-  const regionStrong = pref?.region?.colorStrong || "#10b981";
 
   return (
     <Layout
@@ -42,47 +37,47 @@ const MapPage: NextPage<Props> = ({ masterData }) => {
       breadcrumbs={[
         { label: "マップから探す" },
       ]}
-        heroProps={{
-          badgeIcon: <FaMapLocationDot />,
-          badgeText: "Interactive Map",
-          title: "マップから探す",
-          description: "地図上のピンをクリックすると、選択した観測所の基本データや平年値サマリーが表示されます。",
-          watermark: "MAP",
-          gradient: "bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600",
-        }}
-        sections={[
-          {
-            id: "map-section",
-            label: "全国アメダス観測所マップ",
-            subLabel: "ピンをクリックして地点を選択できます。",
-            accentColor: "#10b981",
-            children: (
-              <div className="flex flex-col xl:flex-row gap-6 items-stretch">
-                {/* 地図コンテナ: 通常280px、xlで2倍の560px */}
-                <div className="w-full xl:w-1/2 h-[280px] xl:h-[560px] rounded-2xl overflow-hidden border border-slate-100 shrink-0">
-                  <StationMap
-                    onStationClick={handleStationClick}
-                  />
-                </div>
-
-                {/* 地点詳細パネル: 通常は下、xlで右側に横並び */}
-                <div className="w-full xl:w-1/2 flex flex-col">
-                  <InfoPanel
-                    stationData={stationData}
-                    climateData={climateData}
-                    loading={loading}
-                    isTitle={true}
-                  />
-                </div>
+      heroProps={{
+        badgeIcon: <FaMapLocationDot />,
+        badgeText: "Interactive Map",
+        title: "マップから探す",
+        description: "地図上のピンをクリックすると、選択した観測所の基本データや平年値サマリーが表示されます。",
+        watermark: "MAP",
+        gradient: "bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600",
+      }}
+      sections={[
+        {
+          id: "map-section",
+          label: "全国アメダス観測所マップ",
+          subLabel: "ピンをクリックして地点を選択できます。",
+          accentColor: "#10b981",
+          children: (
+            <div className="flex flex-col xl:flex-row gap-6 items-stretch">
+              {/* 地図コンテナ: 通常280px、xlで2倍の560px */}
+              <div className="w-full xl:w-1/2 h-[280px] xl:h-[560px] rounded-2xl overflow-hidden border border-slate-100 shrink-0">
+                <StationMap
+                  stationsMap={masterData}
+                  onStationClick={handleStationClick}
+                />
               </div>
-            ),
-          },
-        ]}
-      />
+
+              {/* 地点詳細パネル: 通常は下、xlで右側に横並び */}
+              <div className="w-full xl:w-1/2 flex flex-col">
+                <InfoPanel
+                  rawData={rawData}
+                  loading={loading}
+                  isTitle={true}
+                />
+              </div>
+            </div>
+          ),
+        },
+      ]}
+    />
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<MapPageProps> = async () => {
   const masterData = loadMaster();
   return {
     props: {
