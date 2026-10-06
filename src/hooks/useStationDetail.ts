@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RawMonthlyData, RawStationData } from "../types/raw";
+import { RawData, RawMonthlyData, RawStationData } from "../types/raw";
 import { StationId } from "../types/union";
 import { climateDownload } from "../utils/loading/1_downloader";
 
