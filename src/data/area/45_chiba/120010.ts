@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_120010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "銚子半島の通年卓越海洋性と北総台地の内陸冷え",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "太平洋に突き出た銚子半島から九十九里北部、北総台地（成田・香取）を包括するエリアです。",
+    "親潮と黒潮が交差する銚子周辺は極めて強い海洋性気候を示し、",
+    "夏は25℃前後の海風で極めて涼しく、冬は霜が降りないほど温暖です。",
+    "一方、内陸部の北総台地（成田市など）は放射冷却が強く、",
+    "冬の朝晩は氷点下に冷え込み、夏は日射により35℃近くまで昇温するなど対照的な気候を示します。",
   ],
-  highlights: [],
+  highlights: [
+    "銚子半島における夏涼しく冬暖かい純海洋性",
+    "親潮と黒潮がぶつかる沿岸の卓越した強風",
+    "北総台地（成田等）の内陸性による冬の冷え込み",
+  ],
 };

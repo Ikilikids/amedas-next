@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_380010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "松山平野の温暖少雨と道後温泉の穏やかな気候",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "道後平野（松山市、伊予市、東温市）および伊予灘沿岸を包括する中予エリアです。",
+    "瀬戸内海（伊予灘）に面し、四国山地を背負うため、年間を通じて雨が少なく温暖な気候です。",
+    "冬季は日照時間が長く、積雪を見ることは極めて稀です。",
+    "松山市街地は都市化に伴い熱帯夜が増加傾向にあります。",
+    "夏季は穏やかな瀬戸内海からの海風が入りますが、夕方には夕凪により気温が下がりにくくなります。",
   ],
-  highlights: [],
+  highlights: [
+    "瀬戸内海伊予灘に面する年間を通じた温暖少雨",
+    "四国山地の遮蔽による冬期の卓越した晴天",
+    "松山平野における夏期の夕凪と熱帯夜の発生",
+  ],
 };

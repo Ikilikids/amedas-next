@@ -1,14 +1,16 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_310020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "名峰大山の西日本屈指の山岳豪雪と弓ヶ浜の海洋性",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "米子平野、弓ヶ浜半島（境港市）、倉吉盆地および名峰大山山麓（大山町・江府町など）を包括するエリアです。",
+    "中国地方最高峰の大山（標高1729m）がそびえ、日本海の雪雲を直接受け止めるため、",
+    "大山山頂・スキー場周辺は積雪が2メートルから3メートル前後に達する西日本屈指の山岳豪雪地帯です。",
+    "一方、中海と日本海に挟まれた境港市や米子市街地は海洋性気候のため、根雪になることは比較的少なめです。",
   ],
-  highlights: [],
+  highlights: [
+    "中国地方最高峰大山における積雪3m前後の山岳豪雪",
+    "境港・中海沿岸における対馬暖流の海洋性気候",
+    "倉吉盆地における寒暖差と冬期の降雪環境",
+  ],
 };

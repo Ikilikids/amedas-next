@@ -1,4 +1,4 @@
-import { RawData } from "../../../../../../types/raw";
+import { RawData, RawStationData } from "../../../../../../types/raw";
 import { StationId } from "../../../../../../types/union";
 import { METRIC_LIST, MetricKey, MetricValue } from "../../../../../../setting/metric";
 import { resolvePref } from "../../../../../../utils/masterUtils";
@@ -7,13 +7,7 @@ export interface RegionTop1Item {
   metric: string;
   isHigh: boolean;
   label: string;
-  station: {
-    id: string;
-    stationName: string;
-    prefName: string;
-    city: string;
-    category: string;
-  };
+  station: RawStationData;
   value: number;
   nationalRank: number;
 }
@@ -61,13 +55,7 @@ export function extractTop1Stations(
       metric: cfg.metric,
       isHigh: cfg.isHigh,
       label: cfg.label,
-      station: {
-        id: top.id,
-        stationName: top.station.station_name || "",
-        prefName: resolvePref(top.station.pref || "")?.label || "",
-        city: top.station.city || "",
-        category: top.station.category || "amedas",
-      },
+      station: top.station,
       value: top.val,
       nationalRank: top.nationalRank,
     });

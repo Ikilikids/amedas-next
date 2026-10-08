@@ -1,14 +1,16 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_390020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "室戸岬の黒潮直撃周年強風と魚梁瀬の年間4000mm多雨",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "太平洋に鋭く突き出た室戸岬、室戸市、安芸市、北川村（魚梁瀬）を包括する東部エリアです。",
+    "室戸岬は黒潮の直撃を受けるため真冬でも極めて温暖ですが、年中強風が吹き荒れる日本屈指の風の名所です。",
+    "北部の魚梁瀬山間部は年間降水量が4000ミリを超える日本有数の多雨地帯で、",
+    "台風接近時には猛烈な豪雨と高波に見舞われます。",
   ],
-  highlights: [],
+  highlights: [
+    "太平洋に突き出た室戸岬の周年卓越する強風",
+    "魚梁瀬地域を中心とする年間降水量4000mm超の雨",
+    "黒潮の恩恵を受ける真冬の無霜・亜熱帯性気候",
+  ],
 };

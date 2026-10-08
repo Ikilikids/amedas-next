@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_110030: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "盆地特有の大きな寒暖差と南岸低気圧の降雪",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "埼玉県西部の秩父盆地および周辺山岳地帯を包括するエリアです。",
+    "周囲を山々に囲まれた盆地地形のため内陸性の気候が顕著で、",
+    "昼夜の気温差（日較差）や夏冬の寒暖差（年較差）が県内で最も大きくなります。",
+    "冬の朝晩は氷点下に冷え込む日が多く、",
+    "関東南岸を低気圧が通過する際には平野部が雨でもまとまった積雪となることがあります。",
   ],
-  highlights: [],
+  highlights: [
+    "秩父盆地特有の極めて大きな日較差",
+    "冬の厳しい冷え込みと氷点下の朝",
+    "南岸低気圧通過時に発生するまとまった雪",
+  ],
 };

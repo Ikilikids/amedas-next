@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_130040: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "年間常夏の亜熱帯海洋性気候と顕著な少雨傾向",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "東京の南約1,000kmの太平洋上に位置する父島や母島などを包括するエリアです。",
+    "北回帰線近くに位置するため完全な亜熱帯気候を呈し、",
+    "最寒月でも平均気温が18℃を超え一年を通じて冬が訪れません。",
+    "海洋性の特徴から日較差が極めて小さく、",
+    "一方で梅雨前線が北上するため本州や南西諸島と比べて年間降水量は1,300mm程度と少なめです。",
   ],
-  highlights: [],
+  highlights: [
+    "最寒月でも18℃以上の年間常夏な亜熱帯",
+    "年間を通じて極めて小さい昼夜の寒暖差",
+    "梅雨前線の影響を受けにくい独自の少雨",
+  ],
 };

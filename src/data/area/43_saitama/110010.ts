@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_110010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "都市化と内陸性が交錯する温暖乾燥な平野部",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "埼玉県南部に位置するさいたま市や川口市、川越市などを包括するエリアです。",
+    "東京都心に近接する平野部であり、",
+    "全域が太平洋側気候に属し年間を通じて温暖で降水量は比較的少なめです。",
+    "冬期はからっ風により連日乾燥した快晴が広がり、",
+    "夏期は強い日射と都市化の影響により日中の気温が上昇し熱帯夜も発生しやすくなります。",
   ],
-  highlights: [],
+  highlights: [
+    "都心近接の平野部に広がる温暖な気候",
+    "冬の卓越した快晴日数と極度の乾燥",
+    "強い日射と都市化に伴う夏季の高温",
+  ],
 };

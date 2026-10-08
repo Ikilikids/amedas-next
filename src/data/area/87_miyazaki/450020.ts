@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_450020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "延岡・日向沿岸の黒潮温暖気候と山越えフェーン猛暑",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "日向灘北部沿岸に位置する延岡市、日向市、門川町を包括する北部平野部エリアです。",
+    "黒潮が洗うリアス海岸と平野部が広がり、冬は日照に恵まれた温和な気候が続きます。",
+    "ただし西側背後に険しい祖母傾山系や九州山地が迫っているため、",
+    "夏季に西風や南西風が吹く際には強烈なフェーン現象が発生し、",
+    "延岡市街地などで九州最高クラスの猛暑日を記録することがあります。",
   ],
-  highlights: [],
+  highlights: [
+    "日向灘沿岸における冬期の温暖多照な海洋性気候",
+    "九州山地越えの西風による延岡のフェーン猛暑",
+    "背後の山地にぶつかる台風による激しい雨",
+  ],
 };

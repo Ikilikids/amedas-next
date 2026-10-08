@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_440020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "周防灘・国東半島の瀬戸内少雨と冬の北西季節風",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "周防灘に面する中津市、宇佐市、豊後高田市、国東市、姫島村を包括する北部エリアです。",
+    "瀬戸内海に開けた地形のため九州の中では年間降水量が最も少ない地域の一つです。",
+    "冬季は関門海峡・周防灘を渡って吹き込む北西季節風により雲が広がりやすく、",
+    "気温が上がりにくい日がありますが、積雪となることは稀です。",
+    "国東半島の中央部（両子山周辺）は山岳気候を示します。",
   ],
-  highlights: [],
+  highlights: [
+    "周防灘に面する九州屈指の年間少雨地帯",
+    "国東半島に吹き付ける冬期の北西季節風",
+    "平野部における日照豊富で穏やかな気候",
+  ],
 };

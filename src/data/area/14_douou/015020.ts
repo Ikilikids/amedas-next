@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_015020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "日高山脈南西斜面の太平洋気候と日照豊富・少雪",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "日高山脈の南西麓から太平洋沿岸（襟裳岬周辺）にかけて広がる日高エリアです。",
+    "峻険な日高山脈が北西からの雪雲を完全に遮るため、",
+    "冬季は道内でも屈指の晴天率と日照時間の長さを誇ります。",
+    "降雪量は極めて少なく積雪も薄い傾向にあります。",
+    "太平洋に突き出た襟裳岬周辺は年中強烈な風が吹き荒れる強風地域です。",
+    "夏季は太平洋からの海霧の流入により冷涼な気候が続きます。",
   ],
-  highlights: [],
+  highlights: [
+    "日高山脈による遮蔽に伴う冬の高日照と少雪",
+    "襟裳岬を中心とする日本屈指の周年強風環境",
+    "夏期の海霧による沿岸の冷涼な気候",
+  ],
 };

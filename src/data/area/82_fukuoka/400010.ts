@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_400010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "玄界灘の冬期季節風と都市ヒートアイランド",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "福岡県北西部に位置する福岡市や糸島市、宗像市などを包括するエリアです。",
+    "北西の玄界灘に開けた地形のため冬期はシベリア寒気団からの季節風が直接吹き付け、",
+    "雲が広がりやすく日照時間が大きく減少します。",
+    "一方、福岡市中心部は人口集中と都市化によるヒートアイランド現象が顕著で、",
+    "真冬でも氷点下に下がりにくい一方で夏季は熱帯夜が非常に多くなります。",
   ],
-  highlights: [],
+  highlights: [
+    "玄界灘からの北西季節風と冬の曇天多発",
+    "都心ヒートアイランドによる夜間の高温",
+    "冬の冷え込みにくさと夏季の極端な熱帯夜",
+  ],
 };

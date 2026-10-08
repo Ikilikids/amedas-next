@@ -1,16 +1,9 @@
 import { StationId } from "../types/union";
 
-export interface ClimateSection {
-  title?: string;
-  content: string[];
-  isSummary?: boolean;
-}
+export type { StationId };
 
 export interface ClimateArticleData {
   catchphrase: string;
-  climateType: string;
-  heroDescription: string;
-  description: ClimateSection[];
+  description: string[];
   highlights: string[];
-  uonzuList?: StationId[];
 }

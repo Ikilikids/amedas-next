@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_474020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "日本最西端の国境孤島と黒潮・台風直撃の卓越強風",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "日本最西端に位置する孤島・与那国島（与那国町）全域を包括するエリアです。",
+    "台湾まで約110kmの位置にあり、黒潮本流が島を洗うため真冬でも極めて温暖です。",
+    "遮るもののない大海原に孤立しているため、年間平均風速が約6m/sと極めて風が強く、",
+    "北風が吹き荒れる冬場は強い波浪と海風にさらされます。",
+    "台風シーズンには最盛期の超大型・猛烈な台風が直撃し、最大瞬間風速70m/s前後の記録的な暴風に見舞われます。",
   ],
-  highlights: [],
+  highlights: [
+    "日本最西端の国境孤島に位置する亜熱帯気候",
+    "年間を通じて吹き抜ける海洋性の卓越強風",
+    "超大型・猛烈な台風直撃による記録的な暴風",
+  ],
 };

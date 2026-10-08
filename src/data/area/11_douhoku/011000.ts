@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_011000: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "亜寒帯の強風と冬季の極端な寡照・冷涼な夏",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "北海道最北端に位置し、日本海とオホーツク海に挟まれた宗谷地方全域を管轄するエリアです。",
+    "周囲を海に囲まれているため年間を通じて強風が卓越する傾向にあります。",
+    "冬季はシベリア高気圧からの季節風が直接吹き付け、",
+    "雪雲に覆われて日照時間が著しく減少します。",
+    "夏季はオホーツク海高気圧による冷湿な気流の影響を受けやすく、",
+    "気温の上昇が極めて限定的で冷涼な夏となります。",
   ],
-  highlights: [],
+  highlights: [
+    "日本最北端に位置する強風と冷涼な気候",
+    "冬期のシベリア寒気による極端な寡照",
+    "オホーツク海気団の影響による冷涼な夏季",
+  ],
 };

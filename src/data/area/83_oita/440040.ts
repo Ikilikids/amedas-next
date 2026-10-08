@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_440040: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "豊後水道リアス海岸の黒潮温暖気候と台風の多雨",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "豊後水道に面する佐伯市、臼杵市、津久見市など大分県南部沿岸を包括するエリアです。",
+    "リアス海岸が発達し、日向灘から豊後水道へ流れ込む黒潮の暖水の影響を強く受けるため、",
+    "冬は極めて温暖で霜が降りる日数もごくわずかです。",
+    "一方、太平洋からの暖湿気流が祖母傾山系などの急峻な山岳にぶつかるため、",
+    "台風や梅雨期には激しい豪雨が観測される多雨地域でもあります。",
   ],
-  highlights: [],
+  highlights: [
+    "豊後水道沿岸の黒潮暖流による極めて温暖な冬",
+    "リアス海岸特有の穏やかな入り江と無霜地帯",
+    "台風や梅雨前線による山沿いの集中豪雨",
+  ],
 };

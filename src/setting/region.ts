@@ -18,7 +18,6 @@ export type RegionMeta = {
   label: string;
   colorBase: string;
   colorStrong: string;
-  representativeStationId?: string;
 };
 
 type RegionMap = Record<RegionValue, RegionMeta>;
@@ -32,7 +31,6 @@ export const RegionKey = {
     label: "北海道",
     colorBase: "#8e86d4b3",
     colorStrong: "#493acf",
-    representativeStationId: "14163", // 札幌
   },
 
   tohoku: {
@@ -40,7 +38,6 @@ export const RegionKey = {
     label: "東北",
     colorBase: "#32bfccb3",
     colorStrong: "#3db1d1",
-    representativeStationId: "34392", // 仙台
   },
 
   kanto: {
@@ -48,7 +45,6 @@ export const RegionKey = {
     label: "関東",
     colorBase: "#6dbd8bb3",
     colorStrong: "#2eb160",
-    representativeStationId: "44132", // 東京
   },
 
   hokuriku: {
@@ -56,7 +52,6 @@ export const RegionKey = {
     label: "北陸",
     colorBase: "#c8c850b3",
     colorStrong: "#a0a014",
-    representativeStationId: "54232", // 新潟
   },
 
   chubu: {
@@ -64,7 +59,6 @@ export const RegionKey = {
     label: "中部",
     colorBase: "#99cc69b3",
     colorStrong: "#82cc3c",
-    representativeStationId: "51106", // 名古屋
   },
 
   kinki: {
@@ -72,7 +66,6 @@ export const RegionKey = {
     label: "近畿",
     colorBase: "#ecad72b3",
     colorStrong: "#e98e3a",
-    representativeStationId: "62078", // 大阪
   },
 
   chugoku: {
@@ -80,7 +73,6 @@ export const RegionKey = {
     label: "中国",
     colorBase: "#c575ddb3",
     colorStrong: "#b741db",
-    representativeStationId: "67437", // 広島
   },
 
   shikoku: {
@@ -88,7 +80,6 @@ export const RegionKey = {
     label: "四国",
     colorBase: "#e982bbb3",
     colorStrong: "#e4459c",
-    representativeStationId: "72086", // 高松
   },
 
   kyushu: {
@@ -96,7 +87,6 @@ export const RegionKey = {
     label: "九州",
     colorBase: "#ec7e7eb3",
     colorStrong: "#f03a3a",
-    representativeStationId: "82182", // 福岡
   },
 
   okinawa: {
@@ -104,7 +94,6 @@ export const RegionKey = {
     label: "沖縄",
     colorBase: "#c8a0a0b3",
     colorStrong: "#c86478",
-    representativeStationId: "91197", // 那覇
   },
 } satisfies RegionMap;
 

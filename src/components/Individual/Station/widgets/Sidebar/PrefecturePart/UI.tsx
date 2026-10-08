@@ -15,6 +15,7 @@ interface StationGridProps {
   list: RawStationData[];
   icon: React.ReactNode;
   showIcon?: boolean;
+  showPrefIcon?: boolean;
   hoverColorMode?: "category" | "region";
 }
 
@@ -23,6 +24,7 @@ const StationGrid: React.FC<StationGridProps> = ({
   list,
   icon,
   showIcon = true,
+  showPrefIcon = false,
   hoverColorMode = "category",
 }) => (
   <div className="mb-6 last:mb-0">
@@ -65,6 +67,15 @@ const StationGrid: React.FC<StationGridProps> = ({
               } as React.CSSProperties
             }
           >
+            {showPrefIcon && pref?.icon && (
+              <span
+                className="text-sm shrink-0"
+                style={{ color: pref.region?.colorStrong }}
+              >
+                {pref.icon}
+              </span>
+            )}
+
             {showIcon && category && (
               <span
                 className="text-base shrink-0"
@@ -108,6 +119,7 @@ export const PrefecturePart: React.FC<PrefecturePartProps> = ({
           list={sortedMeteo}
           icon={<FaGlobeAsia />}
           showIcon={false}
+          showPrefIcon={true}
           hoverColorMode="region"
         />
       )}

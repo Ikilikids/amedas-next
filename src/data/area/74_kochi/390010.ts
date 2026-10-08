@@ -1,14 +1,16 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_390010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "高知平野の南国土佐の温暖多照と四国山地の超多雨",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "高知平野（高知市、南国市、土佐市、香南市、香美市）を包括する中部エリアです。",
+    "太平洋（土佐湾）に面し、北の四国山地が寒気を遮断するため、日照時間が年間を通じて極めて豊富です。",
+    "真冬でも日中は15℃近くまで上昇する温暖な「南国土佐」の気候を誇ります。",
+    "ただし台風や梅雨前線の活動時は四国山地に南風が衝突し、短時間で数百ミリの猛烈な雨が降る多雨地帯でもあります。",
   ],
-  highlights: [],
+  highlights: [
+    "土佐湾に面する年間を通じて極めて高い日照時間",
+    "四国山地の寒気遮断による真冬の温暖な気候",
+    "暖湿気流衝突時に発生する記録的集中豪雨",
+  ],
 };

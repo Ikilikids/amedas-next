@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_013010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "流氷接岸と冬季寡雨・オホーツク海特有の寒冷乾燥",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "オホーツク海東部沿岸および知床半島西岸に面する網走エリアです。",
+    "真冬には流氷が沿岸へ接岸し気温の低下と水蒸気供給の減少を引き起こします。",
+    "このため冬季の降水量は北海道内でも極めて少ない水準となります。",
+    "春から初夏にかけてはオホーツク海高気圧による北東風が冷気をもたらし、",
+    "一方で初夏から真夏に南西風が山越えとなる際はフェーン現象で急激に昇温します。",
   ],
-  highlights: [],
+  highlights: [
+    "厳冬期の流氷接岸とそれに伴う寒冷乾燥",
+    "冬季降水量が極めて少ないオホーツク海気候",
+    "南西風によるフェーン現象と急激な昇温",
+  ],
 };

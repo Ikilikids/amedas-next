@@ -117,7 +117,7 @@ const RealtimePage: NextPage<Props> = ({ masterData }) => {
               <div className="flex flex-col gap-10">
                 {prefsInRegion.map((pref) => {
                   const stationsInPref = stations
-                    .filter((s) => s.pref && pref.code.includes(s.pref))
+                    .filter((s) => s.pref && pref.code === s.pref)
                     .sort(
                       (a, b) =>
                         ((a.category ? resolveCategory(a.category)?.value : 99) || 99) -

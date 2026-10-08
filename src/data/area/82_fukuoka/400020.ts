@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_400020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "響灘・周防灘に挟まれた海峡の強風と冬季曇天",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "福岡県北東部に位置する北九州市や行橋市、豊前市などを包括するエリアです。",
+    "北の響灘と東の周防灘の双方に面する関門海峡付近の地形的要衝で、",
+    "冬期は響灘からの北西季節風により雲が多く日照時間が短くなります。",
+    "東部の周防灘沿岸へ向かうほど瀬戸内海式気候の特性を帯び、",
+    "県内他地域と比べて年間の降水量が比較的少なめになる傾向があります。",
   ],
-  highlights: [],
+  highlights: [
+    "響灘からの冬期季節風による曇天と強風",
+    "関門海峡周辺の地形が生み出す海風特性",
+    "周防灘沿岸に見られる県内での少雨傾向",
+  ],
 };

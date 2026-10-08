@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_016020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "石狩平野内陸部の顕著な豪雪と夏季の温暖多照",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "石狩平野の中央部から夕張山地西麓にかけて広がる空知エリアです。",
+    "西の日本海から吹き抜ける北西季節風の雪雲が夕張山地に遮られるため、",
+    "岩見沢や美唄など平野部から山沿いにかけて記録的な豪雪地帯が形成されます。",
+    "冬季は積雪深が2メートル前後に達することもあります。",
+    "内陸部のため夏季は気温がしっかりと上昇し、",
+    "日照時間が長く農業に適した温暖な夏となるのも特徴です。",
   ],
-  highlights: [],
+  highlights: [
+    "夕張山地西麓における冬期の記録的豪雪",
+    "平野部から山沿いにかけての長期間の深い積雪",
+    "内陸性により夏は気温が上がり日照も豊富",
+  ],
 };

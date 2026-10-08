@@ -10,17 +10,26 @@ import { StationId } from "../../../../types/union";
 export const ClimateUonzuAccordion: React.FC<{
   title?: string;
   stationsMap: Record<StationId, RawData>;
+  stationIds?: string[];
   accentColor?: string;
   defaultOpen?: boolean;
 }> = ({
   title = "代表地点の雨温図（平年値）",
   stationsMap,
+  stationIds,
   accentColor = "#2563eb",
   defaultOpen = true,
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-  const items = Object.values(stationsMap);
+  const items = useMemo(() => {
+    if (stationIds && stationIds.length > 0) {
+      return stationIds
+        .map((id) => stationsMap[id])
+        .filter((item): item is RawData => Boolean(item));
+    }
+    return Object.values(stationsMap);
+  }, [stationsMap, stationIds]);
 
   if (items.length === 0) return null;
 

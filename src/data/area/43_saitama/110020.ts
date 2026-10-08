@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_110020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "全国屈指の猛暑記録と冬の強烈なからっ風",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "埼玉県北部に位置する熊谷市や寄居町、鴻巣市、鳩山町などを包括するエリアです。",
+    "利根川流域や比企丘陵周辺に広がる内陸平野部で、",
+    "夏期は強い日射と山越え暖気の流入により熊谷や鳩山などで40℃前後に達する日本有数の猛暑地帯を形成します。",
+    "冬期は赤城山方面から吹き下ろす冷たく強い乾燥風（赤城おろし）が吹き荒れ、",
+    "厳しい冷え込みと極端な乾燥が続きます。",
   ],
-  highlights: [],
+  highlights: [
+    "熊谷や鳩山を中心とする日本屈指の猛暑地帯",
+    "赤城おろしが吹き荒れる冬の強風と寒さ",
+    "極めて乾燥した冬の卓越した快晴率",
+  ],
 };

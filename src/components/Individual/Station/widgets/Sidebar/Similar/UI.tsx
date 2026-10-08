@@ -1,7 +1,6 @@
 import React from "react";
 import { FaBuilding, FaLayerGroup } from "react-icons/fa";
 import { RawSimilarStationData } from "../../../../../../types/raw";
-import { resolveCategory, resolvePref } from "../../../../../../utils/masterUtils";
 import StationListItem from "../StationListItem/UI";
 import { getTopSimilarStations } from "./function";
 
@@ -30,30 +29,11 @@ const StationList: React.FC<StationListProps> = ({
     </div>
 
     <ul className="flex flex-col gap-2">
-      {getTopSimilarStations(items).map((item, index) => {
-        const pref = item.pref ? resolvePref(item.pref) : undefined;
-        const category = item.category ? resolveCategory(item.category) : undefined;
-
-        return (
-          <li key={item.id}>
-            <StationListItem
-              id={item.id!}
-              rank={index + 1}
-              name={item.station_name || ""}
-              prefLabel={pref?.label}
-              prefColor={pref?.region?.colorStrong}
-              city={item.city}
-              icon={category?.icon}
-              categoryColor={category?.colorFull}
-              value={item.similar != null ? (item.similar * 100).toFixed(1) : "--"}
-              unit="%"
-              valueLabel="類似度"
-              href={`/station/${item.id}`}
-              isSimple
-            />
-          </li>
-        );
-      })}
+      {getTopSimilarStations(items).map((item, index) => (
+        <li key={item.id}>
+          <StationListItem item={item} rank={index + 1} />
+        </li>
+      ))}
     </ul>
   </div>
 );

@@ -78,10 +78,11 @@ export const RankingCard: React.FC<RankingCardProps> = ({
           {pref?.label && (
             <div className="flex items-center gap-1 mt-0.5">
               <span
-                className="text-[10px] font-bold px-1.5 py-0.2 rounded text-white inline-block shadow-xs"
+                className="text-[10px] font-bold px-1.5 py-0.2 rounded text-white inline-flex items-center gap-1 shadow-xs"
                 style={{ backgroundColor: pref.region?.colorStrong || "#64748b" }}
               >
-                {pref.label}
+                {pref.icon && <span className="text-[10px] shrink-0">{pref.icon}</span>}
+                <span>{pref.label}</span>
               </span>
             </div>
           )}

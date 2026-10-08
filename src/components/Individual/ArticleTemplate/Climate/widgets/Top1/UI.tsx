@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import { MetricKey, MetricValue } from "../../../../../../setting/metric";
 import { CategoryKey, CategoryValue } from "../../../../../../setting/category";
+import { resolvePref } from "../../../../../../utils/masterUtils";
 import { RawData } from "../../../../../../types/raw";
 import { StationId } from "../../../../../../types/union";
 import { extractTop1Stations } from "./function";
@@ -71,11 +72,18 @@ export const Top1StationsSection: React.FC<{
                       {catMeta.icon}
                     </span>
                     <span className="font-black text-slate-800 text-sm group-hover:text-blue-600 transition-colors truncate">
-                      {item.station.stationName}
+                      {item.station.station_name}
                     </span>
-                    <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded shrink-0">
-                      {item.station.prefName || item.station.city}
-                    </span>
+                    {(() => {
+                      const prefMeta = resolvePref(item.station.pref || "");
+                      if (!prefMeta?.label) return null;
+                      return (
+                        <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded inline-flex items-center gap-1 shrink-0">
+                          {prefMeta.icon && <span className="text-[10px] shrink-0">{prefMeta.icon}</span>}
+                          <span>{prefMeta.label}</span>
+                        </span>
+                      );
+                    })()}
                   </div>
 
                   <div className="text-xs font-bold mt-1 flex items-center gap-2">

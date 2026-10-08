@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_012010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "盆地地形がもたらす極限の内陸性寒暑と豪雪",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "大雪山系をはじめとする山岳に囲まれた上川盆地および名寄盆地を中心とするエリアです。",
+    "周囲を山地に遮られた盆地構造のため日本屈指の内陸性気候を示します。",
+    "冬季は放射冷却現象が極めて強力に作用し、",
+    "氷点下30℃前後に達する極低温が観測されます。",
+    "北西季節風の吹き込みにより多雪となる一方、",
+    "夏季は強い日射とフェーン現象により35℃前後の猛暑日を記録することもあります。",
   ],
-  highlights: [],
+  highlights: [
+    "日本有数の厳冬と放射冷却による極低温",
+    "山地への季節風衝突に伴う冬季の豪雪",
+    "夏は30度超の真夏日となる大きな年較差",
+  ],
 };

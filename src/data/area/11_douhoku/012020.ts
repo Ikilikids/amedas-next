@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_012020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "日本海からの直撃季節風と地吹雪・日本海側気候",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "日本海に面して南北に細長く広がる留萌地方全域を管轄するエリアです。",
+    "対馬海流が流れる日本海に面しており典型的な日本海側気候を示します。",
+    "冬季は筋状の雪雲と強烈な北西季節風が直撃し、",
+    "猛烈な吹雪や沿岸部の地吹雪が頻発します。",
+    "夏季はオホーツク海高気圧の影響が届きにくく比較的晴天に恵まれますが、",
+    "海岸部は海風の影響で気温の上昇が抑えられます。",
   ],
-  highlights: [],
+  highlights: [
+    "北西季節風の直撃による冬季の強風と吹雪",
+    "対馬暖流の影響を受ける日本海側気候",
+    "沿岸部特有の海風による冷涼な夏季",
+  ],
 };

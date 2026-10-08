@@ -17,7 +17,7 @@ export function resolveMetric(key: string): MetricMeta {
 }
 
 export function resolvePref(key: string): PrefMeta {
-  const pref = Object.values(PrefKey).find((p) => p.code.includes(key));
+  const pref = Object.values(PrefKey).find((p) => p.code === key);
   return pref as PrefMeta;
 }
 

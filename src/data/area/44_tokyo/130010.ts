@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_130010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "都心ヒートアイランドと多摩丘陵・山岳の気温差",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "東京都の本土（23区および多摩地域全域）を包括するエリアです。",
+    "東部の都心部は高層ビル群や人工排熱によるヒートアイランド現象が著しく、",
+    "夜間も気温が下がりにくく熱帯夜が頻発します。",
+    "一方、西部の多摩地域や奥多摩山岳部へ向かうほど内陸性・山岳性が強まり、",
+    "冬の朝晩の冷え込みが厳しく南岸低気圧通過時の降雪量も多くなります。",
   ],
-  highlights: [],
+  highlights: [
+    "都心部における顕著な熱帯夜と高温",
+    "冬の卓越した快晴日数と極度の乾燥",
+    "西に向かうほど顕著になる寒暖差と降雪",
+  ],
 };

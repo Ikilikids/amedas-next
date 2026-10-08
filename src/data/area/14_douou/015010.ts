@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_015010: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "内浦湾に面する比較的温暖な気候と少雪傾向",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "太平洋の内浦湾（噴火湾）に沿って広がる室蘭や苫小牧を中心とする胆振エリアです。",
+    "海流の影響を受け北海道内では冬季の寒さが比較的穏やかな地域です。",
+    "北西季節風の風下側に位置するため沿岸部では降雪量が少なく、",
+    "室蘭周辺などは積雪が少ない冬となります。",
+    "ただし内陸山岳部や羊蹄山麓に近い北部では降雪量が多くなります。",
+    "夏季は太平洋からの海風により冷涼で濃霧の影響を受けます。",
   ],
-  highlights: [],
+  highlights: [
+    "太平洋・内浦湾に面する比較的穏やかな冬",
+    "北西風の遮蔽に伴う沿岸部の少雪傾向",
+    "夏期の海風流入に伴う冷涼な気候",
+  ],
 };

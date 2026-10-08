@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_400030: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "盆地特有の寒暖差と英彦山周辺の山岳多雨・冷え込み",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "福岡県中央部の飯塚市や添田町などを包括するエリアです。",
+    "三方を山地に囲まれた盆地状の地形のため内陸性の気候特性が強く現れ、",
+    "飯塚などの平地部では昼夜の気温差が大きく夏季は熱気が滞留して猛暑となります。",
+    "一方、英彦山などの山岳部・山沿いでは標高が高いため年間を通じて冷涼で、",
+    "冬の積雪や年間降水量が平地部と比べて明らかに多くなる特徴を持ちます。",
   ],
-  highlights: [],
+  highlights: [
+    "飯塚周辺の盆地がもたらす顕著な寒暖差",
+    "英彦山など山岳部の冷涼な気候と多雨",
+    "平地部における夏季の厳しい猛暑",
+  ],
 };

@@ -1,14 +1,16 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_380030: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "宇和海リアス海岸の温暖性と四国カルストの冷涼",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "宇和島市、八幡浜市、大洲盆地、西予市、愛南町を包括する南予エリアです。",
+    "宇和海に面するリアス海岸部は対馬暖流・黒潮分流の影響で極めて温暖で、柑橘栽培の好適地です。",
+    "一方、内陸の大洲盆地は肱川の霧（肱川あらし）で知られる強い冷気滞留と底冷えが発生します。",
+    "高標高の四国カルスト（西予市山間部など）は夏でも冷涼な高原気候で、冬は積雪が見られます。",
   ],
-  highlights: [],
+  highlights: [
+    "宇和海沿岸のリアス海岸に広がる温暖な無霜地帯",
+    "大洲盆地から河口へ吹き出す局地風肱川あらし",
+    "四国カルスト山岳部に広がる冷涼な高原気候",
+  ],
 };

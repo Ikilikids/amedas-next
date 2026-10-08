@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FaArrowRight, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { MetricKey, MetricValue } from "../../../../../../setting/metric";
 import { CategoryKey, CategoryValue } from "../../../../../../setting/category";
+import { resolvePref } from "../../../../../../utils/masterUtils";
 import RankBadge from "../../../../../../svg/RankBadge";
 import { RawData } from "../../../../../../types/raw";
 import { StationId } from "../../../../../../types/union";
@@ -48,6 +49,7 @@ const RainbowMetricGroup: React.FC<{ grp: RainbowGroupItem }> = ({ grp }) => {
   const [isOpen, setIsOpen] = useState(false);
   const mMeta = MetricKey[grp.metric];
   const dirMeta = grp.isHigh ? mMeta?.high : mMeta?.low;
+  const iconColor = dirMeta?.color || mMeta?.color || "#475569";
 
   return (
     <div className="rounded-2xl border border-slate-200/90 bg-white overflow-hidden shadow-xs">
@@ -58,7 +60,14 @@ const RainbowMetricGroup: React.FC<{ grp: RainbowGroupItem }> = ({ grp }) => {
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-2 min-w-0">
-          <span className="p-1.5 rounded-lg bg-white shadow-xs text-slate-700 text-sm flex items-center justify-center shrink-0 border border-slate-200/60">
+          <span
+            className="p-1.5 rounded-lg bg-white shadow-xs text-sm flex items-center justify-center shrink-0 border"
+            style={{
+              color: iconColor,
+              borderColor: `${iconColor}30`,
+              backgroundColor: `${iconColor}10`,
+            }}
+          >
             {dirMeta?.icon || mMeta?.icon}
           </span>
           <span className="font-black text-slate-800 text-sm xl:text-base truncate">
@@ -88,6 +97,7 @@ const RainbowMetricGroup: React.FC<{ grp: RainbowGroupItem }> = ({ grp }) => {
             {grp.list.map(({ station, badge }) => {
               const catMeta =
                 CategoryKey[station.category as CategoryValue] || CategoryKey.amedas;
+              const prefMeta = resolvePref(station.pref || "");
 
               return (
                 <Link
@@ -116,11 +126,14 @@ const RainbowMetricGroup: React.FC<{ grp: RainbowGroupItem }> = ({ grp }) => {
                           {catMeta.icon}
                         </span>
                         <span className="font-black text-slate-800 text-sm group-hover:text-blue-600 transition-colors truncate">
-                          {station.stationName}
+                          {station.station_name}
                         </span>
-                        <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded shrink-0">
-                          {station.prefName || station.city}
-                        </span>
+                        {prefMeta?.label && (
+                          <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded inline-flex items-center gap-1 shrink-0">
+                            {prefMeta.icon && <span className="text-[10px] shrink-0">{prefMeta.icon}</span>}
+                            <span>{prefMeta.label}</span>
+                          </span>
+                        )}
                       </div>
                       <div className="text-xs font-bold mt-1 flex items-center gap-2">
                         <span

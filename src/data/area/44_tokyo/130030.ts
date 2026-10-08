@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_130030: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "亜熱帯に近づく年中温暖な海洋性と全国有数の多雨",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "伊豆諸島南部に位置する三宅村、御蔵島村、八丈町、青ヶ島村などを包括するエリアです。",
+    "本州南方の海上に位置し暖流の黒潮本流の影響を強く受けるため、",
+    "年平均気温は18℃前後と高く真冬でも霜や雪を見ることが極めて稀な温暖気候です。",
+    "暖湿気流や前線が頻繁に通過するため年間降水量は3,000mm前後に達し、",
+    "年間を通じて降水日数と強風日数が多い海洋性の特徴を持ちます。",
   ],
-  highlights: [],
+  highlights: [
+    "黒潮本流がもたらす冬でも極めて温暖な気候",
+    "年間3000mm前後に達する極めて多い降水量",
+    "海洋上特有の年間を通じた強風と高い湿度",
+  ],
 };

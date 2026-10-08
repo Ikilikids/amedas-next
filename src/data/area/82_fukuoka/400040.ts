@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_400040: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "筑紫平野の極端な酷暑と梅雨末期の記録的集中豪雨",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "福岡県南部の久留米市、大牟田市、朝倉市、八女市などを包括するエリアです。",
+    "南の有明海に面する筑紫平野では夏季の気温上昇が極めて顕著で、",
+    "久留米市などを中心に全国上位となる猛暑日を連日記録します。",
+    "東シナ海からの暖湿気流が直接流入しやすい地理的条件にあり、",
+    "朝倉や八女山沿いを中心に梅雨末期の線状降水帯による記録的な集中豪雨に見舞われやすい多雨地帯です。",
   ],
-  highlights: [],
+  highlights: [
+    "久留米を中心とする夏季の極端な猛暑地帯",
+    "有明海沿岸の温暖湿潤な平野部気候",
+    "梅雨末期の線状降水帯による頻発する豪雨",
+  ],
 };

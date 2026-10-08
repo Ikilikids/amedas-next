@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_020020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "津軽海峡・太平洋・陸奥湾に囲まれた海洋性強風気候",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "本州最北端に位置し、津軽海峡・太平洋・陸奥湾に突き出た下北半島全域を管轄するエリアです。",
+    "三方を海に囲まれた地形のため年間を通じて強風が吹き抜ける傾向にあります。",
+    "冬季は西側の日本海・津軽海峡から雪雲が流入して降雪・地吹雪をもたらす一方、",
+    "初夏から夏季にかけては太平洋から冷湿な北東風（やませ）が直接吹き付け、",
+    "濃霧の発生や極端な低温（冷害気象）が観測されることがあります。",
   ],
-  highlights: [],
+  highlights: [
+    "三方を海に囲まれた半島特有の周年強風環境",
+    "冬期の津軽海峡からの降雪と激しい地吹雪",
+    "夏季の太平洋側からの冷湿気流やませの直撃",
+  ],
 };

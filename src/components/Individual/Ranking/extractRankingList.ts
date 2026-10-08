@@ -38,12 +38,12 @@ export function extractRankingList(
 
     let rank: number | null | undefined = null;
     if (rankType === "pre") {
-      if (selectedPref && selectedPref.code.includes(master.pref || "")) {
+      if (selectedPref && selectedPref.code === (master.pref || "")) {
         rank = entry.pre;
       }
     } else if (rankType === "region") {
       if (selectedRegion) {
-        const pref = Object.values(PrefKey).find((p) => p.code.includes(master.pref || ""));
+        const pref = Object.values(PrefKey).find((p) => p.code === (master.pref || ""));
         if (pref?.region.label === selectedRegion.label) {
           rank = entry.region;
         }

@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_014030: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "広大な十勝平野の日照の多さと極寒・内陸性気候",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "日高山脈の東側に広がる十勝平野全域を管轄するエリアです。",
+    "山脈が北西季節風の雪雲を遮るため冬季は卓越した快晴が続き、",
+    "「十勝晴れ」と呼ばれる乾燥した高日照環境となります。",
+    "遮るもののない平野と晴天により夜間の放射冷却が極限まで進み、",
+    "陸別をはじめ各観測所で氷点下25℃から30℃前後の日本最寒値が記録されます。",
+    "夏季は日射が豊富で30℃以上の真夏日も出現します。",
   ],
-  highlights: [],
+  highlights: [
+    "冬期の卓越した晴天と高日照の十勝晴れ",
+    "日本有数の放射冷却による氷点下30℃の極寒",
+    "夏季の日照豊富さと大きな気温の年較差",
+  ],
 };

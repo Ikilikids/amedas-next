@@ -70,7 +70,7 @@ export function calculateRankingEntries(
     // 4. 地方別の順位付け（地方ごとにグループ化して高速ソート）
     const regionGroups = new Map<string, RankCalcItem[]>();
     for (const s of rawList) {
-      const prefMeta = Object.values(PrefKey).find((p) => p.code.includes(s.pref));
+      const prefMeta = Object.values(PrefKey).find((p) => p.code === s.pref);
       const regionLabel = prefMeta?.region.label ?? "その他";
       if (!regionGroups.has(regionLabel)) regionGroups.set(regionLabel, []);
       regionGroups.get(regionLabel)!.push(s);

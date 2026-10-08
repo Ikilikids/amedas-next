@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_410020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "玄界灘・伊万里湾の日本海季節風と海洋性気候",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "玄界灘に面する唐津市、東松浦半島（玄海町）および伊万里湾沿岸（伊万里市、有田町）を包括する北部エリアです。",
+    "北西の玄界灘に直接面しているため、冬季は対馬暖流を渡ってきた筋状の雲が流入しやすく、",
+    "曇天や強風、時雨が頻発する日本海側気候の特性を示します。",
+    "沿岸部は海風の影響で冬の冷え込みは佐賀平野ほど厳しくありません。",
+    "夏季は海風が通るため最高気温の上昇はやや抑制されます。",
   ],
-  highlights: [],
+  highlights: [
+    "玄界灘からの北西季節風直撃による冬の時雨と強風",
+    "伊万里湾・リアス海岸に広がる海洋性気候",
+    "佐賀平野内陸部と比べた夏季酷暑の緩和傾向",
+  ],
 };

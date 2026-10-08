@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_016030: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "積丹半島と羊蹄山麓の多雪・日本海気候の典型",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "日本海に突き出た積丹半島および羊蹄山麓、小樽や倶知安を管轄する後志エリアです。",
+    "対馬暖流が流れる日本海に直接面し、急峻な山岳地形が背後に迫るため、",
+    "冬季は日本海側気候が最も顕著に現れる日本屈指の豪雪地帯です。",
+    "倶知安周辺は乾いた良質なパウダースノーが大量に積もり、",
+    "沿岸部の小樽では海風による地吹雪が発生します。",
+    "夏季は対馬海流の影響で比較的温暖で過ごしやすい気候です。",
   ],
-  highlights: [],
+  highlights: [
+    "日本海からの筋状雪雲直撃による圧倒的豪雪",
+    "羊蹄山麓を中心とする良質な積雪と極寒",
+    "対馬暖流の恩恵を受けた過ごしやすい夏季",
+  ],
 };

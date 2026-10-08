@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_120020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "東京湾岸の都市温暖化と下総内陸の寒暖差",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "東京湾に面する千葉市、船橋市、市川市から内陸の松戸市、柏市、佐倉市を包括するエリアです。",
+    "東京湾岸エリアは首都圏の市街地連担と海風の影響を受け、",
+    "冬の冷え込みが穏やかで熱帯夜が多くなる都市気候の特徴を示します。",
+    "一方、内陸部の東葛地域や下総台地は東京湾からの距離があるため、",
+    "冬の夜間に強い放射冷却が生じて氷点下に達しやすく、夏季も昼間の気温が高くなります。",
   ],
-  highlights: [],
+  highlights: [
+    "東京湾岸における都市ヒートアイランドの顕著化",
+    "冬期の卓越した快晴日数と乾燥した晴天",
+    "下総台地内陸部における朝晩の冷え込み",
+  ],
 };

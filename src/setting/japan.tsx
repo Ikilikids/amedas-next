@@ -4,6 +4,11 @@ import { RegionKey, RegionValue } from "./region";
 import { PrefKey, PrefValue, getPrefsInRegion } from "./pref";
 import { ClimateArticleData } from "../data/types";
 import { ClimateScopeValue } from "./japan2";
+import { getClimateDivisions, formatClimateDivisions } from "./division";
+import {
+  REGION_UONZU_STATIONS,
+  PREF_UONZU_STATIONS,
+} from "./uonzu";
 
 export type { ClimateScopeValue };
 
@@ -18,6 +23,7 @@ export interface ClimatePageDisplayMeta {
   parentKey?: string;
   targetPrefCodes: readonly string[];
   representativeStationId?: string;
+  uonzuList?: string[];
   category: string;
   readTime: string;
   icon: React.ReactNode;
@@ -52,6 +58,7 @@ export function getClimatePageDisplayMeta(
     const pref = PrefKey[prefKey];
     const regionLabel = pref.region.label;
     const parentRegionKey = pref.region.key;
+    const uonzuList = PREF_UONZU_STATIONS[prefKey] || [];
 
     return {
       scopeKey: "pref",
@@ -59,13 +66,14 @@ export function getClimatePageDisplayMeta(
       targetName: pref.label,
       colorStrong: pref.region.colorStrong,
       parentKey: parentRegionKey,
-      targetPrefCodes: pref.code,
-      representativeStationId: pref.representativeStationId,
+      targetPrefCodes: [pref.code],
+      representativeStationId: uonzuList[0],
+      uonzuList,
       category: "気候学・都道府県別解説",
       readTime: "約4分",
-      icon: <FaMapMarkerAlt className="text-white/90" />,
+      icon: pref.icon ?? <FaMapMarkerAlt className="text-white/90" />,
       badgeText: `${pref.label} (${regionLabel})`,
-      rightBadge: `PREF CODE: #${pref.code.join(", #")}`,
+      rightBadge: `PREF CODE: #${pref.code}`,
       pageTitle: `${pref.label}の気候特性〜風土・季節の特徴とアメダス観測データ〜`,
       seoTitle: `${pref.label}の気候とアメダス観測所まとめ - アメダス図鑑`,
       seoDescription: `${pref.label}（${regionLabel}地方）の気候特性、平年値の傾向、アメダス観測データについて解説。`,
@@ -88,7 +96,7 @@ export function getClimatePageDisplayMeta(
       childSummaryOnly: false,
       childTitleSuffix: "",
       points: [
-        `気候区分: ${article?.climateType ?? ""}`,
+        `気候区分: ${formatClimateDivisions(getClimateDivisions(prefKey))}`,
         `キャッチコピー: ${article?.catchphrase ?? ""}`,
         `${pref.label}内のアメダス観測所の雨温図・平年値データをまとめて確認可能`,
       ],
@@ -100,6 +108,7 @@ export function getClimatePageDisplayMeta(
     const region = RegionKey[regionKey];
     const prefs = getPrefsInRegion(regionKey);
     const targetName = `${region.label}地方`;
+    const uonzuList = REGION_UONZU_STATIONS[regionKey] || [];
 
     return {
       scopeKey: "region",
@@ -107,8 +116,9 @@ export function getClimatePageDisplayMeta(
       targetName,
       colorStrong: region.colorStrong,
       parentKey: undefined,
-      targetPrefCodes: prefs.flatMap((p) => p.code),
-      representativeStationId: region.representativeStationId,
+      targetPrefCodes: prefs.map((p) => p.code),
+      representativeStationId: uonzuList[0],
+      uonzuList,
       category: "気候学・地方別解説",
       readTime: "約7分",
       icon: <FaCompass className="text-white/90" />,
@@ -135,7 +145,7 @@ export function getClimatePageDisplayMeta(
       childSummaryOnly: false,
       childTitleSuffix: "",
       points: [
-        `気候区分: ${article?.climateType ?? ""}`,
+        `気候区分: ${formatClimateDivisions(getClimateDivisions(regionKey))}`,
         `キャッチコピー: ${article?.catchphrase ?? ""}`,
         `${targetName}を構成する各地域の気候を見出し別に徹底解説`,
       ],
@@ -156,7 +166,7 @@ export function getClimatePageDisplayMeta(
     icon: <FaGlobeAsia className="text-white/90" />,
     badgeText: "Regional Climate Encyclopedia",
     rightBadge: "全国 10 地方・地域",
-    pageTitle: "日本列島10地域の気候特性〜なぜ地域ごとにこんなに天気が違うのか？〜",
+    pageTitle: "日本列島10地域の気候特性 〜地域ごとの気候の特徴〜",
     seoTitle: "日本の地域別気候解説・特徴まとめ - アメダス図鑑",
     seoDescription: "全国10地方（北海道から沖縄まで）の気候区分と特徴を一覧解説。気候メカニズムや雨温図の傾向を地域ごとに深掘りします。",
     canonicalUrl: "https://amedas-zukan.jp/japan",

@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_014020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "親潮由来の濃密な海霧と冬季の冷え込み・少雪傾向",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "太平洋沿岸の釧路湿原周辺から内陸の阿寒山麓までを管轄する釧路エリアです。",
+    "沿岸部は寒流の親潮の影響で夏季に海霧が頻繁に流入し、",
+    "全国で最も夏季の日照時間が短く冷涼な地域の一つとなります。",
+    "一方、冬季は日高山脈に雪雲が遮られるため太平洋側特有の冬晴れが多く、",
+    "降雪量は少ないものの強い放射冷却により内陸を中心に厳寒となります。",
   ],
-  highlights: [],
+  highlights: [
+    "親潮起源の海霧による夏期の記録的な寡照",
+    "日高山脈の遮蔽による冬期の晴天多発と少雪",
+    "冬の放射冷却による内陸の激しい冷え込み",
+  ],
 };

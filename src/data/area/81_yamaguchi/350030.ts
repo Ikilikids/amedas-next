@@ -1,14 +1,16 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_350030: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "瀬戸内海・周防大島の温暖少雨と柑橘の栽培環境",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "岩国市、柳井市、光市、周防大島町（屋代島）など山口県南東部の瀬戸内海沿岸を包括するエリアです。",
+    "典型的な瀬戸内式気候を示し、中国山地に雪雲が遮られるため、年間を通じて晴天が多く降水量が少なめです。",
+    "周防大島や柳井市などは冬でも極めて温暖で霜がほとんど降りず、山口県内最大のミカン産地となっています。",
+    "夏季は穏やかな瀬戸内海の恩恵を受けますが、夕方の夕凪時には無風で蒸し暑くなります。",
   ],
-  highlights: [],
+  highlights: [
+    "周防大島を中心とする極めて温暖な無霜地帯",
+    "瀬戸内海沿岸特有の年間を通じた少雨と高日照",
+    "中国山地の遮蔽効果による冬期の晴天多発",
+  ],
 };

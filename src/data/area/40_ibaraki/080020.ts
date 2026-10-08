@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_080020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "霞ヶ浦・関東平野東部の高日照と冬の乾燥晴天",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "筑波山南麓から霞ヶ浦・北浦周辺、鹿行地域および県南平野部（つくば・土浦）を包括するエリアです。",
+    "広大な関東平野の東部に位置し、標高が低く開けた地形が広がります。",
+    "冬季は関東特有の強い乾燥した北西風（筑波おろし）が吹き抜けるものの、",
+    "日照時間が極めて長く降雪は南岸低気圧通過時に限られます。",
+    "夏季は霞ヶ浦周辺で水辺の湿度が高まる一方、内陸のつくばや土浦では強い日射で高温となります。",
   ],
-  highlights: [],
+  highlights: [
+    "冬期の卓越した快晴日数と筑波おろしの空っ風",
+    "霞ヶ浦や太平洋沿岸の海洋性・水辺の気候",
+    "関東平野特有の夏季の強い日射と内陸高温",
+  ],
 };

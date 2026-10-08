@@ -36,14 +36,14 @@ const getCategoryIconById = (id: StationId, masterData: Record<StationId, RawSta
 
 const getPrefMeta = (prefStr: string) => {
   return Object.values(PrefKey).find(
-    (p) => p.label === prefStr || (p.code as readonly string[]).includes(prefStr)
+    (p) => p.label === prefStr || p.code === prefStr
   );
 };
 
 const getStationOptionsForPref = (prefStr: string, masterData: Record<StationId, RawStationData>) => {
   const prefObj = getPrefMeta(prefStr) || PrefKey.tokyo;
   return Object.values(masterData || {})
-    .filter((s) => prefObj.code.includes(s.pref))
+    .filter((s) => prefObj.code === s.pref)
     .sort((a, b) => {
       const catA = a.category ? CategoryKey[a.category].value : 99;
       const catB = b.category ? CategoryKey[b.category].value : 99;
@@ -112,7 +112,7 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
         label: p.label,
         icon: p.icon,
         color: p.region.colorStrong,
-        code: Number(p.code[0]),
+        code: Number(p.code),
       }))
       .sort((a, b) => a.code - b.code);
   }, []);
@@ -134,12 +134,12 @@ const ComparePage: NextPage<Props> = ({ masterData }) => {
   if (!isInitialized && masterData) {
     const s1Master = masterData[id1];
     if (s1Master) {
-      const p1 = Object.values(PrefKey).find((p) => p.code.includes(s1Master.pref));
+      const p1 = Object.values(PrefKey).find((p) => p.code === s1Master.pref);
       if (p1) setPref1(p1.label);
     }
     const s2Master = masterData[id2];
     if (s2Master) {
-      const p2 = Object.values(PrefKey).find((p) => p.code.includes(s2Master.pref));
+      const p2 = Object.values(PrefKey).find((p) => p.code === s2Master.pref);
       if (p2) setPref2(p2.label);
     }
     setIsInitialized(true);

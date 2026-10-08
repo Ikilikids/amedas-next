@@ -21,7 +21,7 @@ export const DivisionsSection: React.FC<{
             <div className="flex items-center gap-2">
               <span style={{ color: div.accentColor }}>{div.icon}</span>
               <h3 className="font-black text-slate-800 text-base">
-                {div.number} {div.name}（{div.subtitle}）
+                {div.number} {div.fullName}（{div.subtitle}）
               </h3>
             </div>
             <p className="text-xs text-slate-600">{div.description}</p>
@@ -32,6 +32,7 @@ export const DivisionsSection: React.FC<{
                   .filter((id) => stationsMap[id])
                   .map((id) => [id, stationsMap[id]])
               )}
+              stationIds={div.stationIds}
               accentColor={div.accentColor}
             />
           </div>

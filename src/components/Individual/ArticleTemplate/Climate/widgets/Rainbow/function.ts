@@ -1,6 +1,6 @@
 import React from "react";
 import { GiIsland } from "react-icons/gi";
-import { RawData } from "../../../../../../types/raw";
+import { RawData, RawStationData } from "../../../../../../types/raw";
 import { StationId } from "../../../../../../types/union";
 import { METRIC_LIST, MetricKey, MetricValue } from "../../../../../../setting/metric";
 import { resolvePref } from "../../../../../../utils/masterUtils";
@@ -14,19 +14,11 @@ export interface RainbowBadgeItem {
   value?: number;
 }
 
-export interface RegionRainbowStationItem {
-  id: string;
-  stationName: string;
-  prefName: string;
-  city: string;
-  category: string;
-}
-
 export interface RainbowGroupItem {
   metric: MetricValue;
   isHigh: boolean;
   list: {
-    station: RegionRainbowStationItem;
+    station: RawStationData;
     badge: RainbowBadgeItem;
   }[];
 }
@@ -53,7 +45,7 @@ export function extractRainbowGroups(
       metric: MetricValue;
       isHigh: boolean;
       list: {
-        station: RegionRainbowStationItem;
+        station: RawStationData;
         badge: RainbowBadgeItem;
       }[];
     }
@@ -64,13 +56,6 @@ export function extractRainbowGroups(
     if (!station || !climateData) return;
 
     const isIsland = isIslandId(station.id);
-    const stationItem: RegionRainbowStationItem = {
-      id: station.id,
-      stationName: station.station_name || "",
-      prefName: resolvePref(station.pref)?.label || "",
-      city: station.city || "",
-      category: station.category || "amedas",
-    };
 
     TARGET_METRICS.forEach((key) => {
       const meta = MetricKey[key];
@@ -100,7 +85,7 @@ export function extractRainbowGroups(
           groupMap.set(gKey, { metric: key, isHigh: true, list: [] });
         }
         groupMap.get(gKey)!.list.push({
-          station: stationItem,
+          station,
           badge: { icon, title, isHigh: true, place: topRank, value: annual.value },
         });
       }
@@ -115,7 +100,7 @@ export function extractRainbowGroups(
           groupMap.set(gKey, { metric: key, isHigh: false, list: [] });
         }
         groupMap.get(gKey)!.list.push({
-          station: stationItem,
+          station,
           badge: { icon, title, isHigh: false, place: botRank, value: annual.value },
         });
       }

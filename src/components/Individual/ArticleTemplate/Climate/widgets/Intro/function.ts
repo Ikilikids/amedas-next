@@ -4,6 +4,11 @@ import { RegionValue, REGION_LIST, RegionKey } from "../../../../../../setting/r
 import { PrefValue, getPrefsInRegion } from "../../../../../../setting/pref";
 import { getAreasInPref } from "../../../../../../setting/area";
 import { CategoryKey, CategoryValue } from "../../../../../../setting/category";
+import {
+  REGION_UONZU_STATIONS,
+  PREF_UONZU_STATIONS,
+  AREA_UONZU_STATIONS,
+} from "../../../../../../setting/uonzu";
 import { ClimateArticleData } from "../../../../../../data/types";
 
 export interface ChildSectionItem extends ClimateArticleData {
@@ -12,6 +17,7 @@ export interface ChildSectionItem extends ClimateArticleData {
   color?: string;
   targetPrefCodes: readonly string[];
   representativeStationId?: string;
+  uonzuList?: string[];
   linkHref?: string;
   linkLabel?: string;
   stationLinks?: { id: string; name: string; category?: string }[];
@@ -48,14 +54,16 @@ export function getChildSectionList(
       }
 
       const article = childArticles?.[area.key];
+      const uonzuList = AREA_UONZU_STATIONS[area.key] || [];
 
       return {
         key: area.key,
         name: area.label,
         color: area.pref.region.colorStrong,
         ...(article || ({} as ClimateArticleData)),
+        uonzuList,
         targetPrefCodes: [],
-        representativeStationId: area.representativeStationId,
+        representativeStationId: uonzuList[0],
         stationLinks,
       };
     });
@@ -68,13 +76,15 @@ export function getChildSectionList(
       .filter((pMeta) => !childArticles || !!childArticles[pMeta.key])
       .map((pMeta) => {
         const article = childArticles?.[pMeta.key];
+        const uonzuList = PREF_UONZU_STATIONS[pMeta.key] || [];
         return {
           key: pMeta.key,
           name: pMeta.label,
           color: pMeta.region.colorStrong,
           ...(article || ({} as ClimateArticleData)),
-          targetPrefCodes: pMeta.code,
-          representativeStationId: pMeta.representativeStationId,
+          uonzuList,
+          targetPrefCodes: [pMeta.code],
+          representativeStationId: uonzuList[0],
           linkHref: `/japan/${regionKey}/${pMeta.key}`,
           linkLabel: `${pMeta.label}の詳しい気候解説・アメダス観測データへ`,
         };
@@ -92,14 +102,16 @@ export function getChildSectionList(
     }));
 
     const article = childArticles?.[regKey];
+    const uonzuList = REGION_UONZU_STATIONS[regKey] || [];
 
     return {
       key: regKey,
       name: regMeta.label,
       color: regMeta.colorStrong,
       ...(article || ({} as ClimateArticleData)),
-      targetPrefCodes: prefs.flatMap((p) => p.code),
-      representativeStationId: regMeta.representativeStationId,
+      uonzuList,
+      targetPrefCodes: prefs.map((p) => p.code),
+      representativeStationId: uonzuList[0],
       linkHref: `/japan/${regKey}`,
       linkLabel: `${regMeta.label}地方の詳しい気候解説・都道府県一覧へ`,
       prefLinks,

@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_130020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "黒潮に囲まれた温暖海洋性と年間を通じた強風多雨",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "伊豆諸島北部に位置する大島町、利島村、新島村、神津島村などを包括するエリアです。",
+    "周囲を流れる暖流の黒潮により年間を通じて極めて温暖で、",
+    "冬でも氷点下になることはほとんどありません。",
+    "低気圧や前線、台風の影響を直接受けるため年間降水量が2,500〜3,000mm前後に達し、",
+    "海上を吹き渡る風を遮る地形がないため年間を通じて強風が吹きやすい海洋性気候です。",
   ],
-  highlights: [],
+  highlights: [
+    "黒潮の影響による真冬でも極めて温暖な気候",
+    "低気圧・台風による年間2500mm超の多雨",
+    "周囲に遮るもののない卓越した強風",
+  ],
 };

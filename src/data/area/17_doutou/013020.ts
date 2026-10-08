@@ -1,14 +1,18 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_013020: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "北見盆地の顕著な寒暖差と夏期フェーン現象の高温",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "オホーツク海沿岸から内陸に入り込んだ北見盆地を中心とするエリアです。",
+    "山地に囲まれた盆地地形により内陸性の強い気候特性を示します。",
+    "冬季は冷気が盆地底に滞留する放射冷却が頻発し、",
+    "氷点下20℃を下回る厳しい寒冷環境が形成されます。",
+    "夏季は日射による加熱に加え、南西の山越え気流によるフェーン現象が発生し、",
+    "北海道内最高クラスの猛暑日を記録することがあります。",
   ],
-  highlights: [],
+  highlights: [
+    "盆地構造による冬の強力な放射冷却と極寒",
+    "山越え気流のフェーン現象による夏の猛暑",
+    "気温の年較差および日較差が極めて顕著",
+  ],
 };

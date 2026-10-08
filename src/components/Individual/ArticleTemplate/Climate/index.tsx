@@ -8,6 +8,7 @@ import { getChildSectionList } from "./widgets/Intro/function";
 import { ClimateDetailPageProps } from "./ssg_function";
 import { getPrefsInRegion } from "../../../../setting/pref";
 import { getClimatePageDisplayMeta } from "../../../../setting/japan";
+import { getClimateDivisions, formatClimateDivisions } from "../../../../setting/division";
 
 export const ClimateArticlePageTemplate: React.FC<ClimateDetailPageProps> = ({
   regionKey,
@@ -29,6 +30,7 @@ export const ClimateArticlePageTemplate: React.FC<ClimateDetailPageProps> = ({
     parentKey,
     targetPrefCodes,
     representativeStationId,
+    uonzuList,
     category,
     readTime,
     icon,
@@ -48,7 +50,6 @@ export const ClimateArticlePageTemplate: React.FC<ClimateDetailPageProps> = ({
     overviewTitle,
     hideOverviewWidgets,
     childSectionPrefix,
-    childSummaryOnly,
     childTitleSuffix,
     points,
   } = meta;
@@ -59,19 +60,27 @@ export const ClimateArticlePageTemplate: React.FC<ClimateDetailPageProps> = ({
   }, [regionKey, prefKey, stationsMap, childArticles]);
 
   // 3. Hero 看板
-  const hero = useMemo(() => ({
-    badgeIcon: icon,
-    badgeText,
-    title: pageTitle,
-    description: article.heroDescription,
-    watermark,
-    gradient: `linear-gradient(135deg, ${colorStrong} 0%, color-mix(in srgb, ${colorStrong} 75%, black) 100%)`,
-    rightContent: rightBadge ? (
-      <div className="text-xs font-mono font-bold bg-black/20 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/20 text-white shrink-0">
-        {rightBadge}
-      </div>
-    ) : undefined,
-  }), [icon, badgeText, pageTitle, article.heroDescription, watermark, colorStrong, rightBadge]);
+  const hero = useMemo(() => {
+    const divs = getClimateDivisions(currentKey);
+    const divText = formatClimateDivisions(divs);
+    const description = divText
+      ? `${article.catchphrase}（${divText}）`
+      : article.catchphrase;
+
+    return {
+      badgeIcon: icon,
+      badgeText,
+      title: pageTitle,
+      description,
+      watermark,
+      gradient: `linear-gradient(135deg, ${colorStrong} 0%, color-mix(in srgb, ${colorStrong} 75%, black) 100%)`,
+      rightContent: rightBadge ? (
+        <div className="text-xs font-mono font-bold bg-black/20 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/20 text-white shrink-0">
+          {rightBadge}
+        </div>
+      ) : undefined,
+    };
+  }, [currentKey, icon, badgeText, pageTitle, article.catchphrase, watermark, colorStrong, rightBadge]);
 
   // 4. 同地方の他都道府県リンク
   const siblingPrefs = useMemo(() => {
@@ -96,6 +105,7 @@ export const ClimateArticlePageTemplate: React.FC<ClimateDetailPageProps> = ({
               color: colorStrong,
               targetPrefCodes,
               representativeStationId,
+              uonzuList,
               ...article,
             }}
             stationsMap={stationsMap}
@@ -142,7 +152,7 @@ export const ClimateArticlePageTemplate: React.FC<ClimateDetailPageProps> = ({
             <ClimateIntroSection
               item={child}
               stationsMap={stationsMap}
-              summaryOnly={childSummaryOnly}
+              hideStarWidgets={scopeKey === "national"}
             />
           ),
         });
@@ -187,7 +197,7 @@ export const ClimateArticlePageTemplate: React.FC<ClimateDetailPageProps> = ({
     childSections,
     childSectionPrefix,
     childTitleSuffix,
-    childSummaryOnly,
+    scopeKey,
     siblingPrefs,
   ]);
 

@@ -1,14 +1,17 @@
 import { ClimateArticleData } from "../../types";
 
 export const area_013030: ClimateArticleData = {
-  catchphrase: "",
-  climateType: "",
-  heroDescription: "",
+  catchphrase: "オホーツク海西岸の寒気と春季の低気圧性降雪",
   description: [
-    {
-      isSummary: true,
-      content: [],
-    },
+    "オホーツク海北西部に面し北見山地を背後に控える紋別エリアです。",
+    "冬季は冷涼なオホーツク海からの気流と流氷の接近により寒冷な環境が続きますが、",
+    "北西季節風の風下側にあたるため日本海側に比べて降雪量は少なめです。",
+    "ただし春先にオホーツク海を発達した低気圧が通過する際には湿った大雪となります。",
+    "夏季は北東気流により冷涼で濃霧が発生しやすい傾向があります。",
   ],
-  highlights: [],
+  highlights: [
+    "オホーツク海西部に面する寒冷な沿岸環境",
+    "冬の日本海側に比べて降水量が少ない特性",
+    "春先の発達した低気圧通過に伴う大雪",
+  ],
 };
